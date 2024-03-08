@@ -2220,6 +2220,9 @@ p.artficial:before{
 .how_icon{
     margin-bottom: 30px
 }
+.how_icon img {
+    height: 120px;
+}
 .how .service_icon .white-icon{
     position: absolute;
     top: 50%;
