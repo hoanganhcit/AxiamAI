@@ -864,7 +864,7 @@ video {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f5feff;
+    background: #f5ffff;
 }
 .hero-section.transparent{
     background: none;
