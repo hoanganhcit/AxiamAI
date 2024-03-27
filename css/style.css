@@ -737,7 +737,7 @@ video {
     border-color: #e93a47;
 }
 
-.dream-btn {
+.dream-btn, .button-btn {
     position: relative;
     z-index: 1;
     min-width: 160px;
@@ -771,7 +771,7 @@ video {
     background-image: -webkit-linear-gradient(left, #42d897 0%, #42d897 51%, #42d897 100%);
     background-image: linear-gradient(to right, #42d897 0%, #42d897 51%, #42d897 100%);
 }
-.dream-btn:hover {
+.dream-btn:hover, .button-btn:hover {
     background-position: right center;
     color: #fff;
 }
@@ -849,7 +849,7 @@ video {
     background: #fff
 }
 .classynav ul li a {
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .classynav ul li .megamenu li a {
@@ -5086,4 +5086,161 @@ body.light-version {
     font-weight: 500;
     font-size: 22px;
     letter-spacing: 1px;
+}
+
+.classynav a.button-btn {
+    min-width: auto;
+    color: #fff !important;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    min-width: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.sub-classynav {
+    border: 0;
+}
+.team-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    position: relative;
+    transition: .5s;
+}
+.team-thumbnail {
+    display: block;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 30px;
+}
+.team-thumbnail.team-leader {
+    background: #F3F6FD;
+}
+.team-thumbnail img {
+    max-width: 250px;
+    max-height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+    padding: 5px;
+    border: 2px solid #00dcff;
+    box-shadow: 0 25px 65px rgba(0,0,0,0.1);
+}
+.w-100 {
+    width: 100% !important;
+}
+.hover-hide-info {
+    display: block;
+    padding: 1.5rem 0 0;
+    transition: 0.1s;
+}
+.team-title {
+    color: #fff;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition-delay: .25s;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+    transition: all 0.45s cubic-bezier(0.23, 0.88, 0.34, 0.99);
+}
+.team-designation {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 34px;
+    opacity: 0;
+    visibility: hidden;
+    margin-bottom: 0;
+    transition: all 0.45s cubic-bezier(0.23, 0.88, 0.34, 0.99);
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+}
+.desc-sm {
+    position: relative;
+    color: #fff;
+    font-size: 13px;
+    opacity: 0;
+    visibility: hidden;
+    transition-delay: .25s;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+    transition: all 0.45s cubic-bezier(0.23, 0.88, 0.34, 0.99);
+}
+.desc-sm, .team-designation, .team-title {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+.team-content-leader {
+    position: relative;
+    top: 0;
+    height: 0;
+    border-radius: 0 0 30px 30px;
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0 1.5rem;
+    transition: .5s;
+}
+.team-item:hover .hover-hide-info {
+    opacity: 0;
+    padding: 0;
+    height: 0;
+    visibility: hidden;
+}
+.team-item:hover .team-title, .team-item:hover .team-designation {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+.team-item:hover .team-title {
+    transition-delay: .25s;
+}
+.team-item:hover .team-designation {
+    transition-delay: .33s;
+}
+.team-item:hover .team-content-leader {
+    background: #ffffff;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    transition: .5s;
+}
+.team-item:hover .desc-sm {
+    transition-delay: .50s;
+}
+.team-item:hover .desc-sm {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.justify-center {
+    justify-content: center;
+}
+.team-content {
+    position: relative;
+    text-align: center;
+    padding-top: 20px;
+}
+.partner-item {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    background: #F3F6FD;
+}
+.partner-item img {
+    height: 40px;
+    width: auto;
 }
