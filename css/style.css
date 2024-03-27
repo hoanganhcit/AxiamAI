@@ -5244,3 +5244,91 @@ body.light-version {
     height: 40px;
     width: auto;
 }
+.faq-style-2-area {
+    background: none;
+    padding: 0 0 220px 0;
+}
+.faq-style-2-area .faq-inner {
+    background: #F3F6FD;
+    border-radius: 10px;
+    padding: 100px 90px 100px 90px;
+}
+.section-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    margin: 0;
+    text-transform: uppercase;
+    color: #18d3ff !important;
+}
+.faq-area .faq-inner .section-subtitle {
+    margin-bottom: 25px;
+}
+.section-title {
+    font-weight: 700;
+    line-height: 56px;
+    letter-spacing: -1px;
+    text-align: left;
+}
+.faq-area .faq-inner .section-title {
+    margin-bottom: 45px;
+}
+
+.faq-items-box #accordion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: flex-start;
+}
+.faq-box {
+    background: #FFFFFF;
+    padding: 52px 40px 52px 144px;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 0;
+}
+.faq-style-2-area .faq-box {
+    padding-left: 110px;
+}
+.faq-box .card-header {
+    margin: 0 0 15px 0;
+    padding: 0;
+    background: none;
+    border: none;
+}
+.faq-box .card-header button {
+    border: none;
+    width: 100%;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    transition: .3s;
+    text-align: left;
+}
+.faq-box .card-header button[aria-expanded="true"] {
+    padding-top: 0;
+}
+.faq-box .card-header button .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(19 81 216 / 10%);
+    position: absolute;
+    left: 40px;
+    top: 52px;
+    color: #18d3ff;
+}
+.faq-box .card-body {
+    font-size: 15px;
+    line-height: 30px;
+    padding: 0;
+    transition: .3s;
+}
+.faq-style-2-area .faq-box .card-body {
+    /* padding-right: 40px; */
+}
