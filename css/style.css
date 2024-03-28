@@ -5169,6 +5169,7 @@ body.light-version {
     -webkit-transform: translateY(10px);
     transform: translateY(10px);
     transition: all 0.45s cubic-bezier(0.23, 0.88, 0.34, 0.99);
+    text-align: left;
 }
 .desc-sm, .team-designation, .team-title {
     opacity: 1;
@@ -5331,4 +5332,7 @@ body.light-version {
 }
 .faq-style-2-area .faq-box .card-body {
     /* padding-right: 40px; */
+}
+.welcome-meter img {
+    border-radius: 20px;
 }
