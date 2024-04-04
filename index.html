@@ -279,7 +279,7 @@
 
             <div class="section-heading text-center">
                 <div class="top-sec-h wow fadeInUp" data-wow-delay="0.2s">How It Works</div>
-                <p class="wow fadeInUp" data-wow-delay="0.4s">Server access management has never made easier</p>
+                <h2 class="d-blue bold wow fadeInUp" data-wow-delay="0.4s">Server access management has never been made easier</h2>
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">
@@ -318,6 +318,103 @@
                 
             </div>
         </div>
+    </section>
+    <section class="pricing section-padding-100-70">
+        
+        <div class="container">
+            <div class="section-heading text-center">
+                <div class="top-sec-h wow fadeInUp" data-wow-delay="0.2s">Pricing plans</div>
+                <h2 class="d-blue bold fadeInUp" data-wow-delay="0.3s">Our Pricing Plans</h2>
+                <div class="btn-frame mb-4">
+                    <input id="toggle-on" class="toggle toggle-left" name="pricing" value="month" type="radio" checked>
+                    <label for="toggle-on" class="btn left">Monthly</label>
+                    <input id="toggle-off" class="toggle toggle-right" name="pricing" value="year" type="radio">
+                    <label for="toggle-off" class="btn rigth">Yearly</label>
+                </div>
+                <p>You want to use the <span class="d-blue">Enterprise Plan</span>. Contact Us</p>
+            </div>
+            <div class="row no-gutters">
+                <!-- Single Table -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_price_table_content text-center wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="price_table_text">
+                            <h5>Free</h5>
+                            <h1>0$</h1>
+                            <p>&nbsp;</p>
+                        </div>
+                        <div class="table_text_details">
+                            <p>2 Server</p>
+                            <p>5 Developer</p>
+                            <p>1 Admin </p>
+                            <p style="text-decoration: line-through; color: gray;">Pull & save data to your own cloud storage</p>
+                            <p>Unlimited Facial Scan </p>
+                            <p>Instant Access Report</p>
+                            <p>Email Technical Support</p>
+                        </div>
+                        <div class="table_btn mt-50">
+                            <a href="#" class="btn dream-btn">Start</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Table -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_price_table_content active text-center wow fadeIn" data-wow-delay="0.3s">
+                        <div class="price_table_text">
+                            <h5>Basic</h5>
+                            <h1>
+                                <span class="per per-month">$299</span>
+                                <span class="per per-year" style="display: none;">$2,500</span>
+                            </h1>
+                            <p>
+                                <span class="per per-month">Per Month</span>
+                                <span class="per per-year" style="display: none;">Per Year</span>
+                            </p>
+                        </div>
+                        <div class="table_text_details">
+                            <p>10 Server</p>
+                            <p>100 Developer</p>
+                            <p>5 Admin </p>
+                            <p>Pull & save data to your own cloud storage</p>
+                            <p>Unlimited Facial Scan </p>
+                            <p>Instant Access Report</p>
+                            <p>Email/Phone Technical Support</p>
+                        </div>
+                        <div class="table_btn mt-50">
+                            <a href="#" class="btn dream-btn">Start</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Table -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_price_table_content text-center wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="price_table_text">
+                            <h5>Pro</h5>
+                            <h1>
+                                <span class="per per-month">$1,299</span>
+                                <span class="per per-year" style="display: none;">$12,000</span>
+                            </h1>
+                            <p>
+                                <span class="per per-month">Per Month</span>
+                                <span class="per per-year" style="display: none;">Per Year</span>
+                            </p>
+                        </div>
+                        <div class="table_text_details">
+                            <p>100 Server</p>
+                            <p>1000 Developer</p>
+                            <p>50 Admin </p>
+                            <p>Pull & save data to your own cloud storage</p>
+                            <p>Unlimited Facial Scan </p>
+                            <p>Instant Access Report</p>
+                            <p>Email/Phone Technical Support</p>
+                        </div>
+                        <div class="table_btn mt-50">
+                            <a href="#" class="btn dream-btn">Start</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </section>
     <div class="clearfix"></div>
 
@@ -433,6 +530,17 @@
 
     <!-- script js -->
     <script src="js/script.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("input[name$='pricing']").click(function() {
+                var value = $(this).val();
+
+                $(".per").hide();
+                $(".per-" + value).show();
+            });
+        });
+    </script>
 
 </body>
 
