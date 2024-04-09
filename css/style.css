@@ -5906,3 +5906,15 @@ input[type="radio"].toggle:checked+label {
 input[type="radio"].toggle:checked+label:after {
     left: 0;
 }
+.video-hero {
+    position: relative;
+}
+
+span.overlay-bg {
+    position: absolute;
+    width: 140px;
+    height: 30px;
+    background: #f5ffff;
+    top: 0;
+    right: 0;
+}
