@@ -37,6 +37,7 @@
 ***/
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&display=swap');
 
 /*** 
 
@@ -72,7 +73,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Asap', sans-serif;
 }
 
 .darker-blue {
@@ -85,7 +86,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Asap', sans-serif;
     color: #fff;
     line-height: 1.4;
     font-weight: 500;
@@ -108,7 +109,7 @@ li {
 p {
     line-height: 1.9;
     color: rgba(255, 255, 255, 0.5);
-    font-size: 15px;
+    font-size: 16px;
 }
 
 img {
@@ -612,8 +613,8 @@ video {
 
 .section-heading>p {
     margin-bottom: 0;
-    line-height: 2;
-    font-size: 16px;
+    line-height: 1.6;
+    font-size: 18px;
     max-width: 768px;
     margin: 0 auto;
     font-weight: 300;
@@ -1155,7 +1156,7 @@ video {
 .special-head {
     color: #18d3ff !important;
     padding-left: 40px;
-    font-size: 15px;
+    font-size: 16px;
     position: relative;
     font-weight: 400;
 }
@@ -2520,7 +2521,7 @@ p.artficial:before {
 }
 
 .service_single_content h6 {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 20px;
     min-height: 56px;
 }
@@ -5548,7 +5549,9 @@ body.light-version {
     display: inline-flex;
     font-weight: 500;
     font-size: 22px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
+    font-weight: 700;
+    color: #061540;
 }
 
 .classynav a.button-btn {
