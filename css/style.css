@@ -719,6 +719,7 @@ video {
     color: #18d3ff;
     font-weight: 600;
     border-radius: 10px;
+    font-size: 20px;
 }
 
 .dream-dots {
@@ -1156,7 +1157,7 @@ video {
 .special-head {
     color: #18d3ff !important;
     padding-left: 40px;
-    font-size: 16px;
+    font-size: 18px;
     position: relative;
     font-weight: 400;
 }
@@ -1465,7 +1466,7 @@ video {
 }
 
 .welcome-content p {
-    font-size: 17px;
+    font-size: 18px;
     color: #fff;
     margin-bottom: 30px;
     line-height: 1.6;
@@ -4206,6 +4207,7 @@ textarea:required {
 
 .footer-content-area.spec p {
     color: #ccc;
+    font-size: 15px;
 }
 
 .footer-social-info a i:hover {
@@ -4222,7 +4224,7 @@ textarea:required {
 
 .contact_info_area .contact_info p {
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 15px;
     color: #efebeb
 }
 
@@ -5265,8 +5267,9 @@ body.light-version {
 }
 
 .light-version p {
-    color: #888;
+    color: #000;
     font-weight: 300;
+    font-size: 18px;
 }
 
 .light-version h2,
@@ -5385,7 +5388,8 @@ body.light-version {
 }
 
 .light-version .service_single_content p {
-    margin-bottom: 0
+    margin-bottom: 0;
+    font-size: 16px;
 }
 
 .light-version .services-block-four .inner-box h3 a {
