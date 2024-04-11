@@ -67,7 +67,7 @@
                                             <a href="FacialSingOn.html" class="nav-link ">Facial Sign On</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="index.html" class="nav-link">Server Access</a>
+                                            <a href="ServerAccess.html" class="nav-link">Server Access</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -107,17 +107,19 @@
                                 unauthorized access. With our state-of-the-art biometric technology, your organization
                                 can.</p>
                             <div class="dream-btn-group fadeInUp" data-wow-delay="0.4s">
-                                <a href="#" class="btn dream-btn">get started</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#bookADemo"
+                                    class="btn dream-btn">Book A Demo</a>
+                                <a href="ServerAccess.html" class="btn dream-btn">Learnmore</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 col-md-12">
                         <!-- <img src="img/fvtloauto.png" draggable="false" class="mt-s wow fadeInUp " data-wow-delay="0.5s"
                             alt="">  -->
-                            <div class="video-hero">
-                                <video src="img/20240409_174112.mp4" muted="" loop="" autoplay="" playsinline=""></video>
-                                <span class="overlay-bg"></span>
-                            </div>
+                        <div class="video-hero">
+                            <video src="img/20240409_174112.mp4" muted="" loop="" autoplay="" playsinline=""></video>
+                            <span class="overlay-bg"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,7 +228,8 @@
 
                 <div class="col-12">
                     <div class="who-we-contant">
-                        <h4 class="fadeInUp text-white" data-wow-delay="0.3s" style="margin-bottom: 0;">A Modern Solution To Modern Threats</h4>
+                        <h4 class="fadeInUp text-white" data-wow-delay="0.3s" style="margin-bottom: 0;">A Modern
+                            Solution To Modern Threats</h4>
                     </div>
                 </div>
 
@@ -536,6 +539,101 @@
             </div>
         </footer>
         <!-- ##### Footer Area End ##### -->
+    </div>
+
+    <div class="modal fade" id="bookADemo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Book A Demo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-demo px-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="mb-2">Company Email <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="mb-2">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="mb-2">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="mb-2">Company Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="mb-2">Phone <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="mb-2">Company Size <span class="text-danger">*</span></label>
+                                    <select name="" id="" class="form-control">
+                                        <option value="1-10">1-10</option>
+                                        <option value="1-10">11-50</option>
+                                        <option value="1-10">51-200</option>
+                                        <option value="1-10">201-1000</option>
+                                        <option value="1-10">1001+</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="mb-2">What product you are interested in? <span
+                                            class="text-danger">*</span></label>
+                                    <select name="" id="" class="form-control">
+                                        <option value="Journeys">Journeys (Marketing Automation)</option>
+                                        <option value="Data Pipelines">Data Pipelines (CDP)</option>
+                                        <option value="Journeys and Data Pipelines">Journeys and Data Pipelines</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="mb-2">Evaluation for <span class="text-danger">*</span></label>
+                                    <select name="" id="" class="form-control">
+                                        <option value="business">My business</option>
+                                        <option value="agency">I am with a marketing agency</option>
+                                        <option value="customer">I am a current customer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="mb-2">Anything else?</label>
+                                    <textarea name="input_12" id="input_7_12" class="form-control"
+                                        placeholder="Here, feel free to share any business goals you hope to achieve or challenges you would like to overcome by using Customer.io."
+                                        aria-invalid="false" rows="5"></textarea>
+                                    <span style="font-size: 11px; clear: both; margin-top: 3px; display: block;" id="word-count" class="gp-word-count-label">Max: 1000 words</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn dream-btn w-100">Request Demo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ########## All JS ########## -->

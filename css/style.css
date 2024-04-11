@@ -874,7 +874,7 @@ video {
 
 .header-area {
     position: fixed;
-    z-index: 5000;
+    z-index: 11;
     top: 0;
     left: 0;
     width: 100%;
@@ -915,8 +915,11 @@ video {
 
 .classynav ul li a {
     text-transform: capitalize;
+    font-size: 17px;
 }
-
+.classy-nav-container a:focus, .classy-nav-container a:hover {
+    font-size: 17px;
+}
 .classynav ul li .megamenu li a {
     font-size: 80%;
 }
@@ -1454,7 +1457,7 @@ video {
 }
 
 .welcome-content h1 {
-    font-size: 40px;
+    font-size: 44px;
     font-weight: 500;
     margin-bottom: 20px;
     line-height: 1.3;
@@ -4120,8 +4123,11 @@ textarea:required {
 
 /* ##### Footer Area ##### */
 .footer-bg {
-    background: url(../img/bg-img/footer-bg.png) bottom;
-    background-size: cover;
+    background-image: url(../img/footer-bg.png);
+    padding: 60px 0;
+    background-color: #030313;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .footer-area {
@@ -5269,7 +5275,7 @@ body.light-version {
 .light-version p {
     color: #000;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 19px;
 }
 
 .light-version h2,
@@ -5912,6 +5918,7 @@ input[type="radio"].toggle:checked+label:after {
 }
 .video-hero {
     position: relative;
+    padding-top: 50px;
 }
 
 span.overlay-bg {
@@ -5919,6 +5926,132 @@ span.overlay-bg {
     width: 140px;
     height: 30px;
     background: #f5ffff;
-    top: 0;
+    top: 50px;
     right: 0;
+}
+.about-section-home11 {
+    background-image: linear-gradient(90deg, #03A9F4 0%, #00BCD4 100%);
+    border-radius: 10px;
+    background-color: transparent;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    background-size: auto;
+    margin: 100px 60px;
+}
+.section-lg {
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+.about-section-home11 .pbmit-heading-subheading-style-11 {
+    margin-bottom: 50px;
+}
+.pbmit-heading-subheading-style-11 .pbmit-subtitle {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-style: normal;
+    padding: 6px 15px;
+    display: inline-block;
+    color: #fff;
+    background-color: rgba(255,255,255, 0.2);
+    border-radius: 8px;
+}
+.pbmit-heading-subheading-style-11 .pbmit-title {
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 60px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-style: normal;
+}
+.pbmit-ihbox-style-28 {
+    position: relative;
+    text-align: center;
+    padding: 0 62px;
+}
+.pbmit-ihbox-style-28 .pbmit-ihbox-icon {
+    display: inline-block;
+    margin-bottom: 25px;
+}
+.pbmit-ihbox-style-28 .pbmit-ihbox-icon-wrapper.pbmit-ihbox-icon-type-text {
+    width: 100px;
+    height: 100px;
+    line-height: 110px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255, 0.2);
+    position: relative;
+    z-index: 3;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    font-size: 30px;
+    line-height: 100px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 50%;
+}
+.pbmit-ihbox-style-28 .pbmit-ihbox-icon-wrapper.pbmit-ihbox-icon-type-text:after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    content: "";
+    background-color: #fff;
+    transform: scale(0);
+    transform-origin: center;
+    transform-style: preserve-3d;
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.62, 0.21, 0.45, 1.52);
+    z-index: -1;
+}
+.pbmit-ihbox-style-28:hover .pbmit-ihbox-icon-wrapper.pbmit-ihbox-icon-type-text::after {
+    transform: scaleX(1);
+}
+.pbmit-ihbox-style-28:hover .pbmit-ihbox-icon-wrapper.pbmit-ihbox-icon-type-text {
+    color: #18d3ff;
+}
+.pbmit-ihbox-style-28 .pbmit-element-title {
+    font-size: 24px;
+    line-height: 34px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+.pbmit-ihbox-style-28 .pbmit-heading-desc {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 300;
+}
+.pbmit-ihbox-style-28::after {
+    content: "\f105";
+    position: absolute;
+    top: calc(25% - 15px);
+    left: calc(100% - 1px);
+    font-size: 35px;
+    line-height: 20px;
+    font-weight: 300;
+    font-family: "Font Awesome 5 Pro";
+    color: #fff;
+}
+.about-section-home11 .col-md-4:last-child .pbmit-ihbox-style-28::after {
+    display:none;
+}
+
+.modal-title {
+    color: #000;
+}
+.form-group {
+    margin-bottom: 10px;
+    display: block;
+    position: relative;
+}
+.form-control {
+    min-height: 38px;
+    appearance: auto;
+}
+.form-group label {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
 }

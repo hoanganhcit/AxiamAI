@@ -203,3 +203,9 @@
         width: 80%;
     }
 }
+
+@media screen and (min-width: 576px) {
+    .modal-dialog {
+        margin: 5.75rem auto;
+    }
+}
