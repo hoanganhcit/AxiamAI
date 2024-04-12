@@ -6055,3 +6055,19 @@ span.overlay-bg {
     font-weight: 500;
     text-transform: uppercase;
 }
+.title--hero {
+    position: relative;
+    padding: 4rem 2rem 0;
+    text-align: center;
+}
+
+.title-site {
+    font-size: 6rem;
+    letter-spacing: -.02em;
+    line-height: 9rem;
+    color: #00dcff;
+    font-weight: bold;
+}
+.server-access-section {
+    /* min-height: 500px; */
+}
