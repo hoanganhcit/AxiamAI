@@ -5684,7 +5684,7 @@ body.light-version {
 }
 
 .team-thumbnail.team-leader {
-    background: #F3F6FD;
+    background: #f9f9f9;
 }
 
 .team-thumbnail img {
@@ -5825,7 +5825,7 @@ body.light-version {
     padding: 80px 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    background: #F3F6FD;
+    background: #f8f8f8;
 }
 
 .partner-item img {
