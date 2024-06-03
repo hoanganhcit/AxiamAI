@@ -20,6 +20,20 @@
 
     <!-- Responsive Stylesheet -->
     <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .classy-menu.menu-on .classynav ul {
+            width: 100%;
+        }
+
+        .classy-menu.menu-on .classynav ul li a {
+            background: #fff;
+        }
+
+        ul.dropdown-menu.sub-classynav {
+            position: relative !important;
+            transform: none !important;
+        }
+    </style>
 
 </head>
 
@@ -650,6 +664,13 @@
 
                 $(".per").hide();
                 $(".per-" + value).show();
+            });
+
+            $('.navbarToggler').click(function(){
+                $('.classy-menu').addClass('menu-on');
+            });
+            $('.classycloseIcon').click(function(){
+                $('.classy-menu').removeClass('menu-on');
             });
         });
     </script>
