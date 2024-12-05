@@ -326,6 +326,32 @@
                 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
             }
         }
+
+        @media screen and (max-width: 1366px) {
+            .app-shape-img .lt-shape {
+                max-width: 600px;
+                top: 0;
+            }
+
+            .app-shape-img .mb-shape {
+                left: auto;
+                right: 50px;
+            }
+
+        }
+
+        @media screen and (max-width: 768px) {
+            .app-shape-img .mb-shape {
+                display: none;
+            }
+
+            .app-shape-img .lt-shape {
+                position: relative;
+                max-width: 100%;
+                left: 0;
+            }
+
+        }
     </style>
 
 </head>
