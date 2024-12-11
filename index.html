@@ -16,6 +16,7 @@
 
     <!-- Core Stylesheet -->
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Responsive Stylesheet -->
@@ -45,11 +46,7 @@
 
         .classy-menu ul.dropdown-menu.sub-classynav li a{
             color: #1b1b1b;
-        }
-        .welcome-content h1 {
-            font-size: 55px;
-            text-transform: uppercase;
-        }
+        } 
 
         .subscribe-section {
             display: flex;
@@ -424,6 +421,11 @@
             bottom: -112px;
             left: 50%;
         }
+        .welcome-content h1 {
+            font-size: 65px;
+            text-transform: uppercase;
+            text-shadow: -2px 0 #17cef9, 0 -2px #17cef9, 2px 0 #17cef9, 0 2px #17cef9, 2px 2px #17cef9, -2px -2px #17cef9, -2px 2px #17cef9, 2px -2px #17cef9, 10px 10px #003b49;
+        }
     </style>
 
 </head>
@@ -505,19 +507,19 @@
                     <!-- Welcome Content -->
                     <div class="col-12 col-lg-10 col-md-12">
                         <div class="welcome-content text-center">
-                            <div class="promo-section wow fadeInUp" data-wow-delay="0.1s">
-                                <h3 class="special-head w-text">Biometric Access Control for Modern Teams</h3>
+                            <div class="promo-section">
+                                <h3 class="special-head w-text wow fadeInUp" data-wow-delay="0.1s">Biometric Access Control for Modern Teams</h3>
                             </div>
-                            <h1 class="bold w-text wow fadeInUp" data-wow-delay="0.2s">Secure - Seamless Hack-resistant</h1>
-                            <p class="wow fadeInUp w-text" data-wow-delay="0.3s">Axiam's biometric cybersecurity services
+                            <h1 class="bold w-text wow fadeInUp" data-wow-delay="0.3s">Secure - Seamless</br> Hack-resistant</h1>
+                            <p class="wow fadeInUp w-text" data-wow-delay="0.4s">Axiam's biometric cybersecurity services
                                 deliver secure, efficient access to enterprise systems, empowering businesses to enhance
                                 operations, protect critical infrastructure, and mitigate cyber risks.</p>
-                            <div class="dream-btn-group wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="dream-btn-group">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#bookADemo"
-                                    class="btn dream-btn">Book A Demo</a>
-                                <a href="ServerAccess.html" class="btn dream-btn btn-secondary">Learn More</a>
+                                    class="btn dream-btn wow fadeInLeft" data-wow-delay="1s">Book A Demo</a>
+                                <a href="ServerAccess.html" class="btn dream-btn btn-secondary wow fadeInRight" data-wow-delay="1s">Learn More</a>
                             </div>
-                            <div class="play-videos">
+                            <div class="play-videos wow zoomIn" data-wow-delay="1s">
                                 <div class="waves-box">
                                     <button data-src="https://www.youtube.com/embed/ixDgBF9jDMY?si=OEI__K4qXkBxX08v"
                                         type="button" data-bs-toggle="modal" data-bs-target="#videoAxiam"
@@ -633,10 +635,10 @@
                         <div class="col-12 col-lg-6 col-sm-12">
                             <div class="who-we-contant mt-s" style="padding-right: 1rem;">
                                 <div class="app-shape-img">
-                                    <img src="img/mobile-login-app.png" class="mb-shape" alt="">
-                                    <img src="img/laptop.png" class="lt-shape" alt="">
+                                    <img src="img/mobile-login-app.png" class="mb-shape" alt=" wow fadeInLeft" data-wow-delay="0.1s">
+                                    <img src="img/laptop.png" class="lt-shape" alt=" wow fadeInUp" data-wow-delay="0.2s">
                                 </div>
-                                <div class="shape-bg"></div>
+                                <div class="shape-bg wow zoomIn" data-wow-delay="0.3s"></div>
                             </div>
                         </div>
 
@@ -1083,10 +1085,14 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- All Plugins js -->
     <!-- script js -->
+    <script src="js/wow.min.js"></script>
     <script src="js/script.js"></script>
 
     <script>
         $(document).ready(function () {
+            
+            new WOW().init();
+
             $("input[name$='pricing']").click(function () {
                 var value = $(this).val();
 
