@@ -342,36 +342,6 @@
                 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
             }
         }
-
-        @media screen and (max-width: 1366px) {
-            .app-shape-img .lt-shape {
-                max-width: 600px;
-                top: 0;
-            }
-
-            .app-shape-img .mb-shape {
-                left: auto;
-                right: 50px;
-            }
-
-        }
-
-        @media screen and (max-width: 768px) {
-            .app-shape-img .mb-shape {
-                display: none;
-            }
-
-            .app-shape-img .lt-shape {
-                position: relative;
-                max-width: 100%;
-                left: 0;
-            }
-            ul.dropdown-menu.sub-classynav {
-                position: relative !important;
-                transform: none !important;
-            }
-
-        }
         .popup-images {
             position: relative;
         }
@@ -425,6 +395,71 @@
             font-size: 65px;
             text-transform: uppercase;
             text-shadow: -2px 0 #17cef9, 0 -2px #17cef9, 2px 0 #17cef9, 0 2px #17cef9, 2px 2px #17cef9, -2px -2px #17cef9, -2px 2px #17cef9, 2px -2px #17cef9, 10px 10px #003b49;
+        }
+        
+        .subscribe-section {
+            flex-wrap: wrap;
+        }
+        @media screen and (max-width: 1366px) {
+            .app-shape-img .lt-shape {
+                max-width: 600px;
+                top: 0;
+            }
+
+            .app-shape-img .mb-shape {
+                left: auto;
+                right: 50px;
+            }
+
+        }
+
+        @media screen and (max-width: 768px) {
+            .app-shape-img .mb-shape {
+                display: none;
+            }
+
+            .app-shape-img .lt-shape {
+                position: relative;
+                max-width: 100%;
+                left: 0;
+            }
+            ul.dropdown-menu.sub-classynav {
+                position: relative !important;
+                transform: none !important;
+            }
+
+            .layer_wrap {
+                display: none;
+            }
+
+            .welcome-content h1 {
+                font-size: 38px;
+            }
+
+            .hero-section {
+                height: 560px;
+            }
+
+            .bg-video-overlay video {
+                height: 560px;
+            }
+
+            .play-videos {
+                display: none;
+            }
+
+            .header-area.sticky .classy-navbar .nav-brand span {
+                color: #061540 !important;
+            }
+
+        }
+        
+        @media screen and (max-width: 600px) {
+
+            .dream-btn {
+                margin-left: 0;
+                margin-top: 20px;
+            }
         }
     </style>
 
