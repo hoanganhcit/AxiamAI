@@ -6205,3 +6205,26 @@ span.overlay-bg {
     color: #18d3ff;
     letter-spacing: 0;
 }
+.classy-menu ul.dropdown-menu.sub-classynav li a {
+    color: #1b1b1b;
+    font-size: 16px;
+    white-space: nowrap;
+    height: auto;
+}
+.classy-menu ul.dropdown-menu.sub-classynav li a:hover {
+    color: #18d3ff;
+}
+.classy-navbar .nav-brand {
+    align-items: center;
+}
+.classy-navbar .nav-brand span {
+    font-size: 18px;
+}
+
+.classy-navbar .nav-brand img {
+    width: 40px;
+    height: 40px;
+    background: #aceaff;
+    padding: 8px;
+    border-radius: 10px;
+}

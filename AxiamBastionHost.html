@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Title -->
+  <title>Axiam Bastion Host</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/icon1.png">
+
+  <!-- Core Stylesheet -->
+  <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Responsive Stylesheet -->
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .special-head {
+      padding-left: 0;
+    }
+
+    .special-head:before {
+      display: none;
+    }
+
+    .classy-nav-container {
+      background: transparent;
+    }
+
+    .classy-menu.menu-on .classynav ul {
+      width: 100%;
+    }
+
+    .classy-menu.menu-on .classynav ul li a {
+      background: #fff;
+    }
+
+    .header-area.sticky .classy-menu .classynav ul li a {
+      color: #1b1b1b;
+    }
+
+    .classy-menu ul.dropdown-menu.sub-classynav li a {
+      color: #1b1b1b;
+      font-size: 16px;
+      white-space: nowrap;
+      height: auto;
+    }
+
+    .classy-menu ul.dropdown-menu.sub-classynav li a:hover {
+      color: #18d3ff;
+    }
+
+    .subscribe-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 20px !important;
+      padding: 12px 15px;
+      border: 1px solid #18d3ff;
+    }
+
+    .subscribe-section input {
+      background: none;
+      border: 0;
+      color: #fff;
+      padding: 0;
+      height: 48px;
+      outline: none;
+    }
+
+    .subscribe-section input::placeholder {
+      color: #fff;
+      font-weight: 100;
+      font-style: italic;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      border-color: #18d3ff;
+      color: #18d3ff;
+    }
+
+    .btn-secondary:hover {
+      color: #fff;
+      background: #18d3ff;
+      border-color: #18d3ff;
+    }
+
+    .who-we-contant h5 {
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .advantage-wrapper {
+      border-radius: 50px;
+      /* background: #edfafd; */
+      max-width: 1790px;
+      margin: 0 auto;
+    }
+
+    .section-padding {
+      padding: 120px 0 0;
+    }
+
+    .who-we-contant ul {
+      margin-top: 30px;
+    }
+
+    .who-we-contant ul p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .who-we-contant .checklist li {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .who-we-contant .checklist li img {
+      margin-right: 15px;
+      margin-top: 5px;
+    }
+
+    .how_icon img {
+      height: 80px;
+    }
+
+    .number-title {
+      font-size: 24px !important;
+      color: #b3b3b3 !important;
+    }
+
+    .light-version .service_single_content {
+      border: 1px solid #f5f3f2;
+      box-shadow: none;
+      transition: .5s;
+    }
+
+    .light-version .service_single_content:hover {
+      border-color: #18d3ff !important;
+      box-shadow: 0 5px 40px 0 rgba(0, 0, 0, .11);
+    }
+
+    .light-version .section-subheading {
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    .hero-section {
+      height: 850px;
+    }
+
+    .hero-section:after {
+      content: "";
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 84px;
+      background: url('img/bg-hero-after.png') no-repeat 0 0;
+      background-size: cover;
+      display: inline-block;
+      position: absolute;
+    }
+
+    .app-shape-img {
+      position: relative;
+    }
+
+    .app-shape-img .lt-shape {
+      position: absolute;
+      left: -150px;
+      max-width: 756px;
+      top: 30px;
+    }
+
+    .who-we-contant {
+      position: relative;
+    }
+
+    .app-shape-img .mb-shape {
+      width: 200px;
+      position: absolute;
+      left: -110px;
+      z-index: 1;
+      top: 115px;
+      animation: bounces 2s infinite alternate;
+      -webkit-animation: bounces 2s infinite alternate;
+    }
+
+    @keyframes bounces {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-25px);
+      }
+    }
+
+    .shape-bg {
+      text-align: center;
+      align-content: center;
+      width: 415px;
+      height: 315px;
+      margin: auto;
+      position: relative;
+      background-color: #ffffff0f;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      -webkit-animation: one-animated 5s infinite;
+      animation: one-animated 5s infinite;
+      overflow: hidden;
+      position: absolute;
+      top: 259px;
+      right: 67px;
+    }
+
+    @keyframes one-animated {
+      0% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      }
+
+      25% {
+        border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+      }
+
+      50% {
+        border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+      }
+
+      75% {
+        border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+      }
+    }
+
+    #videoAxiam .modal-content {
+      background: none;
+      padding: 0;
+      border: 0;
+    }
+
+    #videoAxiam .modal-content .modal-body {
+      padding: 0;
+    }
+
+    #videoAxiam .modal-content .modal-body .close {
+      background: none;
+      color: #fff;
+      border: 0;
+      font-size: 40px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #videoAxiam .modal-content .modal-body iframe {
+      width: 100%;
+      height: 600px;
+    }
+
+    .waves-box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+    }
+
+    .hero-header-video {
+      position: relative;
+      display: flex;
+    }
+
+    .waves-box button {
+      background: #18d3ff;
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      text-align: center;
+      font-size: 29px;
+      color: #fff;
+      border-radius: 100%;
+      line-height: 2.1;
+      z-index: 9;
+      position: relative;
+      border: 0;
+    }
+
+    .waves-box button i {
+      margin-left: 5px;
+    }
+
+    .iq-waves {
+      position: absolute;
+      width: 14rem;
+      height: 14rem;
+      left: -90px;
+      top: -90px;
+      z-index: 2;
+    }
+
+    .waves {
+      position: absolute;
+      width: 384px;
+      width: 15rem;
+      height: 384px;
+      height: 15rem;
+      background: rgb(86 223 255 / 20%);
+      opacity: 0;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      border-radius: 320px;
+      background-clip: padding-box;
+      -webkit-animation: waves 3s ease-in-out infinite;
+      animation: waves 3s ease-in-out infinite;
+    }
+
+    .iq-waves .wave-1 {
+      -webkit-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
+    .iq-waves .wave-2 {
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s;
+    }
+
+    .iq-waves .wave-3 {
+      -webkit-animation-delay: 2s;
+      animation-delay: 2s;
+    }
+
+    @keyframes waves {
+      0% {
+        transform: scale(.2);
+        opacity: 0;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      }
+
+      50% {
+        opacity: .9;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+      }
+
+      100% {
+        transform: scale(.9);
+        opacity: 0;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      }
+    }
+
+    .popup-images {
+      position: relative;
+    }
+
+    .iq-objects-02 img {
+      position: absolute;
+      left: -100px;
+      bottom: 0;
+      z-index: -2;
+      -webkit-animation: bounces 2s infinite alternate;
+      max-width: 600px;
+    }
+
+    .iq-objects-03 img {
+      position: absolute;
+      z-index: -1;
+      left: 15%;
+      right: 0;
+      bottom: -100px;
+      webkit-transition: all .5s ease-in-out;
+      -webkit-animation: bounces 2s infinite alternate;
+    }
+
+    .bg-video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .bg-video-overlay video {
+      height: 850px;
+      object-fit: cover;
+    }
+
+    .bg-video-overlay:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #034869;
+      mix-blend-mode: soft-light;
+    }
+
+    .play-videos {
+      position: absolute;
+      bottom: -90px;
+      left: 50%;
+    }
+
+    .welcome-content h1 {
+      font-size: 65px;
+      text-transform: uppercase;
+      text-shadow: -2px 0 #17cef9, 0 -2px #17cef9, 2px 0 #17cef9, 0 2px #17cef9, 2px 2px #17cef9, -2px -2px #17cef9, -2px 2px #17cef9, 2px -2px #17cef9, 10px 10px #003b49;
+    }
+
+    @media screen and (max-width: 1366px) {
+      .app-shape-img .lt-shape {
+        max-width: 600px;
+        top: 0;
+      }
+
+      .app-shape-img .mb-shape {
+        left: auto;
+        right: 50px;
+      }
+
+    }
+
+    @media screen and (max-width: 768px) {
+      .app-shape-img .mb-shape {
+        display: none;
+      }
+
+      .app-shape-img .lt-shape {
+        position: relative;
+        max-width: 100%;
+        left: 0;
+      }
+
+      ul.dropdown-menu.sub-classynav {
+        position: relative !important;
+        transform: none !important;
+      }
+
+      .layer_wrap {
+        display: none;
+      }
+
+      .welcome-content h1 {
+        font-size: 38px;
+      }
+
+      .hero-section {
+        height: 560px;
+      }
+
+      .bg-video-overlay video {
+        height: 560px;
+      }
+
+      .play-videos {
+        display: none;
+      }
+
+    }
+
+    @media screen and (max-width: 600px) {
+
+      .dream-btn {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+
+      .subscribe-section {
+        flex-wrap: wrap;
+      }
+
+      .classy-menu .classynav ul li a {
+        color: #1b1b1b;
+      }
+    }
+
+
+    .header-area.sticky .classy-navbar .nav-brand span {
+      color: #061540 !important;
+    }
+
+    .bg-f5fff {
+      background: linear-gradient(180deg, #daf5f5 0%, #fff 100%);
+    }
+
+    .hero-title {
+      color: #061540;
+      font-size: 55px;
+      font-weight: 700;
+    }
+
+    .hero-title span {
+      color: #18d3ff;
+    }
+
+    .light-version .hero-slogan-title {
+      color: #061540;
+      font-size: 30px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .img-container {
+      width: 100%;
+      text-align: center;
+    }
+
+    .text-primary {
+      color: #18d3ff !important;
+    }
+
+    .text-secondary {
+      color: #061540 !important;
+    }
+
+    .features-section {
+      background: radial-gradient(at bottom center, #0036e80d 40%, #FFFFFF00 60%);
+      padding-top: 100px;
+      padding-bottom: 200px;
+      position: relative;
+    }
+
+    .upgrade-section {
+      background: linear-gradient(180deg, #CDF3F100 0%, #E0FDFB 200%);
+      padding-top: 100px;
+      padding-bottom: 200px;
+      position: relative;
+    }
+
+    .features-title {
+      font-size: 55px;
+      font-weight: 700;
+      line-height: 1.3em;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .feature-card {
+      border-style: solid;
+      border-width: 1px 1px 1px 1px;
+      border-color: #EBEBEB;
+      box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+      margin: 0px 25px 0px 25px;
+      --e-column-margin-right: 25px;
+      --e-column-margin-left: 25px;
+      padding: 40px 28px 40px 28px;
+      background: #fff;
+      border-radius: 8px;
+      min-height: 300px;
+    }
+
+    .feature-icon {
+      font-size: 44px;
+    }
+
+    .feature-title {
+      font-size: 24px;
+      margin: 5px 0;
+      font-weight: 600;
+    }
+
+    .feature-text {
+      color: #b0b0b0;
+      font-weight: 300;
+    }
+
+    .light-version .features-subtitle {
+      font-size: 24px;
+      color: #7f7f7f;
+    }
+
+    .upgrade-card {
+      border-style: solid;
+      border-width: 1px 1px 1px 1px;
+      border-color: #EBEBEB;
+      box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+      margin: 0px 25px 0px 25px;
+      padding: 15px 20px;
+      background: #fff;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mr-2 {
+      margin-right: 1rem;
+    }
+
+    .upgrade-icon-right {
+      font-size: 26px;
+    }
+
+    .feature-title i {
+      font-size: 30px;
+    }
+
+    .bg-card {
+      background: rgb(222 246 246 / 30%);
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    .border-ax {
+      border: 1px solid #eee;
+    }
+
+    .rounded-2xl {
+      border-radius: 1rem;
+    }
+
+    .rounded-3xl {
+      border-radius: 1.5rem;
+    }
+
+    .btn-ax:hover {
+      filter: brightness(0.95);
+      color: #0b1220;
+    }
+
+    .badge-ax {
+      background-color: #80DFFF;
+      color: #0b1220;
+      border: 0;
+    }
+
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      /* background:
+            radial-gradient(1200px 600px at 80% -10%, rgba(58, 211, 216, 0.13), transparent 60%),
+            linear-gradient(180deg, rgba(0, 90, 156, 0.4), transparent); */
+      z-index: 0;
+      background: linear-gradient(180deg, #daf5f5 0%, #fff 100%);
+    }
+
+    section.section-pad {
+      padding: 4rem 0;
+    }
+
+    @media (min-width: 768px) {
+      section.section-pad {
+        padding: 6rem 0;
+      }
+    }
+
+    .camera-gradient {
+      background: linear-gradient(134deg, #18d3ff, #061540);
+    }
+
+    .flex {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .flex-items-center {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fl-column {
+      flex-direction: column;
+    }
+
+    .camera-live-box {
+      padding-top: 6rem;
+    }
+
+    .fw-semibold {
+      font-weight: 600;
+    }
+
+    .btn-icons {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 1rem;
+      background: hsl(224.48deg 82.86% 13.73%);
+      color: #18d3ff;
+      font-size: 20px;
+    }
+
+    .pulseAnimate {
+      position: relative;
+    }
+
+    .pulseAnimate span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      border-radius: inherit;
+      opacity: 0.8;
+      animation: pulseAnimate 4s ease-out infinite;
+      animation-delay: calc(1s * var(--i));
+    }
+
+    @keyframes pulseAnimate {
+      100% {
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+
+    .icon-bubble {
+      font-size: 20px;
+      color: #18d3ff;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #061540;
+      border-radius: 1rem;
+    }
+
+    .card-item {
+      border: 1px solid #18d3ff;
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    .bg-card-2 {
+      background: #061540;
+      color: #18d3ff;
+      border: 0;
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+
+    .bg-card-2 p {
+      color: #ffffff;
+    }
+
+    .fs-24 {
+      font-size: 24px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 12px;
+      margin-right: 6px;
+      border-radius: 50rem;
+      font-size: 0.8rem;
+      border: 1px solid rgb(119, 119, 119);
+      font-weight: 600;
+    }
+
+    .small {
+      font-size: .875em !important;
+    }
+
+    .title-ax {
+      line-height: 1.1;
+    }
+
+    .title-ax span {
+      font-weight: 300;
+    }
+
+    .btn-h-36 {
+      height: 36px;
+      line-height: 36px;
+      text-transform: capitalize;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 0 1rem;
+      letter-spacing: 0;
+    }
+
+    .fs-16 {
+      font-size: 16px !important;
+    }
+
+    .info-card {
+      background-color: #111624;
+      border: 1px solid #111624;
+      padding: 25px;
+      max-width: 700px;
+      color: #fff;
+      border-radius: 10px;
+    }
+
+    .info-card h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .info-card ul {
+      padding-left: 18px;
+      margin-bottom: 20px;
+    }
+
+    .info-card li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .tip-box {
+      background-color: #17323b;
+      color: #18d3ff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    .info-card ul li {
+      list-style-type: disc !important;
+    }
+
+    .faq-card {
+      border: 1px solid rgb(219 219 219);
+      background: rgb(255 255 255);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    .feature-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-glow {
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .faq-card summary {
+      cursor: pointer;
+      font-weight: 500;
+      list-style: none;
+    }
+
+    .faq-card summary::marker {
+      display: none;
+    }
+
+    .faq-card[open] {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  </style>
+
+</head>
+
+<body class="light-version">
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preload-content">
+      <div id="dream-load"></div>
+    </div>
+  </div>
+
+  <!-- ##### Header Area Start ##### -->
+  <header class="header-area fadeInDown" data-wow-delay="0.2s">
+    <div class="classy-nav-container breakpoint-off  left">
+      <div class="container">
+        <!-- Classy Menu -->
+        <nav class="classy-navbar justify-content-between" id="dreamNav">
+
+          <!-- Logo -->
+          <a class="nav-brand" href="#"><img src="img/icon1.png" alt="logo" width="35"> <span class="">Axiam
+              Facial Sign-In</span></a>
+
+          <!-- Navbar Toggler -->
+          <div class="classy-navbar-toggler">
+            <span class="navbarToggler"><span></span><span></span><span></span></span>
+          </div>
+
+          <div class="classy-menu">
+
+            <!-- close btn -->
+            <div class="classycloseIcon">
+              <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+            </div>
+
+            <!-- Nav Start -->
+            <div class="classynav">
+              <ul id="nav">
+                <li class="nav-item"><a href="index-3.html">Home</a></li>
+                <li class="nav-item">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Solutions
+                  </a>
+                  <ul class="dropdown-menu sub-classynav">
+                    <li class="nav-item">
+                      <a href="index-2.html" class="nav-link"> Facial Sign-In</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="AxiamBastionHost.html" class="nav-link"> Axiam Bastion Host</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="FacelockEncrypt.html" class="nav-link"> FaceLock Encrypt </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item"><a href="company.html">Company</a></li>
+                <li class="nav-item"><a href="faq.html">Help</a></li>
+                <li class="nav-item"><a href="SignIn.html">Sign In</a></li>
+              </ul>
+            </div>
+            <!-- Nav End -->
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <!-- ##### Header Area End ##### -->
+
+  <!-- ##### Welcome Area Start ##### -->
+
+  <section class="hero-wrap hero-bg section-pad position-relative">
+    <div class="container position-relative" style="z-index:1;">
+      <div class="row align-items-center">
+        <div class="col-md-12">
+          <div class="mb-3 mt-3">
+            <span class="pill"><i class="bi-camera me-1"></i> Facial Sign-In</span>
+            <span class="pill"><i class="bi-shield-check me-1"></i> Bastion Gateway</span>
+            <span class="pill"><i class="bi-lock me-1"></i> Zero-Password</span>
+          </div>
+        </div>
+        <div class="col-md-6" data-animate>
+          <h1 class="hero-title display-5 fw-bold ">Only the right face gets in.</h1>
+          <p class="mt-3 text-muted-ax pe-lg-5">
+            A single, secure gateway that verifies real identity before any port opens. No passwords to steal, no OTPs
+            to phish—just verified access to the resources you choose.
+          </p>
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <a href="#" class="btn dream-btn mt-sm-15 iq-video"
+              data-src="https://www.youtube.com/embed/ixDgBF9jDMY?si=OEI__K4qXkBxX08v" data-bs-toggle="modal"
+              data-bs-target="#videoAxiam"><i class="bi-box-arrow-in-right me-1"></i> Get a live demo</a>
+            <a href="#" class="btn btn-outline-light text-black">Learn more</a>
+          </div>
+          <p class="mt-3 small ">* Demo below simulates the flow; integrate your preferred biometric
+            SDK for production.</p>
+        </div>
+        <div class="col-md-6" data-animate>
+          <div class="card bg-card shadow-lg">
+            <div class="card-header bg-transparent border-0">
+              <div class="d-flex align-items-center gap-2 fw-semibold py-2 ">
+                <i class="bi bi-camera btn-icons text-muted-ax"></i>
+                <div class="title-ax">Face Sign‑In (Demo)<br><span class="small">No real camera or biometrics
+                    used</span></div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div
+                class="rounded-3xl camera-live-box fl-column flex flex-items-center overflow-hidden camera-gradient position-relative">
+                <div class="rounded-circle pulseAnimate"
+                  style="width:144px;height:144px;border:4px solid rgba(255,255,255,.7);margin-bottom: 5rem;background: #fff;display: flex;align-items: center;justify-content: center;">
+                  <img src="img/face-scanner.gif" alt="" style="width: 100px;z-index: 1;">
+                  <span style="--i:0"></span>
+                  <span style="--i:1"></span>
+                  <span style="--i:2"></span>
+                </div>
+              </div>
+              <div class="mt-3 mb-3 small">
+                <i class="bi bi-patch-check text-success mr-1"></i>
+                <span>Policy check: device posture, geofence, time window ✓</span>
+              </div>
+              <div class="d-flex mb-2">
+                <a href="#" class="btn dream-btn mt-sm-15 iq-video"> <i class="bi-box-arrow-in-right me-1"></i> Start
+                  Face Sign-In (Simulated) </a>
+                <a href="#" class="btn btn-outline-light text-black">Toggle Policy Outcome</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ##### Welcome Area End ##### -->
+
+  <div class="clearfix"></div>
+
+  <section id="features" class="section-pad">
+    <div class="container">
+      <h2 class="h1 fw-semibold">Why combine a Bastion with Facial Sign‑In?</h2>
+      <div class="row g-3 mt-3">
+        <!-- Feature 1 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-fingerprint"></i></span>
+              </div>
+              <h3 class="h5 mb-2">Passwordless & Phishing‑Resistant</h3>
+              <p class="text-muted-ax m-0 fs-16 fs-16">Authenticate with your face—no passwords, OTPs, or push fatigue.
+                Resistant to credential theft and phishing.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-shield-check"></i></span>
+              </div>
+              <h3 class="h5 mb-2">Bastion Gateway Control</h3>
+              <p class="text-muted-ax m-0 fs-16 fs-16">A single, hardened entry point that brokers all access (SSH, RDP,
+                DB,
+                web). Nothing is reachable until identity is verified.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-diagram-3"></i></span>
+              </div>
+              <h3 class="h5 mb-2">Zero‑Trust Network Cloaking</h3>
+              <p class="text-muted-ax m-0 fs-16 fs-16">Hide private services from the internet. Dynamic policies expose
+                ports
+                only after successful verification.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Feature 4 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-key"></i></span>
+              </div>
+              <h3 class="h5 mb-2">Ephemeral Credentials</h3>
+              <p class="text-muted-ax m-0 fs-16 fs-16">Issue short‑lived keys and just‑in‑time roles to minimize lateral
+                movement and key sprawl.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Feature 5 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-search"></i></span>
+              </div>
+              <h3 class="h5 mb-2">Full Audit & Insights</h3>
+              <p class="text-muted-ax m-0 fs-16 fs-16">Record who accessed what and when. Optional session recording
+                with
+                searchable logs for compliance.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Feature 6 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-hdd-network"></i></span>
+              </div>
+              <h3 class="h5 mb-2">Works With Your Stack</h3>
+              <p class="text-muted-ax m-0 fs-16 fs-16">Integrates with AD/LDAP, SAML, and OIDC. Proxy SSH/RDP/DB or
+                protect
+                internal web apps behind the bastion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- How it works -->
+  <div class="clearfix"></div>
+  <section id="architecture" class="py-5">
+    <div class="container">
+      <div class="text-uppercase small mb-2">How it fits together</div>
+      <h2 class="fw-bold mb-3">Reference Architecture</h2>
+      <div class="referenceArchitectureImage">
+        <img src="img/Reference-Architecture2.png" alt="" class="rounded-2xl">
+      </div>
+    </div>
+  </section>
+  <section id="how" class="section-pad how-bg position-relative">
+    <div class="container">
+      <div class="text-uppercase small mb-2">From request to verified access</div>
+      <h2 class="h1 fw-semibold">How it works</h2>
+      <div class="row g-3 mt-3">
+        <!-- Feature 1 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-fingerprint"></i></span>
+                <h3 class="h5 m-0">Enroll</h3>
+              </div>
+              <p class="text-muted-ax m-0 fs-16">User enrolls a face template with liveness detection and binds it to
+                their enterprise identity.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-lightning-charge"></i></span>
+                <h3 class="h5 m-0">Request Access</h3>
+              </div>
+              <p class="text-muted-ax m-0 fs-16">User hits the bastion (web/CLI). Services remain hidden until
+                verification passes.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-globe2"></i></span>
+                <h3 class="h5 m-0">Verify</h3>
+              </div>
+              <p class="text-muted-ax m-0 fs-16">Face match + policy checks (role, device posture, time, geo). No
+                password or OTP.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-globe2"></i></span>
+                <h3 class="h5 m-0">Broker Session</h3>
+              </div>
+              <p class="text-muted-ax m-0 fs-16">Bastion issues short‑lived credentials, opens target port, and proxies
+                the session.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-globe2"></i></span>
+                <h3 class="h5 m-0">Audit</h3>
+              </div>
+              <p class="text-muted-ax m-0 fs-16">Every action is logged; optional session recording for high‑risk roles.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-animate>
+          <div class="card border-ax rounded-2xl">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <span class="icon-bubble"><i class="bi bi-globe2"></i></span>
+                <h3 class="h5 m-0">Revoke</h3>
+              </div>
+              <p class="text-muted-ax m-0 fs-16">Access auto‑expires; kill‑switch & step‑up prompts on policy changes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="clearfix"></div>
+  <section id="demo" class="container py-5">
+    <h2 class="fw-bold mb-3">Try the simulated flow</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card bg-card shadow-lg rounded-2xl">
+          <div class="card-header bg-transparent border-0">
+            <div class="d-flex align-items-center gap-2 fw-semibold py-2 ">
+              <i class="bi bi-camera btn-icons text-muted-ax"></i>
+              <div class="title-ax">Face Sign‑In (Demo)<br><span class="small">No real camera or biometrics
+                  used</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="rounded-3xl camera-live-box fl-column flex flex-items-center overflow-hidden position-relative"
+              style="background: #0b1220;">
+              <div class="rounded-circle pulseAnimate"
+                style="width:144px;height:144px;border:4px solid rgba(255,255,255,.7);margin-bottom: 5rem;background: #fff;display: flex;align-items: center;justify-content: center;">
+                <img src="img/face-scanner.gif" alt="" style="width: 100px;z-index: 1;">
+                <span style="--i:0"></span>
+                <span style="--i:1"></span>
+                <span style="--i:2"></span>
+              </div>
+            </div>
+            <div class="mt-3 mb-3 small">
+              <i class="bi bi-patch-check text-success mr-1"></i>
+              <span>Policy check: device posture, geofence, time window ✓</span>
+            </div>
+            <div class="d-flex mb-2">
+              <a href="#" class="btn dream-btn mt-sm-15 iq-video"> <i class="bi-box-arrow-in-right me-1"></i> Start
+                Face Sign-In (Simulated) </a>
+              <a href="#" class="btn btn-outline-light text-black">Toggle Policy Outcome</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="info-card h-100 rounded-2xl">
+          <h5>What you're seeing</h5>
+          <ul>
+            <li>The widget mimics the UX but does not capture or store any biometric data.</li>
+            <li>Production requires a vetted biometric SDK (ISO/IEC 30107-3 PAD compliant) with liveness checks.</li>
+            <li>Bind verified identity to enterprise SSO (SAML/OIDC/AD) and enforce policies at the bastion.</li>
+          </ul>
+          <div class="tip-box">
+            Tip: Replace this card with your real provider's drop-in component when ready.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section id="faq" class="container py-5">
+    <h2 class="fw-bold mb-3">Frequently asked questions</h2>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <details class="faq-card">
+          <summary>Is the facial sign-in here real?</summary>
+          <p class="small text-white-50">This is just a safe simulation...</p>
+        </details>
+      </div>
+      <div class="col-md-6">
+        <details class="faq-card">
+          <summary>What does the bastion protect?</summary>
+          <p class="small text-white-50">It sits between users and private resources...</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-bg">
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area bg-img">
+
+      <div class="footer-content-area spec">
+        <div class="container">
+          <div class="row ">
+            <div class="col-12 col-lg-4 col-md-6">
+              <div class="footer-copywrite-info">
+                <!-- Copywrite -->
+                <div class="copywrite_text fadeInUp" data-wow-delay="0.2s">
+                  <div class="footer-logo">
+                    <a href="#"><img src="img/icon1.png" alt="logo"> <span>Axiam</span></a>
+                  </div>
+                  <p>Axiam is a cybersecurity company based in Toronto, Canada, specializing in Facial
+                    Sign-In and access management solutions. Using advanced facial recognition
+                    technology, we streamline the login experience, eliminate cybersecurity risks,
+                    and protect your IT infrastructure from unauthorized access.</p>
+                </div>
+                <!-- Social Icon -->
+                <div class="footer-social-info fadeInUp" data-wow-delay="0.4s">
+                  <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                  <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i></a>
+                  <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                  <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                  <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-3 col-md-6">
+              <div class="contact_info_area d-sm-flex justify-content-between">
+                <!-- Content Info -->
+                <div class="contact_info mt-x text-center fadeInUp" data-wow-delay="0.3s">
+                  <h5>COMPANY</h5>
+                  <a href="#">
+                    <p>About Us</p>
+                  </a>
+                  <a href="index-2.html">
+                    <p>Facial Sign In</p>
+                  </a>
+                  <a href="AxiamBastion.html">
+                    <p>Axiam Bastion</p>
+                  </a>
+                  <a href="#">
+                    <p>Help</p>
+                  </a>
+                  <a href="#">
+                    <p>Term of Use</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-2 col-md-6 ">
+              <!-- Content Info -->
+              <div class="contact_info_area d-sm-flex justify-content-between">
+                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.2s">
+                  <h5 class="mb-4">DOWNLOAD</h5>
+                  <a href="#" class="my-2 d-block">
+                    <img src="img/google-play-download-android-app-logo-png-transparent.png" alt=""
+                      style="max-width: 150px;">
+                  </a>
+                  <a href="#" class="my-2 d-block">
+                    <img src="img/Download_on_the_App_Store_Badge.png" alt="" style="max-width: 150px;">
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-lg-3 col-md-6 ">
+              <div class="contact_info_area d-sm-flex justify-content-between">
+                <!-- Content Info -->
+                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.4s">
+                  <h5>CONTACT US</h5>
+                  <p>Address: 175 Longwood Rd S Suite B21, Hamilton, ON L8P 0A1</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+  </div>
+
+  <div class="modal fade" id="bookADemo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Book A Demo</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-demo px-3">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="mb-2">Company Email <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="mb-2">First Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="mb-2">Last Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="mb-2">Company Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="mb-2">Phone <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="mb-2">Company Size <span class="text-danger">*</span></label>
+                  <select name="" id="" class="form-control">
+                    <option value="1-10">1-10</option>
+                    <option value="1-10">11-50</option>
+                    <option value="1-10">51-200</option>
+                    <option value="1-10">201-1000</option>
+                    <option value="1-10">1001+</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="mb-2">What product you are interested in? <span class="text-danger">*</span></label>
+                  <select name="" id="" class="form-control">
+                    <option value="Journeys">Journeys (Marketing Automation)</option>
+                    <option value="Data Pipelines">Data Pipelines (CDP)</option>
+                    <option value="Journeys and Data Pipelines">Journeys and Data Pipelines</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="mb-2">Evaluation for <span class="text-danger">*</span></label>
+                  <select name="" id="" class="form-control">
+                    <option value="business">My business</option>
+                    <option value="agency">I am with a marketing agency</option>
+                    <option value="customer">I am a current customer</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="mb-2">Anything else?</label>
+                  <textarea name="input_12" id="input_7_12" class="form-control"
+                    placeholder="Here, feel free to share any business goals you hope to achieve or challenges you would like to overcome by using Customer.io."
+                    aria-invalid="false" rows="5"></textarea>
+                  <span style="font-size: 11px; clear: both; margin-top: 3px; display: block;" id="word-count"
+                    class="gp-word-count-label">Max: 1000 words</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <button type="submit" class="btn dream-btn w-100">Request Demo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="videoAxiam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-xl-down" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="" id="video" allow="autoplay; encrypted-media"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ########## All JS ########## -->
+  <!-- jQuery js -->
+  <script src="js/jquery.min.js"></script>
+  <!-- Popper js -->
+  <script src="js/popper.min.js"></script>
+  <!-- Bootstrap js -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- All Plugins js -->
+  <!-- script js -->
+  <script src="js/wow.min.js"></script>
+  <script src="js/script.js"></script>
+
+  <script>
+    $(document).ready(function () {
+
+      new WOW().init();
+
+      $("input[name$='pricing']").click(function () {
+        var value = $(this).val();
+
+        $(".per").hide();
+        $(".per-" + value).show();
+      });
+
+      $('.navbarToggler').click(function () {
+        $('.classy-menu').addClass('menu-on');
+      });
+      $('.classycloseIcon').click(function () {
+        $('.classy-menu').removeClass('menu-on');
+      });
+    });
+  </script>
+
+</body>
+
+</html>

@@ -9,13 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title>Axiam</title>
+    <title>FaceLock Encrypt</title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/icon1.png">
 
     <!-- Core Stylesheet -->
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -48,8 +49,13 @@
 
         .classy-menu ul.dropdown-menu.sub-classynav li a {
             color: #1b1b1b;
+            font-size: 16px;
+            white-space: nowrap;
+            height: auto;
         }
-
+        .classy-menu ul.dropdown-menu.sub-classynav li a:hover {
+            color: #18d3ff;
+        }
         .subscribe-section {
             display: flex;
             align-items: center;
@@ -596,6 +602,156 @@
         .feature-title i {
             font-size: 30px;
         }
+
+        .bg-card {
+            background: rgb(222 246 246 / 30%);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .border-ax {
+            border: 1px solid #eee;
+            margin-top: 3rem;
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+
+        .rounded-3xl {
+            border-radius: 1.5rem;
+        }
+
+        .btn-ax:hover {
+            filter: brightness(0.95);
+            color: #0b1220;
+        }
+
+        .badge-ax {
+            background-color: #80DFFF;
+            color: #0b1220;
+            border: 0;
+        }
+
+        .hero-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            /* background:
+            radial-gradient(1200px 600px at 80% -10%, rgba(58, 211, 216, 0.13), transparent 60%),
+            linear-gradient(180deg, rgba(0, 90, 156, 0.4), transparent); */
+            z-index: 0;
+            background: linear-gradient(180deg, #daf5f5 0%, #fff 100%);
+        }
+
+        section.section-pad {
+            padding: 4rem 0;
+        }
+
+        @media (min-width: 768px) {
+            section.section-pad {
+                padding: 6rem 0;
+            }
+        }
+
+        .camera-gradient {
+            background: linear-gradient(134deg, #18d3ff, #061540);
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .flex-items-center {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fl-column {
+            flex-direction: column;
+        }
+
+        .camera-live-box {
+            padding-top: 6rem;
+        }
+
+        .fw-semibold {
+            font-weight: 600;
+        }
+
+        .btn-icons {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 1rem;
+            background: hsl(224.48deg 82.86% 13.73%);
+            color: #18d3ff;
+            font-size: 20px;
+        }
+
+        .pulseAnimate {
+            position: relative;
+        }
+
+        .pulseAnimate span {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            opacity: 0.8;
+            animation: pulseAnimate 4s ease-out infinite;
+            animation-delay: calc(1s * var(--i));
+        }
+
+        @keyframes pulseAnimate {
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        .icon-bubble {
+            font-size: 20px;
+            color: #18d3ff;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #061540;
+            border-radius: 1rem;
+        }
+        .card-item {
+            border: 1px solid #18d3ff;
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .bg-card-2 {
+            background: #061540;
+            color: #18d3ff;
+            border: 0;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        .bg-card-2 p {
+            color: #ffffff;
+        }
+        .fs-24 {
+            font-size: 24px;
+        }
     </style>
 
 </head>
@@ -616,8 +772,8 @@
                 <nav class="classy-navbar justify-content-between" id="dreamNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="#"><img src="img/icon1.png" alt="logo" width="35"> <span
-                            class="">Axiam Facial Sign-In</span></a>
+                    <a class="nav-brand" href="#"><img src="img/icon1.png" alt="logo" width="35"> <span class="">Axiam
+                            Facial Sign-In</span></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -667,29 +823,55 @@
 
     <!-- ##### Welcome Area Start ##### -->
 
-    <section class="relative py-5 bg-f5fff" id="home">
-        <!-- Hero Content -->
-        <div class="hero-section-content" style="padding: 150px 0 100px;">
-
-            <div class="container ">
-                <div class="row align-items-center">
-                    <div class="col-md-6 mb-5 mb-md-0">
-                        <h1 class="hero-title mb-2">
-                            <span>Facial</span> Sign In
-                        </h1>
-                        <h2 class="hero-slogan-title mb-4">Sign in with just one look<br> — no username, no password, no
-                            MFA.</h2>
-                        <p class="mb-4">
-                            How does Facial Sign-In stop cybersecurity threats? Think of it this way—offline, a bad
-                            actor is a bank robber; online, they’re a hacker. Both hide their faces. Facial verification
-                            unmasks them, blocking 99% of cyber threats—the remainder depends on the device’s own
-                            security.
-                        </p>
-                        <a href="#" class="btn dream-btn mt-sm-15">Get Started</a>
+    <section class="hero-wrap hero-bg section-pad position-relative">
+        <div class="container position-relative" style="z-index:1;">
+            <div class="row align-items-center g-5">
+                <div class="col-md-6" data-animate>
+                    <span class="badge badge-ax mb-3">Passwordless • Biometric • SaaS</span>
+                    <h1 class="hero-title display-5 fw-bold ">Sign in with your face.
+                        <span class="d-block fw-normal text-muted-ax mt-2 hero-slogan-title">Secure. Simple.
+                            Seamless.</span>
+                    </h1>
+                    <p class="mt-3 text-muted-ax pe-lg-5">
+                        Axiam’s Facial Sign‑In as a Service replaces passwords with real identity. Fast, private, and
+                        enterprise‑grade—with live detection and encrypted templates by design.
+                    </p>
+                    <div class="mt-4 d-flex flex-wrap gap-2">
+                        <a class="btn dream-btn mt-sm-15">Start free</a>
+                        <a href="#" class="btn btn-default mt-sm-15 iq-video"
+                            data-src="https://www.youtube.com/embed/ixDgBF9jDMY?si=OEI__K4qXkBxX08v"
+                            data-bs-toggle="modal" data-bs-target="#videoAxiam">Watch demo</a>
                     </div>
-                    <div class="col-md-6 mb-5 mb-md-0">
-                        <div class="img-container">
-                            <img src="img/security.png" alt="">
+                    <div class="mt-3 d-flex flex-wrap gap-4 small text-muted-ax">
+                        <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-clock"></i> Under 2s
+                            average login</span>
+                        <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-shield-lock"></i> GDPR/CCPA
+                            ready</span>
+                    </div>
+                </div>
+                <div class="col-md-6" data-animate>
+                    <div class="card bg-card shadow-lg" style="margin-top: 5rem;">
+                        <div class="card-header bg-transparent border-0">
+                            <div class="d-flex align-items-center gap-2 fw-semibold py-2 "><i
+                                    class="bi bi-camera btn-icons text-muted-ax"></i> Live Identity Check</div>
+                        </div>
+                        <div class="card-body">
+                            <div
+                                class="rounded-3xl camera-live-box fl-column flex flex-items-center overflow-hidden camera-gradient position-relative">
+                                <div class="rounded-circle pulseAnimate"
+                                    style="width:144px;height:144px;border:4px solid rgba(255,255,255,.7);margin-bottom: 5rem;background: #fff;display: flex;align-items: center;justify-content: center;">
+                                    <img src="img/face-scanner.gif" alt="" style="width: 100px;z-index: 1;">
+                                    <span style="--i:0"></span>
+                                    <span style="--i:1"></span>
+                                    <span style="--i:2"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <div
+                                        class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white text-dark small">
+                                        <i class="bi bi-fingerprint"></i> Verifying…
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -700,336 +882,276 @@
 
     <div class="clearfix"></div>
 
-
-    <section class="about-us-area section-padding-0-100">
-
-        <div class="container-fluid">
-            <div class="advantage-wrapper section-padding">
-                <div class="container">
-                    <div class="row ">
-                        <div class="col-12 col-lg-6 col-sm-12">
-                            <div class="img-container wow fadeInUp" data-wow-delay="0.3s">
-                                <img src="img/facial-encryption.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-lg-6 offset-lg-0 col-md-10 offset-md-1">
-                            <div class="who-we-contant mt-s">
-
-                                <h4 class="wow fadeInU text-primary wow fadeInUp" data-wow-delay="0.3s">Enterprise
-                                    Facial Sign In
-                                </h4>
-                                <h5 class="wow fadeInUp text-secondary wow fadeInUp" data-wow-delay="0.3s">Empower Your
-                                    Enterprise with Effortless, Secure Access
-                                </h5>
-                                <ul class="checklist">
-                                    <li class="">
-                                        <img src="img/checkmarkIcon.svg" class="fadeInUp wow" data-wow-delay="0.4s"
-                                            alt="icon">
-                                        <p class="fadeInUp wow" data-wow-delay="0.4s">
-                                            Designed to power a diverse ecosystem, delivering a unified access
-                                            experience across on-premises, cloud, and hybrid environments.</p>
-                                    </li>
-                                    <li class="">
-                                        <img src="img/checkmarkIcon.svg" class="fadeInUp wow" data-wow-delay="0.4s"
-                                            alt="icon">
-                                        <p class="fadeInUp wow" data-wow-delay="0.4s">Minimize login hassles, maximize
-                                            business momentum.
-                                        </p>
-                                    </li>
-                                    <li class="">
-                                        <img src="img/checkmarkIcon.svg" class="fadeInUp wow" data-wow-delay="0.4s"
-                                            alt="icon">
-                                        <p class="fadeInUp wow" data-wow-delay="0.4s">Only authorized users with
-                                            verified facial identity can log in—keeping your enterprise protected.</p>
-                                    </li>
-                                    <li class="">
-                                        <img src="img/checkmarkIcon.svg" class="fadeInUp wow" data-wow-delay="0.4s"
-                                            alt="icon">
-                                        <p class="fadeInUp wow" data-wow-delay="0.4s">Enables strong integration with
-                                            major protocols and systems, including Active Directory, LDAP, ADFS, SAML,
-                                            OpenID Connect, and OAuth 2.</p>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="about-us-area section-padding-0-100">
-
-        <div class="container-fluid">
-            <div class="advantage-wrapper section-padding">
-                <div class="container">
-                    <div class="row ">
-                        <div class="col-12 col-lg-6 col-sm-12">
-                            <div class="img-container wow fadeInUp" data-wow-delay="0.3s">
-                                <img src="img/facial-recognition-collage-concept.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-lg-6 offset-lg-0 col-md-10 offset-md-1">
-                            <div class="who-we-contant mt-s">
-
-                                <h4 class="wow fadeInUp text-primary wow fadeInUp" data-wow-delay="0.3s">One Login for
-                                    All
-                                </h4>
-                                <h5 class="wow fadeInUp text-secondary wow fadeInUp" data-wow-delay="0.3s">One Identity
-                                    Unlocks Every Access
-                                </h5>
-                                <ul class="checklist">
-                                    <li class="">
-                                        <img src="img/checkmarkIcon.svg" class="fadeInUp wow" data-wow-delay="0.4s"
-                                            alt="icon">
-                                        <p class="fadeInUp wow" data-wow-delay="0.4s">
-                                            Provides a reliable and accessible login experience on every device and app,
-                                            tailored to your unique business.</p>
-                                    </li>
-                                    <li class="">
-                                        <img src="img/checkmarkIcon.svg" class="fadeInUp wow" data-wow-delay="0.4s"
-                                            alt="icon">
-                                        <p class="fadeInUp wow" data-wow-delay="0.4s">Creates a seamless login
-                                            experience free from username and password security risks.
-                                        </p>
-                                    </li>
-                                    <li class="">
-                                        <img src="img/checkmarkIcon.svg" class="fadeInUp wow" data-wow-delay="0.4s"
-                                            alt="icon">
-                                        <p class="fadeInUp wow" data-wow-delay="0.4s">
-                                            More than just convenience, it’s about fostering a safer and more
-                                            trustworthy digital world free from fakes.</p>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="features-section">
+    <section id="features" class="section-pad">
         <div class="container">
-            <h2 class="features-title text-secondary wow fadeInUp" data-wow-delay="0.3s">Boost Your Business with <br>
-                Axiam’s Facial Sign-In Technology</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="feature-card  wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-icon text-primary">
-                            <i class="fal fa-user-check"></i>
-                        </div>
-                        <div class="feature-title">Seamless Authentication</div>
-                        <div class="feature-text">
-                            Say goodbye to login frustration—one look replaces usernames, passwords, and MFA code
-                            entries.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card  wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-icon text-primary">
-                            <i class="fal fa-shield-check"></i>
-                        </div>
-                        <div class="feature-title">Enhanced Security</div>
-                        <div class="feature-text">
-                            Effectively removes risks from phishing, keylogging, MitM, SIM swapping, credential
-                            stuffing, social engineering, and malware/spyware.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card  wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-icon text-primary">
-                            <i class="fal fa-cogs"></i>
-                        </div>
-                        <div class="feature-title">Easy Integration</div>
-                        <div class="feature-text">
-                            Ready-to-use APIs and code support major protocols such as Active Directory, LDAP, ADFS,
-                            SAML, OpenID Connect, and OAuth 2.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="upgrade-section ">
-        <div class="container">
-            <h2 class="features-title text-secondary mb-3 wow fadeInUp" data-wow-delay="0.3s">Facial Sign-In: Your
-                Instant Cybersecurity Upgrade</h2>
-            <p class="features-subtitle text-center mb-5 wow fadeInUp" data-wow-delay="0.3s">Transform your security
-                with Axiam’s Facial Sign-In solution—innovative identity verification that ensures secure and efficient
-                access management across multiple endpoints.</p>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="upgrade-card wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-title"><i class="fal fa-shield-check text-primary mr-2"></i> Secure your
-                            Workforce</div>
-                        <div class="upgrade-icon-right  text-primary">
-                            <i class="fas fa-chevron-square-right"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="upgrade-card wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-title"><i class="fal fa-user-shield text-primary mr-2"></i> Implement Zero
-                            Trust</div>
-                        <div class="upgrade-icon-right  text-primary">
-                            <i class="fas fa-chevron-square-right"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="upgrade-card wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-title"><i class="fal fa-handshake-alt text-primary mr-2"></i> Transaction
-                            Authentication</div>
-                        <div class="upgrade-icon-right  text-primary">
-                            <i class="fas fa-chevron-square-right"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="upgrade-card wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-title"><i class="fal fa-arrow-circle-up text-primary mr-2"></i> Enhance
-                            Customer Digital Experience</div>
-                        <div class="upgrade-icon-right  text-primary">
-                            <i class="fas fa-chevron-square-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="about-us-area trial-bg section-padding-100 clearfix">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-6 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
-                    <img src="img/core-img/trial.png" draggable="false" alt="" style="max-width: 500px;width: 100%;">
-                </div>
-                <div class="col-12 col-lg-6 col-sm-12">
-                    <div class="who-we-contant mt-s">
-                        <h4 class="w-text wow fadeInUp" data-wow-delay="0.2s"> Axiam's Github Repository</h4>
-                        <p class="w-text wow fadeInUp" data-wow-delay="0.3s">Join Axiam’s GitHub Repository Community
-                            for integration support and to share your experiences with our Facial Sign In
-                            authentication.</p>
-                        <div class="subscribe-section has-shadow mt-30  wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="input-wrapper">
-                                <input type="email" placeholder="Enter your Email">
+            <h2 class="h1 fw-semibold">Why choose Facial Sign‑In?</h2>
+            <p class="text-muted-ax mt-2 col-lg-7">Reduce risk and remove friction. Replace passwords and weak MFA with
+                verified identity at the front door.</p>
+            <div class="row g-3 mt-3">
+                <!-- Feature 1 -->
+                <div class="col-sm-6 col-lg-4" data-animate>
+                    <div class="card border-ax rounded-2xl">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <span class="icon-bubble"><i class="bi bi-fingerprint"></i></span>
+                                <h3 class="h5 m-0">Passwordless Security</h3>
                             </div>
-                            <button class="btn dream-btn mt-sm-15 ml-15">Get Started</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="pricing section-padding-100-70" style="display: none;">
-
-        <div class="container">
-            <div class="section-heading text-center">
-                <div class="top-sec-h wow fadeInUp" data-wow-delay="0.2s">Our Pricing Plans</div>
-                <div class="d-block mt-4">
-                    <div class="btn-frame mb-4">
-                        <input id="toggle-on" class="toggle toggle-left" name="pricing" value="month" type="radio"
-                            checked>
-                        <label for="toggle-on" class="btn left">Monthly</label>
-                        <input id="toggle-off" class="toggle toggle-right" name="pricing" value="year" type="radio">
-                        <label for="toggle-off" class="btn rigth">Yearly</label>
-                    </div>
-                </div>
-                <p>You want to use the <span class="d-blue">Enterprise Plan</span>. Contact Us</p>
-            </div>
-            <div class="row no-gutters">
-                <!-- Single Table -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_price_table_content text-center wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="price_table_text">
-                            <h5>Free</h5>
-                            <h1>0$</h1>
-                            <p>&nbsp;</p>
-                        </div>
-                        <div class="table_text_details">
-                            <p>2 Servers</p>
-                            <p>5 Developers</p>
-                            <p>1 Admins </p>
-                            <p style="text-decoration: line-through; color: gray;">Pull & save data to your own cloud
-                                storage</p>
-                            <p>Unlimited Facial Scan </p>
-                            <p>Instant Access Report</p>
-                            <p>Email Technical Support</p>
-                        </div>
-                        <div class="table_btn mt-50">
-                            <a href="#" class="btn dream-btn">Get Started</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Table -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_price_table_content active text-center wow fadeIn" data-wow-delay="0.4s">
-                        <div class="price_table_text">
-                            <h5>Basic</h5>
-                            <h1>
-                                <span class="per per-month">$299</span>
-                                <span class="per per-year" style="display: none;">$2,500</span>
-                            </h1>
-                            <p>
-                                <span class="per per-month">Per Month</span>
-                                <span class="per per-year" style="display: none;">Per Year</span>
+                            <p class="text-muted-ax m-0">No credentials to steal, guess, or phish—your face is the key.
                             </p>
                         </div>
-                        <div class="table_text_details">
-                            <p>10 Servers</p>
-                            <p>100 Developers</p>
-                            <p>5 Admins </p>
-                            <p>Pull & save data to your own cloud storage</p>
-                            <p>Unlimited Facial Scan </p>
-                            <p>Instant Access Report</p>
-                            <p>Email/Phone Technical Support</p>
-                        </div>
-                        <div class="table_btn mt-50">
-                            <a href="#" class="btn dream-btn">Get Started</a>
+                    </div>
+                </div>
+                <!-- Feature 2 -->
+                <div class="col-sm-6 col-lg-4" data-animate>
+                    <div class="card border-ax rounded-2xl">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <span class="icon-bubble"><i class="bi bi-lightning-charge"></i></span>
+                                <h3 class="h5 m-0">Frictionless Login</h3>
+                            </div>
+                            <p class="text-muted-ax m-0">Authenticate in under two seconds with a single glance.</p>
                         </div>
                     </div>
                 </div>
-                <!-- Single Table -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_price_table_content text-center wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="price_table_text">
-                            <h5>Pro</h5>
-                            <h1>
-                                <span class="per per-month">$1,299</span>
-                                <span class="per per-year" style="display: none;">$12,000</span>
-                            </h1>
-                            <p>
-                                <span class="per per-month">Per Month</span>
-                                <span class="per per-year" style="display: none;">Per Year</span>
-                            </p>
-                        </div>
-                        <div class="table_text_details">
-                            <p>100 Servers</p>
-                            <p>1000 Developers</p>
-                            <p>50 Admins </p>
-                            <p>Pull & save data to your own cloud storage</p>
-                            <p>Unlimited Facial Scan </p>
-                            <p>Instant Access Report</p>
-                            <p>Email/Phone Technical Support</p>
-                        </div>
-                        <div class="table_btn mt-50">
-                            <a href="#" class="btn dream-btn">Get Started</a>
+                <!-- Feature 3 -->
+                <div class="col-sm-6 col-lg-4" data-animate>
+                    <div class="card border-ax rounded-2xl">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <span class="icon-bubble"><i class="bi bi-globe2"></i></span>
+                                <h3 class="h5 m-0">Works Everywhere</h3>
+                            </div>
+                            <p class="text-muted-ax m-0">Web, mobile, and desktop with global scalability.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
+    <!-- How it works -->
+    <section id="how" class="section-pad how-bg position-relative">
+        <div class="container">
+            <h2 class="h1 fw-semibold">How it works</h2>
+            <div class="row g-3 mt-2">
+                <div class="col-md-4" data-animate>
+                    <div class="p-4 border-ax rounded-2xl h-100">
+                        <div class="icon-bubble mb-2"><i class="bi bi-camera"></i></div>
+                        <h3 class="h5">Capture</h3>
+                        <p class="text-muted-ax mb-3">User looks at the camera; live detection confirms presence.</p>
+                        <div class="d-flex flex-wrap gap-3 small text-muted-ax">
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-camera"></i><span
+                                    class="d-none d-sm-inline">Live Detection</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-cpu"></i><span
+                                    class="d-none d-sm-inline">AI Matching</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-lock"></i><span
+                                    class="d-none d-sm-inline">Encrypted Templates</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-key"></i><span
+                                    class="d-none d-sm-inline">Keyless Access</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-animate>
+                    <div class="p-4 border-ax rounded-2xl h-100">
+                        <div class="icon-bubble mb-2"><i class="bi bi-cpu"></i></div>
+                        <h3 class="h5">Verify</h3>
+                        <p class="text-muted-ax mb-3">AI compares encrypted templates—no raw images stored.</p>
+                        <div class="d-flex flex-wrap gap-3 small text-muted-ax">
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-camera"></i><span
+                                    class="d-none d-sm-inline">Live Detection</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-cpu"></i><span
+                                    class="d-none d-sm-inline">AI Matching</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-lock"></i><span
+                                    class="d-none d-sm-inline">Encrypted Templates</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-key"></i><span
+                                    class="d-none d-sm-inline">Keyless Access</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-animate>
+                    <div class="p-4 border-ax rounded-2xl h-100">
+                        <div class="icon-bubble mb-2"><i class="bi bi-shield-lock"></i></div>
+                        <h3 class="h5">Grant</h3>
+                        <p class="text-muted-ax mb-3">Access token issued; Bastion Host opens for verified faces only.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 small text-muted-ax">
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-camera"></i><span
+                                    class="d-none d-sm-inline">Live Detection</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-cpu"></i><span
+                                    class="d-none d-sm-inline">AI Matching</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-lock"></i><span
+                                    class="d-none d-sm-inline">Encrypted Templates</span></span>
+                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-key"></i><span
+                                    class="d-none d-sm-inline">Keyless Access</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="clearfix"></div>
+    <!-- Security -->
+    <section id="security" class="section-pad">
+        <div class="container">
+            <div class="row g-4 align-items-start">
+                <div class="col-md-6" data-animate>
+                    <h2 class="h1 fw-semibold">Security at the core</h2>
+                    <p class="text-muted-ax mt-2">Designed to defeat phishing, credential reuse, and MFA fatigue by
+                        enforcing real identity at a single fortified entry point.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
+                            AES‑256 in transit & at rest</li>
+                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
+                            GDPR/CCPA compliant data flows</li>
+                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i> No
+                            password storage, no reset risk</li>
+                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
+                            Signed tokens, short‑lived sessions</li>
+                        <li class="d-flex gap-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
+                            SIEM/SOC integrations for audit</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="card bg-card-2 border-ax h-100">
+                        <div class="card-header bg-transparent border-0">
+                            <div class="d-flex align-items-center gap-2 fw-semibold fs-24"><i class="bi bi-hdd-network"></i>
+                                Bastion Host Gateway</div>
+                        </div>
+                        <div class="card-body text-muted-ax">
+                            <p>Funnel all access through a single, hardened Bastion Host. Only verified faces receive
+                                access tokens, drastically reducing attack surface and making unauthorized attempts easy
+                                to detect and block.</p>
+                            <div class="row g-2 small mt-3">
+                                <div class="col-6">
+                                    <div class="card-item rounded-2 py-2 px-2">MFA Phishing Resistant</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="card-item rounded-2 py-2 px-2">Audit‑ready Access Logs</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="card-item rounded-2 py-2 px-2">Least‑Privilege Policies</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="card-item rounded-2 py-2 px-2">Network Segmentation</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Pricing -->
+    <section id="pricing" class="section-pad position-relative">
+        <div class="position-absolute top-0 start-0 w-100 h-100">
+        </div>
+        <div class="container position-relative" style="z-index:1;">
+            <h2 class="h1 fw-semibold">Simple Pricing</h2>
+            <p class="text-muted-ax mt-2">Start free. Scale as you grow. Enterprise options for full control and
+                compliance.</p>
+            <div class="row g-3 mt-2">
+                <!-- Starter -->
+                <div class="col-md-4" data-animate>
+                    <div class="card bg-card border-ax h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h3 class="h5 m-0">Starter</h3>
+                            </div>
+                            <div class="display-6 fw-bold mt-2">$0<span class="fs-6 fw-medium text-muted-ax">/mo</span>
+                            </div>
+                            <div class="text-muted-ax">For pilots &amp; POCs</div>
+                            <ul class="list-unstyled mt-3">
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> 1,000 verifications/month</li>
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> Email support</li>
+                                <li class="d-flex gap-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
+                                    Hosted SDK</li>
+                            </ul>
+                            <a class="btn dream-btn mt-sm-15  w-100 mt-3 ">Choose Starter</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Growth (highlight) -->
+                <div class="col-md-4" data-animate>
+                    <div class="card bg-card border-ax h-100 ring-accent">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h3 class="h5 m-0">Growth</h3>
+                                <span class="badge" style="background: #061540; color:#18d3ff;">Most
+                                    Popular</span>
+                            </div>
+                            <div class="display-6 fw-bold mt-2">$299<span
+                                    class="fs-6 fw-medium text-muted-ax">/mo</span></div>
+                            <div class="text-muted-ax">Scale securely</div>
+                            <ul class="list-unstyled mt-3">
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> 50,000 verifications/month</li>
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> SLA support</li>
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> Custom branding</li>
+                                <li class="d-flex gap-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
+                                    Web &amp; Mobile SDKs</li>
+                            </ul>
+                            <a class="btn dream-btn mt-sm-15  w-100 mt-3 ">Choose Growth</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Enterprise -->
+                <div class="col-md-4" data-animate>
+                    <div class="card bg-card border-ax h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h3 class="h5 m-0">Enterprise</h3>
+                            </div>
+                            <div class="display-6 fw-bold mt-2">Talk to us<span
+                                    class="fs-6 fw-medium text-muted-ax">&nbsp;</span></div>
+                            <div class="text-muted-ax">Compliance &amp; control</div>
+                            <ul class="list-unstyled mt-3">
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> SAML/SCIM</li>
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> On‑prem or VPC</li>
+                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle"
+                                        style="color: #18d3ff"></i> Dedicated cluster</li>
+                                <li class="d-flex gap-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
+                                    24/7 support</li>
+                            </ul>
+                            <a class="btn dream-btn mt-sm-15  w-100 mt-3 ">Choose Enterprise</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section-pad">
+        <div class="container">
+            <div class="rounded-3xl bg-gradient position-relative border-ax"
+                style="background: linear-gradient(90deg, rgba(15,23,42,.9), rgba(30,41,59,.9));">
+                <div class="row g-4 p-4 p-md-5 align-items-center">
+                    <div class="col-md-6" data-animate>
+                        <h3 class="h2 fw-semibold">Your face is the key. Ready to unlock seamless security?</h3>
+                        <p class="text-muted-ax mt-2">Spin up your tenant in minutes. Add our SDK, flip the switch, and
+                            retire passwords for good.</p>
+                        <div class="d-flex flex-wrap gap-2 mt-3">
+                            <a class="btn dream-btn mt-sm-15">Start free</a>
+                            <a class="btn btn-lg btn-outline-light border-opacity-25 text-black" style="font-size: 16px;">Talk to sales</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6" data-animate>
+                        <div class="position-relative border-ax rounded-2xl p-5 text-center" style="background: linear-gradient(134deg, #18d3ff, #061540);">
+                            <div class="position-relative d-inline-flex align-items-center gap-2 text-white"><i
+                                    class="bi bi-shield"></i> Bastion‑backed access only for verified faces</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="footer-bg">
         <!-- ##### Footer Area Start ##### -->
         <footer class="footer-area bg-img">
