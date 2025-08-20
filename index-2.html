@@ -596,6 +596,34 @@
         .feature-title i {
             font-size: 30px;
         }
+
+        .faq-card {
+            border: 1px solid rgb(219 219 219);
+            background: rgb(255 255 255);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-glow {
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .faq-card summary {
+            cursor: pointer;
+            font-weight: 500;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-card[open] {
+            background: rgba(255, 255, 255, 0.05);
+        }
     </style>
 
 </head>
@@ -617,7 +645,7 @@
 
                     <!-- Logo -->
                     <a class="nav-brand" href="#"><img src="img/icon1.png" alt="logo" width="35"> <span
-                            class="">Axiam Facial Sign-In</span></a>
+                            class="">Axiam</span></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -1027,6 +1055,117 @@
             </div>
         </div>
 
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container py-5">
+        <h2 class="fw-bold mb-3">Facial Sign-In FAQ</h2>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>What is Facial Sign-In?
+                        <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Facial Sign-In is a biometric authentication method that uses facial
+                        recognition to verify a user’s identity. Instead of typing usernames, passwords, or entering MFA
+                        codes, users simply look at their device’s camera to gain secure access.
+                    </p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>How does it work? <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Facial Sign-In uses advanced computer vision and AI algorithms to map and
+                        analyze unique facial features. The system creates an encrypted template of the user’s face
+                        during enrollment. At login, the live face is compared against the stored encrypted template to
+                        verify identity.</p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>Is it secure? <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Yes. Facial Sign-In eliminates common cyberattack methods such as phishing,
+                        keylogging, credential stuffing, and SIM-swapping. Because no password or OTP code is
+                        transmitted, attackers have nothing to steal. Additionally, live-detection prevents spoofing
+                        with photos or videos.
+                    </p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>Can it replace passwords and MFA?
+                        <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Yes. Facial Sign-In can act as a complete replacement for usernames,
+                        passwords, and even weak MFA methods like SMS codes. It provides a strong identity-based
+                        authentication at the very first point of access.
+                    </p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>What happens to my facial data? <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Your facial data is never stored as an image. Instead, an encrypted
+                        mathematical template is created, making it impossible to reverse-engineer into a photo. This
+                        data is encrypted end-to-end and stored securely according to compliance standards.
+                    </p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>Can hackers bypass it? <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Unlike passwords or tokens, facial templates cannot be stolen or shared. With
+                        built-in liveness detection, attackers cannot use photos, masks, or deepfakes to impersonate a
+                        user. This drastically reduces the chance of account compromise.</p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>What devices are supported? <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Facial Sign-In works on most modern devices equipped with a camera, including
+                        laptops, desktops with webcams, smartphones, and tablets. It can also integrate with enterprise
+                        systems, bastion hosts, and cloud platforms.
+                    </p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>How is it different from Face ID on a phone?
+                        <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Consumer phone Face ID is device-based, whereas enterprise Facial Sign-In
+                        works across platforms, applications, and networks. It provides centralized identity management,
+                        auditing, and compliance for businesses—far beyond single-device unlocking.
+                    </p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>What if my appearance changes (glasses, beard, haircut)? <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">Facial Sign-In systems are designed with tolerance for natural changes in
+                        appearance. Glasses, hats, or minor facial changes will not prevent recognition. If a major
+                        change occurs, you can re-enroll easily.</p>
+                </details>
+            </div>
+            <div class="col-md-6">
+                <details class="faq-card">
+                    <summary>What if I can’t use Facial Sign-In?
+
+                        <i class="bi bi-plus"></i>
+                    </summary>
+                    <p class="small mt-2">
+                        Accessibility is a priority. Organizations can enable backup methods such as secure hardware
+                        keys or admin-approved overrides for users who cannot use facial biometrics.
+                    </p>
+                </details>
+            </div>
+        </div>
     </section>
     <div class="clearfix"></div>
 

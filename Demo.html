@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bastion + Facial Sign-In — Simulation Flow</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" href="img/icon1.png">
     <!-- Bootstrap CSS -->
@@ -85,6 +85,7 @@
             background-color: #f8d7da;
             color: #842029;
         }
+
         .fs-25 {
             font-size: 25px;
         }
@@ -102,8 +103,10 @@
             </div>
             <div class="d-flex gap-2">
                 <button class="btn btn-primary btn-sm" id="startBtn"><i class="bi bi-play"></i> Start</button>
-                <button class="btn btn-outline-secondary btn-sm" id="pauseBtn" disabled><i class="bi bi-pause"></i> Pause</button>
-                <button class="btn btn-outline-secondary btn-sm" id="resetBtn" disabled><i class="bi bi-arrow-repeat"></i> Reset</button>
+                <button class="btn btn-outline-secondary btn-sm" id="pauseBtn" disabled><i class="bi bi-pause"></i>
+                    Pause</button>
+                <button class="btn btn-outline-secondary btn-sm" id="resetBtn" disabled><i
+                        class="bi bi-arrow-repeat"></i> Reset</button>
             </div>
         </div>
 
@@ -252,7 +255,7 @@
             $diagram.empty();
 
             steps.forEach(s => {
-            $diagram.append(`
+                $diagram.append(`
                 <div class="node diagram-step card text-center" id="node-${s.id}">
                 <div class="card-body">
                     <i class="bi ${s.icon} fs-25  mb-3"></i>

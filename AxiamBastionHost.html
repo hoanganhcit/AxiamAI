@@ -978,7 +978,8 @@
                 <span>Policy check: device posture, geofence, time window ✓</span>
               </div>
               <div class="d-flex mb-2">
-                <a href="Demo.html" class="btn dream-btn mt-sm-15 iq-video"> <i class="bi-box-arrow-in-right me-1"></i>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#simulationAxiamBastionHost"
+                  class="btn dream-btn mt-sm-15 iq-video"> <i class="bi-box-arrow-in-right me-1"></i>
                   START SIMULATION </a>
               </div>
             </div>
@@ -1208,7 +1209,6 @@
             <div class="d-flex mb-2">
               <a href="#" class="btn dream-btn mt-sm-15 iq-video"> <i class="bi-box-arrow-in-right me-1"></i> Start
                 Face Sign-In (Simulated) </a>
-              <a href="#" class="btn btn-outline-light text-black">Toggle Policy Outcome</a>
             </div>
           </div>
         </div>
@@ -1248,7 +1248,8 @@
         <details class="faq-card">
           <summary>How does facial sign-in improve security compared to passwords or MFA? <i class="bi bi-plus"></i>
           </summary>
-          <p class="small mt-2">Passwords can be stolen, and MFA codes can be phished or intercepted. Facial sign-in verifies
+          <p class="small mt-2">Passwords can be stolen, and MFA codes can be phished or intercepted. Facial sign-in
+            verifies
             the actual person at the gateway using live detection and encrypted biometric templates, making credential
             theft and MFA bypass attacks ineffective.</p>
         </details>
@@ -1257,7 +1258,8 @@
         <details class="faq-card">
           <summary>What happens if someone tries to spoof a face with a photo or video? <i class="bi bi-plus"></i>
           </summary>
-          <p class="small mt-2">Advanced liveness detection checks for movement, depth, and real-time behavior. This prevents
+          <p class="small mt-2">Advanced liveness detection checks for movement, depth, and real-time behavior. This
+            prevents
             spoof attempts with photos, masks, or videos. Spoofed inputs will be rejected before access is granted.
           </p>
         </details>
@@ -1285,7 +1287,8 @@
         <details class="faq-card">
           <summary>Can this replace usernames, passwords, and MFA entirely? <i class="bi bi-plus"></i>
           </summary>
-          <p class="small mt-2">Yes. Facial Sign-In acts as the verified identity check at the bastion host entry point. This
+          <p class="small mt-2">Yes. Facial Sign-In acts as the verified identity check at the bastion host entry point.
+            This
             removes the need for traditional credentials, eliminating phishing, credential stuffing, SIM swapping, and
             keylogging risks.</p>
         </details>
@@ -1294,7 +1297,8 @@
         <details class="faq-card">
           <summary>What happens if the camera or environment fails (e.g., poor lighting)? <i class="bi bi-plus"></i>
           </summary>
-          <p class="small mt-2">The system alerts the user to improve conditions (better lighting, proper face alignment).
+          <p class="small mt-2">The system alerts the user to improve conditions (better lighting, proper face
+            alignment).
             Fallback policies can be configured by the organization, such as restricted access modes or admin approval.
           </p>
         </details>
@@ -1311,7 +1315,8 @@
         <details class="faq-card">
           <summary>Can it be used for remote access or only on-site? <i class="bi bi-plus"></i>
           </summary>
-          <p class="small mt-2">Both. Employees can authenticate remotely through a secure bastion host gateway or on-site
+          <p class="small mt-2">Both. Employees can authenticate remotely through a secure bastion host gateway or
+            on-site
             for internal infrastructure, maintaining consistent identity verification everywhere.</p>
         </details>
       </div>
@@ -1530,6 +1535,138 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="simulationAxiamBastionHost" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen" role="document">
+      <div class="modal-content">
+        <div class="container py-4">
+          <!-- Header -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+            <div>
+              <h1 class="h4 fw-bold">Bastion Host + Facial Sign-In — Simulation Flow</h1>
+              <p class="text-muted small">Demo the end-to-end, passwordless access path with liveness, token binding,
+                and zero-trust bastion policy.</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-primary btn-sm" id="startBtn"><i class="bi bi-play"></i> Start</button>
+              <button class="btn btn-outline-secondary btn-sm" id="pauseBtn" disabled><i class="bi bi-pause"></i>
+                Pause</button>
+              <button class="btn btn-outline-secondary btn-sm" id="resetBtn" disabled><i class="bi bi-arrow-repeat"></i>
+                Reset</button>
+                <button class="btn btn-danger btn-sm" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x"></i>
+                Close Simulation</button>
+            </div>
+          </div>
+
+          <!-- Scenario + Speed -->
+          <div class="row g-4 mb-4">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="card-title mb-3">Attack Simulation</h6>
+                  <div class="d-grid gap-2">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="attackPhishing">
+                      <label class="form-check-label" for="attackPhishing">Phishing (no passwords to
+                        steal)</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="attackMitm">
+                      <label class="form-check-label" for="attackMitm">MITM (token + mTLS binding)</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="attackReplay">
+                      <label class="form-check-label" for="attackReplay">Replay (nonce + liveness)</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="attackDeepfake">
+                      <label class="form-check-label" for="attackDeepfake">Deepfake (active challenge)</label>
+                    </div>
+                  </div>
+                  <p class="text-muted small mt-2">Toggle a threat vector to see where the flow is blocked by
+                    design.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="card-title mb-3">Playback Speed</h6>
+                  <input type="range" class="form-range" min="0.5" max="2" step="0.25" id="speedRange" value="1">
+                  <div class="small text-muted" id="speedValue">1x</div>
+                  <div class="mt-3 bg-light p-2 rounded small">
+                    <strong>Policy Highlights</strong>
+                    <ul class="mb-0 ps-3">
+                      <li>On-device face capture with active liveness</li>
+                      <li>Template match → short-lived, audience-scoped token</li>
+                      <li>Token bound to device (mTLS) and time window</li>
+                      <li>Bastion evaluates RBAC, posture, IP, time, risk</li>
+                      <li>Ephemeral credentials to target; no standing keys</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="card-title mb-3">Run Status</h6>
+                  <div id="runStatus" class="small fw-bold text-capitalize">idle</div>
+                  <p class="text-muted small" id="statusDesc">Start to animate the full path; pause anytime to
+                    explain a step.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diagram -->
+          <div class="card mb-4">
+            <div id="diagram" class="d-flex justify-content-between flex-wrap">
+              <!-- Render từng step ở đây bằng JS -->
+            </div>
+          </div>
+
+          <!-- Timeline + Logs -->
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="card-title mb-3">Timeline</h6>
+                  <ol class="list-group list-group-numbered small" id="timeline"></ol>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="card-title mb-3">Event Log</h6>
+                  <div class="d-grid gap-2 small" id="eventLog">
+                    <div class="text-muted">No events yet. Press Start to run the simulation.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="card mt-4">
+            <div class="card-body small text-muted">
+              <strong>How to demo</strong>
+              <ol class="ps-3">
+                <li>Toggle one or more threat vectors above (e.g., Deepfake).</li>
+                <li>Click <strong>Start</strong> to animate the steps and watch where the flow blocks.</li>
+                <li>Use <strong>Pause</strong> to explain a step; <strong>Reset</strong> to start over.</li>
+                <li>Adjust <strong>Playback Speed</strong> for a quicker or slower walkthrough.</li>
+              </ol>
+              <div class="mt-2">Tip: This demo is passwordless by design—no secrets to phish, tokens are device/time
+                bound, and bastion enforces policy just-in-time.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- ########## All JS ########## -->
@@ -1542,6 +1679,7 @@
   <!-- All Plugins js -->
   <!-- script js -->
   <script src="js/wow.min.js"></script>
+  <script src="js/bastionhost.simulation.js"></script>
   <script src="js/script.js"></script>
 
   <script>
