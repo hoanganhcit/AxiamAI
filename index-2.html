@@ -16,6 +16,7 @@
 
     <!-- Core Stylesheet -->
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -713,7 +714,9 @@
                             unmasks them, blocking 99% of cyber threats—the remainder depends on the device’s own
                             security.
                         </p>
-                        <a href="#" class="btn dream-btn mt-sm-15">Get Started</a>
+                        <a data-bs-toggle="modal" data-bs-target="#simulatedFacialSignIn"
+                            class="btn dream-btn mt-sm-15"><i class="bi-box-arrow-in-right me-1"></i> Start
+                            Face Sign-In (Simulated )</a>
                     </div>
                     <div class="col-md-6 mb-5 mb-md-0">
                         <div class="img-container">
@@ -1204,7 +1207,7 @@
                                 <!-- Content Info -->
                                 <div class="contact_info mt-x text-center fadeInUp" data-wow-delay="0.3s">
                                     <h5>COMPANY</h5>
-                                    <a href="#">
+                                    <a href="company.html">
                                         <p>About Us</p>
                                     </a>
                                     <a href="index-2.html">
@@ -1213,10 +1216,13 @@
                                     <a href="AxiamBastion.html">
                                         <p>Axiam Bastion</p>
                                     </a>
-                                    <a href="#">
-                                        <p>Help</p>
+                                    <a href="FacelockEncrypt.html">
+                                        <p>Facelock Encrypt</p>
                                     </a>
-                                    <a href="#">
+                                    <a href="PrivacyPolicy.html">
+                                        <p>Privacy Policy</p>
+                                    </a>
+                                    <a href="TermsofUse.html">
                                         <p>Term of Use</p>
                                     </a>
                                 </div>
@@ -1353,22 +1359,147 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="videoAxiam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="simulatedFacialSignIn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-fullscreen-xl-down" role="document">
+        <div class="modal-dialog modal-xl modal-fullscreen" role="document">
             <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="" id="video" allow="autoplay; encrypted-media"
-                            allowfullscreen></iframe>
+                <div class="container py-4">
+                    <header class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-shield me-1"></i>
+                            <h1 class="fs-24 mb-0 text-black">Facial Sign‑In — Simulation</h1>
+                        </div>
+                        <span class="btn btn-danger small" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="bi bi-x-circle me-1"></i> Close Simulation</span>
+                    </header>
+
+                    <!-- Video + Liveness -->
+                    <div class="row g-3">
+                        <div class="col-lg-8">
+                            <section class="p-3 rounded-2xl card-soft bg-white">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="bi bi-camera me-1"></i>
+                                    <h2 class="h5 mb-0 fs-18">Camera</h2>
+                                </div>
+                                <div class="aspect-video rounded-3 overflow-hidden border">
+                                    <i class="bi bi-person-bounding-box"></i>
+                                </div>
+                                <div class="mt-3 d-flex flex-wrap gap-2">
+                                    <button id="btnStart"
+                                        class="btn btn-primary d-inline-flex  small align-items-center rounded-2xl gap-1">
+                                        <i class="bi bi-camera "></i><span>Start Camera</span>
+                                    </button>
+                                    <button id="btnStop"
+                                        class="btn btn-light border rounded-2xl small d-inline-flex align-items-center gap-1">
+                                        <i class="bi bi-x-circle"></i><span>Stop</span>
+                                    </button>
+                                </div>
+                                <p class="text-muted small mt-2">Tip: Good lighting helps produce a more consistent hash
+                                    for this demo.</p>
+                            </section>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <section class="p-3 rounded-2xl card-soft bg-white">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="bi bi-pc-display-horizontal me-1"></i>
+                                    <h2 class="h5 mb-0 fs-18">Toy Liveness</h2>
+                                </div>
+                                <div id="livenessStatus" style="margin: 1rem 0;"
+                                    class="status rounded-2xl p-2 d-flex align-items-center gap-2 my-4">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    <span class="small">Click ‘New Prompt’ to simulate a liveness challenge.</span>
+                                </div>
+                                <div class="d-flex gap-2 mb-2">
+                                    <button id="btnPrompt"
+                                        class="btn btn-primary rounded-2xl d-inline-flex small align-items-center gap-1">
+                                        <i class="bi bi-arrow-clockwise me-1"></i><span>New Prompt</span>
+                                    </button>
+                                    <button id="btnDid"
+                                        class="btn btn-success rounded-2xl small d-inline-flex align-items-center gap-1"
+                                        disabled>
+                                        <i class="bi bi-check-circle me-1"></i><span>I Did It</span>
+                                    </button>
+                                </div>
+                                <p class="text-muted small mb-0">In a real system this would verify movement/response
+                                    automatically.</p>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Enroll / Sign in -->
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-6">
+                            <section class="p-3 rounded-2xl card-soft bg-white h-100">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="bi bi-person-plus me-1"></i>
+                                    <h2 class="h5 fs-18 mb-0">1) Enroll</h2>
+                                </div>
+                                <p class="text-muted small">Capture a frame or upload a photo to create a demo facial
+                                    hash.</p>
+                                <div class="d-flex flex-wrap gap-2 mb-2">
+                                    <button id="btnEnrollFrame"
+                                        class="btn btn-primary d-inline-flex rounded-2xl small align-items-center gap-1">
+                                        <i class="bi bi-key"></i><span>Use Current Frame</span>
+                                    </button>
+                                    <label
+                                        class="btn btn-light border rounded-2xl small d-inline-flex align-items-center gap-1 mb-0"
+                                        role="button">
+                                        <i class="bi bi-camera"></i><span>Upload Photo</span>
+                                        <input id="fileInput" type="file" accept="image/*" class="d-none" />
+                                    </label>
+                                </div>
+                                <div id="enrollStatus" class="d-none"></div>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" value="" id="saveLocal">
+                                    <label class="form-check-label small" for="saveLocal">Store demo hash in
+                                        localStorage
+                                        (persists after refresh)</label>
+                                </div>
+                                <div id="hashInfo" class="text-muted small mt-2 d-none code-mono"></div>
+                            </section>
+                        </div>
+
+                        <div class="col-md-6">
+                            <section class="p-3 rounded-2xl card-soft bg-white h-100">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="bi bi-box-arrow-in-right me-1 fs-18"></i>
+                                    <h2 class="h5 mb-0 fs-18">2) Sign In</h2>
+                                </div>
+                                <p class="text-muted small">Capture a fresh frame. We’ll compare it against your
+                                    enrolled demo hash. Liveness prompt must be completed.</p>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="small">Match Threshold</span>
+                                    <input id="threshold" type="range" min="40" max="140" step="1" value="85" />
+                                    <span id="thresholdVal" class="text-muted small">85</span>
+                                </div>
+                                <button id="btnSignin"
+                                    class="btn btn-primary rounded-2xl small d-inline-flex align-items-center gap-1">
+                                    <i class="bi bi-lock"></i><span>Try Sign‑In</span>
+                                </button>
+                                <div id="signinStatus" style="margin-top: 0.5rem;"></div>
+                                <p class="text-muted small mt-2">Lower threshold = stricter match; higher = more
+                                    tolerant.</p>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 p-3 rounded-2xl card-soft bg-white">
+                        <h3 class="h6">About this simulation</h3>
+                        <ul class="small note-list text-muted mb-0">
+                            <li><strong>Not real biometrics.</strong> No face recognition, no identity proofing, no
+                                liveness detection. For UX demos only.</li>
+                            <li><strong>Local only</strong> Captures stay in browser memory; optional hash persistence
+                                uses localStorage.</li>
+                            <li><strong>Perceptual hash.</strong> We compute a 256‑bit aHash and compare using Hamming
+                                distance with an adjustable threshold.</li>
+                            <li><strong>Suggested next step.</strong> Replace the aHash and toy liveness with a real
+                                provider’s SDK (e.g., liveness + 3D face map).</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- ########## All JS ########## -->
@@ -1382,6 +1513,7 @@
     <!-- script js -->
     <script src="js/wow.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/facialsignin.simulation.js"></script>
 
     <script>
         $(document).ready(function () {

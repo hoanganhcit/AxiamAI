@@ -958,6 +958,7 @@
             background: #15244e;
             border-radius: 10px;
         }
+
         #facePreview {
             max-width: 55px;
             border-radius: 1rem;
@@ -1056,73 +1057,78 @@
                     <p class="mt-3 small ">* Demo simulates face matching. Replace with your biometric provider for
                         production.</p>
                 </div>
-                <div class="col-md-3" data-animate>
-                    <div class="encrypt-box mw-100 rounded-2xl h-100">
-                        <h6 class="d-flex align-items-center gap-2 fw-semibold py-2 ">
-                            <i class="bi bi-lock btn-icons-light text-muted-ax"></i>
-                            <div class="title-ax">Encrypt with Face</div>
-                        </h6>
-                        <p>Choose any document, photo, or video. Output is a single
-                            <code>.facelock</code> container.
-                        </p>
-                        <div class="mb-3 input-file">
-                            <label for="faceEncrypt" class="file-label">Face Image</label>
-                            <span class="ms-2 text-secondary small">No file chosen</span>
-                            <input type="file" accept="image/*" id="faceEncrypt" hidden>
-                        </div>
-                        <div id="facePreviewWrap" class="mb-3 d-none">
-                            <img id="facePreview" class="img-fluid rounded-xl border" alt="preview" />
-                        </div>
-                        <div class="mb-3 input-file">
-                            <label for="plainFile" class="file-label">File to Encrypt</label>
-                            <span class="ms-2 text-secondary small">No file chosen</span>
-                            <input id="plainFile" type="file" hidden />
-                        </div>
+                <div class="col-md-6">
+                    <div id="status" class="alert alert-secondary d-none align-items-center gap-2" role="alert"></div>
+                    <div class="row">
+                        <div class="col-md-6" data-animate>
+                            <div class="encrypt-box mw-100 rounded-2xl h-100">
+                                <h6 class="d-flex align-items-center gap-2 fw-semibold py-2 ">
+                                    <i class="bi bi-lock btn-icons-light text-muted-ax"></i>
+                                    <div class="title-ax">Encrypt with Face</div>
+                                </h6>
+                                <p>Choose any document, photo, or video. Output is a single
+                                    <code>.facelock</code> container.
+                                </p>
+                                <div class="mb-3 input-file">
+                                    <label for="faceEncrypt" class="file-label">Face Image</label>
+                                    <span class="ms-2 text-secondary small">No file chosen</span>
+                                    <input type="file" accept="image/*" id="faceEncrypt" hidden>
+                                </div>
+                                <div id="facePreviewWrap" class="mb-3 d-none">
+                                    <img id="facePreview" class="img-fluid rounded-xl border" alt="preview" />
+                                </div>
+                                <div class="mb-3 input-file">
+                                    <label for="plainFile" class="file-label">File to Encrypt</label>
+                                    <span class="ms-2 text-secondary small">No file chosen</span>
+                                    <input id="plainFile" type="file" hidden />
+                                </div>
 
-                        <button id="btnEncrypt" class="btn btn-custom-encrypt btn-decrypt btn-soft">
-                            <i class="bi-file-earmark-arrow-up me-2"></i><span>Encrypt File</span>
-                        </button>
+                                <button id="btnEncrypt" class="btn btn-custom-encrypt btn-decrypt btn-soft">
+                                    <i class="bi-file-earmark-arrow-up me-2"></i><span>Encrypt File</span>
+                                </button>
 
-                        <div id="encResult" class="border rounded-3 p-3 mt-2 d-none small">
-                            <div class="fw-medium text-secondary mb-2">Encrypted Output</div>
-                            <ul class="list-unstyled mb-2 text-secondary" id="encMetaList"></ul>
-                            <a id="downloadEnc" class="btn btn-custom-encrypt btn-decrypt btn-soft" download>
-                                <i class="bi-download me-2"></i>Download .facelock
-                            </a>
+                                <div id="encResult" class="border rounded-3 p-3 mt-2 d-none small">
+                                    <div class="fw-medium text-secondary mb-2">Encrypted Output</div>
+                                    <ul class="list-unstyled mb-2 text-secondary" id="encMetaList"></ul>
+                                    <a id="downloadEnc" class="btn btn-custom-encrypt btn-decrypt btn-soft" download>
+                                        <i class="bi-download me-2"></i>Download .facelock
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3" data-animate>
-                    <div class="encrypt-box mw-100 rounded-2xl h-100">
-                        <h6 class="d-flex align-items-center gap-2 fw-semibold py-2 ">
-                            <i class="bi bi-unlock btn-icons-light text-muted-ax"></i>
-                            <div class="title-ax">Decrypt with Face</div>
-                        </h6>
-                        <p>
-                            Use the same face photo used at enrollment to unlock the encrypted file.
-                        </p>
+                        <div class="col-md-6" data-animate>
+                            <div class="encrypt-box mw-100 rounded-2xl h-100">
+                                <h6 class="d-flex align-items-center gap-2 fw-semibold py-2 ">
+                                    <i class="bi bi-unlock btn-icons-light text-muted-ax"></i>
+                                    <div class="title-ax">Decrypt with Face</div>
+                                </h6>
+                                <p>
+                                    Use the same face photo used at enrollment to unlock the encrypted file.
+                                </p>
 
-                        <div class="mb-3 input-file">
-                            <label for="encFile" class="file-label">Encrypted file</label>
-                            <span class="ms-2 text-secondary small">No file chosen</span>
-                            <input id="encFile" class="form-control form-control-sm" type="file"
-                                accept=".facelock,application/octet-stream" hidden />
-                        </div>
-                        <div class="mb-3 input-file">
-                            <label for="faceDecrypt" class="file-label">Face image </label>
-                            <span class="ms-2 text-secondary small">No file chosen</span>
-                            <input id="faceDecrypt" type="file" accept="image/*" hidden />
-                        </div>
+                                <div class="mb-3 input-file">
+                                    <label for="encFile" class="file-label">Encrypted file</label>
+                                    <span class="ms-2 text-secondary small">No file chosen</span>
+                                    <input id="encFile" class="form-control form-control-sm" type="file"
+                                        accept=".facelock,application/octet-stream" hidden />
+                                </div>
+                                <div class="mb-3 input-file">
+                                    <label for="faceDecrypt" class="file-label">Face image </label>
+                                    <span class="ms-2 text-secondary small">No file chosen</span>
+                                    <input id="faceDecrypt" type="file" accept="image/*" hidden />
+                                </div>
 
-                        <button id="btnDecrypt" class="btn btn-custom-encrypt btn-decrypt">
-                            <i class="bi-file-earmark-arrow-down me-2"></i><span>Decrypt File</span>
-                        </button>
+                                <button id="btnDecrypt" class="btn btn-custom-encrypt btn-decrypt">
+                                    <i class="bi-file-earmark-arrow-down me-2"></i><span>Decrypt File</span>
+                                </button>
 
-                        <div id="decResult" class="border rounded-3 p-3 mt-2 d-none small">
-                            <div class="text-secondary mb-2">Decrypted Output</div>
-                            <a id="downloadDec" class="btn btn-custom-encrypt btn-decrypt" download>
-                                <i class="bi-download me-2"></i>Download Decrypted
-                            </a>
+                                <div id="decResult" class="border rounded-3 p-3 mt-2 d-none small">
+                                    <div class="text-secondary mb-2">Decrypted Output</div>
+                                    <a id="downloadDec" class="btn btn-custom-encrypt btn-decrypt" download>
+                                        <i class="bi-download me-2"></i>Download Decrypted
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1231,83 +1237,6 @@
         </div>
     </section>
     <div class="clearfix"></div>
-    <section id="demo" class="container py-5">
-        <div class="text-uppercase small mb-2">Local‑only encryption demo</div>
-        <h2 class="fw-bold mb-3">Try it now</h2>
-        <div id="status" class="alert alert-secondary d-none align-items-center gap-2" role="alert"></div>
-        <div class="row g-4">
-            <div class="col-md-6" data-animate>
-                <div class="encrypt-box mw-100 rounded-2xl h-100">
-                    <h6 class="d-flex align-items-center gap-2 fw-semibold py-2 ">
-                        <i class="bi bi-lock btn-icons-light text-muted-ax"></i>
-                        <div class="title-ax">Encrypt with Face</div>
-                    </h6>
-                    <p>Choose any document, photo, or video. Output is a single
-                        <code>.facelock</code> container.
-                    </p>
-                    <div class="mb-3 input-file">
-                        <label for="faceEncrypt" class="file-label">Face Image</label>
-                        <span class="ms-2 text-secondary small">No file chosen</span>
-                        <input type="file" accept="image/*" id="faceEncrypt" hidden>
-                    </div>
-                    <div id="facePreviewWrap" class="mb-3 d-none">
-                        <img id="facePreview" class="img-fluid rounded-xl border" alt="preview" />
-                    </div>
-                    <div class="mb-3 input-file">
-                        <label for="plainFile" class="file-label">File to Encrypt</label>
-                        <span class="ms-2 text-secondary small">No file chosen</span>
-                        <input id="plainFile" type="file" hidden />
-                    </div>
-
-                    <button id="btnEncrypt" class="btn btn-custom-encrypt btn-decrypt btn-soft">
-                        <i class="bi-file-earmark-arrow-up me-2"></i><span>Encrypt File</span>
-                    </button>
-
-                    <div id="encResult" class="border rounded-3 p-3 mt-2 d-none small">
-                        <div class="fw-medium text-secondary mb-2">Encrypted Output</div>
-                        <ul class="list-unstyled mb-2 text-secondary" id="encMetaList"></ul>
-                        <a id="downloadEnc" class="btn btn-custom-encrypt btn-decrypt btn-soft" download>
-                            <i class="bi-download me-2"></i>Download .facelock
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" data-animate>
-                <div class="encrypt-box mw-100 rounded-2xl h-100">
-                    <h6 class="d-flex align-items-center gap-2 fw-semibold py-2 ">
-                        <i class="bi bi-unlock btn-icons-light text-muted-ax"></i>
-                        <div class="title-ax">Decrypt with Face</div>
-                    </h6>
-                    <p>
-                        Use the same face photo used at enrollment to unlock the encrypted file.
-                    </p>
-
-                    <div class="mb-3 input-file">
-                        <label for="encFile" class="file-label">Encrypted file (.facelock)</label>
-                        <span class="ms-2 text-secondary small">No file chosen</span>
-                        <input id="encFile" class="form-control form-control-sm" type="file"
-                            accept=".facelock,application/octet-stream" hidden />
-                    </div>
-                    <div class="mb-3 input-file">
-                        <label for="faceDecrypt" class="file-label">Face image (same as used to encrypt)</label>
-                        <span class="ms-2 text-secondary small">No file chosen</span>
-                        <input id="faceDecrypt" type="file" accept="image/*" hidden />
-                    </div>
-
-                    <button id="btnDecrypt" class="btn btn-custom-encrypt btn-decrypt">
-                        <i class="bi-file-earmark-arrow-down me-2"></i><span>Decrypt File</span>
-                    </button>
-
-                    <div id="decResult" class="border rounded-3 p-3 mt-2 d-none small">
-                        <div class="text-secondary mb-2">Decrypted Output</div>
-                        <a id="downloadDec" class="btn btn-custom-encrypt btn-decrypt" download>
-                            <i class="bi-download me-2"></i>Download Decrypted
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 
     <!-- FAQ -->
@@ -1468,7 +1397,7 @@
                                 <!-- Content Info -->
                                 <div class="contact_info mt-x text-center fadeInUp" data-wow-delay="0.3s">
                                     <h5>COMPANY</h5>
-                                    <a href="#">
+                                    <a href="company.html">
                                         <p>About Us</p>
                                     </a>
                                     <a href="index-2.html">
@@ -1477,10 +1406,13 @@
                                     <a href="AxiamBastion.html">
                                         <p>Axiam Bastion</p>
                                     </a>
-                                    <a href="#">
-                                        <p>Help</p>
+                                    <a href="FacelockEncrypt.html">
+                                        <p>Facelock Encrypt</p>
                                     </a>
-                                    <a href="#">
+                                    <a href="PrivacyPolicy.html">
+                                        <p>Privacy Policy</p>
+                                    </a>
+                                    <a href="TermsofUse.html">
                                         <p>Term of Use</p>
                                     </a>
                                 </div>
@@ -1645,8 +1577,8 @@
     <!-- All Plugins js -->
     <!-- script js -->
     <script src="js/wow.min.js"></script>
-    
-    <script src="js/facelockencrypt.js"></script>
+
+    <script src="js/facelockencrypt.simulation.js"></script>
     <script src="js/script.js"></script>
 
     <script>

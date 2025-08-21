@@ -159,7 +159,7 @@ $(function () {
     const face = $faceEncrypt[0].files && $faceEncrypt[0].files[0];
     const plain = $plainFile[0].files && $plainFile[0].files[0];
     if (!face || !plain) {
-      setStatus("Vui lòng chọn ảnh khuôn mặt và tệp cần mã hóa.", "danger");
+      setStatus("Please select the face photo and file to encrypt.", "danger");
       return;
     }
     $encResult.addClass("d-none");
@@ -205,7 +205,7 @@ $(function () {
     const encFile = $encFile[0].files && $encFile[0].files[0];
     const face = $faceDecrypt[0].files && $faceDecrypt[0].files[0];
     if (!encFile || !face) {
-      setStatus("Vui lòng chọn tệp .facelock và ảnh khuôn mặt.", "danger");
+      setStatus("Please select .facelock file and face photo.", "danger");
       return;
     }
     $decResult.addClass("d-none");

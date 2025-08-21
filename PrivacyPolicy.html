@@ -26,6 +26,7 @@
             font-weight: bold;
             text-transform: capitalize;
         }
+
         .subscribe-section {
             display: flex;
             align-items: center;
@@ -66,12 +67,14 @@
             font-size: 19px;
             font-weight: 300;
         }
+
         .faq-items-box #accordion {
             display: grid;
             grid-template-columns: 1fr;
             gap: 0;
             align-items: flex-start;
         }
+
         .faq-box .card-header {
             margin-bottom: 0;
         }
@@ -97,6 +100,7 @@
             position: relative;
             border-bottom: 1px solid #b5b5b5;
         }
+
         .faq-box .card-body {
             padding-top: 20px;
         }
@@ -115,8 +119,27 @@
             cursor: pointer;
             transition: .3s;
         }
+
         .faq-box .card-header button.active:after {
             transform: rotate(180deg);
+        }
+
+        .header-title-page {
+            background: linear-gradient(90deg, #18d3ff, #061540);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .header-title-page h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .header-title-page p {
+            color: #fff;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -185,26 +208,17 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-    <section class="hero-section ai3 relative" id="home" style="background-color: #fff;min-height: 0;">
-        <div class="overlay"></div>
-        <!-- Hero Content -->
-        <div class="hero-section-content">
-
-            <div class="container ">
-                <div class="row align-items-center">
-                    <!-- Welcome Content -->
-                    <div class="col-12 col-lg-12 col-md-12">
-                        <div class="welcome-content text-center">
-                            <div class="section-heading text-center" style="margin-bottom: 0;">
-                                <div class="top-sec-h wow fadeInUp" data-wow-delay="0.2s">FAQ's</div>
-                                <p class="section-subheading wow fadeInUp" data-wow-delay="0.4s">Frequently Asked Questions</p>
-                            </div>
-                        </div>
-                    </div>
+    <div class="header-title-page">
+        <div class="container ">
+            <div class="row align-items-center">
+                <!-- Welcome Content -->
+                <div class="col-12 col-lg-12 col-md-12">
+                    <h1>Privacy Policy</h1>
+                    <p>Your privacy is important to us</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <section class="section-faq-content">
         <div class="container">
             <div class="faq-inner">
@@ -218,18 +232,21 @@
                                         aria-expanded="false" aria-controls="collapseOne" class="collapsed">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> What Are Biometrics?
+                                        </div> 1. Information We Collect
                                     </button>
                                 </h5>
 
                                 <div id="collapseOne" class="collapse " aria-labelledby="headingOne"
                                     data-parent="#accordion" style="">
                                     <div class="card-body">
-                                        Biometrics are unique physical characteristics, such as fingerprints, facial
-                                        patterns, and even voice waves, used to verify identities with a high degree of
-                                        accuracy. By integrating biometric verification into our systems such as facial
-                                        recognition, there is an added layer of security that is both convenient and
-                                        impenetrable.
+                                        a) Biometric Data: Encrypted facial templates generated during enrollment and
+                                        authentication. Raw facial images are not stored.<br>
+                                        b) Account & Contact Information: Name, email address, username, company
+                                        affiliation, and billing details.<br>
+                                        c) Technical Data: Device identifiers, IP address, browser type, operating
+                                        system, and activity logs.<br>
+                                        d) Usage Data: Authentication logs, timestamps, and session metadata for
+                                        auditing and compliance.
                                     </div>
                                 </div>
                             </div>
@@ -239,17 +256,19 @@
                                         aria-expanded="false" aria-controls="collapseTwo" class="collapsed">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Why Trust Our Biometric Systems?
+                                        </div> 2. How We Use Your Information
                                     </button>
                                 </h5>
 
                                 <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo"
                                     data-parent="#accordion" style="">
                                     <div class="card-body">
-                                        Axiam biometric systems are designed with privacy at the core, employing
-                                        end-to-end encryption and secure data storage practices. We use only the most
-                                        advanced algorithms to ensure quick and reliable identification, significantly
-                                        reducing the risk of unauthorized access.
+                                        We use collected information to:<br>
+                                        - Provide authentication and identity verification services.<br>
+                                        - Maintain and improve system security and performance.<br>
+                                        - Comply with legal and regulatory requirements.<br>
+                                        - Provide customer support, troubleshooting, and account management.<br>
+                                        - Conduct analytics for service optimization.
                                     </div>
                                 </div>
                             </div>
@@ -259,18 +278,40 @@
                                         aria-expanded="false" aria-controls="collapseThree" class="collapsed">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Our Approach to Facial Recognition
+                                        </div> 3. Legal Basis for Processing (GDPR)
                                     </button>
                                 </h5>
 
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                                     data-parent="#accordion" style="">
                                     <div class="card-body">
-                                        Facial recognition technology offers seamless, efficient, and secure
-                                        verification processes. We employ this technology responsibly, ensuring
-                                        compliance with global privacy regulations and ethical standards. Our systems
-                                        are regularly audited for accuracy and fairness, supporting a non-invasive,
-                                        user-friendly security solution.
+                                        We process personal and biometric data under these lawful bases: <br>
+                                        - Consent: Users provide informed consent to biometric enrollment. <br>
+                                        - Contractual Necessity: Data required to provide the Service. <br>
+                                        - Legitimate Interests: Security, fraud prevention, and product improvement.
+                                        <br>
+                                        - Legal Obligation: Compliance with applicable data protection laws.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="faq-box">
+                                <h5 class="card-header" id="heading5">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false"
+                                        aria-controls="collapse5">
+                                        <div class="icon">
+                                            <i class="fal fa-question-circle"></i>
+                                        </div> 4. Data Retention
+                                    </button>
+                                </h5>
+
+                                <div id="collapse5" class="collapse" aria-labelledby="heading5"
+                                    data-parent="#accordion2">
+                                    <div class="card-body">
+                                        Biometric templates are retained only as long as necessary to provide
+                                        authentication or as required by contract.<br>
+                                        Account and billing data are retained in accordance with financial
+                                        regulations.<br>
+                                        When data is no longer needed, it is securely deleted or anonymized.
                                     </div>
                                 </div>
                             </div>
@@ -280,227 +321,152 @@
                                         aria-expanded="false" aria-controls="collapseSix">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> How We Protect Your Servers
+                                        </div> 5. Data Sharing & Disclosure
                                     </button>
                                 </h5>
 
                                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
                                     data-parent="#accordion2">
                                     <div class="card-body">
-                                        Your servers are the backbone of your operations. Servers need round-the-clock
-                                        surveillance and strict access controls. We employ the most secure layer of
-                                        defense, to prevent breaches and ensure operational integrity.
+                                        We do not sell biometric or personal data. We may share information with:<br>
+                                        - Service Providers: Cloud hosting, analytics, and payment processors, bound by
+                                        confidentiality and data protection obligations.<br>
+                                        - Legal Authorities: When required by law, subpoena, or government order.<br>
+                                        - Corporate Transactions: In the event of a merger, acquisition, or asset sale.
+
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-box">
-                                <h5 class="card-header" id="headingSix">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                        aria-expanded="false" aria-controls="collapseSix">
+                                <h5 class="card-header" id="heading7">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false"
+                                        aria-controls="collapse7">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Why Biometrics Matter in Server Access
+                                        </div> 6. Data Security
                                     </button>
                                 </h5>
 
-                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                <div id="collapse7" class="collapse" aria-labelledby="heading7"
                                     data-parent="#accordion2">
                                     <div class="card-body">
-                                        In today's digital age, where cyber threats are increasingly sophisticated,
-                                        traditional security methods such as passwords and keycards are no longer
-                                        sufficient to guarantee the security of critical server infrastructures.
-                                        Biometric authentication offers a more advanced and secure solution by relying
-                                        on unique individual traits that cannot be easily replicated or stolen.
-
+                                        We implement industry-standard safeguards, including:<br>
+                                        - End-to-end encryption of biometric templates.<br>
+                                        - Zero storage of raw facial images.<br>
+                                        - Access controls, firewalls, and monitoring.<br>
+                                        - Regular security audits and penetration testing.
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-box">
-                                <h5 class="card-header" id="headingSix">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                        aria-expanded="false" aria-controls="collapseSix">
+                                <h5 class="card-header" id="heading8">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false"
+                                        aria-controls="collapse8" class="collapsed">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Biometrics: Key to Accurate Identification
+                                        </div> 7. International Data Transfers
                                     </button>
                                 </h5>
 
-                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
-                                    data-parent="#accordion2">
-                                    <div class="card-body">
-                                        Biometric technologies such as facial recognition, and iris recognition provide
-                                        a foolproof way to ensure that only the right individuals—such as specific
-                                        developers—gain access to sensitive areas or information systems. This level of
-                                        precision in identity verification is critical in scenarios where the integrity
-                                        of the server and its data must be uncompromised.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="faq-box">
-                                <h5 class="card-header" id="headingFour">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour" class="collapsed">
-                                        <div class="icon">
-                                            <i class="fal fa-question-circle"></i>
-                                        </div> Operational Advantages of Biometric Security
-                                    </button>
-                                </h5>
-
-                                <div id="collapseFour" class="collapse " aria-labelledby="headingFour"
+                                <div id="collapse8" class="collapse " aria-labelledby="heading8"
                                     data-parent="#accordion2" style="">
                                     <div class="card-body">
-                                        <ol>
-                                            <li>
-                                                Enhanced Security: Biometrics offer a higher level of security by using
-                                                unique physical characteristics. This reduces the risk of unauthorized
-                                                access due to stolen credentials or identity fraud.
-                                            </li>
-                                            <li>
-                                                Efficiency and Speed: Accessing systems through biometric verification
-                                                is
-                                                generally faster than traditional methods, reducing the time it takes
-                                                for
-                                                developers to begin their work while maintaining high security.
-                                            </li>
-                                            <li>
-                                                Audit and Compliance: Biometric systems create detailed logs of entry
-                                                and
-                                                access, which are invaluable for audit trails and compliance with
-                                                security
-                                                regulations. Knowing exactly who accessed what and when adds a layer of
-                                                security and accountability that is vital for maintaining operational
-                                                integrity.
-                                            </li>
-                                        </ol>
+                                        If data is transferred across borders, we ensure adequate protection via:<br>
+                                        - Standard Contractual Clauses (SCCs).<br>
+                                        - Binding Corporate Rules.<br>
+                                        - Other recognized legal mechanisms.
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-box">
-                                <h5 class="card-header" id="headingFive">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseFive"
-                                        aria-expanded="false" aria-controls="collapseFive" class="collapsed">
+                                <h5 class="card-header" id="heading9">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false"
+                                        aria-controls="collapse9" class="collapsed">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Future-Proofing Security
+                                        </div> 8. User Rights
                                     </button>
                                 </h5>
 
-                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                                <div id="collapse9" class="collapse" aria-labelledby="heading9"
                                     data-parent="#accordion2" style="">
                                     <div class="card-body">
-                                        As cyber threats evolve, so too must our defenses. Biometric security not only
-                                        addresses current security challenges but also offers scalability and
-                                        adaptability to meet future threats. Investing in biometric technologies ensures
-                                        that our security measures evolve in line with advancements in hacking and
-                                        unauthorized access techniques
+                                        Depending on your jurisdiction, you may have rights to:<br>
+                                        - Access, correct, or delete your personal data.<br>
+                                        - Withdraw consent for biometric processing.<br>
+                                        - Restrict or object to certain processing.<br>
+                                        - Data portability (request export of your data).<br>
+                                        - File a complaint with a data protection authority.<br>
+
+                                        Requests can be submitted to: [Support Email Address].
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-box">
-                                <h5 class="card-header" id="headingSix">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                        aria-expanded="false" aria-controls="collapseSix">
+                                <h5 class="card-header" id="heading10">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="false"
+                                        aria-controls="collapse10">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Privacy and Ethical Considerations
+                                        </div> 9. Children’s Privacy
                                     </button>
                                 </h5>
 
-                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                <div id="collapse10" class="collapse" aria-labelledby="heading10"
                                     data-parent="#accordion2">
                                     <div class="card-body">
-                                        While implementing biometric security, it is also crucial to address privacy and
-                                        ethical concerns transparently. We are committed to the responsible use of
-                                        biometrics, ensuring that data is protected under strict privacy policies and is
-                                        used exclusively for security purposes.
+                                        The Service is not intended for individuals under 16. We do not knowingly
+                                        collect biometric or personal data from children.
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-box">
-                                <h5 class="card-header" id="headingSix">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                        aria-expanded="false" aria-controls="collapseSix">
+                                <h5 class="card-header" id="heading11">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="false"
+                                        aria-controls="collapse11">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Staying Ahead of Threats
+                                        </div> 10. Changes to This Policy
                                     </button>
                                 </h5>
 
-                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                <div id="collapse11" class="collapse" aria-labelledby="heading11"
                                     data-parent="#accordion2">
                                     <div class="card-body">
-                                        Cybersecurity is an ever-evolving field, and our proactive approach focuses on
-                                        anticipating and mitigating risks before they impact our clients. We
-                                        continuously update our systems with the latest security patches and conduct
-                                        regular vulnerability assessments.
+                                        We may update this Privacy Policy from time to time. Changes will be posted on
+                                        our website, and the “Effective Date” will be updated. Continued use of the
+                                        Service indicates acceptance of the revised policy.
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-box">
-                                <h5 class="card-header" id="headingSix">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                        aria-expanded="false" aria-controls="collapseSix">
+                                <h5 class="card-header" id="heading12">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false"
+                                        aria-controls="collapse12">
                                         <div class="icon">
                                             <i class="fal fa-question-circle"></i>
-                                        </div> Educational Resources and Support
+                                        </div> 11. Contact Information
                                     </button>
                                 </h5>
 
-                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                <div id="collapse12" class="collapse" aria-labelledby="heading12"
                                     data-parent="#accordion2">
                                     <div class="card-body">
-                                        Our commitment to security is matched by our commitment to your understanding of
-                                        how these protections work. We offer a range of resources, including detailed
-                                        FAQs, informative blog posts, and interactive webinars led by our security
-                                        experts.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="faq-box">
-                                <h5 class="card-header" id="headingSix">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                        aria-expanded="false" aria-controls="collapseSix">
-                                        <div class="icon">
-                                            <i class="fal fa-question-circle"></i>
-                                        </div> Need More Help? Contact Us
-                                    </button>
-                                </h5>
+                                        For questions or requests regarding this Privacy Policy, contact us at:<br>
 
-                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
-                                    data-parent="#accordion2">
-                                    <div class="card-body">
-                                        If you have any questions or require further assistance, please do not hesitate
-                                        to reach out. Our dedicated support team is here to help you navigate any
-                                        concerns or issues you may have with our security systems.
+                                        Axiam Technologies<br>
+                                        support@axiam.io<br>
+                                        +1 (647) 648-4636<br>
+                                        175 Longwood Road South, Suite B21, Hamilton, ON L8P 0A1<br>
+
+
+                                        By using the Service, you acknowledge that you have read, understood, and agreed
+                                        to this Privacy Policy.
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="about-us-area trial-bg section-padding-100 clearfix">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-6 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
-                    <img src="img/core-img/trial.png" draggable="false" alt="" style="max-width: 500px;width: 100%;">
-                </div>
-                <div class="col-12 col-lg-6 col-sm-12">
-                    <div class="who-we-contant mt-s">
-                        <h4 class="w-text wow fadeInUp" data-wow-delay="0.2s">Effortless Integration</h4>
-                        <p class="w-text wow fadeInUp" data-wow-delay="0.3s">Our biometric systems are designed for
-                            compatibility, integrating seamlessly with your existing security infrastructure, enhancing
-                            your defenses without disrupting operation.</p>
-                        <div class="subscribe-section has-shadow mt-30  wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="input-wrapper">
-                                <input type="email" placeholder="Enter your Email">
-                            </div>
-                            <button class="btn dream-btn mt-sm-15 ml-15">Get Started</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -517,11 +483,12 @@
                                 <!-- Copywrite -->
                                 <div class="copywrite_text fadeInUp" data-wow-delay="0.2s">
                                     <div class="footer-logo">
-                                        <a href="#"><img src="img/icon1.png" alt="logo"> </a>
+                                        <a href="#"><img src="img/icon1.png" alt="logo"> <span>Axiam</span></a>
                                     </div>
-                                    <p>Axiam's a cybersecurity company based in Toronto, Canada. We specialize in access
-                                        management tool using facial recognization to protect your IT infrastructure
-                                        from unauthorized access. </p>
+                                    <p>Axiam is a cybersecurity company based in Toronto, Canada, specializing in Facial
+                                        Sign-In and access management solutions. Using advanced facial recognition
+                                        technology, we streamline the login experience, eliminate cybersecurity risks,
+                                        and protect your IT infrastructure from unauthorized access.</p>
                                 </div>
                                 <!-- Social Icon -->
                                 <div class="footer-social-info fadeInUp" data-wow-delay="0.4s">
@@ -539,19 +506,22 @@
                                 <!-- Content Info -->
                                 <div class="contact_info mt-x text-center fadeInUp" data-wow-delay="0.3s">
                                     <h5>COMPANY</h5>
-                                    <a href="#">
+                                    <a href="company.html">
                                         <p>About Us</p>
                                     </a>
-                                    <a href="#">
-                                        <p>Facial Sign On</p>
+                                    <a href="index-2.html">
+                                        <p>Facial Sign In</p>
                                     </a>
-                                    <a href="#">
-                                        <p>Server Access</p>
+                                    <a href="AxiamBastion.html">
+                                        <p>Axiam Bastion</p>
                                     </a>
-                                    <a href="#">
-                                        <p>Help</p>
+                                    <a href="FacelockEncrypt.html">
+                                        <p>Facelock Encrypt</p>
                                     </a>
-                                    <a href="#">
+                                    <a href="PrivacyPolicy.html">
+                                        <p>Privacy Policy</p>
+                                    </a>
+                                    <a href="TermsofUse.html">
                                         <p>Term of Use</p>
                                     </a>
                                 </div>
@@ -604,8 +574,8 @@
     <!-- script js -->
     <script src="js/script.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.faq-box .card-header button').click(function() {
+        $(document).ready(function () {
+            $('.faq-box .card-header button').click(function () {
                 // $('.faq-box .card-header button').removeClass('active');
                 $(this).toggleClass('active');
             })
