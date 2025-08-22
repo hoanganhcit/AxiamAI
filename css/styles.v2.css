@@ -1295,3 +1295,6 @@ section.section-pad {
 .text-xs {
     font-size: 0.75rem;
 }
+.light-version p {
+    font-size: 17px;
+}
