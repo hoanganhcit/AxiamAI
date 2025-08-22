@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Axiam - AI Server Access</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/icon1.png">
+
+    <!-- Core Stylesheet -->
+    <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.v2.css">
+
+    <!-- Responsive Stylesheet -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+    </style>
+</head>
+
+<body class="light-version">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preload-content">
+            <div id="dream-load"></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area fadeInDown" data-wow-delay="0.2s">
+        <div class="classy-nav-container breakpoint-off  left">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="dreamNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="#"><img src="img/icon1.png" alt="logo" width="35"> <span
+                            class="">Axiam</span></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <li class="nav-item"><a href="index-3.html">Home</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Solutions
+                                    </a>
+                                    <ul class="dropdown-menu sub-classynav">
+                                        <li class="nav-item">
+                                            <a href="index-2.html" class="nav-link"> Facial Sign-In</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="AxiamBastionHost.html" class="nav-link"> Axiam Bastion Host</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="FacelockEncrypt.html" class="nav-link"> FaceLock Encrypt </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a href="company.html">Company</a></li>
+                                <li class="nav-item"><a href="faq.html">Help</a></li>
+                                <li class="nav-item"><a href="Publication.html">Publication</a></li>
+                                <li class="nav-item"><a href="SignIn.html">Sign In</a></li>
+                            </ul>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    <div id="top" class="hero-header">
+        <div class="glow"></div>
+        <div class="container position-relative">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <span class="pill mb-3"><i class="bi bi-newspaper me-1"></i> Publish research papers & articles</span>
+                    <h1 class="hero-title display-5 fw-bold ">White Paper Hub</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="py-5 ">
+        <div class="container py-4">
+            <div class="row g-4">
+                <div class="col-12 col-lg-8">
+                    <!-- Search + Sort -->
+                    <div class="card p-2 rounded-2xl" style="border:1px solid #e2e8f0">
+                        <div class="card-body">
+                            <div
+                                class="d-flex flex-column flex-md-row gap-3 align-items-stretch align-items-md-center justify-content-between">
+                                <div class="flex-grow-1">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent"><i
+                                                class="bi bi-search text-secondary"></i></span>
+                                        <input id="searchInput" type="text" class="form-control"
+                                            placeholder="Search by title, author, tag…" aria-label="Search" />
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <div class="dropdown">
+                                        <button
+                                            class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-funnel"></i> Sort
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end" id="sortMenu">
+                                            <li>
+                                                <h6 class="dropdown-header">Sort by</h6>
+                                            </li>
+                                            <li><a class="dropdown-item sort-option" data-sort="newest"
+                                                    href="#">Newest</a>
+                                            </li>
+                                            <li><a class="dropdown-item sort-option" data-sort="oldest"
+                                                    href="#">Oldest</a>
+                                            </li>
+                                            <li><a class="dropdown-item sort-option" data-sort="az" href="#">Title
+                                                    A–Z</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button id="clearTagBtn" class="btn btn-ghost d-none align-items-center gap-2">
+                                        <i class="bi bi-tag"></i>
+                                        <span id="activeTagText" class="small"></span>
+                                        <span class="text-secondary small">(clear)</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pinned -->
+                    <div id="pinnedWrapper" class="mt-3 d-none">
+                        <div class="card p-2 rounded-2xl" style="border:1px solid #e2e8f0">
+                            <div class="card-header bg-white  pt-3 border-0">
+                                <div
+                                    class="text-primary text-uppercase  small d-flex align-items-center gap-2">
+                                    <i class="bi bi-file-earmark-text"></i> Pinned white paper
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <h3 id="pinnedTitle" class="h4 mb-2"></h3>
+                                <p id="pinnedSummary" class="text-secondary"></p>
+                                <div class="d-inline-flex flex-wrap align-items-center gap-3 small text-muted mb-2"
+                                    id="pinnedMeta"></div>
+                                <div class="d-inline-flex flex-wrap gap-2 mb-3 mx-2" id="pinnedTags"></div>
+                                <div class="d-flex gap-2" id="pinnedActions"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <aside class="col-12 col-lg-4">
+                    <div class="card p-2 rounded-2xl " style="border:1px solid #e2e8f0">
+                        <div class="card-body">
+                            <h6 class="mb-1">Library snapshot</h6>
+                            <small class="text-secondary">Current publication mix</small>
+                            <div class="row text-center g-3 mt-2">
+                                <div class="col-4">
+                                    <div class="p-3 stat">
+                                        <div class="h4 mb-0" id="stat-total">0</div>
+                                        <div class="text-xs text-secondary">Total</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-3 stat">
+                                        <div class="h4 mb-0" id="stat-whitepapers">0</div>
+                                        <div class="text-xs text-secondary">White papers</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="p-3 stat">
+                                        <div class="h4 mb-0" id="stat-articles">0</div>
+                                        <div class="text-xs text-secondary">Articles</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2 small text-secondary">Tip: click a tag to filter; use the + button to
+                                publish.
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Tabs -->
+            <section class="pt-4">
+                <ul class="nav nav-tabs" id="typeTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="tab-all" data-bs-toggle="tab" data-bs-target="#pane-all"
+                            type="button" role="tab" aria-controls="pane-all" aria-selected="true">All</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-whitepaper" data-bs-toggle="tab"
+                            data-bs-target="#pane-whitepaper" type="button" role="tab" aria-controls="pane-whitepaper"
+                            aria-selected="false"><i class="bi bi-file-earmark-text me-1"></i> White papers</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-article" data-bs-toggle="tab" data-bs-target="#pane-article"
+                            type="button" role="tab" aria-controls="pane-article" aria-selected="false"><i
+                                class="bi bi-book me-1"></i> Articles</button>
+                    </li>
+                </ul>
+                <div class="tab-content pt-3">
+                    <div class="tab-pane fade show active" id="pane-all" role="tabpanel" aria-labelledby="tab-all">
+                        <div id="grid-all" class="row g-4"></div>
+                        <div id="empty-all" class="d-none">
+                            <div class="card " style="border:1px solid #e2e8f0">
+                                <div class="card-body text-center py-5">
+                                    <i class="bi bi-search display-6 text-secondary"></i>
+                                    <h5 class="mt-2 mb-1">No results found</h5>
+                                    <p class="text-secondary mb-3">Try adjusting your search or clearing filters.</p>
+                                    <button id="btn-clear-filters" class="btn btn-outline-secondary">Clear
+                                        filters</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pane-whitepaper" role="tabpanel" aria-labelledby="tab-whitepaper">
+                        <div id="grid-whitepaper" class="row g-4"></div>
+                        <div id="empty-whitepaper" class="d-none text-center text-secondary">No white papers.</div>
+                    </div>
+                    <div class="tab-pane fade" id="pane-article" role="tabpanel" aria-labelledby="tab-article">
+                        <div id="grid-article" class="row g-4"></div>
+                        <div id="empty-article" class="d-none text-center text-secondary">No articles.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </section>
+
+
+    <div class="footer-bg">
+        <!-- ##### Footer Area Start ##### -->
+        <footer class="footer-area bg-img">
+
+            <div class="footer-content-area spec">
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-12 col-lg-4 col-md-6">
+                            <div class="footer-copywrite-info">
+                                <!-- Copywrite -->
+                                <div class="copywrite_text fadeInUp" data-wow-delay="0.2s">
+                                    <div class="footer-logo">
+                                        <a href="#"><img src="img/icon1.png" alt="logo"> <span>Axiam</span></a>
+                                    </div>
+                                    <p>Axiam is a cybersecurity company based in Toronto, Canada, specializing in Facial
+                                        Sign-In and access management solutions. Using advanced facial recognition
+                                        technology, we streamline the login experience, eliminate cybersecurity risks,
+                                        and protect your IT infrastructure from unauthorized access.</p>
+                                </div>
+                                <!-- Social Icon -->
+                                <div class="footer-social-info fadeInUp" data-wow-delay="0.4s">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-3 col-md-6">
+                            <div class="contact_info_area d-sm-flex justify-content-between">
+                                <!-- Content Info -->
+                                <div class="contact_info mt-x text-center fadeInUp" data-wow-delay="0.3s">
+                                    <h5>COMPANY</h5>
+                                    <a href="company.html">
+                                        <p>About Us</p>
+                                    </a>
+                                    <a href="index-2.html">
+                                        <p>Facial Sign In</p>
+                                    </a>
+                                    <a href="AxiamBastion.html">
+                                        <p>Axiam Bastion</p>
+                                    </a>
+                                    <a href="FacelockEncrypt.html">
+                                        <p>Facelock Encrypt</p>
+                                    </a>
+                                    <a href="PrivacyPolicy.html">
+                                        <p>Privacy Policy</p>
+                                    </a>
+                                    <a href="TermsofUse.html">
+                                        <p>Term of Use</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-2 col-md-6 ">
+                            <!-- Content Info -->
+                            <div class="contact_info_area d-sm-flex justify-content-between">
+                                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.2s">
+                                    <h5 class="mb-4">DOWNLOAD</h5>
+                                    <a href="#" class="my-2 d-block">
+                                        <img src="img/google-play-download-android-app-logo-png-transparent.png" alt=""
+                                            style="max-width: 150px;">
+                                    </a>
+                                    <a href="#" class="my-2 d-block">
+                                        <img src="img/Download_on_the_App_Store_Badge.png" alt=""
+                                            style="max-width: 150px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-lg-3 col-md-6 ">
+                            <div class="contact_info_area d-sm-flex justify-content-between">
+                                <!-- Content Info -->
+                                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.4s">
+                                    <h5>CONTACT US</h5>
+                                    <p>Address: 175 Longwood Rd S Suite B21, Hamilton, ON L8P 0A1</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+        <!-- ##### Footer Area End ##### -->
+    </div>
+
+    <!-- ########## All JS ########## -->
+    <!-- jQuery js -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- script js -->
+    <script src="js/publication.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
