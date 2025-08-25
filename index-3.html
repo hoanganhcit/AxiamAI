@@ -812,17 +812,7 @@
             $('.classycloseIcon').click(function () {
                 $('.classy-menu').removeClass('menu-on');
             });
-
-            var $videoSrc;
-            $('.iq-video').click(function () {
-                $videoSrc = $(this).data("src");
-            });
-            $('#videoAxiam').on('shown.bs.modal', function (e) {
-                $("#video").attr('src', $videoSrc + "?autoplay=1&rel=0&controls=1&loop=1&modestbranding=1");
-            })
-            $('#videoAxiam').on('hide.bs.modal', function (e) {
-                $("#video").attr('src', $videoSrc);
-            })
+            
         });
     </script>
 
