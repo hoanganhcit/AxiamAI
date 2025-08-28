@@ -26,6 +26,7 @@
             font-weight: bold;
             text-transform: capitalize;
         }
+
         .subscribe-section {
             display: flex;
             align-items: center;
@@ -66,12 +67,14 @@
             font-size: 19px;
             font-weight: 300;
         }
+
         .faq-items-box #accordion {
             display: grid;
             grid-template-columns: 1fr;
             gap: 0;
             align-items: flex-start;
         }
+
         .faq-box .card-header {
             margin-bottom: 0;
         }
@@ -97,6 +100,7 @@
             position: relative;
             border-bottom: 1px solid #b5b5b5;
         }
+
         .faq-box .card-body {
             padding-top: 20px;
         }
@@ -115,6 +119,7 @@
             cursor: pointer;
             transition: .3s;
         }
+
         .faq-box .card-header button.active:after {
             transform: rotate(180deg);
         }
@@ -174,6 +179,8 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a href="company.html">Company</a></li>
+                                <li class="nav-item"><a href="CaseStudy.html">Case Study</a></li>
+                                <li class="nav-item"><a href="Publication.html">Publication</a></li>
                                 <li class="nav-item"><a href="faq.html">Help</a></li>
                                 <li class="nav-item"><a href="SignIn.html">Sign In</a></li>
                             </ul>
@@ -197,7 +204,8 @@
                         <div class="welcome-content text-center">
                             <div class="section-heading text-center" style="margin-bottom: 0;">
                                 <div class="top-sec-h wow fadeInUp" data-wow-delay="0.2s">FAQ's</div>
-                                <p class="section-subheading wow fadeInUp" data-wow-delay="0.4s">Frequently Asked Questions</p>
+                                <p class="section-subheading wow fadeInUp" data-wow-delay="0.4s">Frequently Asked
+                                    Questions</p>
                             </div>
                         </div>
                     </div>
@@ -604,8 +612,8 @@
     <!-- script js -->
     <script src="js/script.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.faq-box .card-header button').click(function() {
+        $(document).ready(function () {
+            $('.faq-box .card-header button').click(function () {
                 // $('.faq-box .card-header button').removeClass('active');
                 $(this).toggleClass('active');
             })
