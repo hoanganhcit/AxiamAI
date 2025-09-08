@@ -1399,3 +1399,6 @@ section.section-pad {
     font-style: italic;
     font-size: 1.125rem;
 }
+.mh-220 {
+    min-height: 220px;
+}
