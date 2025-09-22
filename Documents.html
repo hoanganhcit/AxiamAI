@@ -97,363 +97,335 @@
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Welcome Area Start ##### -->
-
-    <section class="hero-wrap hero-bg section-pad position-relative">
-        <div class="container position-relative" style="z-index:1;">
-            <div class="row align-items-center g-5">
-                <div class="col-md-6" data-animate>
-                    <span class="badge badge-ax mb-3">Passwordless • Biometric • SaaS</span>
-                    <h1 class="hero-title display-5 fw-bold ">Sign in with your face.
-                        <span class="d-block fw-normal text-muted-ax mt-2 hero-slogan-title">Stop User Account
-                            Takeover</span>
-                    </h1>
-                    <p class="mt-3 text-muted-ax pe-lg-5">
-                        No usernames. No passwords. No MFA to phish. Axiam’s Facial Sign-In as a Service stops account
-                        takeovers by verifying real identity—fast, private, and enterprise-class—with built-in liveness
-                        detection and end-to-end encryption
-                    </p>
-                    <div class="mt-4 d-flex flex-wrap gap-2">
-                        <a class="btn dream-btn mt-sm-15">Start free</a>
+    <section class="hero-wrap hero-bg border-bottom  section-pad position-relative">
+        <div class="container py-5 position-relative" style="z-index:1;">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <h1 class="hero-title display-5 fw-bold ">Facial Sign‑In Documentation</h1>
+                    <p class="lead">Integrate Axiam to replace passwords and fragile OTPs with live facial
+                        verification—faster, safer, and traceable.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a class="btn dream-btn" href="#getting-started">Start building</a>
+                        <a class="btn dream-btn btn-outline-light" href="#reference">Open API reference</a>
                     </div>
-                    <div class="mt-3 d-flex flex-wrap gap-4 small text-muted-ax">
-                        <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-clock"></i> Under 2s
-                            average login</span>
-                        <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-shield-lock"></i> GDPR/CCPA
-                            ready</span>
-                    </div>
-                    <p class="mt-3 small">* Demo simulates facial sign-in flow; you have to integrate with Axiam's biometric SDK for production.</p>
                 </div>
-                <div class="col-md-6" data-animate>
-                    <div class="card bg-card shadow-lg" style="margin-top: 5rem;">
-                        <div class="card-header bg-transparent border-0">
-                            <div class="d-flex align-items-center gap-2 fw-semibold py-2 "><i
-                                    class="bi bi-camera btn-icons text-muted-ax"></i> Live Identity Check</div>
+                <div class="col-md-5 mt-4 mt-md-0">
+                    <div class="card card-rounded p-3 bg-white text-dark">
+                        <div class="input-group input-group-search mb-3">
+                            <span class="input-group-textborder-0"><i class="bi bi-search"></i></span>
+                            <input id="searchInput" type="search" class="border-0"
+                                placeholder="Search docs, e.g. 'Enroll user'">
                         </div>
-                        <div class="card-body">
-                            <div
-                                class="rounded-3xl camera-live-box fl-column flex flex-items-center overflow-hidden camera-gradient position-relative">
-                                <div class="rounded-circle pulseAnimate"
-                                    style="width:144px;height:144px;border:4px solid rgba(255,255,255,.7);margin-bottom: 5rem;background: #fff;display: flex;align-items: center;justify-content: center;">
-                                    <img src="img/face-scanner.gif" alt="" style="width: 100px;z-index: 1;">
-                                    <span style="--i:0"></span>
-                                    <span style="--i:1"></span>
-                                    <span style="--i:2"></span>
+
+                        <div class="row g-3" id="quickLinks">
+                            <!-- Quick cards will be rendered in HTML below; JS will filter them -->
+
+                            <div class="col-12 col-sm-6">
+                                <div class="card quick-card p-3" data-title="Quickstart"
+                                    data-desc="Spin up Axiam Facial Sign‑In in under 10 minutes."
+                                    data-href="#getting-started">
+                                    <div class="badge badge-primary">New</div>
+                                    <div class="fw-semibold mt-2 quick-card-title mb-3"><i class="bi bi-rocket"></i> Quickstart</div>
+                                    <div class="muted small mb-3">Spin up Axiam Facial Sign‑In in under 10 minutes.</div>
+                                    <a href="#getting-started" class="btn btn-dark btn-sm">Open <i class="bi bi-arrow-right-short"></i></a>
                                 </div>
                             </div>
-                            <div class="d-flex mt-2 mb-2">
-                                <a data-bs-toggle="modal" data-bs-target="#simulatedFacialSignIn"
-                                    class="btn dream-btn mt-sm-15"> <i class="bi-box-arrow-in-right me-1"></i> Start
-                                    Facial Sign-In (Simulated) </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Welcome Area End ##### -->
 
-    <div class="clearfix"></div>
+                            <div class="col-12 col-sm-6">
+                                <div class="card quick-card p-3" data-title="Facial Sign‑In API"
+                                    data-desc="Verify liveness, enroll users, and sign in without passwords."
+                                    data-href="#facial-auth">
+                                    <div class="badge badge-primary">New</div>
+                                    <div class="fw-semibold mt-2 quick-card-title mb-3"><i class="bi bi-lock"></i> Facial Sign‑In API</div>
+                                    <div class="muted small mb-3">Verify liveness, enroll users, and sign in without
+                                        passwords.</div>
+                                    <a href="#facial-auth" class="btn btn-dark btn-sm">Open <i class="bi bi-arrow-right-short"></i></a>
+                                </div>
+                            </div>
 
-    <section id="features" class="section-pad">
-        <div class="container">
-            <h2 class="h1 fw-semibold">Why choose Facial Sign‑In?</h2>
-            <p class="text-muted-ax mt-2 col-lg-7">Remove friction, lower cybersecurity risk - verified identity
-                replaces usernames, passwords, and outdated MFA at the point of entry.</p>
-            <div class="row g-3 mt-3">
-                <!-- Feature 1 -->
-                <div class="col-sm-6 col-lg-4" data-animate>
-                    <div class="card border-ax rounded-2xl h-100 mt-0">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center gap-3 mb-2">
-                                <span class="icon-bubble"><i class="bi bi-fingerprint"></i></span>
-                                <h3 class="h5 m-0">Passwordless Security</h3>
+                            <div class="col-12 col-sm-6">
+                                <div class="card quick-card p-3" data-title="Security"
+                                    data-desc="Architecture, encryption, data retention, and attestations."
+                                    data-href="#security">
+                                    <div class="badge badge-primary">New</div>
+                                    <div class="fw-semibold mt-2 quick-card-title mb-3"><i class="bi bi-shield-lock"></i> Security</div>
+                                    <div class="muted small mb-3">Architecture, encryption, data retention, and attestations.
+                                    </div>
+                                    <a href="#security" class="btn btn-dark btn-sm">Open <i class="bi bi-arrow-right-short"></i></a>
+                                </div>
                             </div>
-                            <p class="text-muted-ax m-0">No credentials to steal, guess, or phish—your face is the key.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Feature 2 -->
-                <div class="col-sm-6 col-lg-4" data-animate>
-                    <div class="card border-ax rounded-2xl h-100 mt-0">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center gap-3 mb-2">
-                                <span class="icon-bubble"><i class="bi bi-lightning-charge"></i></span>
-                                <h3 class="h5 m-0">Frictionless Login</h3>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="card quick-card p-3" data-title="Guides"
+                                    data-desc="End‑to‑end recipes: from OTP migration to Face‑only MFA."
+                                    data-href="#guides">
+                                    <div class="badge badge-primary">New</div>
+                                    <div class="fw-semibold mt-2 quick-card-title mb-3"><i class="bi bi-book"></i> Guides</div>
+                                    <div class="muted small mb-3">End‑to‑end recipes: from OTP migration to Face‑only MFA.
+                                    </div>
+                                    <a href="#guides" class="btn btn-dark btn-sm">Open <i class="bi bi-arrow-right-short"></i></a>
+                                </div>
                             </div>
-                            <p class="text-muted-ax m-0">Authenticate in under two seconds with a single glance.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Feature 3 -->
-                <div class="col-sm-6 col-lg-4" data-animate>
-                    <div class="card border-ax rounded-2xl h-100 mt-0">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center gap-3 mb-2">
-                                <span class="icon-bubble"><i class="bi bi-globe2"></i></span>
-                                <h3 class="h5 m-0">Works Everywhere</h3>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="card quick-card p-3" data-title="API Reference"
+                                    data-desc="REST + Webhooks + OpenAPI schema." data-href="#reference">
+                                    <div class="badge badge-primary">New</div>
+                                    <div class="fw-semibold mt-2 quick-card-title mb-3"><i class="bi bi-code-slash"></i> API Reference</div>
+                                    <div class="muted small mb-3">REST + Webhooks + OpenAPI schema.</div>
+                                    <a href="#reference" class="btn btn-dark btn-sm">Open <i class="bi bi-arrow-right-short"></i></a>
+                                </div>
                             </div>
-                            <p class="text-muted-ax m-0">Web, mobile, and desktop with global scalability.</p>
+
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="architecture" class="py-5">
-        <div class="container">
-            <h2 class="fw-bold mb-3">Steps transitioning from traditional sign-in methods to facial sign-in</h2>
-            <div class="referenceArchitectureImage">
-                <img src="img/facial-signin-graphic.png" alt="" class="rounded-2xl">
-            </div>
-        </div>
-    </section>
-
-
-    <!-- How it works -->
-    <section id="how" class="section-pad how-bg position-relative">
-        <div class="container">
-            <h2 class="h1 fw-semibold">How it works</h2>
-            <div class="row g-3 mt-2">
-                <div class="col-md-4" data-animate>
-                    <div class="p-4 border-ax rounded-2xl h-100">
-                        <div class="icon-bubble mb-2"><i class="bi bi-camera"></i></div>
-                        <h3 class="h5">Capture</h3>
-                        <p class="text-muted-ax mb-3">User looks at the camera; live detection confirms presence.</p>
-                        <div class="d-flex flex-wrap gap-3 small text-muted-ax">
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-camera"></i><span
-                                    class="d-none d-sm-inline">Live Detection</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-cpu"></i><span
-                                    class="d-none d-sm-inline">AI Matching</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-lock"></i><span
-                                    class="d-none d-sm-inline">Encrypted Templates</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-key"></i><span
-                                    class="d-none d-sm-inline">Keyless Access</span></span>
-                        </div>
+    <!-- Body -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="docsSidebar" class="col-md-3 d-none d-md-block sidebar">
+                <div class="position-sticky" style="top:96px;">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action py-2 border-0" href="#getting-started">Getting
+                            Started</a>
+                        <a class="list-group-item list-group-item-action py-2 border-0" href="#facial-auth">Facial
+                            Sign‑In API</a>
+                        <a class="list-group-item list-group-item-action py-2 border-0" href="#guides">Guides</a>
+                        <a class="list-group-item list-group-item-action py-2 border-0" href="#security">Security &amp;
+                            Compliance</a>
+                        <a class="list-group-item list-group-item-action py-2 border-0" href="#reference">API
+                            Reference</a>
+                        <a class="list-group-item list-group-item-action py-2 border-0" href="#changelog">Changelog</a>
                     </div>
                 </div>
-                <div class="col-md-4" data-animate>
-                    <div class="p-4 border-ax rounded-2xl h-100">
-                        <div class="icon-bubble mb-2"><i class="bi bi-cpu"></i></div>
-                        <h3 class="h5">Verify</h3>
-                        <p class="text-muted-ax mb-3">AI compares encrypted templates—no raw images stored.</p>
-                        <div class="d-flex flex-wrap gap-3 small text-muted-ax">
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-camera"></i><span
-                                    class="d-none d-sm-inline">Live Detection</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-cpu"></i><span
-                                    class="d-none d-sm-inline">AI Matching</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-lock"></i><span
-                                    class="d-none d-sm-inline">Encrypted Templates</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-key"></i><span
-                                    class="d-none d-sm-inline">Keyless Access</span></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4" data-animate>
-                    <div class="p-4 border-ax rounded-2xl h-100">
-                        <div class="icon-bubble mb-2"><i class="bi bi-shield-lock"></i></div>
-                        <h3 class="h5">Grant</h3>
-                        <p class="text-muted-ax mb-3">Access token issued; Bastion Host opens for verified faces only.
-                        </p>
-                        <div class="d-flex flex-wrap gap-3 small text-muted-ax">
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-camera"></i><span
-                                    class="d-none d-sm-inline">Live Detection</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-cpu"></i><span
-                                    class="d-none d-sm-inline">AI Matching</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-lock"></i><span
-                                    class="d-none d-sm-inline">Encrypted Templates</span></span>
-                            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-key"></i><span
-                                    class="d-none d-sm-inline">Keyless Access</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            </nav>
 
-    <div class="clearfix"></div>
-    <!-- Security -->
-    <section id="security" class="section-pad">
-        <div class="container">
-            <div class="row g-4 align-items-start">
-                <div class="col-md-6" data-animate>
-                    <h2 class="h1 fw-semibold">Security at the core</h2>
-                    <p class="text-muted-ax mt-2">Designed to defeat phishing, credential reuse, and MFA fatigue by
-                        enforcing real identity at a single fortified entry point.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                            AES‑256 in transit & at rest</li>
-                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                            GDPR/CCPA compliant data flows</li>
-                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i> No
-                            password storage, no reset risk</li>
-                        <li class="d-flex gap-2 mb-3"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                            Signed tokens, short‑lived sessions</li>
-                        <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                            SIEM/SOC integrations for audit</li>
+            <!-- Main content -->
+            <main class="col-md-9">
+
+                <!-- Getting Started -->
+                <section id="getting-started" class="mb-5">
+                    <h2>Getting Started</h2>
+                    <p class="muted">Create a project in the Axiam Console, grab your API keys, and install the SDK for
+                        your platform.</p>
+
+                    <div class="row mt-4 g-3">
+                        <div class="col-md-4">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold"><i class="bi bi-grid-3x3-gap"></i> Create a Project</div>
+                                <div class="muted small mt-2">In Console → <strong>Projects</strong> →
+                                    <strong>New</strong>. Copy the <code>AXIAM_PROJECT_ID</code> and
+                                    <code>AXIAM_API_KEY</code>.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold"><i class="bi bi-hdd-rack"></i> Link Your App</div>
+                                <div class="muted small mt-2">Add allowed origins/callbacks for web or package IDs for
+                                    mobile. Enable <em>Facial Sign‑In</em> and <em>Liveness</em>.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold"><i class="bi bi-gear"></i> Configure Webhooks</div>
+                                <div class="muted small mt-2">Receive events like <code>user.enrolled</code>,
+                                    <code>auth.success</code>, <code>auth.challenge</code>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <ul class="nav nav-tabs" id="sdkTabs" role="tablist">
+                            <li class="nav-item" role="presentation"><button class="nav-link active" id="js-tab"
+                                    data-bs-toggle="tab" data-bs-target="#js" type="button">JavaScript</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" id="ios-tab"
+                                    data-bs-toggle="tab" data-bs-target="#ios" type="button">iOS</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" id="android-tab"
+                                    data-bs-toggle="tab" data-bs-target="#android" type="button">Android</button></li>
+                        </ul>
+                        <div class="tab-content mt-3">
+                            <div class="tab-pane fade show active" id="js">
+                                <pre>// 1) Install
+npm i @axiam/web
+
+// 2) Initialize
+import { Axiam } from '@axiam/web'
+const axiam = new Axiam({ projectId: process.env.NEXT_PUBLIC_AXIAM_PROJECT_ID })
+
+// 3) Enroll + Sign‑In
+await axiam.enroll({ userId: 'user_123' })
+const session = await axiam.signIn({ policy: 'face_only' })
+console.log('session', session.token)
+</pre>
+                            </div>
+                            <div class="tab-pane fade" id="ios">
+                                <pre>// Swift Package Manager → AxiamSDK
+import AxiamSDK
+let client = Axiam(projectId: "<AXIAM_PROJECT_ID>")
+try await client.enroll(userId: "user_123")
+let session = try await client.signIn(policy: .faceOnly)
+print(session.token)
+</pre>
+                            </div>
+                            <div class="tab-pane fade" id="android">
+                                <pre>// Gradle: implementation("com.axiam:android:<latest>")
+val axiam = Axiam(projectId = AXIAM_PROJECT_ID)
+axiam.enroll(userId = "user_123")
+val session = axiam.signIn(policy = FaceOnly)
+println(session.token)
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+
+                <!-- Facial Auth API -->
+                <section id="facial-auth" class="mb-5">
+                    <h2>Facial Sign‑In API</h2>
+                    <p class="muted">Core endpoints for enrollment, liveness, and authentication.</p>
+
+                    <div class="row mt-3 g-3">
+                        <div class="col-md-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">POST /v1/users/:id/enroll</div>
+                                <pre>curl -X POST https://api.axiam.io/v1/users/user_123/enroll \
+  -H "Authorization: Bearer $AXIAM_API_KEY" \
+  -F video=@selfie.mov</pre>
+                                <div class="muted small mt-2">Creates biometric template with active liveness checks.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">POST /v1/auth/face</div>
+                                <pre>curl -X POST https://api.axiam.io/v1/auth/face \
+  -H "Authorization: Bearer $AXIAM_API_KEY" \
+  -F video=@challenge.mov</pre>
+                                <div class="muted small mt-2">Returns session token on success; supports
+                                    policy=face_only or step_up.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+
+                <!-- Guides -->
+                <section id="guides" class="mb-5">
+                    <h2>Guides</h2>
+                    <div class="row mt-3 g-3">
+                        <div class="col-lg-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">Migrate from OTP to Face‑Only</div>
+                                <p class="muted small mt-2">Decommission SMS OTP and reduce fraud while improving
+                                    conversion.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">Step‑Up with Face for High‑Risk Actions</div>
+                                <p class="muted small mt-2">Use Axiam as a step‑up factor for wire transfers, password
+                                    resets, or admin access.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mt-3">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">Device Binding &amp; Replay Protection</div>
+                                <p class="muted small mt-2">Bind sessions to hardware keys and block token replay with
+                                    Facelock.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mt-3">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">Compliance: PIPEDA / GDPR / HIPAA</div>
+                                <p class="muted small mt-2">Configure data residency, retention, and explicit user
+                                    consent flows.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <hr>
+
+                <!-- Security -->
+                <section id="security" class="mb-5">
+                    <h2>Security &amp; Compliance</h2>
+                    <div class="row mt-3 g-3">
+                        <div class="col-md-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold"><i class="bi bi-shield-check"></i> Architecture</div>
+                                <div class="muted small mt-2">AES‑256 at rest, TLS 1.2+ in transit, liveness ML,
+                                    template encryption via Facelock, optional on‑device capture.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold"><i class="bi bi-lock-fill"></i> Data &amp; Privacy</div>
+                                <div class="muted small mt-2">Regional data residency (CA/EU/US), configurable
+                                    retention, per‑user data export/delete APIs, audit logs.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+
+                <!-- Reference -->
+                <section id="reference" class="mb-5">
+                    <h2>API Reference</h2>
+                    <p class="muted">REST endpoints with JSON responses. Webhooks sign with HMAC‑SHA256.</p>
+
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">POST /v1/tokens/verify</div>
+                                <pre>curl -X POST https://api.axiam.io/v1/tokens/verify \
+  -H "Authorization: Bearer $AXIAM_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"token":"<session_jwt>"}'</pre>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 radius-md h-100">
+                                <div class="fw-semibold">Webhooks</div>
+                                <pre>{
+  "id": "evt_123",
+  "type": "auth.success",
+  "data": { "userId": "user_123", "sessionId": "sess_abc" }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+
+                <!-- Changelog -->
+                <section id="changelog" class="mb-5">
+                    <h2>Changelog</h2>
+                    <ul class="mt-3">
+                        <li class="mb-2 small"><strong>2025-09-18:</strong> Added <em>Step‑Up with Face</em> guide and iOS offline capture.
+                        </li>
+                        <li class="mb-2 small"><strong>2025-08-30:</strong> New webhook <code>auth.challenge</code> for risk signals.</li>
+                        <li class="mb-2 small"><strong>2025-08-10:</strong> JS SDK v1.4 with multi‑camera support.</li>
                     </ul>
-                </div>
-                <div class="col-md-6">
-                    <div class="card bg-card-2 border-ax h-100">
-                        <div class="card-header bg-transparent border-0">
-                            <div class="d-flex align-items-center gap-2 fw-semibold fs-24"><i
-                                    class="bi bi-hdd-network"></i>
-                                Bastion Host Gateway</div>
-                        </div>
-                        <div class="card-body text-muted-ax">
-                            <p>Funnel all access through a single, hardened Bastion Host. Only verified faces receive
-                                access tokens, drastically reducing attack surface and making unauthorized attempts easy
-                                to detect and block.</p>
-                            <div class="row g-2 small mt-3">
-                                <div class="col-6">
-                                    <div class="card-item rounded-2 py-2 px-2">MFA Phishing Resistant</div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card-item rounded-2 py-2 px-2">Audit‑ready Access Logs</div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card-item rounded-2 py-2 px-2">Least‑Privilege Policies</div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card-item rounded-2 py-2 px-2">Network Segmentation</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
-    <!-- Pricing -->
-    <section id="pricing" class="section-pad position-relative">
-        <div class="position-absolute top-0 start-0 w-100 h-100">
+            </main>
         </div>
-        <div class="container position-relative" style="z-index:1;">
-            <h2 class="h1 fw-semibold">Simple Pricing</h2>
-            <p class="text-muted-ax mt-2">Start free. Scale as you grow. Enterprise options for full control and
-                compliance.</p>
-            <div class="row g-3 mt-2">
-                <!-- Starter -->
-                <div class="col-md-4" data-animate>
-                    <div class="card bg-card border-ax h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h3 class="h5 m-0">Starter</h3>
-                            </div>
-                            <div class="display-6 fw-bold mt-2">$0<span class="fs-6 fw-medium text-muted-ax">/mo</span>
-                            </div>
-                            <div class="text-muted-ax">For pilots & POCs</div>
-                            <ul class="list-unstyled mt-3 mh-220">
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    100,000 login verifications/Month</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Email support</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Host SDK</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Unlimited applications</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    No commitment</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Uptime SLO</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    No credit card needed</li>
-                            </ul>
-                            <a class="btn dream-btn mt-sm-15  w-100 mt-3 ">Choose Starter</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Growth (highlight) -->
-                <div class="col-md-4" data-animate>
-                    <div class="card bg-card border-ax h-100 ring-accent">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h3 class="h5 m-0">Growth</h3>
-                                <span class="badge" style="background: #061540; color:#18d3ff;">Most
-                                    Popular</span>
-                            </div>
-                            <div class="display-6 fw-bold mt-2">$299<span
-                                    class="fs-6 fw-medium text-muted-ax">/mo</span></div>
-                            <div class="text-muted-ax">Scale securely</div>
-                            <ul class="list-unstyled mt-3  mh-220">
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    5,000,000 login verifications/Month</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    24/7 Phone support</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Within 8 hour Email support</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Host SDK</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Unlimited applications</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Uptime SLO</li>
-                            </ul>
-                            <a class="btn dream-btn mt-sm-15  w-100 mt-3 ">Choose Growth</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Enterprise -->
-                <div class="col-md-4" data-animate>
-                    <div class="card bg-card border-ax h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h3 class="h5 m-0">Enterprise</h3>
-                            </div>
-                            <div class="display-6 fw-bold mt-2">Talk to us<span
-                                    class="fs-6 fw-medium text-muted-ax">&nbsp;</span></div>
-                            <div class="text-muted-ax">Compliance &amp; control</div>
-                            <ul class="list-unstyled mt-3  mh-220">
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    SAML/SCIM</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    On-prem or VPC</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Dedicated cluster</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Custom branding</li>
-                                <li class="d-flex gap-2 mb-2"><i class="bi bi-check-circle" style="color: #18d3ff"></i>
-                                    Everything else from Growth package</li>
-                            </ul>
-                            <a class="btn dream-btn mt-sm-15  w-100 mt-3 ">Choose Enterprise</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="section-pad">
-        <div class="container">
-            <div class="rounded-3xl bg-gradient position-relative border-ax"
-                style="background: linear-gradient(90deg, rgba(15,23,42,.9), rgba(30,41,59,.9));">
-                <div class="row g-4 p-4 p-md-5 align-items-center">
-                    <div class="col-md-6" data-animate>
-                        <h3 class="h2 fw-semibold">Your face is the key. Ready to unlock seamless security?</h3>
-                        <p class="text-muted-ax mt-2">Spin up your user in minutes. Add our SDK, flip the switch, and
-                            retire usernames, passwords and MFA for good.</p>
-                        <div class="d-flex flex-wrap gap-2 mt-3">
-                            <a class="btn dream-btn mt-sm-15">Start free</a>
-                            <a class="btn btn-lg btn-outline-light border-opacity-25 text-black"
-                                style="font-size: 16px;" data-bs-toggle="modal" data-bs-target="#bookADemo">Talk to
-                                sales</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6" data-animate>
-                        <div class="position-relative border-ax rounded-2xl p-5 text-center"
-                            style="background: linear-gradient(134deg, #18d3ff, #061540);">
-                            <div class="position-relative d-inline-flex align-items-center gap-2 text-white"><i
-                                    class="bi bi-shield"></i> Bastion‑backed access only for verified faces</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
     <div class="footer-bg">
         <!-- ##### Footer Area Start ##### -->
         <footer class="footer-area bg-img">
@@ -815,7 +787,64 @@
             $('.classycloseIcon').click(function () {
                 $('.classy-menu').removeClass('menu-on');
             });
-            
+
+        });
+
+        $(function () {
+            // Smooth scroll on nav and quick cards
+            function smoothScrollTo(hash) {
+                var target = $(hash);
+                if (target.length) {
+                    $('html, body').animate({ scrollTop: target.offset().top - 90 }, 320);
+                }
+            }
+
+            // click for sidebar links
+            $('#docsSidebar a, .quick-card').on('click', function (e) {
+                e.preventDefault();
+                var href = $(this).attr('href') || $(this).data('href');
+                if (!href) return;
+                smoothScrollTo(href);
+            });
+
+            // Search filter for quick links
+            var $quick = $('#quickLinks .quick-card');
+            $('#searchInput').on('input', function () {
+                var q = $(this).val().toLowerCase().trim();
+                if (!q) {
+                    $('#quickLinks > div').show();
+                    return;
+                }
+                $quick.each(function () {
+                    var t = $(this).data('title') + ' ' + $(this).data('desc');
+                    if (t.toLowerCase().indexOf(q) !== -1) $(this).closest('div.col-12').show();
+                    else $(this).closest('div.col-12').hide();
+                });
+            });
+
+            // Active section highlight on scroll — jQuery version
+            var sectionIds = ['#getting-started', '#facial-auth', '#sdks', '#guides', '#security', '#reference', '#changelog'];
+            var $sidebarLinks = $('#docsSidebar .list-group-item');
+
+            function updateActiveOnScroll() {
+                var fromTop = $(window).scrollTop() + 120; // offset
+                var current = sectionIds[0];
+                for (var i = 0; i < sectionIds.length; i++) {
+                    var id = sectionIds[i];
+                    var $el = $(id);
+                    if ($el.length && $el.offset().top <= fromTop) current = id;
+                }
+                // set active class
+                $sidebarLinks.removeClass('active text-teal');
+                $sidebarLinks.filter('[href="' + current + '"]').addClass('active');
+            }
+
+            $(window).on('scroll resize', updateActiveOnScroll);
+            updateActiveOnScroll();
+
+            // make tab navigation work with keyboard focus for accessibility
+            // (bootstrap handles tab show toggling)
+
         });
     </script>
 

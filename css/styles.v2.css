@@ -1402,3 +1402,83 @@ section.section-pad {
 .mh-220 {
     min-height: 220px;
 }
+.card-rounded {
+    border-radius: 1rem;
+}
+
+.sidebar a.active {
+    background: rgb(14 144 165 / 8%);
+    color: var(--ax-primary);
+    border-radius: .5rem;
+}
+
+pre {
+    background: #0f172a;
+    color: #e6eef0;
+    border-radius: .5rem;
+    padding: .75rem;
+    font-size: .85rem;
+}
+
+.badge-beta {
+    background: #0f172a;
+    color: white;
+    border-radius: .4rem;
+    padding: .15rem .45rem;
+    font-weight: 600;
+}
+
+/* make quick cards clickable and consistent */
+.quick-card {
+    cursor: pointer;
+    transition: box-shadow .18s ease;
+    align-items: flex-start;
+    border-radius: 0.75rem;
+}
+
+.quick-card:hover {
+    box-shadow: 0 10px 20px rgba(2, 6, 23, 0.08);
+}
+.btn-outline-light {
+    background: #fff;
+    color: #0b1020 !important;
+}
+.badge-primary {
+    border: 1px solid var(--ax-primary);
+    color: var(--ax-primary);
+    background: #e5faff;
+    border-radius: 1em;
+}
+.input-group-search {
+    position: relative;
+    align-items: center;
+    background: #edf4f4;
+    padding: 2px;
+    border-radius: 0.75rem;
+    height: 48px;
+}
+
+.input-group-search input {
+    font-size: 14px;
+    outline: none !important;
+    border: 0;
+    padding: 5px 15px 5px 35px;
+    width: 100%;
+    background: none;
+    line-height: 1.7;
+    height: 100%;
+}
+
+.input-group-search span {
+    position: absolute;
+    left: 8px;
+}
+.quick-card-title {
+    font-size: 20px;
+}
+.radius-md {
+    border-radius: 0.75rem;
+}
+pre {
+    font-size: 0.75em;
+}
