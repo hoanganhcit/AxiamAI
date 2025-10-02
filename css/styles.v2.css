@@ -1482,3 +1482,10 @@ pre {
 pre {
     font-size: 0.75em;
 }
+
+@media (max-width: 600px) {
+    .diagram-step {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
