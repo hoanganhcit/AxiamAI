@@ -452,6 +452,11 @@
     <!-- script js -->
     <script src="js/script.js"></script>
     <script>
+        const mauRange = document.getElementById("mauRange");
+        const mauValue = document.getElementById("mauValue");
+        const pricePer = document.getElementById("pricePer");
+        const estMonthly = document.getElementById("estMonthly");
+
         function getPricePerMAU(mau) {
             if (mau <= 5000) return 0;
             if (mau <= 50000) return 0.05;
@@ -460,32 +465,29 @@
         }
 
         function formatUSD(n) {
-            return n.toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+            return n.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
         }
 
-        $(function () {
-            $('#year').text(new Date().getFullYear());
+        function updateSlider() {
+            const mau = parseInt(mauRange.value);
+            const price = getPricePerMAU(mau);
+            const monthly = mau * price;
 
-            function updateFromRange() {
-                var range = document.getElementById("mauRange");
-                var mau = parseInt(range.value, 10);
-                var price = getPricePerMAU(mau);
-                var est = Math.max(0, Math.round(mau * price));
+            // cập nhật text
+            mauValue.textContent = mau.toLocaleString();
+            pricePer.textContent = price === 0 ? "Free" : `$${price.toFixed(2)}`;
+            estMonthly.textContent = formatUSD(monthly);
 
-                // Update text values
-                $('#mauValue').text(mau.toLocaleString());
-                $('#pricePer').text(price === 0 ? 'Free' : '$' + price.toFixed(2));
-                $('#estMonthly').text(price === 0 ? '$0' : formatUSD(est));
-            }
+            // cập nhật màu fill cho track
+            const percent = (mau - mauRange.min) / (mauRange.max - mauRange.min) * 100;
+            mauRange.style.background = `linear-gradient(to right, #18d3ff ${percent}%, #e5e5e5  ${percent}%)`;
+        }
 
-            // initialize
-            updateFromRange();
+        // init
+        updateSlider();
 
-            // update on slider input
-            $('#mauRange').on('input change', function () {
-                updateFromRange();
-            });
-        });
+        // on input
+        mauRange.addEventListener("input", updateSlider);
     </script>
 </body>
 

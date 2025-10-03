@@ -1609,32 +1609,54 @@ table thead th {
     font-weight: 500 !important;
 }
 
-#mauRange {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 10px;
-    border-radius: 5px;
-    outline: none;
-    z-index: 99;
+input[type=range].form-range {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: #c9c9c9; 
+  outline: none;
+  transition: background 0.2s;
 }
 
-#mauRange::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #18d3ff;
-    cursor: pointer;
+/* Track (Webkit) */
+input[type=range].form-range::-webkit-slider-runnable-track {
+  height: 10px !important;
+  border-radius: 5px !important;
+  background: transparent !important; 
 }
 
-#mauRange::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #18d3ff;
-    cursor: pointer;
+/* Track (Firefox) */
+input[type=range].form-range::-moz-range-track {
+  height: 10px !important;
+  border-radius: 5px !important;
+  background: transparent !important;
 }
 
+/* Thumb (Webkit) */
+input[type=range].form-range::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  background: #18d3ff !important;
+  cursor: pointer !important;
+  position: relative;
+  z-index: 2;
+  margin-top: -4px; 
+}
+
+/* Thumb (Firefox) */
+input[type=range].form-range::-moz-range-thumb {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  background: #18d3ff !important;
+  cursor: pointer !important;
+  position: relative;
+  z-index: 2;
+}
 .classynav ul li a {
     font-size: 16px !important;
     padding: 0 7px;
