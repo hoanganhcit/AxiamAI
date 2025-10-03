@@ -472,10 +472,6 @@
                 var price = getPricePerMAU(mau);
                 var est = Math.max(0, Math.round(mau * price));
 
-                // Update background gradient
-                let val = (range.value - range.min) / (range.max - range.min) * 100;
-                range.style.background = `linear-gradient(to right, #18d3ff 0%, #18d3ff ${val}%, #ccc ${val}%, #ccc 100%)`;
-
                 // Update text values
                 $('#mauValue').text(mau.toLocaleString());
                 $('#pricePer').text(price === 0 ? 'Free' : '$' + price.toFixed(2));
