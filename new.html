@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Bootstrap Range</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Cách 1: đổi màu bằng CSS variable (áp dụng local) */
+    .form-range.custom-color {
+      --bs-secondary-bg: #00bfff; /* xanh dương */
+    }
+
+    /* Cách 2: override trực tiếp pseudo-element (cross-browser) */
+    .form-range.custom-direct::-webkit-slider-runnable-track {
+      background-color: #ff7f50; /* cam */
+    }
+    .form-range.custom-direct::-moz-range-track {
+      background-color: #ff7f50;
+    }
+    .form-range.custom-direct::-ms-track {
+      background-color: #ff7f50;
+    }
+  </style>
+</head>
+<body class="p-5">
+
+  <h5>Mặc định (Bootstrap)</h5>
+  <input type="range" class="form-range">
+
+  <h5 class="mt-4">Custom bằng CSS variable</h5>
+  <input type="range" class="form-range custom-color">
+
+  <h5 class="mt-4">Custom trực tiếp track</h5>
+  <input type="range" class="form-range custom-direct">
+
+</body>
+</html>

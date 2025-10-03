@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Axiam - AI Server Access</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/icon1.png">
+
+    <!-- Core Stylesheet -->
+    <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.v2.css">
+
+    <!-- Responsive Stylesheet -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        /* Light-mode styling inspired by original look but bright */
+        :root {
+            --brand-indigo: #7006d4;
+            --brand-cyan: #18d3ff;
+            --brand-fuchsia: #d946ef;
+            --muted: #6b7280;
+            --card-bg: #ffffff;
+            --page-bg: #f8fafc;
+        }
+
+        .hero-card {
+            border-radius: 20px;
+            background: linear-gradient(180deg, #ffffff, #f1f5f9);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.04);
+        }
+
+        .feature-pill {
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .price-card {
+            border-radius: 18px;
+            background: var(--card-bg);
+            border: 1px solid rgba(2, 6, 23, 0.06);
+        }
+
+        .price-card.active {
+            border-color: #18d3ff;
+        }
+
+        .accent-indigo {
+            background: rgba(99, 102, 241, 0.06);
+            border: 1px solid rgba(99, 102, 241, 0.12);
+        }
+
+        .text-indigo-600 {
+            color: var(--brand-indigo);
+            font-size: 15px;
+        }
+
+        .accent-cyan {
+            background: rgba(6, 182, 212, 0.06);
+            border: 1px solid rgba(6, 182, 212, 0.12);
+        }
+
+        .text-cyan-600 {
+            color: var(--brand-cyan);
+            font-size: 15px;
+        }
+
+        .accent-fuchsia {
+            background: rgba(217, 70, 239, 0.06);
+            border: 1px solid rgba(217, 70, 239, 0.12);
+        }
+
+        .text-fuchsia-600 {
+            color: var(--brand-fuchsia);
+            font-size: 15px;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+        }
+
+        .feature-list li i {
+            color: #00d492;
+            font-size: 16px;
+            line-height: 22px;
+            margin-right: 0.5rem;
+        }
+
+        .rounded-3xl {
+            border-radius: 24px !important
+        }
+
+        .rounded-2xl {
+            border-radius: 16px !important
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        table thead th {
+            background: #f1f5f9
+        }
+
+        .kbd-like {
+            font-family: Inter, monospace;
+            font-size: 0.85rem;
+            background: #f3f4f6;
+            padding: 3px 8px;
+            border-radius: 8px
+        }
+
+        .mb-6 {
+            margin-bottom: 2.5rem;
+        }
+
+        .bolder {
+            font-weight: bold;
+        }
+
+        .table-feature-comparison td {
+            padding: 14px;
+            border-bottom: 1px solid #eee !important;
+        }
+
+        .table-feature-comparison tr:last-child td {
+            padding: 14px;
+            border-bottom: none !important;
+        }
+
+        .fw-medium {
+            font-weight: 500 !important;
+        }
+
+        #mauRange {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            outline: none;
+            z-index: 99;
+        }
+
+        #mauRange::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #18d3ff;
+            cursor: pointer;
+        }
+
+        #mauRange::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #18d3ff;
+            cursor: pointer;
+        }
+
+        /* responsive tweaks */
+        @media (max-width:767px) {
+            .grid-sm-3 {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+    </style>
+</head>
+
+<body class="light-version">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preload-content">
+            <div id="dream-load"></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area fadeInDown" data-wow-delay="0.2s">
+        <div class="classy-nav-container breakpoint-off  left">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="dreamNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="#"><img src="img/icon1.png" alt="logo" width="35"> <span
+                            class="">Axiam</span></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <li class="nav-item"><a href="index-3.html">Home</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Solutions
+                                    </a>
+                                    <ul class="dropdown-menu sub-classynav">
+                                        <li class="nav-item">
+                                            <a href="index-2.html" class="nav-link"> Facial Sign-In</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="AxiamBastionHost.html" class="nav-link"> Axiam Bastion Host</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="FacelockEncrypt.html" class="nav-link"> FaceLock Encrypt </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a href="company.html">Company</a></li>
+                                <li class="nav-item"><a href="CaseStudy.html">Case Study</a></li>
+                                <li class="nav-item"><a href="Publication.html">Publication</a></li>
+                                <li class="nav-item"><a href="Documents.html">Documents</a></li>
+                                <li class="nav-item"><a href="Pricing.html">Pricing</a></li>
+                                <li class="nav-item"><a href="faq.html">Help</a></li>
+                                <li class="nav-item"><a href="SignIn.html">Sign In</a></li>
+                            </ul>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    <div id="top" class="hero-header">
+        <div class="glow"></div>
+        <div class="container position-relative">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-12">
+                    <span class="badge badge-ax mb-3 rounded-pill mb-3"><i class="bi bi-shield-lock-fill me-1"></i>
+                        Facial Sign‑In · FaceLock Encryption · Bastion with Facial Sign‑In</span>
+                    <h1 class="hero-title display-5 fw-bold ">Axiam Identity Platform Pricing</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero / Calculator -->
+    <div class="container position-relative" style="z-index:1;">
+        <section class="hero-card p-4 p-md-5 mb-6 rounded-3xl">
+            <div class="row gx-4 align-items-center">
+                <div class="col-md-6">
+                    <h2 class="h5 fs-24">Pay only for what you use</h2>
+                    <p class="muted">Start free and scale with transparent, usage‑based pricing. No feature gating. No
+                        surprises.</p>
+
+                    <label class="form-label small d-flex align-items-center gap-2"><i
+                            class="bi bi-calculator me-1"></i>Estimate by Monthly Active Users (MAUs)</label>
+                    <div class="p-3 rounded-2xl border" style="background:#ffffff; border-color:rgba(2,6,23,0.04)">
+                        <input id="mauRange" type="range" class="form-range" min="0" max="300000" step="1000"
+                            value="10000">
+                        <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-2">
+                            <div class="small muted">MAUs: <span id="mauValue" class="fw-semibold">10,000</span></div>
+                            <div class="small muted">Price / MAU: <span id="pricePer" class="fw-semibold">$0.05</span>
+                            </div>
+                            <div class="text-xs muted">Est. Monthly: <span id="estMonthly"
+                                    class="fw-semibold">$500</span>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-xs text-muted d-flex align-items-start gap-1"><i
+                                class="bi bi-info-circle"></i>
+                            Pricing tiers: Free ≤ 5,000 · $0.05 (5,001–50k) · $0.04
+                            (50,001–200k) · $0.03 (200k+)</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="d-grid gap-3" style="grid-template-columns:repeat(3,1fr); display:grid;">
+                        <div class="feature-pill accent-indigo p-3">
+                            <div class="d-flex align-items-center gap-2 text-indigo-600"><i
+                                    class="bi bi-fingerprint fs-5"></i> Facial Sign‑In</div>
+                            <ul class="mt-2 feature-list small mb-0">
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Liveness + anti‑spoofing</span>
+                                </li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Passwordless flows & SDKs</span>
+                                </li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Audit trails & webhooks</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="feature-pill accent-cyan p-3">
+                            <div class="d-flex align-items-center gap-2 text-cyan-600"><i
+                                    class="bi bi-lock-fill fs-5"></i>
+                                FaceLock Encryption
+                            </div>
+                            <ul class="mt-2 feature-list small mb-0">
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Encrypt files, photos,
+                                        videos</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Granular key control</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Zero‑knowledge design</span></li>
+                            </ul>
+                        </div>
+                        <div class="feature-pill accent-fuchsia p-3">
+                            <div class="d-flex align-items-center gap-2 text-fuchsia-600"><i
+                                    class="bi bi-building fs-5"></i> Bastion + Face</div>
+                            <ul class="mt-2 feature-list small mb-0">
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Single secure gateway</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Perimeter + identity guard</span>
+                                </li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Traceable access logs</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Cards -->
+        <section class="mb-6">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="price-card p-4 h-100">
+                        <div class="d-flex align-items-center gap-2 muted"><i class="bi bi-cursor"></i>
+                            Free</div>
+                        <h3 class="mt-2 mb-0  bolder">$0</h3>
+                        <div class="muted">Up to 5,000 MAUs</div>
+                        <ul class="mt-3 feature-list small">
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>All core features</span></li>
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>SDKs & APIs</span></li>
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>Email support</span></li>
+                        </ul>
+                        <button class="btn dream-btn  w-100 mt-3"
+                            style="background:var(--card-bg); color: var(--muted);border-color: var(--muted);">Start
+                            free</button>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="price-card p-4 h-100 border-2 active">
+                        <div class="d-flex align-items-center gap-2 text-cyan-600"><i
+                                class="bi bi-shield-lock-fill"></i>
+                            Pay‑as‑you‑go</div>
+                        <div class="mt-2 d-flex align-items-end gap-2">
+                            <h3 class="mb-0 bolder">$0.05</h3>
+                            <small class="muted text-xs">per MAU · 5k–50k</small>
+                        </div>
+                        <div class="muted">Volume discounts apply automatically</div>
+                        <ul class="mt-3 feature-list small">
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>Everything in Free</span></li>
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>Webhooks & audit trails</span></li>
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>Branding add‑on available</span></li>
+                        </ul>
+                        <button class="btn dream-btn  w-100 mt-3">Launch now</button>
+                        <div class="mt-2 text-xs text-muted">$0.04 per MAU for 50k–200k · $0.03 per MAU for 200k+.</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="price-card p-4 h-100">
+                        <div class="d-flex align-items-center gap-2 text-fuchsia-600"><i class="bi bi-building"></i>
+                            Enterprise</div>
+                        <h3 class="mt-2 mb-0 bolder">Custom</h3>
+                        <div class="muted">Advanced security & SLAs</div>
+                        <ul class="mt-3 feature-list small">
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>99.999% uptime SLA</span></li>
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>Dedicated support</span></li>
+                            <li class=" d-flex"><i class="bi bi-check2"></i> <span>Compliance: SOC2, GDPR, HIPAA*</span>
+                            </li>
+                        </ul>
+                        <button class="btn dream-btn  w-100 mt-3"
+                            style="background:var(--brand-fuchsia); color:white; border:none">Talk to sales <i
+                                class="bi bi-arrow-right ms-2"></i></button>
+                        <div class="mt-2 text-xs text-muted">*Available upon request and scope.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Comparison -->
+        <section class="mb-6">
+            <h3 class="h6 fs-24">What’s included</h3>
+            <div class="table-responsive table-feature-comparison rounded-2xl border mt-3">
+                <table class="table table-borderless mb-0">
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>Facial Sign‑In</th>
+                            <th>FaceLock</th>
+                            <th>Bastion + Face</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- use JS to populate if desired; here we hardcode -->
+                        <tr>
+                            <td>SDKs & REST APIs</td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Liveness detection</td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Passkey/Passwordless flows</td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Encrypt files/photos/videos</td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Zero‑knowledge design</td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Secure gateway w/ face</td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                            <td><i class="bi bi-x-lg text-danger small"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Audit logs & webhooks</td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Custom branding (add‑on)</td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                            <td><i class="bi bi-check2 text-success"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="mb-6">
+            <h3 class="h6 fs-24 mb-3">Frequently asked</h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="p-3 rounded-2xl border bg-white h-100">
+                        <p class="mb-1 fw-medium">How do you count MAUs?</p>
+                        <div class="muted small">A unique user who completes at least one successful authentication or
+                            encryption operation in a monthly billing period counts as one MAU.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 rounded-2xl border bg-white h-100">
+                        <p class="mb-1 fw-medium">Is the Free tier really free?</p>
+                        <div class="muted small">Yes. You can use up to 5,000 MAUs across services without charge to
+                            prototype and launch.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 rounded-2xl border bg-white h-100">
+                        <p class="mb-1 fw-medium">What about compliance?</p>
+                        <div class="muted small">Enterprise plans can include support for SOC 2, GDPR, and HIPAA
+                            depending on scope and data flows.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 rounded-2xl border bg-white h-100">
+                        <p class="mb-1 fw-medium">Do you offer annual discounts?</p>
+                        <div class="muted small">Yes—speak with sales for usage‑based annual commitments and savings.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="footer-bg">
+        <footer class="footer-area bg-img">
+
+            <div class="footer-content-area spec">
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-12 col-lg-4 col-md-6">
+                            <div class="footer-copywrite-info">
+                                <!-- Copywrite -->
+                                <div class="copywrite_text fadeInUp" data-wow-delay="0.2s">
+                                    <div class="footer-logo">
+                                        <a href="#"><img src="img/icon1.png" alt="logo"> <span>Axiam</span></a>
+                                    </div>
+                                    <p>Axiam is a cybersecurity company based in Toronto, Canada, specializing in Facial
+                                        Sign-In and Server access management solutions. Using advanced facial
+                                        recognition technology, we streamline the login experience, eliminate
+                                        cybersecurity risks, and protect your IT infrastructure from unauthorized
+                                        access.</p>
+                                </div>
+                                <!-- Social Icon -->
+                                <div class="footer-social-info fadeInUp" data-wow-delay="0.4s">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-3 col-md-6">
+                            <div class="contact_info_area d-sm-flex justify-content-between">
+                                <!-- Content Info -->
+                                <div class="contact_info mt-x text-center fadeInUp" data-wow-delay="0.3s">
+                                    <h5>COMPANY</h5>
+                                    <a href="company.html">
+                                        <p>About Us</p>
+                                    </a>
+                                    <a href="index-2.html">
+                                        <p>Facial Sign In</p>
+                                    </a>
+                                    <a href="AxiamBastion.html">
+                                        <p>Axiam Bastion</p>
+                                    </a>
+                                    <a href="FacelockEncrypt.html">
+                                        <p>Facelock Encrypt</p>
+                                    </a>
+                                    <a href="PrivacyPolicy.html">
+                                        <p>Privacy Policy</p>
+                                    </a>
+                                    <a href="TermsofUse.html">
+                                        <p>Term of Use</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-2 col-md-6 ">
+                            <!-- Content Info -->
+                            <div class="contact_info_area d-sm-flex justify-content-between">
+                                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.2s">
+                                    <h5 class="mb-4">DOWNLOAD</h5>
+                                    <a href="#" class="my-2 d-block">
+                                        <img src="img/google-play-download-android-app-logo-png-transparent.png" alt=""
+                                            style="max-width: 150px;">
+                                    </a>
+                                    <a href="#" class="my-2 d-block">
+                                        <img src="img/Download_on_the_App_Store_Badge.png" alt=""
+                                            style="max-width: 150px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-lg-3 col-md-6 ">
+                            <div class="contact_info_area d-sm-flex justify-content-between">
+                                <!-- Content Info -->
+                                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.4s">
+                                    <h5>CONTACT US</h5>
+                                    <p>Address: 175 Longwood Rd S Suite B21, Hamilton, ON L8P 0A1</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+        <!-- ##### Footer Area End ##### -->
+    </div>
+
+    <!-- ########## All JS ########## -->
+    <!-- jQuery js -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins.js"></script>
+    <!-- Parallax js -->
+    <script src="js/dzsparallaxer.js"></script>
+
+    <script src="js/jquery.syotimer.min.js"></script>
+
+    <!-- script js -->
+    <script src="js/script.js"></script>
+    <script>
+        function getPricePerMAU(mau) {
+            if (mau <= 5000) return 0;
+            if (mau <= 50000) return 0.05;
+            if (mau <= 200000) return 0.04;
+            return 0.03;
+        }
+
+        function formatUSD(n) {
+            return n.toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+        }
+
+        $(function () {
+            $('#year').text(new Date().getFullYear());
+
+            function updateFromRange() {
+                var range = document.getElementById("mauRange");
+                var mau = parseInt(range.value, 10);
+                var price = getPricePerMAU(mau);
+                var est = Math.max(0, Math.round(mau * price));
+
+                // Update background gradient
+                let val = (range.value - range.min) / (range.max - range.min) * 100;
+                range.style.background = `linear-gradient(to right, #18d3ff 0%, #18d3ff ${val}%, #ccc ${val}%, #ccc 100%)`;
+
+                // Update text values
+                $('#mauValue').text(mau.toLocaleString());
+                $('#pricePer').text(price === 0 ? 'Free' : '$' + price.toFixed(2));
+                $('#estMonthly').text(price === 0 ? '$0' : formatUSD(est));
+            }
+
+            // initialize
+            updateFromRange();
+
+            // update on slider input
+            $('#mauRange').on('input change', function () {
+                updateFromRange();
+            });
+        });
+    </script>
+</body>
+
+</html>
