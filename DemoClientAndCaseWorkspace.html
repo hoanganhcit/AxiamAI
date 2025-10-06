@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Axiam — Client & Case Workspace</title>
+  <title>Lexflow — Client & Case Workspace</title>
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -12,7 +12,7 @@
   <style>
     :root {
       --card-radius: 12px;
-      --accent: linear-gradient(45deg, #e5faff, #d1f8ff);
+      --accent: linear-gradient(45deg, #00ccff, #1d5add);
       --bg-primary: #18d3ff;
     }
 
@@ -26,6 +26,9 @@
       --bs-btn-font-size: 0.875rem;
     }
 
+    .form-control {
+      font-size: 0.875rem;
+    }
 
     .rounded-2xl {
       border-radius: var(--card-radius)
@@ -47,19 +50,24 @@
       box-shadow: 0 3ox 20px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
     }
+
     .sidebar-btn.active {
-      
+
       background: #18d3ff;
       color: #fff;
     }
+
     .btn-primary {
       background: #18d3ff;
       border-color: #18d3ff;
     }
-    .btn-primary:hover, .btn-primary:focus {
+
+    .btn-primary:hover,
+    .btn-primary:focus {
       background: #11b6db;
       border-color: #11b6db;
     }
+
     .progress-bar {
       background-color: var(--bg-primary);
     }
@@ -151,11 +159,12 @@
   <header class="topbar py-2">
     <div class="container d-flex align-items-center gap-3">
       <div class="d-flex align-items-center gap-2">
-        <div style="width:40px;height:40px;border-radius:8px;background:var(--accent);padding: 8px;">
-          <img src="img/icon1.png" alt="" style="width: 100%;">
+        <div
+          style="width:40px;height:40px;border-radius:8px;background:var(--accent);display: inline-flex;align-items: center;justify-content: center;font-size: 23px;font-weight: 600;">
+          <span style="color:#fff">L</span>
         </div>
         <div>
-          <div class="fw-semibold">Axiam</div>
+          <div class="fw-semibold">Lexflow</div>
           <div class="small-muted">Client & Case Workspace</div>
         </div>
       </div>
@@ -285,7 +294,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-xl-12">
+            <div class="col-12 col-xl-8">
               <div class="card card-panel card-shadow mb-3">
                 <div class="card-body">
                   <h6>Upcoming Hearings <small class="text-muted">60-day window</small></h6>
@@ -302,7 +311,8 @@
                   </table>
                 </div>
               </div>
-
+            </div>
+            <div class="col-12 col-xl-4">
               <div class="card card-panel card-shadow">
                 <div class="card-body">
                   <h6>Mini Calendar <small class="text-muted">Plan filings & deadlines</small></h6>
@@ -577,7 +587,34 @@
             </div>
           </div>
         </section>
+        <!-- Client Profile -->
+        <section id="tab-client-profile" class="d-none">
+          <div class="card card-panel card-shadow">
+            <div class="card-body">
+              <button class="btn btn-sm btn-outline-secondary mb-3" id="btnBackToClients">
+                <i class="bi bi-arrow-left"></i> Back to Clients
+              </button>
+              <h4 id="profileName"></h4>
+              <div class="small-muted mb-3" id="profileCompany"></div>
+              <p><i class="bi bi-envelope me-2"></i><span id="profileEmail"></span></p>
+              <p><i class="bi bi-telephone me-2"></i><span id="profilePhone"></span></p>
 
+              <hr>
+              <h6>Matters</h6>
+              <table class="table table-sm" id="tblClientMatters">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Practice</th>
+                    <th>Stage</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   </div>
@@ -646,6 +683,24 @@
     </div>
   </div>
 
+  <!-- Modal: Document Viewer -->
+  <div class="modal fade" id="modalDocViewer" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="docTitle">Document</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Matter:</strong> <span id="docMatter"></span></p>
+          <p><strong>Size:</strong> <span id="docSize"></span></p>
+          <p><strong>Last Updated:</strong> <span id="docUpdated"></span></p>
+          <iframe id="docPreview" src="" class="w-100" style="height:500px;border:1px solid #e2e8f0;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -683,6 +738,12 @@
       ...hearings.map(h => ({ id: 'EVT-H-' + h.id, title: `${h.type}: ${h.matter}`, client: h.client, when: h.date + 'T09:00', location: `${h.court} Room ${h.room}`, notes: `Status: ${h.status}` })),
       { id: 'EVT-1', title: 'Discovery meet & confer', client: 'Lan Nguyen', when: '2025-10-09T10:00', location: 'Zoom', notes: '' },
       { id: 'EVT-2', title: 'Trial prep sync', client: 'Minh Tran', when: '2025-11-10T15:00', location: 'Office', notes: '' },
+    ];
+
+    let uploadedFiles = [
+      { name: 'Retainer_Agreement.pdf', matter: 'Nguyen v. Atlas Logistics', size: '232 KB', updated: '2025-09-25', path: 'docs/Retainer_Agreement.pdf' },
+      { name: 'Disclosure_List.docx', matter: 'R. v. Patel', size: '88 KB', updated: '2025-09-28', path: 'docs/Disclosure_List.docx' },
+      { name: 'City_Records_Request.pdf', matter: 'Tran v. City of Hamilton', size: '1.1 MB', updated: '2025-09-30', path: 'docs/City_Records_Request.pdf' },
     ];
 
     let threads = {};
@@ -809,28 +870,84 @@
     }
 
     function renderDocs() {
-      const files = [
-        { name: 'Retainer_Agreement.pdf', matter: 'Nguyen v. Atlas Logistics', size: '232 KB', updated: '2025-09-25' },
-        { name: 'Disclosure_List.docx', matter: 'R. v. Patel', size: '88 KB', updated: '2025-09-28' },
-        { name: 'City_Records_Request.pdf', matter: 'Tran v. City of Hamilton', size: '1.1 MB', updated: '2025-09-30' },
-      ];
-
       const $b = $('#tblDocs tbody').empty();
-      files.forEach(f => {
+      uploadedFiles.forEach(f => {
         const $r = $(`
       <tr>
         <td><i class="bi bi-paperclip me-1"></i>${f.name}</td>
-        <td>${f.matter}</td>
+        <td>${f.matter || '-'}</td>
         <td>${f.size}</td>
-        <td>${new Date(f.updated).toLocaleDateString()}</td>
+        <td>${f.updated}</td>
         <td class="text-end">
-          <button class="btn btn-sm btn-outline-secondary">Open</button>
+          <button class="btn btn-sm btn-outline-secondary btn-doc-open" data-file='${JSON.stringify(f)}'>Open</button>
         </td>
       </tr>
     `);
         $b.append($r);
       });
     }
+    $('#btnUpload').on('click', function () {
+      $('#fileInput').click();
+    });
+
+    // Khi chọn file hoặc kéo thả
+    $('#fileInput').on('change', function (e) {
+      handleUpload(e.target.files);
+    });
+
+    // (Tùy chọn) hỗ trợ kéo thả vào toàn card
+    $('.card.card-panel.text-center').on('dragover', function (e) {
+      e.preventDefault();
+      $(this).addClass('border-primary');
+    });
+    $('.card.card-panel.text-center').on('dragleave drop', function (e) {
+      e.preventDefault();
+      $(this).removeClass('border-primary');
+    });
+    $('.card.card-panel.text-center').on('drop', function (e) {
+      e.preventDefault();
+      const files = e.originalEvent.dataTransfer.files;
+      handleUpload(files);
+    });
+
+    // Hàm xử lý upload
+    function handleUpload(files) {
+      Array.from(files).forEach(file => {
+        const sizeKB = (file.size / 1024).toFixed(1) + ' KB';
+        const today = new Date().toLocaleDateString();
+
+        const fileURL = URL.createObjectURL(file);
+
+        uploadedFiles.unshift({
+          name: file.name,
+          matter: 'Henry', 
+          size: sizeKB,
+          updated: today,
+          path: fileURL 
+        });
+      });
+
+      renderDocs(); 
+    }
+
+    // Gắn sự kiện mở modal
+    $(document).on('click', '.btn-doc-open', function () {
+      const f = $(this).data('file');
+      console.log(f);
+      $('#docTitle').text(f.name);
+      $('#docMatter').text(f.matter);
+      $('#docSize').text(f.size);
+      $('#docUpdated').text(new Date(f.updated).toLocaleDateString());
+
+      // Nếu là PDF — có thể hiển thị trong iframe
+      if (f.path.endsWith('.pdf')) {
+        $('#docPreview').attr('src', f.path);
+      } else {
+        $('#docPreview').attr('src', '');
+      }
+
+      $('#modalDocViewer').modal('show');
+    });
 
 
     function renderEvents() {
@@ -880,7 +997,30 @@
 
     // helpers
     function getInitials(name) { return (name || '').split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase(); }
-    function openClientProfile(c) { alert('Open client: ' + c.name); }
+    function openClientProfile(c) {
+      $('main section').addClass('d-none');
+      $('#tab-client-profile').removeClass('d-none');
+
+      $('#profileName').text(c.name);
+      $('#profileCompany').text(c.company);
+      $('#profileEmail').text(c.email);
+      $('#profilePhone').text(c.phone);
+
+      const list = matters.filter(m => m.client === c.name);
+      const $b = $('#tblClientMatters tbody').empty();
+      if (list.length === 0) {
+        $b.append('<tr><td colspan="4" class="text-muted text-center">No matters yet</td></tr>');
+      } else {
+        list.forEach(m => {
+          $b.append(`<tr>
+        <td>${m.id}</td>
+        <td>${m.title}</td>
+        <td>${m.practice}</td>
+        <td>${m.stage}</td>
+      </tr>`);
+        });
+      }
+    }
     function openClientByName(name) { const c = clients.find(x => x.name === name); if (c) openClientProfile(c); else alert('Client not found'); }
 
     // --- Actions ---
@@ -993,6 +1133,10 @@
 
       // add event listeners for initial tables
       $(document).on('click', 'button[data-client]', function () { const cl = $(this).data('client'); openClientByName(cl); });
+      $('#btnBackToClients').on('click', function () {
+        $('main section').addClass('d-none');
+        $('#tab-clients').removeClass('d-none');
+      });
 
     });
   </script>
