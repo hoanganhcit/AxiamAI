@@ -1,0 +1,1389 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lexflow — Client & Case Workspace</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --card-radius: 12px;
+      --accent: linear-gradient(45deg, #00ccff, #1d5add);
+      --bg-primary: #18d3ff;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
+      font-size: 14px;
+    }
+
+    .btn {
+      --bs-btn-font-size: 0.875rem;
+    }
+
+    .form-control {
+      font-size: 0.875rem;
+    }
+
+    .rounded-2xl {
+      border-radius: var(--card-radius)
+    }
+
+    .sidebar-btn {
+      position: relative;
+      z-index: 1;
+      height: 48px;
+      line-height: 48px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 0 10px !important;
+      text-align: center;
+      text-transform: uppercase;
+      background-size: 200% auto;
+      box-shadow: 0 3ox 20px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .sidebar-btn.active {
+
+      background: #18d3ff;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background: #18d3ff;
+      border-color: #18d3ff;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: #11b6db;
+      border-color: #11b6db;
+    }
+
+    .progress-bar {
+      background-color: var(--bg-primary);
+    }
+
+    .topbar {
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid #e6edf3
+    }
+
+    .card-panel {
+      background: #fff;
+      border: 1px solid #e6edf3;
+      border-radius: 12px
+    }
+
+    .stage-column {
+      min-width: 260px
+    }
+
+    .mat-card {
+      border: 1px solid #eef2ff;
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px
+    }
+
+    .badge-pill {
+      border-radius: 999px
+    }
+
+    .underline-btn {
+      background: none;
+      border: none;
+      color: #0f172a;
+      text-decoration: underline;
+      padding: 0
+    }
+
+    .overflow-x-auto {
+      overflow-x: auto
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 12px
+    }
+
+    .muted {
+      color: #6b7280
+    }
+
+    .small-muted {
+      font-size: 12px;
+      color: #6b7280
+    }
+
+    .card-compact .card-body {
+      padding: 0.65rem
+    }
+
+    /* make horizontal board scroll smooth */
+    .board-wrap {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 8px
+    }
+
+    .card-shadow {
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06)
+    }
+
+    .table {
+      font-size: 0.875rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* responsive tweaks */
+    @media (max-width:991px) {
+      .sidebar {
+        position: relative
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar py-2">
+    <div class="container d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <div
+          style="width:40px;height:40px;border-radius:8px;background:var(--accent);display: inline-flex;align-items: center;justify-content: center;font-size: 23px;font-weight: 600;">
+          <span style="color:#fff">L</span>
+        </div>
+        <div>
+          <div class="fw-semibold">Lexflow</div>
+          <div class="small-muted">Client & Case Workspace</div>
+        </div>
+      </div>
+
+      <div class="flex-grow-1 position-relative">
+        <i class="bi bi-search position-absolute" style="left:12px;top:10px;color:#94a3b8"></i>
+        <input id="globalSearch" class="form-control rounded-pill ps-5"
+          placeholder="Search clients, matters, invoices, hearings…">
+      </div>
+
+      <div class="d-flex gap-2 align-items-center">
+        <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#modalNewClient"><i
+            class="bi bi-plus-lg me-2"></i>New Client</button>
+        <button class="btn btn-outline-secondary rounded-pill" data-bs-toggle="modal"
+          data-bs-target="#modalNewMatter"><i class="bi bi-folder-plus me-2"></i>New Matter</button>
+        <button class="btn btn-outline-secondary rounded-pill" id="btnRegister">Register</button>
+        <button class="btn btn-light rounded-pill"><i class="bi bi-gear"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container my-4">
+    <div class="row g-4">
+      <!-- Sidebar -->
+      <aside class="col-12 col-lg-3 col-xl-2">
+        <nav class="card-panel p-2 sidebar">
+          <div class="d-grid gap-1">
+            <button class="btn sidebar-btn text-start p-2 active" data-tab="dashboard"><i
+                class="bi bi-grid me-2"></i>Dashboard</button>
+            <button class="btn sidebar-btn text-start p-2" data-tab="clients"><i
+                class="bi bi-people me-2"></i>Clients</button>
+            <button class="btn sidebar-btn text-start p-2" data-tab="matters"><i
+                class="bi bi-briefcase me-2"></i>Matters</button>
+            <button class="btn sidebar-btn text-start p-2" data-tab="court"><i class="bi bi-bank2 me-2"></i>
+              Court</button>
+            <button class="btn sidebar-btn text-start p-2" data-tab="docs"><i
+                class="bi bi-file-earmark-text me-2"></i>Documents</button>
+            <button class="btn sidebar-btn text-start p-2" data-tab="calendar"><i
+                class="bi bi-calendar-event me-2"></i>Calendar</button>
+            <button class="btn sidebar-btn text-start p-2" data-tab="billing"><i
+                class="bi bi-credit-card me-2"></i>Billing</button>
+            <button class="btn sidebar-btn text-start p-2" data-tab="messages"><i
+                class="bi bi-chat-dots me-2"></i>Messages</button>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main -->
+      <main class="col-12 col-lg-9 col-xl-10">
+        <!-- Dashboard Tab -->
+        <section id="tab-dashboard">
+          <div class="row g-3 mb-3">
+            <div class="col-6 col-xl-3">
+              <div class="card card-panel card-shadow p-3">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="small-muted">Active Matters</div>
+                    <div class="h4 mb-0" id="statMatters">0</div>
+                    <div class="small-muted">+2 this month</div>
+                  </div>
+                  <i class="bi bi-briefcase fs-3 text-muted"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 col-xl-3">
+              <div class="card card-panel card-shadow p-3">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="small-muted">Upcoming Hearings</div>
+                    <div class="h4 mb-0" id="statHearings">0</div>
+                    <div class="small-muted">Next 60 days</div>
+                  </div>
+                  <i class="bi bi-bell fs-3 text-muted"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 col-xl-3">
+              <div class="card card-panel card-shadow p-3">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="small-muted">Outstanding Invoices</div>
+                    <div class="h4 mb-0" id="statInvoices">0</div>
+                    <div class="small-muted" id="statInvoicesSub">$0 due</div>
+                  </div>
+                  <i class="bi bi-receipt fs-3 text-muted"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 col-xl-3">
+              <div class="card card-panel card-shadow p-3">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="small-muted">New Messages</div>
+                    <div class="h4 mb-0">4</div>
+                    <div class="small-muted">Since yesterday</div>
+                  </div>
+                  <i class="bi bi-chat-left-text fs-3 text-muted"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-xl-12">
+              <div class="card card-panel card-shadow">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                      <h5 class="mb-0">Matters Board</h5>
+                      <div class="small-muted">Track progress across stages</div>
+                    </div>
+                    <div>
+                      <button class="btn btn-sm btn-outline-secondary" id="btnExpandAll">Expand</button>
+                    </div>
+                  </div>
+
+                  <div class="overflow-x-auto">
+                    <div class="board-wrap" id="boardWrap">
+                      <!-- Columns inserted dynamically -->
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-8">
+              <div class="card card-panel card-shadow mb-3">
+                <div class="card-body">
+                  <h6>Upcoming Hearings <small class="text-muted">60-day window</small></h6>
+                  <table class="table table-sm mt-2" id="tblHearings">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Matter</th>
+                        <th>Court</th>
+                        <th>Room</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-4">
+              <div class="card card-panel card-shadow">
+                <div class="card-body">
+                  <h6>Mini Calendar <small class="text-muted">Plan filings & deadlines</small></h6>
+                  <input type="date" id="miniCalendar" class="form-control mt-2">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Clients Tab -->
+        <section id="tab-clients" class="d-none">
+          <div class="card card-panel card-shadow">
+            <div class="card-body">
+              <h5 class="mb-1">Clients</h5>
+              <div class="small-muted mb-3">Directory & quick actions</div>
+              <table class="table table-hover" id="tblClients">
+                <thead>
+                  <tr>
+                    <th>Client</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Company</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Matters Tab -->
+        <section id="tab-matters" class="d-none">
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="mb-0">Matters</h5>
+              <div class="small-muted">Board or List view</div>
+            </div>
+            <div>
+              <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalNewMatter">New
+                Matter</button>
+              <button class="btn btn-sm btn-outline-secondary" id="btnImport">Import</button>
+            </div>
+          </div>
+
+          <div id="mattersBoardArea" class="mb-3 overflow-x-auto">
+            <div class="board-wrap" id="mattersBoard"></div>
+          </div>
+
+          <div id="mattersListArea" class="d-none">
+            <div class="card card-panel card-shadow">
+              <div class="card-body p-2">
+                <table class="table table-sm" id="tblMattersList">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Client</th>
+                      <th>Practice</th>
+                      <th>Stage</th>
+                      <th>Progress</th>
+                      <th class="text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Court Tab -->
+        <section id="tab-court" class="d-none">
+          <div class="row g-3">
+            <div class="col-12 col-xl-8">
+              <div class="card card-panel card-shadow">
+                <div class="card-body">
+                  <h5>Court & Hearings</h5>
+                  <div class="small-muted">Rooms, filings, appearances</div>
+                  <table class="table table-sm mt-2" id="tblCourt">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Matter</th>
+                        <th>Court/Type</th>
+                        <th>Room</th>
+                        <th>Status</th>
+                        <th>Notify</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-panel card-shadow">
+                <div class="card-body">
+                  <h6>Filing Checklist</h6>
+                  <div class="form-check mt-2"><input class="form-check-input" id="chk1" type="checkbox"><label
+                      class="form-check-label" for="chk1">Affidavits formatted (Rule 4)</label></div>
+                  <div class="form-check"><input class="form-check-input" id="chk2" type="checkbox"><label
+                      class="form-check-label" for="chk2">Exhibits indexed</label></div>
+                  <div class="form-check"><input class="form-check-input" id="chk3" type="checkbox"><label
+                      class="form-check-label" for="chk3">Service proof uploaded</label></div>
+                  <div class="form-check"><input class="form-check-input" id="chk4" type="checkbox"><label
+                      class="form-check-label" for="chk4">Court fees paid</label></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Docs Tab -->
+        <section id="tab-docs" class="d-none">
+          <div class="row g-3">
+            <div class="col-12 col-xl-8">
+              <div class="card card-panel card-shadow p-4 text-center">
+                <i class="bi bi-cloud-upload fs-1 text-muted"></i>
+                <p class="mt-2">Drag & drop or click to upload</p>
+                <p class="small-muted">PDF, DOCX, PNG (max 50 MB)</p>
+                <!-- <div class="mt-3 d-flex justify-content-center gap-2">
+                  <button class="btn btn-sm btn-primary">Upload</button>
+                  <button class="btn btn-sm btn-outline-secondary">New Folder</button>
+                </div> -->
+              </div>
+
+              <div class="card card-panel card-shadow mt-3">
+                <div class="card-body">
+                  <table class="table table-sm" id="tblDocs">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Matter</th>
+                        <th>Size</th>
+                        <th>Updated</th>
+                        <th class="text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-panel card-shadow p-3">
+                <h6>Secure Share</h6>
+                <div class="small-muted">Invite client or counsel</div>
+                <input class="form-control mt-2" placeholder="Recipient email">
+                <select class="form-select mt-2">
+                  <option>Access level</option>
+                  <option>View</option>
+                  <option>Comment</option>
+                  <option>Edit</option>
+                </select>
+                <button class="btn btn-primary w-100 mt-3">Send Link</button>
+                <p class="small-muted mt-2">All access is logged and revocable.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Calendar Tab -->
+        <section id="tab-calendar" class="d-none">
+          <div class="row g-3">
+            <div class="col-12 col-xl-8">
+              <div class="card card-panel card-shadow p-3">
+                <h5>Master Calendar</h5>
+                <div class="small-muted">All events across all clients</div>
+                <div class="mt-3">
+                  <input type="date" id="masterCalDate" class="form-control mb-2">
+                  <table class="table table-sm" id="tblEvents">
+                    <thead>
+                      <tr>
+                        <th>When</th>
+                        <th>Title</th>
+                        <th>Client</th>
+                        <th>Location</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-panel card-shadow p-3">
+                <h6>Quick Add</h6>
+                <input class="form-control mt-2" id="qTitle" placeholder="Title">
+                <div class="row mt-2 g-2">
+                  <div class="col-6"><input class="form-control" id="qDate" placeholder="Date (YYYY-MM-DD)" type="date">
+                  </div>
+                  <div class="col-6"><input class="form-control" id="qTime" placeholder="Time (HH:MM)" type="time">
+                  </div>
+                </div>
+                <select class="form-select mt-2" id="qClient"></select>
+                <input class="form-control mt-2" id="qLocation" placeholder="Location">
+                <textarea class="form-control mt-2" id="qNotes" placeholder="Notes"></textarea>
+                <div class="d-grid mt-2">
+                  <a id="gcalLink" class="btn btn-primary mb-2" target="_blank">Add to Google Calendar</a>
+                  <a id="outlookLink" class="btn btn-outline-secondary mb-2" target="_blank">Add to Outlook Calendar</a>
+                  <button class="btn btn-success" id="btnQuickSave">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Billing Tab -->
+        <section id="tab-billing" class="d-none">
+          <div class="row g-3">
+            <div class="col-12 col-xl-8">
+              <div class="card card-panel card-shadow p-3">
+                <h5>Invoices</h5>
+                <div class="small-muted">Track payments & status</div>
+                <table class="table table-sm mt-2" id="tblInvoices">
+                  <thead>
+                    <tr>
+                      <th>Invoice</th>
+                      <th>Client</th>
+                      <th>Matter</th>
+                      <th>Amount</th>
+                      <th>Due</th>
+                      <th>Status</th>
+                      <th class="text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-panel card-shadow p-3">
+                <h6>Get Paid</h6>
+                <div class="small-muted">Secure payment link</div>
+                <input class="form-control mt-2" placeholder="Client email">
+                <input class="form-control mt-2" placeholder="Amount (USD)">
+                <textarea class="form-control mt-2" placeholder="Description (optional)"></textarea>
+                <button class="btn btn-primary w-100 mt-3">Send Payment Request</button>
+                <p class="small-muted mt-2">Uses Stripe. Auto-reconcile to matters.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Messages Tab -->
+        <section id="tab-messages" class="d-none">
+          <div class="row g-3">
+            <div class="col-12 col-xl-8">
+              <div class="card card-panel card-shadow p-3">
+                <h5>Messages</h5>
+                <div class="small-muted">Client & counsel threads</div>
+                <div id="messageList" class="mt-2" style="max-height:320px;overflow:auto"></div>
+                <div class="d-flex gap-2 mt-2">
+                  <input class="form-control" id="msgInput" placeholder="Write a message…">
+                  <button class="btn btn-primary" id="btnSendMsg">Send</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-panel card-shadow p-3">
+                <h6>Contact</h6>
+                <div id="contactList" class="mt-2"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Client Profile -->
+        <section id="tab-client-profile" class="d-none">
+          <div class="card card-rounded shadow-sm p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">Client Profile</h5>
+              <button class="btn btn-sm btn-outline-secondary" id="btnBackDashboard"><i class="bi bi-arrow-left"></i>
+                Back</button>
+            </div>
+            <div id="clientProfileBody">
+              <!-- content will be injected -->
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- New Client -->
+  <div class="modal fade" id="modalNewClient" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Client</h5><button type="button" class="btn-close"
+            data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2"><input id="newClientName" class="form-control" placeholder="Full name"></div>
+          <div class="mb-2"><input id="newClientEmail" class="form-control" placeholder="Email"></div>
+          <div class="mb-2"><input id="newClientPhone" class="form-control" placeholder="Phone"></div>
+          <div class="mb-2"><input id="newClientCompany" class="form-control" placeholder="Company"></div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-outline-secondary"
+            data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="saveNewClient">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Matter -->
+  <div class="modal fade" id="modalNewMatter" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Matter</h5><button type="button" class="btn-close"
+            data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2"><input id="newMatterTitle" class="form-control" placeholder="Matter title"></div>
+          <div class="mb-2"><select id="newMatterClient" class="form-select">
+              <option value="">Select client (optional)</option>
+            </select></div>
+          <div class="mb-2"><input id="newMatterPractice" class="form-control" placeholder="Practice area"></div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-outline-secondary"
+            data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="saveNewMatter">Create
+            Matter</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Record Payment -->
+  <div class="modal fade" id="modalRecordPayment" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Record Payment</h5><button type="button" class="btn-close"
+            data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div id="rpInfo" class="small-muted mb-2"></div>
+          <div class="mb-2"><input id="rpAmount" type="number" class="form-control" placeholder="Amount (USD)"></div>
+          <div class="mb-2"><input id="rpDue" class="form-control" disabled></div>
+          <div class="mb-2"><textarea id="rpNote" class="form-control" placeholder="Note (optional)"></textarea></div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-outline-secondary"
+            data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="rpSave">Record</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Document Viewer -->
+  <div class="modal fade" id="modalDocViewer" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="docTitle">Document</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Matter:</strong> <span id="docMatter"></span></p>
+          <p><strong>Size:</strong> <span id="docSize"></span></p>
+          <p><strong>Last Updated:</strong> <span id="docUpdated"></span></p>
+          <iframe id="docPreview" src="" class="w-100" style="height:500px;border:1px solid #e2e8f0;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // --- Seed data (mirror the React file seeds) ---
+    const STAGES = ['Intake', 'Discovery', 'Motions', 'Trial', 'Closed'];
+    let matters = [
+      { id: 'MAT-24012', title: 'Nguyen v. Atlas Logistics', client: 'Lan Nguyen', practice: 'Employment', stage: 'Discovery', next: 'Deposition prep – Oct 10', percent: 42 },
+      { id: 'MAT-24019', title: 'Estate of Chen', client: 'Estate of Li Chen', practice: 'Estates', stage: 'Intake', next: 'Collect medical files', percent: 8 },
+      { id: 'MAT-24021', title: 'R. v. Patel', client: 'Arjun Patel', practice: 'Criminal', stage: 'Motions', next: 'Charter notice – due Oct 6', percent: 58 },
+      { id: 'MAT-24028', title: 'Tran v. City of Hamilton', client: 'Minh Tran', practice: 'Civil', stage: 'Trial', next: 'Jury selection – Nov 18', percent: 82 },
+    ];
+
+    let hearings = [
+      { id: 1, matter: 'R. v. Patel', court: 'ON Superior Court', type: 'Motion', date: '2025-10-06', room: '3A', status: 'Scheduled', client: 'Arjun Patel', clientPhone: '+1 647 555 2233', clientEmail: 'arjun.patel@example.com' },
+      { id: 2, matter: 'Nguyen v. Atlas Logistics', court: 'ON Small Claims', type: 'Settlement Conf.', date: '2025-10-15', room: '2C', status: 'Scheduled', client: 'Lan Nguyen', clientPhone: '+1 416 555 9912', clientEmail: 'lan.nguyen@example.com' },
+      { id: 3, matter: 'Tran v. City of Hamilton', court: 'ON Superior Court', type: 'Trial', date: '2025-11-18', room: '1D', status: 'Confirmed', client: 'Minh Tran', clientPhone: '+1 289 555 4022', clientEmail: 'minh.tran@example.com' },
+    ];
+
+    let invoices = [
+      { id: 'INV-1045', client: 'Lan Nguyen', matter: 'Nguyen v. Atlas Logistics', amount: 2450, due: '2025-10-12', status: 'Unpaid' },
+      { id: 'INV-1046', client: 'Estate of Li Chen', matter: 'Estate of Chen', amount: 780, due: '2025-10-20', status: 'Unpaid' },
+      { id: 'INV-1040', client: 'Arjun Patel', matter: 'R. v. Patel', amount: 920, due: '2025-09-20', status: 'Overdue' },
+      { id: 'INV-1034', client: 'Minh Tran', matter: 'Tran v. City of Hamilton', amount: 3130, due: '2025-10-28', status: 'Partially Paid' },
+    ];
+
+    let clients = [
+      { name: 'Lan Nguyen', email: 'lan.nguyen@example.com', phone: '+1 416 555 9912', company: 'Self' },
+      { name: 'Arjun Patel', email: 'arjun.patel@example.com', phone: '+1 647 555 2233', company: 'Self' },
+      { name: 'Estate of Li Chen', email: 'executor@chenestate.org', phone: '+1 905 555 8080', company: 'Estate' },
+      { name: 'Minh Tran', email: 'minh.tran@example.com', phone: '+1 289 555 4022', company: 'Self' },
+    ];
+
+    let events = [
+      ...hearings.map(h => ({ id: 'EVT-H-' + h.id, title: `${h.type}: ${h.matter}`, client: h.client, when: h.date + 'T09:00', location: `${h.court} Room ${h.room}`, notes: `Status: ${h.status}` })),
+      { id: 'EVT-1', title: 'Discovery meet & confer', client: 'Lan Nguyen', when: '2025-10-09T10:00', location: 'Zoom', notes: '' },
+      { id: 'EVT-2', title: 'Trial prep sync', client: 'Minh Tran', when: '2025-11-10T15:00', location: 'Office', notes: '' },
+    ];
+
+    let uploadedFiles = [
+      { name: 'Retainer_Agreement.pdf', matter: 'Nguyen v. Atlas Logistics', size: '232 KB', updated: '2025-09-25', path: 'docs/Retainer_Agreement.pdf' },
+      { name: 'Disclosure_List.docx', matter: 'R. v. Patel', size: '88 KB', updated: '2025-09-28', path: 'docs/Disclosure_List.docx' },
+      { name: 'City_Records_Request.pdf', matter: 'Tran v. City of Hamilton', size: '1.1 MB', updated: '2025-09-30', path: 'docs/City_Records_Request.pdf' },
+    ];
+
+    let threads = {};
+
+    // --- Utility functions ---
+    function renderStats() {
+      $('#statMatters').text(matters.filter(m => m.stage !== 'Closed').length);
+      $('#statHearings').text(hearings.length);
+      const outstanding = invoices.filter(i => i.status !== 'Paid').length;
+      $('#statInvoices').text(outstanding);
+      const dueSum = invoices.reduce((a, b) => a + (b.status !== 'Paid' ? b.amount : 0), 0);
+      $('#statInvoicesSub').text('$ ' + dueSum.toLocaleString() + ' due');
+    }
+
+    function renderHearings() {
+      const $b = $('#tblHearings tbody').empty();
+      hearings.forEach(h => {
+        const $r = $('<tr>');
+        $r.append($('<td>').text(new Date(h.date).toLocaleDateString()));
+        $r.append($('<td>').html(`<button class="underline-btn" data-client="${h.client}">${h.matter}</button>`));
+        $r.append($('<td>').text(h.court + ' (' + h.type + ')'));
+        $r.append($('<td>').text(h.room));
+        $b.append($r);
+      });
+    }
+
+    function renderClients() {
+      const $b = $('#tblClients tbody').empty();
+      clients.forEach(c => {
+        const $r = $('<tr tabindex="0" role="button">');
+        $r.append($('<td>').html(`<div class="d-flex align-items-center gap-2"><div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px">${getInitials(c.name)}</div><div><div class="fw-semibold">${c.name}</div><div class="small-muted">Active</div></div></div>`));
+        $r.append($('<td>').text(c.email));
+        $r.append($('<td>').text(c.phone));
+        $r.append($('<td>').text(c.company));
+        $r.append(`<td class="text-end"><button class="btn btn-sm btn-link open-client-profile-btn" data-email="${c.email}">Open</button></td>`);
+        $b.append($r);
+      });
+      // populate select for new matter & quick add
+      const $sel = $('#newMatterClient').empty().append('<option value="">Select client (optional)</option>');
+      const $qsel = $('#qClient').empty().append('<option value="">(none)</option>');
+      clients.forEach(c => { $sel.append(`<option value="${c.name}">${c.name}</option>`); $qsel.append(`<option value="${c.name}">${c.name}</option>`); });
+      // contacts
+      const $contact = $('#contactList').empty();
+      [{ n: 'Lan Nguyen', e: 'lan.nguyen@example.com', p: '+1 416 555 9912' }, { n: 'Opposing Counsel', e: 'law@atlas.com', p: '+1 416 555 2200' }].forEach(cc => {
+        $contact.append(`<div class="d-flex justify-content-between align-items-center border rounded-3 p-2 mb-2"><div><div class="fw-semibold">${cc.n}</div><div class="small-muted">${cc.e}</div><div class="small-muted">${cc.p}</div></div><div class="d-flex gap-2"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-envelope"></i></button><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-telephone"></i></button></div></div>`);
+      });
+    }
+
+    // ========== CLIENT PROFILE ==========
+    function renderClientProfile(clientName) {
+      const client = clients.find(c => c.name === clientName || c.email === clientName);
+      if (!client) { alert("Client not found: " + clientName); return; }
+
+      const relatedMatters = matters.filter(m => m.client === client.name);
+      const relatedInvoices = invoices.filter(i => i.client === client.name);
+      const relatedHearings = hearings.filter(h => h.client === client.name);
+
+      let html = `
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="border rounded-3 p-3 h-100">
+              <div class="text-center mb-3">
+                <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center" 
+                     style="width:80px;height:80px;font-size:28px;font-weight:600;color:#2563eb;">
+                  ${client.name.split(' ').map(n => n[0]).join('')}
+                </div>
+              </div>
+              <h6 class="text-center mb-0">${client.name}</h6>
+              <p class="text-center tiny text-muted">${client.company}</p>
+              <hr>
+              <div class="tiny"><i class="bi bi-envelope me-2"></i>${client.email || '—'}</div>
+              <div class="tiny"><i class="bi bi-telephone me-2"></i>${client.phone || '—'}</div>
+              <div class="mt-3">
+                <span class="badge bg-primary">Active</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <ul class="nav nav-tabs small" id="clientTabNav">
+              <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#clientMatters">Matters</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientInvoices">Invoices</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientHearings">Hearings</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientMessages">Messages</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientDocuments">Documents</a></li>
+            </ul>
+
+            <div class="tab-content mt-3">
+              <!-- Matters -->
+              <div class="tab-pane fade show active" id="clientMatters">
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead><tr><th>ID</th><th>Title</th><th>Stage</th><th>Progress</th></tr></thead>
+                    <tbody>
+                      ${relatedMatters.map(m => `
+                        <tr><td>${m.id}</td><td>${m.title}</td><td>${m.stage}</td>
+                        <td><div class="progress" style="height:6px;"><div class="progress-bar" style="width:${m.percent}%"></div></div></td></tr>
+                      `).join('') || `<tr><td colspan="4" class="tiny text-muted">No matters yet</td></tr>`}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Invoices -->
+              <div class="tab-pane fade" id="clientInvoices">
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead><tr><th>ID</th><th>Amount</th><th>Due</th><th>Status</th></tr></thead>
+                    <tbody>
+                      ${relatedInvoices.map(i => `
+                        <tr><td>${i.id}</td><td>$${i.amount.toLocaleString()}</td>
+                        <td>${new Date(i.due).toLocaleDateString()}</td>
+                        <td>${i.status}</td></tr>
+                      `).join('') || `<tr><td colspan="4" class="tiny text-muted">No invoices</td></tr>`}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Hearings -->
+              <div class="tab-pane fade" id="clientHearings">
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead><tr><th>Date</th><th>Court</th><th>Type</th><th>Status</th></tr></thead>
+                    <tbody>
+                      ${relatedHearings.map(h => `
+                        <tr><td>${new Date(h.date).toLocaleDateString()}</td><td>${h.court}</td><td>${h.type}</td><td>${h.status}</td></tr>
+                      `).join('') || `<tr><td colspan="4" class="tiny text-muted">No hearings</td></tr>`}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Messages -->
+              <div class="tab-pane fade" id="clientMessages">
+                <div class="border rounded-2 p-3 mb-2" style="height:250px; overflow:auto;" id="msgThread"></div>
+                <div class="d-flex gap-2">
+                  <input id="msgInput" class="form-control form-control-sm" placeholder="Write a message…" />
+                  <button id="sendMsgBtn" class="btn btn-sm btn-primary">Send</button>
+                </div>
+              </div>
+              <!-- Documents -->
+              <div class="tab-pane fade" id="clientDocuments">
+                <div class="d-flex flex-column mb-3 ">
+                  <h6 class="mb-2">Client Documents</h6>
+                  <div class="d-grid gap-2 grid-2">
+                    <select id="folderSelect" class="form-select form-select-sm" style="width:auto;"></select>
+                    <select id="subfolderSelect" class="form-select form-select-sm" style="width:auto;"></select>
+                    <input type="file" id="uploadFile" class="form-control form-control-sm" style="width:auto;">
+                    <button id="btnUploadDoc" class="btn btn-sm btn-primary">Upload</button>
+                  </div>
+                </div>
+                <div id="docFolders" class="accordion accordion-flush"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      $('#clientProfileBody').html(html);
+      renderDocuments();
+
+      // load previous messages if any
+      renderMessages(client.email);
+      $('#tab-client-profile').removeClass('d-none');
+      $('main section').not('#tab-client-profile').addClass('d-none');
+      $('.sidebar .nav-link').removeClass('active');
+    }
+
+    function renderMattersBoard(targetId, sourceMatters) {
+      const $wrap = $(targetId).empty();
+      STAGES.forEach(stage => {
+        const items = sourceMatters.filter(m => m.stage === stage);
+        const $col = $(`<div class="stage-column d-flex flex-column"></div>`);
+        $col.append(`<div class="d-flex align-items-center justify-content-between mb-2">
+      <h6 class="mb-0">${stage}</h6>
+      <span class="badge bg-light text-muted">${items.length}</span>
+    </div>`);
+        const $list = $('<div class="d-flex flex-column gap-3"></div>');
+        items.forEach(m => {
+          const $card = $(`
+        <div class="mat-card card-shadow" data-id="${m.id}">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="fw-medium">
+                <button class="underline-btn open-matter" data-client="${m.client}">${m.title}</button>
+              </div>
+              <div class="small-muted">${m.client} • ${m.practice}</div>
+            </div>
+            <button class="btn btn-sm btn-light btn-more" title="Advance">…</button>
+          </div>
+          <div class="small-muted mt-2">Next: ${m.next}</div>
+          <div class="progress mt-3" style="height:8px">
+            <div class="progress-bar" role="progressbar" style="width:${m.percent}%"></div>
+          </div>
+        </div>
+      `);
+          $list.append($card);
+        });
+        if (items.length === 0) $list.append('<div class="text-center small-muted border border-dashed p-3 rounded">No items</div>');
+        $col.append($list);
+        $wrap.append($col);
+      });
+    }
+
+
+    function renderMattersList() {
+      const $b = $('#tblMattersList tbody').empty();
+      matters.forEach(m => {
+        const $r = $('<tr>');
+        $r.append($('<td>').text(m.id));
+        $r.append($('<td>').text(m.title));
+        $r.append($('<td>').text(m.client));
+        $r.append($('<td>').text(m.practice));
+        $r.append($('<td>').html(`< span class= "badge bg-secondary" > ${m.stage}</span > `));
+        $r.append($('<td>').html(`< div class= "progress" style = "height:8px" > <div class="progress-bar" style="width:${m.percent}%"></div></div > `));
+        const $act = $('<td class="text-end">').append($('<button class="btn btn-sm btn-outline-secondary">Open</button>').on('click', () => openClientByName(m.client)));
+        $r.append($act);
+        $b.append($r);
+      });
+    }
+
+    function renderInvoices() {
+      const $b = $('#tblInvoices tbody').empty();
+      invoices.forEach(i => {
+        const $r = $('<tr>');
+        $r.append($('<td>').text(i.id));
+        $r.append($('<td>').text(i.client));
+        $r.append($('<td>').text(i.matter));
+        $r.append($('<td>').text('$' + i.amount.toLocaleString()));
+        $r.append($('<td>').text(new Date(i.due).toLocaleDateString()));
+        $r.append($('<td>').html(renderBillingChip(i.status)));
+        const $act = $('<td class="text-end">').append($('<button class="btn btn-sm btn-outline-secondary">Record Payment</button>').on('click', () => openRecordPayment(i)));
+        $r.append($act);
+        $b.append($r);
+      });
+    }
+
+    function renderBillingChip(status) {
+      if (status === 'Overdue') return '<span class="badge bg-danger">Overdue</span>';
+      if (status === 'Partially Paid') return '<span class="badge bg-warning text-dark">Partially Paid</span>';
+      if (status === 'Unpaid') return '<span class="badge bg-secondary">Unpaid</span>';
+      return '<span class="badge bg-success">Paid</span>';
+    }
+
+    function renderDocs() {
+      const $b = $('#tblDocs tbody').empty();
+      uploadedFiles.forEach(f => {
+        const $r = $(`
+      <tr>
+        <td><i class="bi bi-paperclip me-1"></i>${f.name}</td>
+        <td>${f.matter || '-'}</td>
+        <td>${f.size}</td>
+        <td>${f.updated}</td>
+        <td class="text-end">
+          <button class="btn btn-sm btn-outline-secondary btn-doc-open" data-file='${JSON.stringify(f)}'>Open</button>
+        </td>
+      </tr>
+    `);
+        $b.append($r);
+      });
+    }
+    $('#btnUpload').on('click', function () {
+      $('#fileInput').click();
+    });
+
+    // Khi chọn file hoặc kéo thả
+    $('#fileInput').on('change', function (e) {
+      handleUpload(e.target.files);
+    });
+
+    // (Tùy chọn) hỗ trợ kéo thả vào toàn card
+    $('.card.card-panel.text-center').on('dragover', function (e) {
+      e.preventDefault();
+      $(this).addClass('border-primary');
+    });
+    $('.card.card-panel.text-center').on('dragleave drop', function (e) {
+      e.preventDefault();
+      $(this).removeClass('border-primary');
+    });
+    $('.card.card-panel.text-center').on('drop', function (e) {
+      e.preventDefault();
+      const files = e.originalEvent.dataTransfer.files;
+      handleUpload(files);
+    });
+
+    // Hàm xử lý upload
+    function handleUpload(files) {
+      Array.from(files).forEach(file => {
+        const sizeKB = (file.size / 1024).toFixed(1) + ' KB';
+        const today = new Date().toLocaleDateString();
+
+        const fileURL = URL.createObjectURL(file);
+
+        uploadedFiles.unshift({
+          name: file.name,
+          matter: 'Henry',
+          size: sizeKB,
+          updated: today,
+          path: fileURL
+        });
+      });
+
+      renderDocs();
+    }
+
+    // Gắn sự kiện mở modal
+    $(document).on('click', '.btn-doc-open', function () {
+      const f = $(this).data('file');
+      console.log(f);
+      $('#docTitle').text(f.name);
+      $('#docMatter').text(f.matter);
+      $('#docSize').text(f.size);
+      $('#docUpdated').text(new Date(f.updated).toLocaleDateString());
+
+      // Nếu là PDF — có thể hiển thị trong iframe
+      if (f.path.endsWith('.pdf')) {
+        $('#docPreview').attr('src', f.path);
+      } else {
+        $('#docPreview').attr('src', '');
+      }
+
+      $('#modalDocViewer').modal('show');
+    });
+
+
+    function renderEvents() {
+      const $b = $('#tblEvents tbody').empty();
+      events
+        .sort((a, b) => a.when > b.when ? 1 : -1)
+        .forEach(ev => {
+          const $r = $(`
+        <tr>
+          <td>${new Date(ev.when).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}<br>${new Date(ev.when).toLocaleDateString()}</td>
+          <td>${ev.title}</td>
+          <td><span class="badge bg-light text-muted">${ev.client}</span></td>
+          <td>${ev.location || '-'}</td>
+        </tr>
+      `);
+          $b.append($r);
+        });
+    }
+
+
+    function renderMessages() {
+      const $m = $('#messageList').empty();
+      const sample = [
+        { name: 'Henry Quach', text: 'Please review the draft disclosure list attached.', ago: '2m ago' },
+        { name: 'Lan Nguyen', text: 'Thanks — will look this afternoon.', ago: '1h ago' },
+      ];
+
+      sample.forEach(s => {
+        const initials = s.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+        const $msg = $(`
+      <div class="mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center" 
+               style="width:32px;height:32px">${initials}</div>
+          <div>
+            <div class="fw-semibold">${s.name}</div>
+            <div class="small-muted">${s.ago}</div>
+          </div>
+        </div>
+        <p class="ms-5 mt-2">${s.text}</p>
+      </div>
+    `);
+        $m.append($msg);
+      });
+    }
+
+    // ========== DOCUMENTS TAB (v2) ==========
+
+    // cấu trúc thư mục 2 tầng
+    const documentStructure = {
+      "Client & Administrative Documents": {
+        "Client intake form": [],
+        "Retainer agreement": [],
+        "Authorization for release of information": [],
+        "Conflict check form": []
+      },
+      "Court Filings & Pleadings": {
+        "Complaint / Petition": [],
+        "Answer / Response": [],
+        "Motions": [],
+        "Orders / Judgments": []
+      },
+      "Discovery & Evidence": {
+        "Interrogatories": [],
+        "Depositions": [],
+        "Exhibits": [],
+        "Expert reports": []
+      },
+      "Pre-Trial & Trial": {
+        "Witness lists": [],
+        "Trial briefs": [],
+        "Jury instructions": []
+      },
+      "Post-Judgment": {
+        "Appeals": [],
+        "Enforcement documents": [],
+        "Settlement agreements": []
+      }
+    };
+
+    // render dropdown select cho upload
+    function populateFolderSelects() {
+      const folderSelect = $('#folderSelect');
+      const subSelect = $('#subfolderSelect');
+      folderSelect.empty();
+      Object.keys(documentStructure).forEach(f => {
+        folderSelect.append(`<option value="${f}">${f}</option>`);
+      });
+      const firstFolder = folderSelect.val();
+      subSelect.empty();
+      Object.keys(documentStructure[firstFolder]).forEach(s => {
+        subSelect.append(`<option value="${s}">${s}</option>`);
+      });
+    }
+
+    // render accordion
+    function renderDocuments() {
+      let idx = 0;
+      const html = Object.entries(documentStructure).map(([folder, subs]) => {
+        const folderId = 'folder' + (++idx);
+        const subsHtml = Object.entries(subs).map(([sub, files]) => {
+          const safeSub = sub.replace(/[^a-zA-Z0-9_-]/g, '_');  // chỉ giữ lại chữ, số, -, _
+          const subId = folderId + '-' + safeSub + '-' + Math.floor(Math.random() * 10000);
+          const fileItems = files.map(f => `
+        <li class="list-group-item d-flex justify-content-between align-items-center small">
+          <span><i class="bi bi-file-earmark-text me-2 text-secondary"></i>${f}</span>
+          <div>
+            <button class="btn btn-sm btn-outline-primary btn-open-doc" data-doc="${f}">Open</button>
+            <button class="btn btn-sm btn-outline-danger btn-del-doc" data-doc="${f}"><i class="bi bi-trash"></i></button>
+          </div>
+        </li>`).join('');
+          return `
+        <div class="accordion-item border-0">
+          <h2 class="accordion-header" id="heading-${subId}">
+            <button class="accordion-button collapsed small bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${subId}">
+              <i class="bi bi-folder me-2 text-warning"></i>${sub}
+            </button>
+          </h2>
+          <div id="collapse-${subId}" class="accordion-collapse collapse">
+            <div class="accordion-body p-0">
+              <ul class="list-group list-group-flush">${fileItems || '<li class="list-group-item tiny text-muted">No files yet</li>'}</ul>
+            </div>
+          </div>
+        </div>`;
+        }).join('');
+        return `
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading${idx}">
+          <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${idx}">
+            <i class="bi bi-folder-fill text-warning me-2"></i>${folder}
+          </button>
+        </h2>
+        <div id="collapse${idx}" class="accordion-collapse collapse">
+          <div class="accordion-body p-0">
+            <div class="accordion accordion-flush ms-3">${subsHtml}</div>
+          </div>
+        </div>
+      </div>`;
+      }).join('');
+      $('#docFolders').html(html);
+      populateFolderSelects();
+
+      // ✅ Fix delay: reinitialize collapse events
+      $('#docFolders .accordion-button').each(function () {
+        const targetId = $(this).attr('data-bs-target');
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          new bootstrap.Collapse(targetEl, { toggle: false });
+        }
+      });
+    }
+
+    // Khi mở tab Documents → render nội dung
+    $(document).on('shown.bs.tab', 'a[href="#clientDocuments"]', function () {
+      renderDocuments();
+    });
+
+    // Cập nhật subfolder khi chọn folder
+    $(document).on('change', '#folderSelect', function () {
+      const selected = $(this).val();
+      const subSelect = $('#subfolderSelect');
+      subSelect.empty();
+      Object.keys(documentStructure[selected]).forEach(s => {
+        subSelect.append(`<option value="${s}">${s}</option>`);
+      });
+    });
+
+    // Upload tài liệu
+    $(document).on('click', '#btnUploadDoc', function () {
+      const folder = $('#folderSelect').val();
+      const sub = $('#subfolderSelect').val();
+      const fileInput = $('#uploadFile')[0];
+      if (!fileInput.files.length) { alert('Vui lòng chọn file để tải lên'); return; }
+      const fileName = fileInput.files[0].name;
+      documentStructure[folder][sub].push(fileName);
+      renderDocuments();
+      // reset input
+      $('#uploadFile').val('');
+      $('#folderSelect').val(folder);
+      $('#subfolderSelect').val(sub);
+      alert(`📁 Uploaded "${fileName}" vào ${folder} → ${sub}`);
+    });
+
+    // Mở tài liệu
+    $(document).on('click', '.btn-open-doc', function () {
+      const name = $(this).data('doc');
+      alert(`📄 Opening document: ${name}`);
+    });
+
+    // Xoá tài liệu
+    $(document).on('click', '.btn-del-doc', function () {
+      const name = $(this).data('doc');
+      if (confirm(`Xoá tài liệu "${name}"?`)) {
+        $(this).closest('li').remove();
+      }
+    });
+
+    // helpers
+    function getInitials(name) { return (name || '').split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase(); }
+
+    // --- Actions ---
+    function advanceMatter(mId) {
+      matters = matters.map(m => { if (m.id === mId) { const idx = STAGES.indexOf(m.stage); const next = STAGES[Math.min(idx + 1, STAGES.length - 1)]; return { ...m, stage: next, percent: Math.min(100, (m.percent || 0) + 12) } } return m });
+      renderAll();
+    }
+
+    function addClient(form) {
+      const newClient = { name: form.clientName || 'Unnamed Client', email: form.clientEmail || '', phone: form.phone || '', company: form.company || 'Self' };
+      clients.unshift(newClient);
+      const newMatter = { id: 'MAT-' + (Math.floor(Math.random() * 9000) + 1000), title: `New Matter for ${newClient.name}`, client: newClient.name, practice: 'General', stage: 'Intake', next: 'Add details & documents', percent: 0 };
+      matters.unshift(newMatter);
+      renderAll();
+    }
+
+    function addMatter(form) {
+      const newMatter = { id: 'MAT-' + (Math.floor(Math.random() * 9000) + 1000), title: form.matterTitle || 'New Matter', client: form.clientName || 'Unassigned', practice: form.practiceArea || 'General', stage: 'Intake', next: 'Review intake details', percent: 2 };
+      matters.unshift(newMatter);
+      renderAll();
+    }
+
+    function openRecordPayment(inv) {
+      $('#modalRecordPayment').data('invoice', inv).modal('show');
+      $('#rpInfo').text(`Invoice ${inv.id} — ${inv.client} `);
+      $('#rpAmount').val(inv.amount);
+      $('#rpDue').val(new Date(inv.due).toLocaleDateString());
+    }
+
+    function saveRecordPayment() {
+      const inv = $('#modalRecordPayment').data('invoice');
+      const amount = Number($('#rpAmount').val() || 0);
+      if (!inv) return alert('No invoice');
+      if (amount <= 0) return alert('Amount must be > 0');
+      invoices = invoices.map(i => i.id === inv.id ? { ...i, status: amount >= i.amount ? 'Paid' : 'Partially Paid' } : i);
+      $('#modalRecordPayment').modal('hide');
+      renderAll();
+      alert('Payment recorded');
+    }
+
+    // Quick add event links
+    function updateCalendarLinks() {
+      const title = encodeURIComponent($('#qTitle').val() || 'New event');
+      const date = $('#qDate').val(); const time = $('#qTime').val() || '09:00';
+      const start = date ? new Date(date + 'T' + time) : new Date();
+      const end = new Date(start.getTime() + 60 * 60 * 1000);
+      function fmt(d) { const pad = (n) => String(n).padStart(2, '0'); return `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())} Z`; }
+      const gdates = fmt(start) + '/' + fmt(end);
+      const details = encodeURIComponent(($('#qNotes').val() || '') + ($('#qClient').val() ? ' — Client: ' + $('#qClient').val() : ''));
+      const location = encodeURIComponent($('#qLocation').val() || '');
+      $('#gcalLink').attr('href', `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${gdates}&details=${details}&location=${location}`);
+      $('#outlookLink').attr('href', `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startdt=${encodeURIComponent(start.toISOString())}&enddt=${encodeURIComponent(end.toISOString())}&body=${details}&location=${location}`);
+    }
+
+    // Save quick add
+    function saveQuickAdd() {
+      const title = $('#qTitle').val(); const date = $('#qDate').val(); const time = $('#qTime').val() || '09:00'; const client = $('#qClient').val(); const location = $('#qLocation').val(); const notes = $('#qNotes').val();
+      if (!title || !date) return alert('Title and Date are required');
+      const when = date + 'T' + time;
+      const id = 'EVT-' + Math.random().toString(36).slice(2, 8);
+      events.unshift({ id, title, client: client || 'Unassigned', when, location, notes });
+      renderEvents();
+      $('#qTitle').val(''); $('#qDate').val(''); $('#qTime').val(''); $('#qClient').val(''); $('#qLocation').val(''); $('#qNotes').val('');
+    }
+
+    // Render all
+    function renderAll() { renderStats(); renderHearings(); renderClients(); renderMattersBoard('#boardWrap', matters); renderMattersBoard('#mattersBoard', matters); renderMattersList(); renderInvoices(); renderDocs(); renderEvents(); renderMessages(); }
+
+    $(function () {
+      // initial render
+      renderAll();
+
+      // tab switching
+      $('.sidebar-btn').on('click', function () { $('.sidebar-btn').removeClass('active'); $(this).addClass('active'); const tab = $(this).data('tab'); $('main section').addClass('d-none'); $(`#tab-${tab}`).removeClass('d-none'); if (tab === 'matters') { $('#mattersBoardArea').show(); $('#mattersListArea').hide(); } });
+
+      // global search filter (simple: filter by title/client)
+      $('#globalSearch').on('input', function () { const q = $(this).val().toLowerCase(); if (!q) { renderMattersBoard('#boardWrap', matters); return; } const filtered = matters.filter(m => (m.id + ' ' + m.title + ' ' + m.client + ' ' + m.practice).toLowerCase().includes(q)); renderMattersBoard('#boardWrap', filtered); });
+
+      // open client by clicking hearing matter
+      $(document).on('click', '.underline-btn', function () { const client = $(this).data('client'); openClientByName(client); });
+
+      // advance via more button
+      $(document).on('click', '.btn-more', function () { const id = $(this).closest('[data-id]').data('id'); advanceMatter(id); });
+
+      // open matter click
+      $(document).on('click', '.open-matter', function () { const client = $(this).data('client'); openClientByName(client); });
+
+      // create new client
+      $('#saveNewClient').on('click', function () { const form = { clientName: $('#newClientName').val(), clientEmail: $('#newClientEmail').val(), phone: $('#newClientPhone').val(), company: $('#newClientCompany').val() }; addClient(form); $('#modalNewClient').modal('hide'); });
+
+      // create new matter
+      $('#saveNewMatter').on('click', function () { const form = { matterTitle: $('#newMatterTitle').val(), clientName: $('#newMatterClient').val(), practiceArea: $('#newMatterPractice').val() }; addMatter(form); $('#modalNewMatter').modal('hide'); });
+
+      // record payment
+      $('#rpSave').on('click', saveRecordPayment);
+
+      // quick calendar links
+      $('#qTitle,#qDate,#qTime,#qLocation,#qNotes,#qClient').on('change keyup', updateCalendarLinks);
+      $('#btnQuickSave').on('click', saveQuickAdd);
+
+      // send message
+      $('#btnSendMsg').on('click', function () { const t = $('#msgInput').val(); if (!t) return; $('#messageList').prepend(`<div class="mb-3"><div class="d-flex align-items-center gap-2"><div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center" style="width:32px;height:32px">ME</div><div><div class="fw-semibold">You</div><div class="small-muted">Just now</div></div></div><p class="ms-5 mt-2">${t}</p></div>`); $('#msgInput').val(''); });
+
+      // toggle matters list/board
+      // simple: pressing Import toggles view to list (demo)
+      $('#btnImport').on('click', function () { $('#mattersBoardArea').toggle(); $('#mattersListArea').toggleClass('d-none'); });
+
+      // update calendar links on load
+      updateCalendarLinks();
+
+      // add event listeners for initial tables
+      $(document).on('click', 'button[data-client]', function () { const cl = $(this).data('client'); openClientByName(cl); });
+
+      // back button
+      $(document).on('click', '#btnBackDashboard', function () {
+        $('#tab-client-profile').addClass('d-none');
+        $('#tab-dashboard').removeClass('d-none');
+        $('.sidebar .nav-link').removeClass('active');
+        $('.sidebar .nav-link[data-tab="dashboard"]').addClass('active');
+      });
+
+      // override open-client link to open profile directly
+      $(document).off('click', '.open-client-profile-btn').on('click', '.open-client-profile-btn', function (e) {
+        const clientName = $(this).data('client') || $(this).data('email');
+        renderClientProfile(clientName);
+      });
+
+    });
+  </script>
+</body>
+
+</html>
