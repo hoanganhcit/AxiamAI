@@ -774,7 +774,9 @@
                         </div>
                         <div class="mb-2">
                             <label class="form-label tiny">Client (optional)</label>
-                            <input type="text" id="addEventClient" class="form-control form-control-sm">
+                            <select name="client" id="eventClientSelect" class="form-select form-select-sm" required>
+                                <option value="">Select client...</option>
+                            </select>
                         </div>
                         <div class="mb-2">
                             <label class="form-label tiny">Date</label>
@@ -1792,15 +1794,27 @@
                     const date = info.dateStr;
                     $('#addEventDate').val(date);
                     $('#addEventModal').modal('show');
+                    populateEventClientSelect();
                 }
             });
 
             calendar.render();
         }
+        function populateEventClientSelect() {
+            const select = $('#eventClientSelect');
+            select.empty().append('<option value="">Select client...</option>');
+            if (!clients || clients.length === 0) {
+                select.append('<option disabled>No clients available</option>');
+                return;
+            }
+            clients.forEach(c => {
+                select.append(`<option value="${c.name}">${c.name} (${c.company || 'Self'})</option>`);
+            });
+        }
         $(document).on('submit', '#addEventForm', function (e) {
             e.preventDefault();
             const title = $('#addEventTitle').val().trim();
-            const client = $('#addEventClient').val().trim();
+            const client = $('#eventClientSelect').val().trim();
             const date = $('#addEventDate').val();
             const type = $('#addEventType').val();
 
