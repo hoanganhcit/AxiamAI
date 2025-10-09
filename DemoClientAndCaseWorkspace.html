@@ -310,6 +310,18 @@
         .fc .fc-daygrid-day-frame {
             min-height: 100px;
         }
+
+        .grid-2-column {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .size-lg {
+            font-size: 20px;
+        }
+
+        .text-sm {
+            font-size: 0.5rem;
+        }
     </style>
 </head>
 
@@ -337,10 +349,8 @@
                 <button class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal"
                     data-bs-target="#newClientModal"><i class="bi bi-plus-lg me-1"></i> New Client</button>
                 <button class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal"
-                    data-bs-target="#newMatterModal"><i class="bi bi-plus-lg me-1"></i> New Matter</button>
-                <button class="btn btn-outline-secondary btn-sm rounded-pill" data-bs-toggle="modal"
-                    data-bs-target="#registerModal">Register</button>
-                <button class="btn btn-dark btn-sm"><i class="bi bi-gear"></i></button>
+                    data-bs-target="#addMatterModal"><i class="bi bi-plus-lg me-1"></i> New Matter</button>
+                <button class="btn btn-dark btn-sm rounded-pill"><i class="bi bi-person"></i></button>
             </div>
         </div>
     </header>
@@ -357,8 +367,6 @@
                         <a href="#" class="nav-link" data-tab="clients"><i class="bi bi-people me-2"></i> Clients</a>
                         <a href="#" class="nav-link" data-tab="matters"><i class="bi bi-briefcase me-2"></i> Matters</a>
                         <a href="#" class="nav-link" data-tab="court"><i class="bi bi-bank2 me-2"></i> Court</a>
-                        <a href="#" class="nav-link" data-tab="docs"><i class="bi bi-file-earmark-text me-2"></i>
-                            Documents</a>
                         <a href="#" class="nav-link" data-tab="calendar"><i class="bi bi-calendar-event me-2"></i>
                             Calendar</a>
                         <a href="#" class="nav-link" data-tab="billing"><i class="bi bi-credit-card-2-front me-2"></i>
@@ -436,7 +444,7 @@
 
                     <!-- Main grid: Matters board + right column -->
                     <div class="row g-4">
-                        <div class="col-12 col-xl-8">
+                        <div class="col-12 col-xl-12">
                             <div class="card card-rounded border-0">
                                 <div class="card-body">
                                     <h5 class="card-title mb-1">Matters Board</h5>
@@ -449,7 +457,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-xl-4">
+                        <div class="col-12 col-xl-8">
                             <div class="mb-3 card card-rounded border-0">
                                 <div class="card-body">
                                     <h6 class="mb-0">Upcoming Hearings <small class="tiny">60-day window</small></h6>
@@ -469,8 +477,10 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-12 col-xl-4">
 
-                            <div class="card card-rounded border-0 mt-3">
+                            <div class="card card-rounded border-0">
                                 <div class="card-body">
                                     <h6 class="mb-0">Mini Calendar <small class="tiny">Plan filings & deadlines</small>
                                     </h6>
@@ -495,9 +505,9 @@
                                     <thead>
                                         <tr>
                                             <th>Client</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
                                             <th>Company</th>
+                                            <th>Phone</th>
+                                            <th>Notes</th>
                                             <th>Court Type</th>
                                             <th class="text-end">Actions</th>
                                         </tr>
@@ -519,7 +529,7 @@
                             </div>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#newMatterModal">New Matter</button>
+                                    data-bs-target="#addMatterModal">New Matter</button>
                                 <button class="btn btn-sm btn-outline-secondary">Import</button>
                             </div>
                         </div>
@@ -550,21 +560,6 @@
                                     </thead>
                                     <tbody></tbody>
                                 </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Docs Tab (placeholder) -->
-                <section id="tab-docs" class="d-none">
-                    <div class="card card-rounded border-0">
-                        <div class="card-body">
-                            <h5>Documents</h5>
-                            <p class="tiny">Secure workspace for files</p>
-                            <div class="border border-dashed rounded-3 p-4 text-center mt-3">
-                                <i class="bi bi-upload" style="font-size:1.5rem;color:#94a3b8;"></i>
-                                <p class="mb-0 mt-2">Drag & drop or click to upload</p>
-                                <small class="tiny text-muted">PDF, DOCX, PNG (max 50 MB)</small>
                             </div>
                         </div>
                     </div>
@@ -678,29 +673,82 @@
         </div>
     </div>
 
-    <div class="modal fade" id="newMatterModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <form id="newMatterForm" class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create New Matter</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-2"><label class="form-label tiny">Matter title</label><input name="matterTitle"
-                            class="form-control form-control-sm" required></div>
-                    <div class="mb-2"><label class="form-label tiny">Client (name or email)</label><input
-                            name="clientName" class="form-control form-control-sm"></div>
-                    <div class="mb-2"><label class="form-label tiny">Practice area</label><input name="practiceArea"
-                            class="form-control form-control-sm"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary btn-sm"
-                        data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Create Matter</button>
-                </div>
-            </form>
+    <!-- add matter modal  -->
+
+    <div class="modal fade" id="addMatterModal" tabindex="-1" aria-labelledby="addMatterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="addMatterForm">
+                    <div class="modal-header bg-light">
+                        <h6 class="modal-title fw-semibold">
+                            <i class="bi bi-briefcase me-1"></i> Add New Matter
+                        </h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body small">
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Matter Title</label>
+                            <input type="text" id="matterTitle" class="form-control form-control-sm"
+                                placeholder="Enter matter title">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Client</label>
+                            <select id="matterClient" class="form-select form-select-sm">
+                                <option value="">Select Client</option>
+                            </select>
+                        </div>
+
+                        <!-- ✅ Practice Area -->
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Practice Area</label>
+                            <select id="matterPractice" class="form-select form-select-sm">
+                                <option value="Employment">Employment</option>
+                                <option value="Estates">Estates</option>
+                                <option value="Criminal">Criminal</option>
+                                <option value="Civil">Civil</option>
+                            </select>
+                        </div>
+
+                        <!-- ✅ Stage -->
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Stage</label>
+                            <select id="matterStage" class="form-select form-select-sm">
+                                <option value="Intake">Intake</option>
+                                <option value="Discovery">Discovery</option>
+                                <option value="Pre-Trial">Pre-Trial</option>
+                                <option value="Trial">Trial</option>
+                                <option value="Settlement">Settlement</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+
+                        <!-- ✅ Percent tiến độ -->
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Progress (%)</label>
+                            <input type="number" id="matterProgress" class="form-control form-control-sm"
+                                placeholder="0–100" min="0" max="100" value="0">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Next Step</label>
+                            <input type="text" id="matterNext" class="form-control form-control-sm"
+                                placeholder="Next step...">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button id="btnSaveMatter" type="submit" class="btn btn-sm btn-primary">
+                            <i class="bi bi-save me-1"></i> Save Matter
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -725,40 +773,108 @@
     </div>
 
     <!-- Record Payment Modal -->
-    <div class="modal fade" id="recordPaymentModal" tabindex="-1">
+    <div class="modal fade" id="recordPaymentModal" tabindex="-1" aria-labelledby="recordPaymentModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title">Record Payment</h6>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="modal-header bg-light">
+                    <h6 class="modal-title fw-semibold">Record Payment</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form id="recordPaymentForm">
-                        <div class="mb-3">
-                            <label class="form-label small">Invoice ID</label>
-                            <input type="text" id="rpInvoiceId" class="form-control form-control-sm" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small">Client</label>
-                            <input type="text" id="rpClient" class="form-control form-control-sm" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small">Amount Due</label>
+                <div class="modal-body small">
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Invoice ID</label>
+                        <input type="text" id="rpInvoiceId" class="form-control form-control-sm" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Client</label>
+                        <input type="text" id="rpClient" class="form-control form-control-sm" readonly>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Amount Due</label>
                             <input type="text" id="rpAmountDue" class="form-control form-control-sm" readonly>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label small">Amount Paid</label>
-                            <input type="number" id="rpAmountPaid" class="form-control form-control-sm" min="0">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Amount Paid</label>
+                            <input type="number" id="rpAmountPaid" class="form-control form-control-sm"
+                                placeholder="Enter amount">
                         </div>
-                    </form>
+                    </div>
+                    <div class="row g-2 mt-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Due Date</label>
+                            <input type="text" id="rpDueDate" class="form-control form-control-sm" readonly>
+                        </div>
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Status</label>
+                            <input type="text" id="rpStatus" class="form-control form-control-sm" readonly>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" id="btnSavePayment" class="btn btn-sm btn-primary">Save Payment</button>
+                    <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnSavePayment" class="btn btn-sm btn-primary">Save Payment</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- " Add Invoice Modal" -->
+    <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="addInvoiceModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h6 class="modal-title fw-semibold"><i class="bi bi-file-earmark-plus me-1"></i>Add New Invoice</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body small">
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Client</label>
+                        <input type="text" id="aiClient" class="form-control form-control-sm" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Invoice Number</label>
+                        <input type="text" id="aiNumber" class="form-control form-control-sm"
+                            placeholder="INV-2025-XXX">
+                    </div>
+                    <div class="row g-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Amount</label>
+                            <input type="number" id="aiAmount" class="form-control form-control-sm"
+                                placeholder="Amount">
+                        </div>
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Paid</label>
+                            <input type="number" id="aiPaid" class="form-control form-control-sm" value="0">
+                        </div>
+                    </div>
+                    <div class="row g-2 mt-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Due Date</label>
+                            <input type="date" id="aiDue" class="form-control form-control-sm">
+                        </div>
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Status</label>
+                            <select id="aiStatus" class="form-select form-select-sm">
+                                <option value="Open">Open</option>
+                                <option value="Partially Paid">Partially Paid</option>
+                                <option value="Paid">Paid</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnSaveInvoice" class="btn btn-sm btn-primary">
+                        <i class="bi bi-save me-1"></i>Save Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="addEventModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -806,9 +922,16 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <script>
         // Seed data (mirrors the original React seed)
+        const uid = () => Math.random().toString(36).slice(2, 9);
+        const currency = n => {
+            try { return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'CAD' }).format(Number(n)); }
+            catch (e) { return '$' + Number(n).toFixed(2); }
+        };
         const STAGES = ["Intake", "Discovery", "Motions", "Trial", "Closed"];
         let matters = [
             { id: "MAT-24012", title: "Nguyen v. Atlas Logistics", client: "Lan Nguyen", practice: "Employment", stage: "Discovery", next: "Deposition prep – Oct 10", percent: 42 },
@@ -828,12 +951,93 @@
             { id: "INV-1034", client: "Minh Tran", matter: "Tran v. City of Hamilton", amount: 3130, due: "2025-10-28", status: "Partially Paid" },
         ];
         let clients = [
-            { name: "Lan Nguyen", email: "lan.nguyen@example.com", phone: "+1 416 555 9912", company: "Self", typeCourtClientDocument: 'Civil Litigation' },
-            { name: "Arjun Patel", email: "arjun.patel@example.com", phone: "+1 647 555 2233", company: "Self", typeCourtClientDocument: 'Family Law' },
-            { name: "Estate of Li Chen", email: "executor@chenestate.org", phone: "+1 905 555 8080", company: "Estate", typeCourtClientDocument: 'Criminal Defense' },
-            { name: "Minh Tran", email: "minh.tran@example.com", phone: "+1 289 555 4022", company: "Self", typeCourtClientDocument: 'Immigration Law' },
-            { name: "Hoang Anh", email: "hoanganh.lks@example.com", phone: "+1 289 555 4022", company: "Self", typeCourtClientDocument: 'Corporate Law' },
+            {
+                id: uid(),
+                name: "Lan Nguyen",
+                email: "lan.nguyen@example.com",
+                phone: "+1 416 555 9912",
+                company: "Acme Imports Ltd.",
+                typeCourtClientDocument: "Civil Litigation",
+                notes: "Corporate litigation portfolio. Key contact: Dana.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-101", issued: "2025-09-15", due: "2025-10-15", amount: 4800, paid: 3000, status: "Partially Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-124", issued: "2025-10-05", due: "2025-11-05", amount: 3200, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 2500,
+                    outstanding: 5000
+                }
+            },
+            {
+                id: uid(),
+                name: "Arjun Patel",
+                email: "arjun.patel@example.com",
+                phone: "+1 647 555 2233",
+                company: "Self",
+                typeCourtClientDocument: "Family Law",
+                notes: "MVA claim, mediation expected Q1 2026.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-132", issued: "2025-08-25", due: "2025-09-25", amount: 2100, paid: 2100, status: "Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-145", issued: "2025-10-01", due: "2025-11-01", amount: 1600, paid: 0, status: "Unpaid", notes: "" }
+                    ],
+                    trustBalance: 800,
+                    outstanding: 1600
+                }
+            },
+            {
+                id: uid(),
+                name: "Estate of Li Chen",
+                email: "executor@chenestate.org",
+                phone: "+1 905 555 8080",
+                company: "Estate",
+                typeCourtClientDocument: "Criminal Defense",
+                notes: "Commercial lease dispute.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-088", issued: "2025-07-30", due: "2025-08-30", amount: 1250, paid: 1250, status: "Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-121", issued: "2025-09-25", due: "2025-10-25", amount: 780, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 1500,
+                    outstanding: 780
+                }
+            },
+            {
+                id: uid(),
+                name: "Minh Tran",
+                email: "minh.tran@example.com",
+                phone: "+1 289 555 4022",
+                company: "Self",
+                typeCourtClientDocument: "Immigration Law",
+                notes: "Employment termination case.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-134", issued: "2025-09-10", due: "2025-10-10", amount: 2400, paid: 1200, status: "Partially Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-150", issued: "2025-10-08", due: "2025-11-08", amount: 950, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 600,
+                    outstanding: 2150
+                }
+            },
+            {
+                id: uid(),
+                name: "Hoang Anh",
+                email: "hoanganh.lks@example.com",
+                phone: "+1 289 555 4022",
+                company: "Self",
+                typeCourtClientDocument: "Corporate Law",
+                notes: "Property conveyancing.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-140", issued: "2025-09-20", due: "2025-10-20", amount: 1800, paid: 0, status: "Unpaid", notes: "" },
+                        { id: uid(), number: "INV-2025-155", issued: "2025-10-05", due: "2025-11-05", amount: 1200, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 1000,
+                    outstanding: 3000
+                }
+            }
         ];
+
         let masterEvents = [
             { id: '1', title: 'Hearing: Lan Nguyen', start: '2025-10-12', client: 'Lan Nguyen', type: 'Hearing' },
             { id: '2', title: 'Invoice Due: Arjun Patel', start: '2025-10-18', client: 'Arjun Patel', type: 'Billing' },
@@ -876,6 +1080,7 @@
                   <div class="progress" style="height:8px;">
                     <div class="progress-bar" role="progressbar" style="width:${m.percent}%;" aria-valuenow="${m.percent}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
+                  <div class="text-sm tiny">${m.percent}%</div>
                 </div>
               </div>
             `);
@@ -923,10 +1128,10 @@
             clients.forEach(c => {
                 const tr = $(`
           <tr>
-            <td><strong class="">${c.name}</strong><div class="tiny text-muted">Active</div></td>
-            <td class="tiny text-muted">${c.email}</td>
-            <td class="tiny text-muted">${c.phone}</td>
+            <td><strong class="">${c.name}</strong><div class="tiny text-muted">${c.email}</div></td>
             <td class="tiny text-muted">${c.company}</td>
+            <td class="tiny text-muted">${c.phone}</td>
+            <td class="tiny text-muted">${c.notes}</td>
             <td class="tiny text-muted">${c.typeCourtClientDocument || '-'}</td>
             <td class="text-end"><button class="btn btn-sm btn-dark open-client-profile-btn" data-email="${c.email}">Open</button></td>
           </tr>
@@ -953,7 +1158,7 @@
             <td>${m.client}</td>
             <td>${m.practice}</td>
             <td><span class="badge bg-light text-muted">${m.stage}</span></td>
-            <td style="width:180px;vertical-align:middle"><div class="progress" style="height:8px"><div class="progress-bar" style="width:${m.percent}%;"></div></div></td>
+            <td style="width:180px;vertical-align:middle"><div class="progress" style="height:8px"><div class="progress-bar" style="width:${m.percent}%;"></div></div><div class="muted text-sm">${m.percent}%</div></td>
             <td class="text-end"><button class="btn btn-sm btn-dark open-client-profile-link" data-client="${m.client}">Open</button></td>
           </tr>
         `);
@@ -1081,18 +1286,72 @@
                 $('main section').addClass('d-none');
                 $('#tab-clients').removeClass('d-none');
             });
+            function populateMatterClientSelect() {
+                const select = $('#matterClient');
+                select.empty();
+                select.append('<option value="">Select Client</option>');
+
+                clients.forEach(c => {
+                    select.append(`<option value="${c.name}">${c.name}</option>`);
+                });
+            }
+            $('#addMatterModal').on('show.bs.modal', function () {
+                // Reset form trước khi hiển thị
+                $('#addMatterForm')[0].reset();
+
+                // Xóa validation/error cũ nếu có
+                $('#addMatterForm').find('.is-invalid').removeClass('is-invalid');
+
+                // Populate lại danh sách client
+                populateMatterClientSelect();
+
+                // Nếu có select stage hoặc process thì reset về mặc định
+                $('#matterStage').val('');
+                $('#matterProgress').val(0);
+            });
 
             // New Matter form submit
-            $('#newMatterForm').on('submit', function (e) {
+            $(document).on('submit', '#addMatterForm', function (e) {
                 e.preventDefault();
-                const data = Object.fromEntries(new FormData(this).entries());
-                const newMatter = { id: 'MAT-' + Math.floor(Math.random() * 9000 + 1000), title: data.matterTitle || 'New Matter', client: data.clientName || 'Unassigned', practice: data.practiceArea || 'General', stage: 'Intake', next: 'Review intake details', percent: 2 };
+
+                const clientName = $('#matterClient').val();
+                const title = $('#matterTitle').val();
+                const practice = $('#matterPractice').val();
+                const stage = $('#matterStage').val() || 'Intake';
+                const progress = parseInt($('#matterProgress').val()) || 0;
+
+                if (!clientName || !title) {
+                    alert('Please enter all required fields.');
+                    return;
+                }
+
+                // Tạo matter mới
+                const newMatter = {
+                    id: 'MAT-' + Math.floor(Math.random() * 9000 + 1000),
+                    title,
+                    client: clientName,
+                    practice,
+                    stage,
+                    percent: progress,
+                    next: 'Review documents'
+                };
+
+                // Thêm vào danh sách matters toàn cục
                 matters.unshift(newMatter);
-                renderStages();
+
+                // Render lại
                 renderMattersList();
-                updateStats();
-                $('#newMatterModal').modal('hide');
-                this.reset();
+                renderStages();
+
+                // Cập nhật số liệu dashboard nếu có
+                updateStats && updateStats();
+
+                // Ẩn modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addMatterModal'));
+                modal.hide();
+
+                // Reset form
+                $('#addMatterForm')[0].reset();
             });
 
             // Register form
@@ -1140,52 +1399,52 @@
 
             let html = `
         <div class="row g-3">
-          <div class="col-md-3">
-            <div class="border rounded-3 p-3 h-100">
-              <div class="text-center mb-3">
-                <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center" 
-                     style="width:80px;height:80px;font-size:28px;font-weight:600;color:#2563eb;">
-                  ${client.name.split(' ').map(n => n[0]).join('')}
+            <div class="col-md-12">
+                <div class="card card-rounded mb-3">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 id="activeClientName" class="mb-1 activeClientName">${client.name}</h4>
+                            <div class="tiny text-muted mb-2">${client.company}</div>
+                            <div class="tiny"><i class="bi bi-envelope me-2"></i>${client.email || '—'}</div>
+                            <div class="tiny"><i class="bi bi-telephone me-2"></i>${client.phone || '—'}</div>
+                            <p id="activeClientNotes" class="mt-2 mb-0">${client.notes}</p>
+                        </div>
+                        <div class="text-end">
+                            <div class="mb-2">Trust Balance</div>
+                            <div class="h4 bold" id="trustBalance">${currency(client.financial.trustBalance)}</div>
+                            <div class="muted" id="outstandingLabel">Outstanding: ${currency(client.financial.outstanding)}</div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <h6 class="text-center mb-0">${client.name}</h6>
-              <p class="text-center tiny text-muted">${client.company}</p>
-              <hr>
-              <div class="tiny"><i class="bi bi-envelope me-2"></i>${client.email || '—'}</div>
-              <div class="tiny"><i class="bi bi-telephone me-2"></i>${client.phone || '—'}</div>
-              <div class="mt-3">
-                <span class="badge bg-primary">Active</span>
-              </div>
             </div>
-          </div>
 
-          <div class="col-md-9">
-            <ul class="nav nav-tabs small" id="clientTabNav">
-              <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#clientMatters">Matters</a></li>
-              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientInvoices">Invoices</a></li>
-              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientHearings">Hearings</a></li>
-              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientBilling">Billing</a></li>
-              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientMessages">Messages</a></li>
-              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientDocuments">Documents</a></li>
-            </ul>
+            <div class="col-md-12">
+                <ul class="nav nav-tabs small" id="clientTabNav">
+                <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#clientMatters">Matters</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientInvoices">Invoices</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientHearings">Hearings</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientMessages">Messages</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientDocuments">Documents</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientFinancial">Financial</a></li>
+                </ul>
 
-            <div class="tab-content mt-3">
-              <!-- Matters -->
-              <div class="tab-pane fade show active" id="clientMatters">
-                <div class="table-responsive">
-                  <table class="table table-sm">
-                    <thead><tr><th>ID</th><th>Title</th><th>Stage</th><th>Progress</th></tr></thead>
-                    <tbody>
-                      ${relatedMatters.map(m => `
-                        <tr><td>${m.id}</td><td>${m.title}</td><td>${m.stage}</td>
-                        <td style="vertical-align:middle"><div class="progress" style="height:8px;"><div class="progress-bar" style="width:${m.percent}%"></div></div></td></tr>
-                      `).join('') || `<tr><td colspan="4" class="tiny text-muted">No matters yet</td></tr>`}
-                    </tbody>
-                  </table>
+                <div class="tab-content mt-3">
+                <!-- Matters -->
+                <div class="tab-pane fade show active" id="clientMatters">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead><tr><th>ID</th><th>Title</th><th>Stage</th><th>Progress</th></tr></thead>
+                            <tbody>
+                            ${relatedMatters.map(m => `
+                                <tr><td>${m.id}</td><td>${m.title}</td><td>${m.stage}</td>
+                                <td style="vertical-align:middle"><div class="progress" style="height:8px;"><div class="progress-bar" style="width:${m.percent}%"></div></div></td></tr>
+                            `).join('') || `<tr><td colspan="4" class="tiny text-muted">No matters yet</td></tr>`}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              </div>
 
-              <!-- Invoices -->
+                <!-- Invoices -->
                 <div class="tab-pane fade" id="clientInvoices">
                     <div class="table-responsive">
                     <table class="table table-sm">
@@ -1215,18 +1474,6 @@
                     </div>
                 </div>
 
-              <!-- Billing -->
-                <div class="tab-pane fade" id="clientBilling">
-                    <div class="table-responsive">
-                        <table class="table table-sm align-middle">
-                        <thead>
-                            <tr><th>ID</th><th>Amount</th><th>Due</th><th>Status</th><th></th></tr>
-                        </thead>
-                        <tbody id="billingTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
               <!-- Messages -->
                 <div class="tab-pane fade" id="clientMessages">
                     <div class="border rounded-2 p-3 mb-2" style="height:250px; overflow:auto;" id="msgThread"></div>
@@ -1248,6 +1495,18 @@
                         </div>
                     </div>
                     <div id="docFolders" class="accordion accordion-border accordion-flush" ></div>
+                </div>
+
+              <!-- Billing -->
+                <div class="tab-pane fade" id="clientFinancial">
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                        <thead>
+                            <tr><th>ID</th><th>Amount</th><th>Due</th><th>Status</th><th></th></tr>
+                        </thead>
+                        <tbody id="billingTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
           </div>
@@ -1705,72 +1964,295 @@
 
         // render bảng billing mỗi khi vào tab
         function renderBilling(clientName) {
-            const clientInvoices = invoices.filter(i => i.client === clientName);
-            const rows = clientInvoices.map(i => {
-                const statusClass = i.status === 'Paid' ? 'bg-success'
-                    : i.status === 'Partially Paid' ? 'bg-warning text-dark'
-                        : i.status === 'Overdue' ? 'bg-danger'
-                            : 'bg-secondary';
-                return `
-      <tr>
-        <td>${i.id}</td>
-        <td>$${i.amount.toLocaleString()}</td>
-        <td>${new Date(i.due).toLocaleDateString()}</td>
-        <td><span class="badge ${statusClass}">${i.status}</span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary btn-record-payment" 
-                  data-id="${i.id}" data-client="${i.client}">Record Payment</button>
-        </td>
-      </tr>`;
-            }).join('') || `<tr><td colspan="5" class="tiny text-muted">No invoices</td></tr>`;
+            const client = clients.find(c => c.name === clientName);
+            if (!client || !client.financial) {
+                $('#clientBilling').html(`<div class="tiny text-muted">No billing data available.</div>`);
+                return;
+            }
 
-            $('#billingTableBody').html(rows);
+            const invoices = client.financial.invoices || [];
+            const trustBalance = client.financial.trustBalance ?? 0;
+            const outstanding = client.financial.outstanding ?? 0;
+
+            const totalPaid = invoices.reduce((sum, i) => sum + (i.paid || 0), 0);
+            const openBalance = invoices.reduce((sum, i) => sum + (i.amount - (i.paid || 0)), 0);
+
+            // ========== BẢNG HÓA ĐƠN ==========
+            const rows = invoices.map(i => {
+                const statusClass =
+                    i.status === 'Paid' ? 'bg-success' :
+                        i.status === 'Partially Paid' ? 'bg-warning text-dark' :
+                            i.status === 'Overdue' ? 'bg-danger' :
+                                'bg-secondary';
+                return `
+            <tr>
+                <td>${i.number || i.id}</td>
+                <td>$${i.amount.toLocaleString()}</td>
+                <td>$${(i.paid || 0).toLocaleString()}</td>
+                <td>$${(i.amount - (i.paid || 0)).toLocaleString()}</td>
+                <td>${new Date(i.due).toLocaleDateString()}</td>
+                <td><span class="badge ${statusClass}">${i.status}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary btn-record-payment"
+                        data-id="${i.id}" data-client="${client.name}">
+                        Record Payment
+                    </button>
+                </td>
+            </tr>`;
+            }).join('') || `<tr><td colspan="7" class="tiny text-muted">No invoices</td></tr>`;
+
+            const tableHtml = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="fw-semibold mb-0">Invoices</h6>
+                <button class="btn btn-sm btn-success" id="btnAddInvoice">
+                    <i class="bi bi-plus-circle me-1"></i> Add Invoice
+                </button>
+            </div>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Amount</th>
+                                <th>Paid</th>
+                                <th>Open Balance</th>
+                                <th>Due</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="billingTableBody">${rows}</tbody>
+                    </table>
+                </div>
+            `;
+
+            // ========== CARD SUMMARY ==========
+            const summaryCard = `
+                <div class="card mb-3">
+                    <div class="card-header bg-white fw-semibold">Financial Summary</div>
+                    <div class="d-grid gap-2 grid-2-column px-3 py-3">
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Trust Balance</div>
+                            <div class="fw-semibold size-lg ">$${trustBalance.toLocaleString()}</div>
+                        </div>
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Outstanding</div>
+                            <div class="fw-semibold size-lg ">$${outstanding.toLocaleString()}</div>
+                        </div>
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Total Paid</div>
+                            <div class="fw-semibold size-lg ">$${totalPaid.toLocaleString()}</div>
+                        </div>
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Open Balance</div>
+                            <div class="fw-semibold size-lg ">$${openBalance.toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <canvas id="invoiceBarChart" height="200px" style="max-height:200px;"></canvas>
+                    </div>
+                </div>
+            `;
+
+            // ========== BỐ CỤC GIAO DIỆN ==========
+            const layoutHtml = `
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        ${tableHtml}
+                    </div>
+                    <div class="col-md-4">
+                        ${summaryCard}
+                    </div>
+                </div>
+            `;
+
+            $('#clientFinancial').html(layoutHtml);
+
+            // ========== CHART.JS ==========
+            if (typeof Chart !== 'undefined') {
+
+                // Chart 2: Invoice bar chart
+                const ctx2 = document.getElementById('invoiceBarChart');
+                if (ctx2) {
+                    new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: invoices.map(i => i.number || i.id),
+                            datasets: [
+                                {
+                                    label: 'Amount',
+                                    data: invoices.map(i => i.amount),
+                                    backgroundColor: '#9ad0f5',
+                                    barThickness: 50
+                                },
+                                {
+                                    label: 'Paid',
+                                    data: invoices.map(i => i.paid || 0),
+                                    backgroundColor: '#ffb1c1',
+                                    barThickness: 50
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    ticks: { font: { size: 10 } },
+                                    grid: { display: false }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        font: { size: 10 },
+                                        callback: v => '$' + v
+                                    },
+                                    grid: { color: '#f0f0f0' }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } },
+                                tooltip: {
+                                    callbacks: {
+                                        label: ctx => `${ctx.dataset.label}: $${ctx.formattedValue}`
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            let currentBillingClient = clientName;
+
+            // Mở modal Add Invoice
+            $(document).on('click', '#btnAddInvoice', function () {
+                if (!currentBillingClient) return alert('No client selected.');
+                $('#aiClient').val(currentBillingClient);
+                $('#aiNumber').val('');
+                $('#aiAmount').val('');
+                $('#aiPaid').val('0');
+                $('#aiDue').val('');
+                $('#aiStatus').val('Open');
+                const modal = new bootstrap.Modal(document.getElementById('addInvoiceModal'));
+                modal.show();
+            });
+
+            // Lưu invoice mới
+            $(document).on('click', '#btnSaveInvoice', function () {
+                const client = clients.find(c => c.name === currentBillingClient);
+                if (!client || !client.financial) return alert('Client not found.');
+
+                const number = $('#aiNumber').val().trim() || `INV-${Date.now()}`;
+                const amount = parseFloat($('#aiAmount').val() || 0);
+                const paid = parseFloat($('#aiPaid').val() || 0);
+                const due = $('#aiDue').val();
+                const status = $('#aiStatus').val();
+
+                if (amount <= 0) return alert('Please enter valid amount.');
+
+                // Tạo invoice mới
+                const newInvoice = {
+                    id: 'INV-' + Math.floor(Math.random() * 9000 + 1000),
+                    number,
+                    amount,
+                    paid,
+                    due,
+                    status
+                };
+
+                // Thêm vào client hiện tại
+                client.financial.invoices.unshift(newInvoice);
+
+                // Cập nhật lại outstanding
+                client.financial.outstanding = client.financial.invoices
+                    .reduce((sum, i) => sum + Math.max(0, (i.amount - (i.paid || 0))), 0);
+
+                alert(`✅ Invoice ${number} added successfully.`);
+
+                // Làm mới Billing
+                renderBilling(client.name);
+
+                // Đóng modal
+                bootstrap.Modal.getInstance(document.getElementById('addInvoiceModal')).hide();
+            });
         }
 
+
+
         // khi chuyển qua tab Billing
-        $(document).on('shown.bs.tab', 'a[href="#clientBilling"]', function () {
-            const clientName = $('#clientProfileBody h6.text-center').text();
+        $(document).on('shown.bs.tab', 'a[href="#clientFinancial"]', function () {
+            const clientName = $('#clientProfileBody .activeClientName').text();
             renderBilling(clientName);
         });
 
-        // mở modal Record Payment
+        // Mở modal Record Payment
         $(document).on('click', '.btn-record-payment', function () {
             const invId = $(this).data('id');
-            const inv = invoices.find(i => i.id === invId);
+            const clientName = $(this).data('client');
+            const client = clients.find(c => c.name === clientName);
+            if (!client || !client.financial) return;
+
+            const inv = client.financial.invoices.find(i => i.id === invId);
             if (!inv) return;
 
+            // Gán dữ liệu vào modal
             $('#rpInvoiceId').val(inv.id);
-            $('#rpClient').val(inv.client);
-            $('#rpAmountDue').val('$' + inv.amount.toLocaleString());
+            $('#rpClient').val(client.name);
+            $('#rpAmountDue').val(`$${inv.amount.toLocaleString()}`);
             $('#rpAmountPaid').val('');
+            $('#rpDueDate').val(new Date(inv.due).toLocaleDateString());
+            $('#rpStatus').val(inv.status);
+
+            // Hiển thị modal
             const modal = new bootstrap.Modal(document.getElementById('recordPaymentModal'));
             modal.show();
         });
 
-        // lưu thanh toán
+        // Lưu thanh toán
         $(document).on('click', '#btnSavePayment', function () {
             const invId = $('#rpInvoiceId').val();
+            const clientName = $('#rpClient').val();
             const amountPaid = parseFloat($('#rpAmountPaid').val() || 0);
-            const inv = invoices.find(i => i.id === invId);
-            if (!inv) return;
 
-            if (amountPaid <= 0) {
-                alert('Please enter valid payment amount.');
+            const client = clients.find(c => c.name === clientName);
+            if (!client || !client.financial) return;
+
+            const inv = client.financial.invoices.find(i => i.id === invId);
+            if (!inv) {
+                alert('Invoice not found.');
                 return;
             }
 
-            if (amountPaid >= inv.amount) {
+            if (amountPaid <= 0) {
+                alert('Please enter a valid payment amount.');
+                return;
+            }
+
+            // ✅ Cập nhật dữ liệu thanh toán
+            inv.paid = (inv.paid || 0) + amountPaid;
+
+            if (inv.paid >= inv.amount) {
                 inv.status = 'Paid';
-            } else if (amountPaid > 0 && amountPaid < inv.amount) {
+            } else if (inv.paid > 0 && inv.paid < inv.amount) {
                 inv.status = 'Partially Paid';
             } else {
                 inv.status = 'Unpaid';
             }
 
-            alert(`✅ Payment recorded for invoice ${inv.id}`);
-            renderBilling(inv.client);
+            // ✅ Cập nhật số dư outstanding của client
+            client.financial.outstanding = client.financial.invoices
+                .reduce((sum, i) => sum + Math.max(0, (i.amount - (i.paid || 0))), 0);
+
+            alert(`✅ Payment of $${amountPaid.toLocaleString()} recorded for invoice ${inv.number || inv.id}`);
+
+            // Làm mới phần Billing
+            renderBilling(client.name);
+
+            // Đóng modal
             bootstrap.Modal.getInstance(document.getElementById('recordPaymentModal')).hide();
         });
+
 
         function renderMasterCalendar() {
             const calendarEl = document.getElementById('calendar');
