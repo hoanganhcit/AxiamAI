@@ -322,6 +322,44 @@
         .text-sm {
             font-size: 0.5rem;
         }
+
+
+        .msg-box {
+            max-width: 75%;
+            border-radius: 12px;
+            word-wrap: break-word;
+            padding: .6rem;
+        }
+
+
+        .msg-client {
+            background: #111827;
+            color: white;
+            margin-left: auto;
+        }
+
+        .msg-email {
+            background: #e7f1ff;
+        }
+
+        .muted {
+            color: #6c757d;
+        }
+
+        .bg-email {
+            background-color: #e8f0fe !important;
+            /* xanh nhạt kiểu Gmail */
+        }
+
+        .bg-light {
+            background-color: #f8f9fa !important;
+            /* sáng cho client */
+        }
+
+        .bg-secondary-subtle {
+            background-color: #f1f3f4 !important;
+            /* xám nhạt cho attorney/system */
+        }
     </style>
 </head>
 
@@ -1375,6 +1413,8 @@
         });
 
         let currentClient = null;
+        let emailConn = JSON.parse(localStorage.getItem('client.emailConn') || '{"gmail":false,"outlook":false}');
+
         // ========== CLIENT PROFILE ==========
         function renderClientProfile(clientName) {
             const client = clients.find(c => c.name === clientName || c.email === clientName);
@@ -1398,37 +1438,36 @@
             const relatedHearings = hearings.filter(h => h.client === client.name);
 
             let html = `
-        <div class="row g-3">
-            <div class="col-md-12">
-                <div class="card card-rounded mb-3">
-                    <div class="card-body d-flex justify-content-between align-items-start">
-                        <div>
-                            <h4 id="activeClientName" class="mb-1 activeClientName">${client.name}</h4>
-                            <div class="tiny text-muted mb-2">${client.company}</div>
-                            <div class="tiny"><i class="bi bi-envelope me-2"></i>${client.email || '—'}</div>
-                            <div class="tiny"><i class="bi bi-telephone me-2"></i>${client.phone || '—'}</div>
-                            <p id="activeClientNotes" class="mt-2 mb-0">${client.notes}</p>
-                        </div>
-                        <div class="text-end">
-                            <div class="mb-2">Trust Balance</div>
-                            <div class="h4 bold" id="trustBalance">${currency(client.financial.trustBalance)}</div>
-                            <div class="muted" id="outstandingLabel">Outstanding: ${currency(client.financial.outstanding)}</div>
-                        </div>
+    <div class="row g-3">
+        <div class="col-md-12">
+            <div class="card card-rounded mb-3">
+                <div class="card-body d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 id="activeClientName" class="mb-1 activeClientName">${client.name}</h4>
+                        <div class="tiny text-muted mb-2">${client.company}</div>
+                        <div class="tiny"><i class="bi bi-envelope me-2"></i>${client.email || '—'}</div>
+                        <div class="tiny"><i class="bi bi-telephone me-2"></i>${client.phone || '—'}</div>
+                        <p id="activeClientNotes" class="mt-2 mb-0">${client.notes}</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="mb-2">Trust Balance</div>
+                        <div class="h4 bold" id="trustBalance">${currency(client.financial.trustBalance)}</div>
+                        <div class="muted" id="outstandingLabel">Outstanding: ${currency(client.financial.outstanding)}</div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-12">
-                <ul class="nav nav-tabs small" id="clientTabNav">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs small" id="clientTabNav">
                 <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#clientMatters">Matters</a></li>
-                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientInvoices">Invoices</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientHearings">Hearings</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientMessages">Messages</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientDocuments">Documents</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientFinancial">Financial</a></li>
-                </ul>
+            </ul>
 
-                <div class="tab-content mt-3">
+            <div class="tab-content mt-3">
                 <!-- Matters -->
                 <div class="tab-pane fade show active" id="clientMatters">
                     <div class="table-responsive">
@@ -1444,23 +1483,7 @@
                     </div>
                 </div>
 
-                <!-- Invoices -->
-                <div class="tab-pane fade" id="clientInvoices">
-                    <div class="table-responsive">
-                    <table class="table table-sm">
-                        <thead><tr><th>ID</th><th>Amount</th><th>Due</th><th>Status</th></tr></thead>
-                        <tbody>
-                        ${relatedInvoices.map(i => `
-                            <tr><td>${i.id}</td><td>$${i.amount.toLocaleString()}</td>
-                            <td>${new Date(i.due).toLocaleDateString()}</td>
-                            <td>${i.status}</td></tr>
-                        `).join('') || `<tr><td colspan="4" class="tiny text-muted">No invoices</td></tr>`}
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-
-              <!-- Hearings -->
+                <!-- Hearings -->
                 <div class="tab-pane fade" id="clientHearings">
                     <div class="table-responsive">
                     <table class="table table-sm">
@@ -1474,19 +1497,44 @@
                     </div>
                 </div>
 
-              <!-- Messages -->
+                <!-- Messages -->
                 <div class="tab-pane fade" id="clientMessages">
-                    <div class="border rounded-2 p-3 mb-2" style="height:250px; overflow:auto;" id="msgThread"></div>
-                    <div class="d-flex gap-2">
-                        <input id="msgInput" class="form-control form-control-sm" placeholder="Write a message…" />
-                        <button id="sendMsgBtn" class="btn btn-sm btn-primary">Send</button>
+                    <div class="card card-round mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0">Secure Messages</h6>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <select id="msgFilter" class="form-select form-select-sm">
+                                        <option value="all">All (Portal + Email)</option>
+                                        <option value="portal">Portal Only</option>
+                                        <option value="email">Email Only</option>
+                                    </select>
+                                    <button id="exportMsgs" class="btn btn-outline-secondary btn-sm">Export</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <span id="gmailStatus" class="rounded-pill-xs bg-light small px-2 py-2 me-1">Gmail Not Connected</span>
+                                <span id="outlookStatus" class="rounded-pill-xs bg-light small px-2 py-2 me-1">Outlook Not Connected</span>
+                                <button id="connectGmail" class="btn btn-sm btn-outline-danger">Connect Gmail</button>
+                                <button id="connectOutlook" class="btn btn-sm btn-outline-info">Connect Outlook</button>
+                                <button id="importEmails" class="btn btn-sm btn-outline-secondary">Import recent emails (demo)</button>
+                            </div>
+
+                            <div class="border rounded p-3 bg-white mb-2" style="height:250px; overflow:auto" id="msgContainer"></div>
+
+                            <div class="d-flex gap-2">
+                                <input id="newMsgInput" class="form-control" placeholder="Write a message to your lawyer…" />
+                                <button id="sendMsgBtn" class="btn btn-primary"><i class="bi bi-chat-dots me-1"></i>Send</button>
+                            </div>
+                        </div>
                     </div>
-                 </div>
-              <!-- Documents -->
+                </div>
+
+                <!-- Documents -->
                 <div class="tab-pane fade" id="clientDocuments">
                     <div class="d-flex flex-column mb-3">
                         <h6 class="mb-2">Client Documents</h6>
-                        <div id="docAlert" class="alert d-none p-2 mb-2 small" role="alert"></div>
                         <div class="d-flex gap-2">
                             <select id="folderSelect" class="form-select form-select-sm" style="width:auto;"></select>
                             <select id="subfolderSelect" class="form-select form-select-sm" style="width:auto;"></select>
@@ -1494,46 +1542,151 @@
                             <button id="btnUploadDoc" class="btn btn-sm btn-primary">Upload</button>
                         </div>
                     </div>
-                    <div id="docFolders" class="accordion accordion-border accordion-flush" ></div>
+                    <div id="docFolders" class="accordion accordion-border accordion-flush"></div>
                 </div>
 
-              <!-- Billing -->
+                <!-- Billing -->
                 <div class="tab-pane fade" id="clientFinancial">
                     <div class="table-responsive">
                         <table class="table table-sm align-middle">
-                        <thead>
-                            <tr><th>ID</th><th>Amount</th><th>Due</th><th>Status</th><th></th></tr>
-                        </thead>
-                        <tbody id="billingTableBody"></tbody>
+                            <thead><tr><th>ID</th><th>Amount</th><th>Due</th><th>Status</th><th></th></tr></thead>
+                            <tbody id="billingTableBody"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
-          </div>
         </div>
-      `;
+    </div>`;
+
             $('#clientProfileBody').html(html);
             renderDocuments();
-
-            // load previous messages if any
-            renderMessages(client.email);
+            renderMessages(); // ✅ render tin nhắn ban đầu
             $('#tab-client-profile').removeClass('d-none');
             $('main section').not('#tab-client-profile').addClass('d-none');
             $('.sidebar .nav-link').removeClass('active');
         }
 
-        const threads = {}; // message threads by client email
+        // Khi load tab Messages
+        $(document).on('shown.bs.tab', 'a[href="#clientMessages"]', function () {
+            renderEmailConn();
+            renderMessages();
+        });
 
-        function renderMessages(email) {
-            const msgs = threads[email] || [];
-            const box = $('#msgThread').empty();
-            if (msgs.length === 0) { box.append('<div class="tiny text-muted">No messages yet.</div>'); return; }
-            msgs.forEach(m => {
-                const align = m.from === 'You' ? 'text-end' : 'text-start';
-                box.append(`<div class="${align} mb-2"><span class="badge bg-${m.from === 'You' ? 'primary' : 'light text-dark'}">${m.text}</span><div class="tiny text-muted">${m.from}</div></div>`);
+
+        // ========== MESSAGE FUNCTIONS ==========
+        function renderMessages() {
+            if (!currentClient) return;
+
+            const filter = $('#msgFilter').val() || 'all';
+            const msgs = currentClient.messages || [];
+
+            const filtered = msgs.filter(m => {
+                if (filter === 'portal') return !m.from.includes('Email');
+                if (filter === 'email') return m.from.includes('Email');
+                return true;
             });
-            box.scrollTop(box[0].scrollHeight);
+
+            const html = filtered.map(m => {
+                let msgClass = '';
+                let alignClass = '';
+                if (m.from === 'Client') {
+                    msgClass = 'bg-light';
+                    alignClass = 'd-flex flex-column align-items-end';
+                } else if (m.from.includes('Email')) {
+                    msgClass = 'bg-email';
+                    alignClass = 'd-flex flex-column align-items-start';
+                } else {
+                    msgClass = 'bg-secondary-subtle';
+                    alignClass = 'd-flex flex-column align-items-start';
+                }
+
+                return `
+            <div class="p-1 small ${alignClass}">
+                <div class="msg-box d-inline-block py-2 px-3 rounded ${msgClass}">
+                    <div class="small text-muted mb-1">${m.from}</div>
+                    <div>${m.text}</div>
+                </div>
+                <div class="text-muted tiny mt-1">${new Date(m.at).toLocaleString()}</div>
+            </div>`;
+            }).join('') || `<div class="tiny text-muted">No messages yet.</div>`;
+
+            $('#msgContainer').html(html);
         }
+
+
+        function renderEmailConn() {
+            $('#gmailStatus').text(emailConn.gmail ? 'Gmail Connected' : 'Gmail Not Connected');
+            $('#outlookStatus').text(emailConn.outlook ? 'Outlook Connected' : 'Outlook Not Connected');
+        }
+
+        // ========== MESSAGE ACTIONS ==========
+        $(document).on('change', '#msgFilter', renderMessages);
+
+        $(document).on('click', '#sendMsgBtn', function () {
+            sendClientMessage();
+        });
+        $(document).on('keypress', '#newMsgInput', function (e) {
+            if (e.which === 13 && !e.shiftKey) {
+                e.preventDefault(); 
+                sendClientMessage();
+            }
+        });
+
+        function sendClientMessage() {
+            const text = $('#newMsgInput').val().trim();
+            if (!text || !currentClient) return;
+
+            const msg = {
+                id: uid(),
+                from: "Client",
+                text,
+                at: new Date().toISOString()
+            };
+
+            currentClient.messages = currentClient.messages || [];
+            currentClient.messages.push(msg);
+
+            $('#newMsgInput').val('');
+            renderMessages();
+
+            const msgContainer = $('#msgContainer');
+            msgContainer.scrollTop(msgContainer[0].scrollHeight);
+        }
+
+        $(document).on('click', '#connectGmail', function () {
+            alert('Demo: Simulating Gmail connection. Replace with OAuth redirect.');
+            emailConn.gmail = true; localStorage.setItem('client.emailConn', JSON.stringify(emailConn)); renderEmailConn();
+        });
+
+        $(document).on('click', '#connectOutlook', function () {
+            alert('Demo: Simulating Outlook connection. Replace with OAuth redirect.');
+            emailConn.outlook = true; localStorage.setItem('client.emailConn', JSON.stringify(emailConn)); renderEmailConn();
+        });
+
+        $(document).on('click', '#importEmails', function () {
+            if (!currentClient) return;
+            const now = new Date();
+            const demo = [
+                { id: uid(), from: 'Email (Gmail)', text: 'Subject: Retainer questions — Could you clarify the billing cycle?', at: new Date(now.getTime() - 86400000 * 3).toISOString() },
+                { id: uid(), from: 'Attorney', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString() },
+                { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 86400000).toISOString() },
+            ];
+            currentClient.messages = (currentClient.messages || []).concat(demo);
+            renderMessages();
+        });
+
+        $(document).on('click', '#exportMsgs', function () {
+            if (!currentClient || !currentClient.messages) return;
+            const ordered = [...currentClient.messages].sort((a, b) => new Date(a.at) - new Date(b.at));
+            let text = `Client Messages for ${currentClient.name}\n\n`;
+            ordered.forEach(m => { text += `${new Date(m.at).toLocaleString()} | ${m.from}: ${m.text}\n`; });
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `${currentClient.name.replace(/[^a-z0-9]/gi, '_')}_messages.txt`;
+            a.click(); URL.revokeObjectURL(url);
+        });
+
 
         // ========== DOCUMENTS TAB ==========
         const documentStructuresByType = {

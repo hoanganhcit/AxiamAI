@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Client Portal — HTML + Bootstrap + jQuery</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Icons (Bootstrap icons) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        body {
+            background: #f6f7fb;
+        }
+
+        .card-round {
+            border-radius: 14px;
+        }
+
+        .badge-status-paid {
+            background: #0d6efd;
+            color: #fff;
+        }
+
+        .badge-status-partial {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .badge-status-open {
+            background: #6c757d;
+            color: #fff;
+        }
+
+        .msg-box {
+            border-radius: 14px;
+            padding: .6rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+        }
+
+        .msg-client {
+            background: #111827;
+            color: white;
+            margin-left: auto;
+        }
+
+        .msg-email {
+            background: #e7f1ff;
+        }
+
+        .muted {
+            color: #6c757d;
+        }
+
+        .sticky-top-blur {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(6px);
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 50;
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .rounded-pill-xs {
+            border-radius: 999px;
+            padding: .25rem .6rem;
+            font-size: .78rem;
+        }
+
+        .table-fixed {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 12rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="sticky-top-blur">
+        <div class="container py-3 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-dark text-white rounded-3 d-flex align-items-center justify-content-center"
+                    style="width:48px;height:48px;font-weight:600">C</div>
+                <div>
+                    <h5 class="mb-0">Client Portal</h5>
+                    <small class="text-muted">Access your matters, hearings, messages, and invoices.</small>
+                </div>
+            </div>
+            <div class="text-end">
+                <div id="clientName" style="font-weight:600">Client Name</div>
+                <div id="clientEmail" class="muted" style="font-size:.85rem">email@example.com</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        <!-- Financial Summary -->
+        <div class="card card-round mb-4 shadow-sm">
+            <div class="card-body">
+                <div class="row text-sm text-muted">
+                    <div class="col-sm-4 mb-2">
+                        <div class="text-uppercase small text-muted">Trust Balance</div>
+                        <div class="h5" id="trustBalance">$0.00</div>
+                    </div>
+                    <div class="col-sm-4 mb-2">
+                        <div class="text-uppercase small text-muted">Paid to Date</div>
+                        <div class="h5" id="paidToDate">$0.00</div>
+                    </div>
+                    <div class="col-sm-4 mb-2">
+                        <div class="text-uppercase small text-muted">Outstanding Balance</div>
+                        <div class="h5" id="outstandingBalance">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-pills mb-3" id="portalTabs" role="tablist">
+            <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="pill"
+                    data-bs-target="#mattersTab" type="button">Matters</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill"
+                    data-bs-target="#hearingsTab" type="button">Hearings</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill"
+                    data-bs-target="#messagesTab" type="button">Messages</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill"
+                    data-bs-target="#invoicesTab" type="button">Invoices</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill"
+                    data-bs-target="#docsTab" type="button">Documents</button></li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Matters -->
+            <div class="tab-pane fade show active" id="mattersTab">
+                <div class="card card-round mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h6>Your Matters</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-fixed" id="mattersTable">
+                                <thead class="text-muted small">
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Case #</th>
+                                        <th>Status</th>
+                                        <th>Court</th>
+                                        <th>Next Milestone</th>
+                                        <th>Next Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hearings -->
+            <div class="tab-pane fade" id="hearingsTab">
+                <div class="card card-round mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h6>Upcoming Hearings</h6>
+                        <div id="hearingsContainer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="tab-pane fade" id="messagesTab">
+                <div class="card card-round mb-3 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="mb-0">Secure Messages</h6>
+                            <div class="d-flex gap-2 align-items-center">
+                                <select id="msgFilter" class="form-select form-select-sm">
+                                    <option value="all">All (Portal + Email)</option>
+                                    <option value="portal">Portal Only</option>
+                                    <option value="email">Email Only</option>
+                                </select>
+                                <button id="exportMsgs" class="btn btn-outline-secondary btn-sm">Export</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <span id="gmailStatus" class="rounded-pill-xs bg-light me-1">Gmail Not Connected</span>
+                            <span id="outlookStatus" class="rounded-pill-xs bg-light me-1">Outlook Not Connected</span>
+                            <button id="connectGmail" class="btn btn-sm btn-outline-primary">Connect Gmail</button>
+                            <button id="connectOutlook" class="btn btn-sm btn-outline-primary">Connect Outlook</button>
+                            <button id="importEmails" class="btn btn-sm btn-outline-secondary">Import recent emails
+                                (demo)</button>
+                        </div>
+
+                        <div class="border rounded p-3 bg-white mb-2" style="height:340px; overflow:auto"
+                            id="messageList"></div>
+
+                        <div class="d-flex gap-2">
+                            <input id="newMsgInput" class="form-control"
+                                placeholder="Write a message to your lawyer…" />
+                            <button id="sendMsgBtn" class="btn btn-primary"> <i
+                                    class="bi bi-chat-dots me-1"></i>Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Invoices -->
+            <div class="tab-pane fade" id="invoicesTab">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card card-round mb-3 shadow-sm">
+                            <div class="card-body">
+                                <h6>Your Invoices</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-sm" id="invoicesTable">
+                                        <thead class="text-muted small">
+                                            <tr>
+                                                <th>Invoice #</th>
+                                                <th>Issued</th>
+                                                <th>Due</th>
+                                                <th>Amount</th>
+                                                <th>Paid</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card card-round mb-3 shadow-sm">
+                            <div class="card-body">
+                                <h6>Summary</h6>
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <div class="bg-light p-2 rounded text-muted small">Trust Balance</div>
+                                        <div id="sumTrust" class="h5">$0.00</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="bg-light p-2 rounded text-muted small">Outstanding</div>
+                                        <div id="sumOutstanding" class="h5">$0.00</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="bg-light p-2 rounded text-muted small">Paid to Date</div>
+                                        <div id="sumPaid" class="h5">$0.00</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="bg-light p-2 rounded text-muted small">Open Invoices</div>
+                                        <div id="sumOpenCount" class="h5">0</div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <canvas id="invoiceChart" height="200" style="max-height: 200px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Modal -->
+                <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Pay Invoice</h5><button type="button" class="btn-close"
+                                    data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-2">
+                                    <label class="form-label small">Amount</label>
+                                    <input id="payAmount" type="number" class="form-control" min="0" step="0.01" />
+                                </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between p-2 bg-light rounded mb-2">
+                                    <div>
+                                        <div style="font-weight:600">Use Trust Balance</div>
+                                        <div class="small text-muted">Available: <span id="modalTrustAvail">$0.00</span>
+                                        </div>
+                                    </div>
+                                    <select id="useTrustSelect" class="form-select form-select-sm" style="width:100px">
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="small text-muted">Card payments are processed securely. (Demo: marks invoice
+                                    paid without collecting funds.)</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button id="confirmPayBtn" class="btn btn-primary">Continue <i
+                                        class="bi bi-arrow-right ms-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents -->
+            <div class="tab-pane fade" id="docsTab">
+                <div class="card card-round mb-3 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6>Documents</h6>
+                            <label class="btn btn-outline-secondary btn-sm mb-0">
+                                Upload <input id="fileUpload" type="file" multiple hidden>
+                            </label>
+                        </div>
+                        <div id="docsGrid" class="row g-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="container pb-4 text-muted small">Client-facing demo. Hook up to your authentication + billing backend
+        for production.</footer>
+
+    <!-- JS: App logic -->
+    <script>
+        // ----------------- Utilities -----------------
+        function uid() { return Math.random().toString(36).slice(2, 9); }
+        function currency(n) { return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'CAD' }).format(n || 0); }
+
+        // ----------------- Seed Data (based on original React demo) -----------------
+        function seedClient() {
+            return {
+                id: uid(),
+                name: "Acme Imports Ltd.",
+                contact: { email: "gc@acmeimports.com", phone: "+1 (416) 555-0112" },
+                notes: "Client-facing portal demo.",
+                matters: [
+                    { id: uid(), title: "Acme v. Northport Logistics", number: "CV-24-1182", status: "Open", court: "Ontario Superior Court", nextMilestone: "Discoveries", nextDate: "2025-11-14" }
+                ],
+                hearings: [
+                    { id: uid(), date: "2025-10-21", time: "10:00", court: "ONSC (Toronto)", caseNumber: "CV-24-1182", appearanceType: "Case Conference" }
+                ],
+                messages: [
+                    { id: uid(), from: "Attorney", text: "Welcome to your client portal.", at: new Date().toISOString() }
+                ],
+                documents: [
+                    { id: uid(), name: "Retainer Agreement.pdf", type: "pdf", size: 188000, uploadedAt: "2025-09-02" }
+                ],
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-101", issued: "2025-09-15", due: "2025-10-15", amount: 4800, paid: 3000, status: "Partially Paid" },
+                        { id: uid(), number: "INV-2025-124", issued: "2025-10-05", due: "2025-11-05", amount: 3200, paid: 0, status: "Open" }
+                    ],
+                    trustBalance: 2500
+                }
+            };
+        }
+
+        // ----------------- Load/Save -----------------
+        function loadClient() {
+            try {
+                const raw = localStorage.getItem('client.portal');
+                return raw ? JSON.parse(raw) : seedClient();
+            } catch (e) { return seedClient(); }
+        }
+        function saveClient() {
+            try { localStorage.setItem('client.portal', JSON.stringify(client)); } catch (e) { }
+        }
+
+        // ----------------- App State -----------------
+        let client = loadClient();
+        let emailConn = (function () { try { return JSON.parse(localStorage.getItem('client.emailConn') || '{}'); } catch (e) { return {}; } })();
+
+        // Payment modal state
+        let payDraft = { invoiceId: "", amount: 0, useTrust: false };
+
+        // ----------------- Render Functions -----------------
+        function renderHeader() {
+            $('#clientName').text(client.name);
+            $('#clientEmail').text(client.contact.email);
+            $('#trustBalance').text(currency(client.financial.trustBalance));
+            $('#sumTrust').text(currency(client.financial.trustBalance));
+        }
+
+        function renderSummaryFinances() {
+            const paid = client.financial.invoices.reduce((s, i) => s + i.paid, 0);
+            const total = client.financial.invoices.reduce((s, i) => s + i.amount, 0);
+            const open = total - paid;
+            const outstandingInvoices = client.financial.invoices.filter(i => i.amount > i.paid);
+            $('#paidToDate').text(currency(paid));
+            $('#outstandingBalance').text(currency(open));
+            $('#sumPaid').text(currency(paid));
+            $('#sumOutstanding').text(currency(open));
+            $('#sumOpenCount').text(outstandingInvoices.length);
+        }
+
+        function renderMatters() {
+            const tbody = $('#mattersTable tbody').empty();
+            client.matters.forEach(m => {
+                const badgeClass = m.status === "Open" ? 'badge-status-open' : (m.status === "Partially Paid" ? 'badge-status-partial' : 'badge-status-paid');
+                const tr = $('<tr>');
+                tr.append($('<td>').text(m.title));
+                tr.append($('<td>').text(m.number));
+                tr.append($('<td>').html('<span class="badge ' + badgeClass + '">' + m.status + '</span>'));
+                tr.append($('<td>').text(m.court));
+                tr.append($('<td>').text(m.nextMilestone || '—'));
+                tr.append($('<td>').text(m.nextDate || '—'));
+                tbody.append(tr);
+            });
+        }
+
+        function renderHearings() {
+            const container = $('#hearingsContainer').empty();
+            if (!client.hearings.length) {
+                container.append('<div class="text-muted small">No hearings scheduled.</div>');
+                return;
+            }
+            const tbl = $('<table class="table table-sm"><thead class="small text-muted"><tr><th>Date</th><th>Time</th><th>Court</th><th>Case #</th><th>Type</th></tr></thead>');
+            const tbody = $('<tbody>');
+            client.hearings.forEach(h => {
+                tbody.append(`<tr><td>${h.date}</td><td>${h.time}</td><td>${h.court}</td><td>${h.caseNumber}</td><td>${h.appearanceType}</td></tr>`);
+            });
+            tbl.append(tbody); container.append(tbl);
+        }
+
+        function renderMessages() {
+            // filter
+            const filter = $('#msgFilter').val();
+            let msgs = [...client.messages].sort((a, b) => new Date(a.at) - new Date(b.at));
+            if (filter === 'portal') msgs = msgs.filter(m => m.from === 'Client' || m.from === 'Attorney');
+            if (filter === 'email') msgs = msgs.filter(m => String(m.from).startsWith('Email'));
+            const list = $('#messageList').empty();
+            msgs.forEach(m => {
+                const wrapper = $('<div class="mb-3 d-flex flex-column" />');
+                const box = $('<div class="msg-box d-inline-block"></div>');
+                if (m.from === "Client") box.addClass('msg-client p-2');
+                else if (String(m.from).startsWith('Email')) box.addClass('msg-email p-2');
+                else box.addClass('p-2 bg-light');
+                box.append(`<div class="small text-muted">${m.from}</div>`);
+                box.append(`<div>${m.text}</div>`);
+                wrapper.append(box);
+                wrapper.append(`<div class="small muted mt-1">${new Date(m.at).toLocaleString()}</div>`);
+                list.append(wrapper);
+            });
+            // scroll to bottom
+            list.scrollTop(list.prop("scrollHeight"));
+        }
+
+        function renderEmailConn() {
+            $('#gmailStatus').text(emailConn.gmail ? 'Gmail Connected' : 'Gmail Not Connected').toggleClass('bg-emerald-200', emailConn.gmail);
+            $('#outlookStatus').text(emailConn.outlook ? 'Outlook Connected' : 'Outlook Not Connected').toggleClass('bg-emerald-200', emailConn.outlook);
+        }
+
+        function renderDocs() {
+            const grid = $('#docsGrid').empty();
+            if (!client.documents.length) {
+                grid.append('<div class="col-12 text-muted small">No documents uploaded.</div>');
+                return;
+            }
+            client.documents.forEach(d => {
+                const col = $('<div class="col-12 col-md-6 col-lg-4">');
+                const card = $('<div class="d-flex align-items-start justify-content-between p-2 bg-white rounded shadow-sm">');
+                const left = $(`<div><div class="truncate" title="${d.name}" style="font-weight:600">${d.name}</div><div class="small muted">${(d.type || 'FILE').toUpperCase()} • ${(d.size / 1024).toFixed(1)} KB • ${d.uploadedAt}</div></div>`);
+                const btn = $(`<button class="btn btn-sm btn-outline-primary">Download</button>`).on('click', () => {
+                    const blob = new Blob([`Placeholder for ${d.name}`], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a'); a.href = url; a.download = d.name; a.click(); URL.revokeObjectURL(url);
+                });
+                card.append(left).append(btn);
+                col.append(card);
+                grid.append(col);
+            });
+        }
+
+        let invoiceChart = null;
+        function renderInvoices() {
+            const tbody = $('#invoicesTable tbody').empty();
+            client.financial.invoices.forEach(inv => {
+                const tr = $('<tr>');
+                tr.append(`<td style="font-weight:600">${inv.number}</td>`);
+                tr.append(`<td>${inv.issued}</td>`);
+                tr.append(`<td>${inv.due}</td>`);
+                tr.append(`<td>${currency(inv.amount)}</td>`);
+                tr.append(`<td>${currency(inv.paid)}</td>`);
+                let badge = '<span class="badge badge-status-open">Open</span>';
+                if (inv.status === "Paid") badge = '<span class="badge badge-status-paid">Paid</span>';
+                if (inv.status === "Partially Paid") badge = '<span class="badge badge-status-partial">Partially Paid</span>';
+                tr.append(`<td>${badge}</td>`);
+                const actions = $('<td class="whitespace-nowrap"></td>');
+                if (inv.amount > inv.paid) {
+                    const payBtn = $(`<button class="btn btn-sm btn-primary me-1"><i class="bi bi-credit-card me-1"></i>Pay Now</button>`).on('click', () => {
+                        beginPay(inv);
+                    });
+                    actions.append(payBtn);
+                }
+                if (client.financial.trustBalance > 0 && inv.amount > inv.paid) {
+                    const trustBtn = $(`<button class="btn btn-sm btn-outline-secondary me-1"><i class="bi bi-shield-check me-1"></i>Apply Trust</button>`).on('click', () => {
+                        applyTrust(inv.id, Math.max(0, inv.amount - inv.paid));
+                    });
+                    actions.append(trustBtn);
+                }
+                const receiptBtn = $(`<button class="btn btn-sm btn-outline-secondary">Receipt</button>`).on('click', () => {
+                    const data = `Invoice ${inv.number}\nIssued: ${inv.issued}\nDue: ${inv.due}\nAmount: ${currency(inv.amount)}\nPaid: ${currency(inv.paid)}\nStatus: ${inv.status}`;
+                    const blob = new Blob([data], { type: 'text/plain' }); const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a'); a.href = url; a.download = `${inv.number}.txt`; a.click(); URL.revokeObjectURL(url);
+                });
+                actions.append(receiptBtn);
+                tr.append(actions);
+                tbody.append(tr);
+            });
+
+            // update financial summary
+            renderSummaryFinances();
+
+            // chart
+            const labels = client.financial.invoices.map(i => i.number);
+            const dataAmount = client.financial.invoices.map(i => i.amount);
+            const dataPaid = client.financial.invoices.map(i => i.paid);
+
+            const ctx = document.getElementById('invoiceChart').getContext('2d');
+            if (invoiceChart) invoiceChart.destroy();
+            invoiceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: 'Amount', data: dataAmount },
+                        { label: 'Paid', data: dataPaid }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        // ----------------- Actions -----------------
+        $('#msgFilter').on('change', renderMessages);
+
+        $('#sendMsgBtn').on('click', function () {
+            const text = $('#newMsgInput').val() + '';
+            if (!text.trim()) return;
+            const msg = { id: uid(), from: "Client", text: text.trim(), at: new Date().toISOString() };
+            client.messages.push(msg);
+            saveClient();
+            $('#newMsgInput').val('');
+            renderMessages();
+        });
+
+        $('#connectGmail').on('click', function () {
+            alert('Demo: Simulating Gmail connection. Replace with OAuth redirect to your backend.');
+            emailConn.gmail = true; localStorage.setItem('client.emailConn', JSON.stringify(emailConn)); renderEmailConn();
+        });
+        $('#connectOutlook').on('click', function () {
+            alert('Demo: Simulating Outlook connection. Replace with OAuth redirect to your backend.');
+            emailConn.outlook = true; localStorage.setItem('client.emailConn', JSON.stringify(emailConn)); renderEmailConn();
+        });
+
+        $('#importEmails').on('click', function () {
+            const now = new Date();
+            const demo = [
+                { id: uid(), from: 'Email (Gmail)', text: 'Subject: Retainer questions — Could you clarify the billing cycle?', at: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+                { id: uid(), from: 'Attorney', text: 'Reply via email: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 3 + 1000 * 60 * 30).toISOString() },
+                { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 1).toISOString() },
+            ];
+            client.messages = client.messages.concat(demo);
+            saveClient(); renderMessages();
+        });
+
+        $('#exportMsgs').on('click', function () {
+            const ordered = [...client.messages].sort((a, b) => new Date(a.at) - new Date(b.at));
+            let text = `Client Messages for ${client.name}\n\n`;
+            ordered.forEach(m => { text += `${new Date(m.at).toLocaleString()} | ${m.from}: ${m.text}\n`; });
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = `${client.name.replace(/[^a-z0-9]/gi, '_')}_messages.txt`; a.click(); URL.revokeObjectURL(url);
+        });
+
+        // Upload documents
+        $('#fileUpload').on('change', function (e) {
+            const files = e.target.files;
+            if (!files || !files.length) return;
+            const arr = Array.from(files).map(f => ({ id: uid(), name: f.name, type: (f.type.split('/')[1] || 'file'), size: f.size, uploadedAt: new Date().toISOString().slice(0, 10) }));
+            client.documents = client.documents.concat(arr);
+            saveClient(); renderDocs();
+            $('#fileUpload').val('');
+        });
+
+        // Payment flow
+        function beginPay(inv) {
+            payDraft.invoiceId = inv.id;
+            const balance = Math.max(0, inv.amount - inv.paid);
+            payDraft.amount = balance;
+            payDraft.useTrust = false;
+            $('#payAmount').val(balance);
+            $('#modalTrustAvail').text(currency(client.financial.trustBalance));
+            $('#useTrustSelect').val('false');
+            const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            modal.show();
+        }
+
+        $('#useTrustSelect').on('change', function () { payDraft.useTrust = $(this).val() === 'true'; });
+        $('#payAmount').on('input', function () { payDraft.amount = Number($(this).val()); });
+
+        function applyTrust(invoiceId, amount) {
+            const inv = client.financial.invoices.find(i => i.id === invoiceId);
+            if (!inv) return;
+            const apply = Math.min(amount, client.financial.trustBalance, Math.max(0, inv.amount - inv.paid));
+            const paid = inv.paid + apply;
+            const status = paid >= inv.amount ? "Paid" : paid > 0 ? "Partially Paid" : "Open";
+            client.financial.trustBalance -= apply;
+            client.financial.invoices = client.financial.invoices.map(i => i.id === invoiceId ? Object.assign({}, i, { paid, status }) : i);
+            saveClient(); renderAll();
+        }
+
+        async function processCardPayment(invoiceId, amount) {
+            // Demo: mark paid, in production call backend for payment processing
+            const inv = client.financial.invoices.find(i => i.id === invoiceId);
+            if (!inv) return;
+            const paid = inv.paid + amount;
+            const status = paid >= inv.amount ? "Paid" : paid > 0 ? "Partially Paid" : "Open";
+            client.financial.invoices = client.financial.invoices.map(i => i.id === invoiceId ? Object.assign({}, i, { paid, status }) : i);
+            saveClient(); renderAll();
+            alert('Payment recorded (demo). Replace with real checkout to collect funds.');
+        }
+
+        $('#confirmPayBtn').on('click', async function () {
+            const invoice = client.financial.invoices.find(i => i.id === payDraft.invoiceId);
+            if (!invoice) return;
+            const balance = Math.max(0, invoice.amount - invoice.paid);
+            const amt = Math.min(Number($('#payAmount').val()), balance);
+            if (amt <= 0) { bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide(); return; }
+            if ($('#useTrustSelect').val() === 'true') {
+                applyTrust(invoice.id, amt);
+            } else {
+                await processCardPayment(invoice.id, amt);
+            }
+            bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide();
+        });
+
+        // ----------------- Utilities: applyTrust button helper -----------------
+        // (already implemented inline in renderInvoices)
+
+        // ----------------- Render all -----------------
+        function renderAll() {
+            renderHeader();
+            renderSummaryFinances();
+            renderMatters();
+            renderHearings();
+            renderMessages();
+            renderEmailConn();
+            renderDocs();
+            renderInvoices();
+        }
+
+        // ----------------- Initialize app -----------------
+        $(function () {
+            renderAll();
+
+            // Ensure data persists on change
+            // (We call saveClient() whenever we modify client)
+            // For demo: expose client in console
+            window.__clientPortal = { client, saveClient, seedClient, reset: function () { client = seedClient(); saveClient(); renderAll(); } };
+
+            // Save emailConn to localStorage when changed externally (connect buttons do that)
+            // Watch for storage events (in case multiple tabs)
+            window.addEventListener('storage', function (e) {
+                if (e.key === 'client.portal') { client = loadClient(); renderAll(); }
+                if (e.key === 'client.emailConn') { emailConn = JSON.parse(localStorage.getItem('client.emailConn') || '{}'); renderEmailConn(); }
+            });
+        });
+    </script>
+</body>
+
+</html>
