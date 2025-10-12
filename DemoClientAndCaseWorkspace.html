@@ -626,7 +626,6 @@
                                         <th>Amount</th>
                                         <th>Due</th>
                                         <th>Status</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -1209,7 +1208,7 @@
             invoices.forEach(i => {
                 const status = i.status === 'Overdue' ? '<span class="badge bg-danger">Overdue</span>' : (i.status === 'Partially Paid' ? '<span class="badge bg-secondary">Partially Paid</span>' : (i.status === 'Unpaid' ? '<span class="badge bg-warning text-dark">Unpaid</span>' : '<span class="badge bg-success">Paid</span>'));
                 tbody.append(`<tr>
-          <td>${i.id}</td><td>${i.client}</td><td>${i.matter}</td><td>$${i.amount.toLocaleString()}</td><td>${new Date(i.due).toLocaleDateString()}</td><td>${status}</td><td><button class="btn btn-sm btn-dark">Record Payment</button></td>
+          <td>${i.id}</td><td>${i.client}</td><td>${i.matter}</td><td>$${i.amount.toLocaleString()}</td><td>${new Date(i.due).toLocaleDateString()}</td><td>${status}</td><td></td>
         </tr>`);
             });
         }
@@ -1589,7 +1588,7 @@
             const html = filtered.map(m => {
                 let msgClass = '';
                 let alignClass = '';
-                if (m.from === 'Client') {
+                if (m.from === 'Attorney') {
                     msgClass = 'bg-light';
                     alignClass = 'd-flex flex-column align-items-end';
                 } else if (m.from.includes('Email')) {
@@ -1603,7 +1602,7 @@
                 return `
             <div class="p-1 small ${alignClass}">
                 <div class="msg-box d-inline-block py-2 px-3 rounded ${msgClass}">
-                    <div class="small text-muted mb-1">${m.from}</div>
+                    <div class="small mb-1">${m.from}</div>
                     <div>${m.text}</div>
                 </div>
                 <div class="text-muted tiny mt-1">${new Date(m.at).toLocaleString()}</div>
@@ -1638,7 +1637,7 @@
 
             const msg = {
                 id: uid(),
-                from: "Client",
+                from: "Attorney",
                 text,
                 at: new Date().toISOString()
             };
@@ -1668,7 +1667,7 @@
             const now = new Date();
             const demo = [
                 { id: uid(), from: 'Email (Gmail)', text: 'Subject: Retainer questions — Could you clarify the billing cycle?', at: new Date(now.getTime() - 86400000 * 3).toISOString() },
-                { id: uid(), from: 'Attorney', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString() },
+                { id: uid(), from: 'Client', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString() },
                 { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 86400000).toISOString() },
             ];
             currentClient.messages = (currentClient.messages || []).concat(demo);
@@ -2145,12 +2144,6 @@
                 <td>$${(i.amount - (i.paid || 0)).toLocaleString()}</td>
                 <td>${new Date(i.due).toLocaleDateString()}</td>
                 <td><span class="badge ${statusClass}">${i.status}</span></td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary btn-record-payment"
-                        data-id="${i.id}" data-client="${client.name}">
-                        Record Payment
-                    </button>
-                </td>
             </tr>`;
             }).join('') || `<tr><td colspan="7" class="tiny text-muted">No invoices</td></tr>`;
 
@@ -2171,7 +2164,6 @@
                                 <th>Open Balance</th>
                                 <th>Due</th>
                                 <th>Status</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="billingTableBody">${rows}</tbody>

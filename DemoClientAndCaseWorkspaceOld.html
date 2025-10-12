@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Law Firm Client Portal (Static HTML + Bootstrap + jQuery)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Xexiro — Landing (HTML + Bootstrap + jQuery)</title>
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,1140 +13,545 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
   <style>
-    /* Custom styling to mimic React app look */
+    /* --- General look & feel (approximate Tailwind style) --- */
+    :root {
+      --accent-1: linear-gradient(90deg, #5b21b6, #ec4899);
+      --muted: #6b7280;
+      --card-radius: 18px;
+      --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
     body {
-      background: #f8fafc;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #fff;
+      color: #0f1724;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .card-rounded {
-      border-radius: 14px;
+    /* sticky translucent navbar */
+    .site-header {
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.60);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 1020;
     }
 
-    .sidebar-btn {
-      text-align: left;
-      width: 100%;
-    }
-
-    .sidebar-btn.active {
-      background: #111827;
-      color: #fff;
-    }
-
-    .muted {
-      color: #6b7280;
-    }
-
-    .pill {
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #6366f1, #a78bfa, #ec4899);
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.18);
       display: inline-block;
-      padding: 3px 9px;
-      border-radius: 9999px;
-      background: #111827;
-      color: #fff;
-      font-size: 12px;
+      vertical-align: middle;
+      margin-right: 10px;
     }
 
-    .doc-card {
-      border-radius: 12px;
-      background: white;
-      padding: 12px;
-      display: flex;
-      justify-content: space-between;
+    .hero {
+      padding: 4.5rem 0;
+    }
+
+    .hero .badge-custom {
+      display: inline-flex;
       align-items: center;
+      gap: .5rem;
+      padding: .35rem .9rem;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-weight: 600;
+      font-size: .9rem;
     }
 
-    .msg-attorney {
-      background: #111827;
-      color: white;
+    .hero h1 {
+      font-weight: 800;
+      line-height: 1.05;
     }
 
-    .msg-client {
-      background: #f3f4f6;
-      color: #111827;
+    .text-muted-small {
+      color: var(--muted);
     }
 
-    .size-9 {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      display: inline-grid;
-      place-content: center;
+    .features .card {
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      border: none;
+    }
+
+    .features .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: .75rem;
+    }
+
+    #dashboard {
+      background: #f8fafc;
+      border-top: 1px solid rgba(15, 23, 42, 0.03);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.03);
+    }
+
+    .dashboard-img {
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Pricing */
+    .pricing-card {
+      border-radius: 18px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(15, 23, 42, 0.04);
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(99, 102, 241, 0.18);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.06);
+    }
+
+    /* FAQ */
+    .accordion-button {
       font-weight: 600;
     }
 
-    .truncate-ellipsis {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    /* About team */
+    .team-photo {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
     }
 
-    /* responsive tweaks */
-    @media (max-width: 767px) {
-      .md-grid {
-        grid-template-columns: 1fr;
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.04);
+      padding: 1.5rem 0;
+    }
+
+    /* small animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all .5s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* responsive */
+    @media(min-width:1200px) {
+      .hero h1 {
+        font-size: 3.25rem;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Header -->
-  <nav class="navbar navbar-light bg-white border-bottom sticky-top">
-    <div class="container-fluid">
-      <div class="d-flex align-items-center gap-3">
-        <div class="size-9 bg-dark text-white">L</div>
-        <div>
-          <div class="h5 mb-0">Law Firm Client Portal</div>
-          <div class="small muted">Matters • Hearings • Messages • Documents • Financial</div>
-        </div>
+
+  <!-- NAVBAR -->
+  <header class="site-header">
+    <div class="container d-flex align-items-center justify-content-between py-3">
+      <div class="d-flex align-items-center">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="fw-bold fs-5">xexiro</span>
       </div>
+
+      <nav class="d-none d-md-flex align-items-center gap-4 small">
+        <a href="#product" class="text-decoration-none text-dark">Product</a>
+        <a href="#solutions" class="text-decoration-none text-dark">Solutions</a>
+        <a href="#dashboard" class="text-decoration-none text-dark">Dashboard</a>
+        <a href="#pricing" class="text-decoration-none text-dark">Pricing</a>
+        <a href="#faq" class="text-decoration-none text-dark">FAQ</a>
+        <a href="#about" class="text-decoration-none text-dark">About</a>
+      </nav>
 
       <div class="d-flex align-items-center gap-2">
-        <div class="input-group" style="width:340px;">
-          <span class="input-group-text"><i class="bi bi-search"></i></span>
-          <input id="searchClients" type="search" class="form-control" placeholder="Search clients">
-        </div>
-        <button class="btn btn-outline-secondary" id="btnAddClient" data-bs-toggle="modal"
-          data-bs-target="#modalAddClient"><i class="bi bi-plus-lg me-1"></i> New Client</button>
+        <button class="btn btn-link d-none d-sm-inline">Sign in</button>
+        <button class="btn btn-primary rounded-pill px-4">Get started</button>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <!-- Main layout -->
-  <div class="container-xl py-4">
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-md-3 mb-3">
-        <div class="card card-rounded shadow-sm">
-          <div class="card-body">
-            <h6 class="card-title">Clients</h6>
-            <div id="clientsList" class="d-flex flex-column gap-2 mt-2"></div>
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="mb-3 fade-up" id="badge-hero">
+              <span class="badge-custom"><i class="bi bi-stars"></i> &nbsp; For modern law firms</span>
+            </div>
+
+            <h1 class="display-5 mb-3 fade-up" id="hero-title">
+              Streamline your practice <span
+                style="background:var(--accent-1); -webkit-background-clip:text; color:transparent;">from intake to
+                trial</span>
+            </h1>
+
+            <p class="lead text-muted-small fade-up" id="hero-desc">
+              Xexiro helps lawyers simplify their daily work: capture clients with smart intake, draft responses quickly
+              with AI, organize documents, schedule court appearances, manage trust funds, and issue invoices on time.
+            </p>
+
+            <div class="d-flex gap-2 mt-4 fade-up" id="hero-cta">
+              <button class="btn btn-lg btn-primary rounded-pill">
+                Start free <i class="bi bi-arrow-right ms-2"></i>
+              </button>
+              <button class="btn btn-lg btn-outline-secondary rounded-pill">Book a demo</button>
+            </div>
+          </div>
+
+          <div class="col-lg-6 text-center mt-4 mt-lg-0">
+            <!-- Decorative / preview area (could put a screenshot) -->
+            <img src="https://placehold.co/640x420/png?text=Product+Hero+Preview" alt="Product preview"
+              class="img-fluid rounded-3 shadow-sm">
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Main content -->
-      <div class="col-md-9">
-        <div id="mainContent">
-          <!-- Active client summary -->
-          <div class="card card-rounded mb-3">
-            <div class="card-body d-flex justify-content-between align-items-start">
-              <div>
-                <h4 id="activeClientName" class="mb-1">No client selected</h4>
-                <div class="small muted" id="activeClientContact">Select a client to view details</div>
-                <p id="activeClientNotes" class="mt-2 mb-0"></p>
-              </div>
-              <div class="text-end">
-                <div class="small">Trust Balance</div>
-                <div class="h4" id="trustBalance">—</div>
-                <div class="small muted" id="outstandingLabel">Outstanding: —</div>
-              </div>
+    <!-- FEATURES -->
+    <section id="product" class="features py-5">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="h2 fw-bold">Everything a lawyer needs, all in one place</h2>
+          <p class="text-muted">From the first client contact to the final invoice—Xexiro keeps your practice running
+            smoothly.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-4 h-100">
+              <div class="icon-box"><i class="bi bi-dot"></i></div>
+              <h5 class="mt-2">Client intake</h5>
+              <p class="text-muted-small mb-0">Capture clients with smart, automated intake and conflict checks.</p>
             </div>
           </div>
 
-          <!-- Tabs -->
-          <ul class="nav nav-tabs" id="clientTabs" role="tablist">
-            <li class="nav-item" role="presentation"><button class="nav-link active" id="tab-matters"
-                data-bs-toggle="tab" data-bs-target="#pane-matters" type="button" role="tab">Matters</button></li>
-            <li class="nav-item" role="presentation"><button class="nav-link" id="tab-hearings" data-bs-toggle="tab"
-                data-bs-target="#pane-hearings" type="button" role="tab">Hearings</button></li>
-            <li class="nav-item" role="presentation"><button class="nav-link" id="tab-messages" data-bs-toggle="tab"
-                data-bs-target="#pane-messages" type="button" role="tab">Messages</button></li>
-            <li class="nav-item" role="presentation"><button class="nav-link" id="tab-docs" data-bs-toggle="tab"
-                data-bs-target="#pane-docs" type="button" role="tab">Documents</button></li>
-            <li class="nav-item" role="presentation"><button class="nav-link" id="tab-fin" data-bs-toggle="tab"
-                data-bs-target="#pane-fin" type="button" role="tab">Financial</button></li>
-          </ul>
-
-          <div class="tab-content mt-3">
-            <!-- Matters pane -->
-            <div class="tab-pane fade show active" id="pane-matters" role="tabpanel">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6>Matters</h6>
-                <div>
-                  <button class="btn btn-sm btn-outline-primary me-1" id="btnNewMatter" data-bs-toggle="modal"
-                    data-bs-target="#modalAddMatter"><i class="bi bi-plus-lg me-1"></i>New Matter</button>
-                  <button class="btn btn-sm btn-outline-secondary" id="btnNewInvoice" data-bs-toggle="modal"
-                    data-bs-target="#modalAddInvoice"><i class="bi bi-file-earmark-text me-1"></i>New Invoice</button>
-                </div>
-              </div>
-              <div class="card card-rounded">
-                <div class="card-body p-0">
-                  <div class="table-responsive">
-                    <table class="table mb-0" id="mattersTable">
-                      <thead class="table-light">
-                        <tr>
-                          <th>Title</th>
-                          <th>Number</th>
-                          <th>Status</th>
-                          <th>Court</th>
-                          <th>Next Milestone</th>
-                          <th>Next Date</th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-4 h-100">
+              <div class="icon-box"><i class="bi bi-chat-left-text"></i></div>
+              <h5 class="mt-2">AI-assisted messaging</h5>
+              <p class="text-muted-small mb-0">Draft professional client responses in seconds with AI help.</p>
             </div>
+          </div>
 
-            <!-- Hearings pane -->
-            <div class="tab-pane fade" id="pane-hearings" role="tabpanel">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6>Hearings</h6>
-                <button class="btn btn-sm btn-outline-primary" id="btnAddHearing" data-bs-toggle="modal"
-                  data-bs-target="#modalAddHearing"><i class="bi bi-plus-lg me-1"></i>Add Hearing</button>
-              </div>
-              <div class="card card-rounded">
-                <div class="card-body p-0">
-                  <div class="table-responsive">
-                    <table class="table mb-0" id="hearingsTable">
-                      <thead class="table-light">
-                        <tr>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Court</th>
-                          <th>Case #</th>
-                          <th>Type</th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-4 h-100">
+              <div class="icon-box"><i class="bi bi-file-earmark-text"></i></div>
+              <h5 class="mt-2">Document organization</h5>
+              <p class="text-muted-small mb-0">Keep all files structured and accessible, tied to each matter.</p>
             </div>
+          </div>
 
-            <!-- Messages pane -->
-            <div class="tab-pane fade" id="pane-messages" role="tabpanel">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6>Secure Messages</h6>
-              </div>
-              <div class="card card-rounded">
-                <div class="card-body">
-                  <div id="messagesBox"
-                    style="height:300px; overflow:auto; padding:6px; border-radius:10px; background:white; border:1px solid #e5e7eb;">
-                  </div>
-                  <div class="input-group mt-3">
-                    <input id="newMessage" type="text" class="form-control" placeholder="Write a message…">
-                    <button id="sendMessage" class="btn btn-primary"><i class="bi bi-chat-dots me-1"></i>Send</button>
-                  </div>
-                </div>
-              </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-4 h-100">
+              <div class="icon-box"><i class="bi bi-calendar-event"></i></div>
+              <h5 class="mt-2">Court & trial scheduling</h5>
+              <p class="text-muted-small mb-0">Manage court dates, reminders, and trial prep in one calendar.</p>
             </div>
+          </div>
 
-            <!-- Documents pane -->
-            <div class="tab-pane fade" id="pane-docs" role="tabpanel">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6>Documents</h6>
-                <label class="btn btn-sm btn-outline-secondary mb-0">
-                  <i class="bi bi-upload me-1"></i>Upload
-                  <input id="fileUpload" type="file" multiple hidden>
-                </label>
-              </div>
-              <div id="docsGrid" class="row g-2"></div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-4 h-100">
+              <div class="icon-box"><i class="bi bi-currency-dollar"></i></div>
+              <h5 class="mt-2">Trust & billing</h5>
+              <p class="text-muted-small mb-0">Manage trust accounts, issue invoices, and track payments effortlessly.
+              </p>
             </div>
-
-            <!-- Financial pane -->
-            <div class="tab-pane fade" id="pane-fin" role="tabpanel">
-              <div class="row g-3">
-                <div class="col-lg-8">
-                  <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h6>Invoices</h6>
-                    <button class="btn btn-sm btn-outline-primary" id="btnNewInvoice2" data-bs-toggle="modal"
-                      data-bs-target="#modalAddInvoice"><i class="bi bi-plus-lg me-1"></i>New Invoice</button>
-                  </div>
-                  <div class="card card-rounded">
-                    <div class="card-body p-0">
-                      <div class="table-responsive">
-                        <table class="table mb-0" id="invoicesTable">
-                          <thead class="table-light">
-                            <tr>
-                              <th>Invoice #</th>
-                              <th>Issued</th>
-                              <th>Due</th>
-                              <th>Amount</th>
-                              <th>Paid</th>
-                              <th>Status</th>
-                              <th>Actions</th>
-                            </tr>
-                          </thead>
-                          <tbody></tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4">
-                  <div class="card card-rounded">
-                    <div class="card-body">
-                      <h6>Summary</h6>
-                      <div class="d-grid gap-2">
-                        <div class="p-2 bg-light rounded">
-                          <div class="small muted">Total Paid</div>
-                          <div id="sumPaid" class="h5">—</div>
-                        </div>
-                        <div class="p-2 bg-light rounded">
-                          <div class="small muted">Open Balance</div>
-                          <div id="sumOpen" class="h5">—</div>
-                        </div>
-                        <div class="p-2 bg-light rounded">
-                          <div class="small muted">Trust Balance</div>
-                          <div id="sumTrust" class="h5">—</div>
-                        </div>
-                        <div class="p-2 bg-light rounded">
-                          <div class="small muted">Outstanding (All)</div>
-                          <div id="sumOutstanding" class="h5">—</div>
-                        </div>
-                      </div>
-
-                      <hr>
-                      <div>
-                        <canvas id="invoiceChart" style="height:200px;"></canvas>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- end tab content -->
-        </div> <!-- end mainContent -->
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <footer class="mt-4 text-center small muted">Built for demonstration purposes. Replace mock data with your
-      API/database.</footer>
-  </div>
+    <!-- DASHBOARD PREVIEW -->
+    <section id="dashboard" class="py-5">
+      <div class="container text-center py-4">
+        <h2 class="fw-bold">Your firm’s dashboard</h2>
+        <p class="text-muted">Stay on top of clients, cases, court schedules, trust funds, and invoices at a glance.</p>
 
-  <!-- Modals -->
-  <!-- Add Client -->
-  <div class="modal fade" id="modalAddClient" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <form id="formAddClient" class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Client</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-2"><label class="form-label">Name</label><input name="name" class="form-control" required>
+        <div class="row mt-4 g-3 justify-content-center">
+          <div class="col-md-10 col-lg-6">
+            <img src="https://placehold.co/1200x560/gif?text=Dashboard+1" alt="Dashboard 1" class="dashboard-img">
           </div>
-          <div class="mb-2"><label class="form-label">Email</label><input name="email" type="email"
-              class="form-control"></div>
-          <div class="mb-2"><label class="form-label">Phone</label><input name="phone" class="form-control"></div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Add Matter -->
-  <div class="modal fade" id="modalAddMatter" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <form id="formAddMatter" class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">New Matter</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-2"><label class="form-label">Title</label><input name="title" class="form-control" required>
+          <div class="col-md-10 col-lg-6">
+            <img src="https://placehold.co/1200x560/gif?text=Dashboard+2" alt="Dashboard 2" class="dashboard-img">
           </div>
-          <div class="mb-2"><label class="form-label">Number</label><input name="number" class="form-control"></div>
-          <div class="mb-2"><label class="form-label">Status</label><select name="status" class="form-select">
-              <option>Open</option>
-              <option>Pending</option>
-              <option>Closed</option>
-              <option>On Hold</option>
-            </select></div>
-          <div class="mb-2"><label class="form-label">Court</label><input name="court" class="form-control"></div>
-          <div class="mb-2"><label class="form-label">Next Milestone</label><input name="nextMilestone"
-              class="form-control"></div>
-          <div class="mb-2"><label class="form-label">Next Date</label><input name="nextDate" type="date"
-              class="form-control"></div>
         </div>
-        <div class="modal-footer"><button class="btn btn-primary">Save Matter</button></div>
-      </form>
-    </div>
-  </div>
+      </div>
+    </section>
 
-  <!-- Add Hearing -->
-  <div class="modal fade" id="modalAddHearing" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <form id="formAddHearing" class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">New Hearing</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-2">
-            <div class="col"><label class="form-label">Date</label><input name="date" type="date" class="form-control"
-                required></div>
-            <div class="col"><label class="form-label">Time</label><input name="time" type="time" class="form-control">
+    <!-- PRICING -->
+    <section id="pricing" class="py-5">
+      <div class="container text-center">
+        <h2 class="fw-bold">Clear, predictable pricing</h2>
+        <p class="text-muted">Choose the model that fits your practice. Pay <strong>$49 per active client</strong> or
+          add firm-wide controls at <strong>$99 per lawyer</strong> — no hidden fees.</p>
+
+        <div class="row mt-4 justify-content-center g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing-card text-start">
+              <span class="badge bg-light text-dark mb-2">Per-Client</span>
+              <h4>Professional</h4>
+              <p class="text-muted">Best for solo and small firms; scale as you grow</p>
+              <div class="display-6 fw-bold">$49 <span class="small text-muted">/client/mo</span></div>
+              <ul class="mt-3 small">
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Intake & conflict checks</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> AI-assisted messaging</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Document management</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Court & trial scheduling</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Trust fund & invoicing</li>
+              </ul>
+              <div class="mt-3">
+                <button class="btn btn-primary w-100 rounded-pill">Start free</button>
+              </div>
             </div>
           </div>
-          <div class="mb-2 mt-2"><label class="form-label">Court</label><input name="court" class="form-control"></div>
-          <div class="mb-2"><label class="form-label">Case #</label><input name="caseNumber" class="form-control"></div>
-          <div class="mb-2"><label class="form-label">Appearance Type</label><input name="appearanceType"
-              class="form-control"></div>
-        </div>
-        <div class="modal-footer"><button class="btn btn-primary">Save Hearing</button></div>
-      </form>
-    </div>
-  </div>
 
-  <!-- Add Invoice -->
-  <div class="modal fade" id="modalAddInvoice" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <form id="formAddInvoice" class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">New Invoice</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-2"><label class="form-label">Invoice #</label><input name="number" class="form-control"></div>
-          <div class="row g-2">
-            <div class="col"><label class="form-label">Issued</label><input name="issued" type="date"
-                class="form-control"></div>
-            <div class="col"><label class="form-label">Due</label><input name="due" type="date" class="form-control">
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing-card featured text-start">
+              <span class="badge bg-light text-dark mb-2">Per-Lawyer</span>
+              <h4>Firm Admin</h4>
+              <p class="text-muted">Administer the whole workflow across all lawyers</p>
+              <div class="display-6 fw-bold">$99 <span class="small text-muted">/lawyer/mo</span></div>
+              <ul class="mt-3 small">
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Firm-wide dashboard & reporting</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Role-based access & audit logs</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Centralized court & trial calendar</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> Trust controls & invoice oversight</li>
+                <li><i class="bi bi-check2-circle me-2 text-success"></i> SSO/SAML & data residency options</li>
+              </ul>
+              <div class="mt-3">
+                <button class="btn btn-outline-primary w-100 rounded-pill">Talk to sales</button>
+              </div>
             </div>
           </div>
-          <div class="row g-2 mt-2">
-            <div class="col"><label class="form-label">Amount</label><input name="amount" type="number" step="0.01"
-                min="0" class="form-control"></div>
-            <div class="col"><label class="form-label">Paid (optional)</label><input name="paid" type="number"
-                step="0.01" min="0" class="form-control"></div>
-          </div>
-          <div class="mb-2 mt-2"><label class="form-label">Notes</label><textarea name="notes" class="form-control"
-              rows="3"></textarea></div>
         </div>
-        <div class="modal-footer">
-          <button type="button" id="btnPreviewInvoice" class="btn btn-outline-secondary">Preview/Print</button>
-          <button class="btn btn-primary">Save Invoice</button>
-        </div>
-      </form>
-    </div>
-  </div>
+      </div>
+    </section>
 
-  <!-- Libraries: jQuery, Bootstrap, Chart.js -->
+    <!-- FAQ -->
+    <section id="faq" class="py-5 border-top">
+      <div class="container">
+        <h2 class="fw-bold text-center">Frequently Asked Questions</h2>
+        <div class="row justify-content-center mt-4">
+          <div class="col-md-10">
+            <div class="accordion" id="faqAccordion">
+              <!-- We'll populate via HTML for clarity -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne">What is Xexiro?</button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Xexiro is a SaaS platform that helps law firms manage clients, cases,
+                    billing, and scheduling in one place.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo">How much does it cost?</button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">$49 per active client per month.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree">Can I manage trust funds?</button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Yes, Xexiro includes built-in trust accounting features.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour">Does it support AI?</button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Yes, AI helps draft client messages and speed up legal work.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFive">Is my data secure?</button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Xexiro is SOC 2 compliant, with encryption in transit and at rest.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSix">Do you offer self-hosting?</button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">No, Xexiro is delivered as SaaS only.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSeven">Can I schedule court hearings?</button>
+                </h2>
+                <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Yes, court and trial scheduling is built in.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseEight">Is there a client portal?</button>
+                </h2>
+                <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Yes, clients can securely access updates and documents.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseNine">Do you integrate with other tools?</button>
+                </h2>
+                <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Xexiro integrates with common legal CRMs and DMS platforms.</div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTen">How do I get started?</button>
+                </h2>
+                <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Sign up for free or book a demo to see Xexiro in action.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-5 bg-light border-top">
+      <div class="container">
+        <h2 class="fw-bold text-center">About Us</h2>
+        <p class="text-center text-muted">Xexiro is built by a passionate team with deep experience in law and
+          technology.</p>
+
+        <div class="row mt-4 g-4 justify-content-center text-center">
+          <div class="col-6 col-sm-4 col-md-3">
+            <img src="https://placehold.co/240x240" alt="Jane Doe" class="team-photo mx-auto">
+            <div class="mt-3 fw-semibold">Jane Doe</div>
+            <div class="text-muted small">CEO &amp; Founder</div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-md-3">
+            <img src="https://placehold.co/240x240" alt="John Smith" class="team-photo mx-auto">
+            <div class="mt-3 fw-semibold">John Smith</div>
+            <div class="text-muted small">CTO</div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-md-3">
+            <img src="https://placehold.co/240x240" alt="Emily Lee" class="team-photo mx-auto">
+            <div class="mt-3 fw-semibold">Emily Lee</div>
+            <div class="text-muted small">Head of Product</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEGAL LINKS -->
+    <section class="py-3 border-top">
+      <div class="container text-center small text-muted">
+        <a href="/terms" class="text-decoration-underline me-2">Terms of Use</a> • <a href="/privacy"
+          class="text-decoration-underline ms-2">Privacy Policy</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+      <div class="d-flex align-items-center mb-3 mb-md-0">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="fw-bold ms-2">xexiro</span>
+      </div>
+      <div class="small text-muted">© <span id="copyright-year"></span> Xexiro Inc. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- jQuery + Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <script>
-    (function ($) {
-      "use strict";
+    // Small JS to mimic some motion and testing from original React file
 
-      // ============================
-      // Utilities
-      // ============================
-      const uid = () => Math.random().toString(36).slice(2, 9);
-      const currency = n => {
-        try { return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'CAD' }).format(Number(n)); }
-        catch (e) { return '$' + Number(n).toFixed(2); }
-      };
-      const fileSize = b => {
-        if (!b && b !== 0) return '—';
-        if (b < 1024) return b + ' B';
-        const kb = b / 1024;
-        if (kb < 1024) return kb.toFixed(1) + ' KB';
-        return (kb / 1024).toFixed(1) + ' MB';
-      };
+    $(function () {
+      // fade-up effect on page load
+      $('.fade-up').each(function (i) {
+        var el = $(this);
+        setTimeout(function () { el.addClass('show'); }, 120 + i * 90);
+      });
 
-      // ============================
-      // Mock seed data (same shape as original)
-      // ============================
-      const seedClients = () => [
-        {
-          id: uid(),
-          name: "Acme Imports Ltd.",
-          contact: { email: "gc@acmeimports.com", phone: "+1 (416) 555-0112" },
-          notes: "Corporate litigation portfolio. Key contact: Dana.",
-          matters: [
-            { id: uid(), title: "Acme v. Northport Logistics", number: "CV-24-1182", status: "Open", court: "Ontario Superior Court", nextMilestone: "Discoveries", nextDate: "2025-11-14" },
-            { id: uid(), title: "Acme Employment Counsel", number: "AD-25-004", status: "Pending", court: "HRTO", nextMilestone: "Draft submission", nextDate: "2025-10-25" },
-          ],
-          hearings: [{ id: uid(), date: "2025-10-21", time: "10:00", court: "ONSC (Toronto)", caseNumber: "CV-24-1182", appearanceType: "Case Conference" }],
-          messages: [{ id: uid(), from: "Attorney", text: "Welcome to your portal. Share documents anytime.", at: new Date().toISOString() }],
-          documents: [{ id: uid(), name: "Retainer Agreement.pdf", type: "pdf", size: 192000, uploadedAt: "2025-09-02" }],
-          financial: {
-            invoices: [
-              { id: uid(), number: "INV-2025-101", issued: "2025-09-15", due: "2025-10-15", amount: 4800, paid: 3000, status: "Partially Paid", notes: "" },
-              { id: uid(), number: "INV-2025-124", issued: "2025-10-05", due: "2025-11-05", amount: 3200, paid: 0, status: "Open", notes: "" }
-            ], 
-            trustBalance: 2500, 
-            outstanding: 5000
-          }
-        },
-        {
-          id: uid(),
-          name: "Jamal Ortega (Personal Injury)",
-          contact: { email: "jamal.ortega@email.com", phone: "+1 (647) 555-7788" },
-          notes: "MVA claim, mediation expected Q1 2026.",
-          matters: [{ id: uid(), title: "Ortega v. City Transit", number: "PI-25-771", status: "Open", court: "LAT", nextMilestone: "IME", nextDate: "2025-12-03" }],
-          hearings: [],
-          messages: [],
-          documents: [],
-          financial: { invoices: [{ id: uid(), number: "INV-2025-091", issued: "2025-08-01", due: "2025-09-01", amount: 900, paid: 900, status: "Paid", notes: "" }], trustBalance: 0, outstanding: 0 }
+      // Make nav links smooth scroll
+      $('a[href^="#"]').on('click', function (e) {
+        var target = $(this).attr('href');
+        if (target.length > 1) {
+          e.preventDefault();
+          $('html,body').animate({ scrollTop: $(target).offset().top - 70 }, 500);
         }
-      ];
+      });
 
-      // ============================
-      // State
-      // ============================
-      let clients = [];
-      let activeId = null;
-      let invoiceChart = null;
+      // Set copyright year
+      $('#copyright-year').text(new Date().getFullYear());
 
-      const STORAGE_KEY = 'lawportal.clients';
-
-      // ============================
-      // Persistence
-      // ============================
-      function loadState() {
+      // --- Lightweight runtime smoke tests (development-only) ---
+      setTimeout(function () {
         try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          clients = raw ? JSON.parse(raw) : seedClients();
-        } catch (e) {
-          clients = seedClients();
+          var faqCount = $('#faqAccordion .accordion-item').length;
+          console.assert(faqCount === 10, 'FAQ should render 10 items; found=' + faqCount);
+
+          var pricingText = $('#pricing').text();
+          console.assert(pricingText.indexOf('/client/mo') !== -1, 'Pricing should contain /client/mo');
+          console.assert(pricingText.indexOf('/lawyer/mo') !== -1, 'Pricing should contain /lawyer/mo');
+
+          var dashImgs = $('#dashboard img').length;
+          console.assert(dashImgs >= 2, 'Dashboard should show at least 2 images; found=' + dashImgs);
+        } catch (err) {
+          console.warn('Smoke tests failed to run:', err);
         }
-      }
-      function saveState() {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(clients)); } catch (e) { }
-      }
-
-      // ============================
-      // Rendering
-      // ============================
-      function renderClientsList(filter = '') {
-        const $list = $('#clientsList').empty();
-        const q = filter.trim().toLowerCase();
-        clients.filter(c => c.name.toLowerCase().includes(q)).forEach(c => {
-          const $btn = $('<button>').addClass('btn sidebar-btn').attr('data-id', c.id)
-            .toggleClass('active', c.id === activeId)
-            .append(`<div class="d-flex align-items-start gap-2"><div style="flex:1"><div class="fw-medium">${escapeHtml(c.name)}</div><div class="small ${c.id === activeId ? '' : 'muted'}">${escapeHtml(c.contact?.email || '')}</div></div></div>`);
-          $btn.on('click', () => { setActive(c.id); });
-          $list.append($btn);
-        });
-      }
-
-      function setActive(id) {
-        activeId = id;
-        renderAll();
-        // ensure selected class
-        $('#clientsList button').removeClass('active');
-        $(`#clientsList button[data-id="${id}"]`).addClass('active');
-      }
-
-      function getActive() {
-        return clients.find(c => c.id === activeId) || null;
-      }
-
-      function renderActiveSummary() {
-        const active = getActive();
-        if (!active) {
-          $('#activeClientName').text('No client selected');
-          $('#activeClientContact').text('Select a client to view details');
-          $('#activeClientNotes').text('');
-          $('#trustBalance').text('—');
-          $('#outstandingLabel').text('Outstanding: —');
-          // clear tables
-          $('#mattersTable tbody, #hearingsTable tbody, #messagesBox, #docsGrid, #invoicesTable tbody').empty();
-          updateSummaryTotals();
-          updateChart();
-          return;
-        }
-        $('#activeClientName').text(active.name);
-        $('#activeClientContact').html(`Email: <a href="mailto:${encodeURIComponent(active.contact.email)}">${escapeHtml(active.contact.email)}</a> • Phone: <a href="tel:${encodeURIComponent(active.contact.phone)}">${escapeHtml(active.contact.phone)}</a>`);
-        $('#activeClientNotes').text(active.notes || 'No notes yet.');
-        $('#trustBalance').text(currency(active.financial.trustBalance));
-        // outstanding open invoices (amount - paid)
-        const openBalance = (active.financial.invoices || []).reduce((s, i) => s + (Number(i.amount || 0) - Number(i.paid || 0)), 0);
-        $('#outstandingLabel').text('Outstanding: ' + currency(openBalance));
-        renderMatters(active);
-        renderHearings(active);
-        renderMessages(active);
-        renderDocs(active);
-        renderInvoices(active);
-        updateSummaryTotals(active);
-        updateChart(active);
-      }
-
-      function renderMatters(active) {
-        const $tbody = $('#mattersTable tbody').empty();
-        (active.matters || []).forEach(m => {
-          const tr = `<tr>
-          <td class="align-middle">${escapeHtml(m.title)}</td>
-          <td class="align-middle">${escapeHtml(m.number || '—')}</td>
-          <td class="align-middle"><span class="badge bg-${statusBadge(m.status)}">${escapeHtml(m.status)}</span></td>
-          <td class="align-middle">${escapeHtml(m.court || '—')}</td>
-          <td class="align-middle">${escapeHtml(m.nextMilestone || '—')}</td>
-          <td class="align-middle">${escapeHtml(m.nextDate || '—')}</td>
-        </tr>`;
-          $tbody.append(tr);
-        });
-      }
-
-      function statusBadge(status) {
-        if (!status) return 'secondary';
-        if (status === 'Open') return 'success';
-        if (status === 'Pending') return 'warning';
-        if (status === 'Closed') return 'secondary';
-        return 'secondary';
-      }
-
-      function renderHearings(active) {
-        const $tbody = $('#hearingsTable tbody').empty();
-        (active.hearings || []).forEach(h => {
-          $tbody.append(`<tr>
-          <td class="align-middle">${escapeHtml(h.date)}</td>
-          <td class="align-middle">${escapeHtml(h.time)}</td>
-          <td class="align-middle">${escapeHtml(h.court)}</td>
-          <td class="align-middle">${escapeHtml(h.caseNumber)}</td>
-          <td class="align-middle">${escapeHtml(h.appearanceType)}</td>
-        </tr>`);
-        });
-        if ((active.hearings || []).length === 0) $tbody.append(`<tr><td colspan="5" class="text-muted small">No hearings yet.</td></tr>`);
-      }
-
-      function renderMessages(active) {
-        const $box = $('#messagesBox').empty();
-        (active.messages || []).forEach(m => {
-          const cls = m.from === 'Attorney' ? 'msg-attorney p-2 rounded-3 float-end mb-2' : 'msg-client p-2 rounded-3 mb-2';
-          const time = new Date(m.at).toLocaleString();
-          $box.append(`<div class="clearfix"><div class="${cls}" style="max-width:80%"><div class="text-muted small">${escapeHtml(m.from)}</div><div>${escapeHtml(m.text)}</div></div><div class="small muted mt-1">${escapeHtml(time)}</div></div>`);
-        });
-        $box.scrollTop($box.prop("scrollHeight"));
-      }
-
-      function renderDocs(active) {
-        const $grid = $('#docsGrid').empty();
-        if ((active.documents || []).length === 0) {
-          $grid.append(`<div class="col-12"><div class="p-3 text-muted small">No documents uploaded.</div></div>`);
-          return;
-        }
-        active.documents.forEach(d => {
-          const col = $(`<div class="col-sm-6 col-lg-4"><div class="doc-card"></div></div>`);
-          const inner = col.find('.doc-card');
-          inner.append(`<div class="d-flex gap-3 align-items-center">
-          <div class="size-9 bg-dark text-white rounded">${iconForFile(d.type)}</div>
-          <div style="min-width:0">
-            <div class="fw-medium truncate-ellipsis" title="${escapeHtml(d.name)}">${escapeHtml(d.name)}</div>
-            <div class="small muted">${escapeHtml((d.type || '').toUpperCase())} • ${fileSize(d.size)} • ${escapeHtml(d.uploadedAt)}</div>
-          </div>
-        </div>`);
-          inner.append(`<div><button class="btn btn-sm btn-outline-secondary btn-download" data-id="${d.id}"><i class="bi bi-download"></i></button></div>`);
-          $('#docsGrid').append(col);
-        });
-      }
-
-      function iconForFile(type) {
-        if (!type) return '<i class="bi bi-file-earmark"></i>';
-        type = type.toLowerCase();
-        if (type.includes('pdf')) return '<i class="bi bi-file-earmark-pdf"></i>';
-        if (type.includes('sheet') || type.includes('excel') || type.includes('csv')) return '<i class="bi bi-file-earmark-spreadsheet"></i>';
-        if (type.includes('image')) return '<i class="bi bi-file-earmark-image"></i>';
-        return '<i class="bi bi-file-earmark-text"></i>';
-      }
-
-      function renderInvoices(active) {
-        const $tbody = $('#invoicesTable tbody').empty();
-        (active.financial.invoices || []).forEach(inv => {
-          const statusClass = inv.status === 'Paid' ? 'success' : inv.status === 'Open' ? 'warning' : 'secondary';
-          const actions = `<div class="d-flex gap-1">
-            <button class="btn btn-sm btn-outline-secondary btn-preview" data-id="${inv.id}"><i class="bi bi-printer"></i></button>
-            <button class="btn btn-sm btn-outline-secondary btn-email" data-id="${inv.id}"><i class="bi bi-envelope"></i></button>
-            <button class="btn btn-sm btn-outline-secondary btn-copy" data-id="${inv.id}"><i class="bi bi-link-45deg"></i></button>
-          </div>`;
-          $tbody.append(`<tr>
-          <td class="align-middle">${escapeHtml(inv.number || '—')}</td>
-          <td class="align-middle">${escapeHtml(inv.issued || '—')}</td>
-          <td class="align-middle">${escapeHtml(inv.due || '—')}</td>
-          <td class="align-middle">${currency(inv.amount || 0)}</td>
-          <td class="align-middle">${currency(inv.paid || 0)}</td>
-          <td class="align-middle"><span class="badge bg-${statusClass}">${escapeHtml(inv.status)}</span></td>
-          <td class="align-middle">${actions}</td>
-        </tr>`);
-        });
-        if ((active.financial.invoices || []).length === 0) $tbody.append(`<tr><td colspan="7" class="text-muted small">No invoices yet.</td></tr>`);
-      }
-
-      function updateSummaryTotals(active) {
-        if (!active) {
-          $('#sumPaid,#sumOpen,#sumTrust,#sumOutstanding').text('—');
-          return;
-        }
-        const paid = (active.financial.invoices || []).reduce((s, i) => s + Number(i.paid || 0), 0);
-        const total = (active.financial.invoices || []).reduce((s, i) => s + Number(i.amount || 0), 0);
-        const open = total - paid;
-        $('#sumPaid').text(currency(paid));
-        $('#sumOpen').text(currency(open));
-        $('#sumTrust').text(currency(active.financial.trustBalance || 0));
-        $('#sumOutstanding').text(currency(active.financial.outstanding || 0));
-      }
-
-      function updateChart(active) {
-        const ctx = document.getElementById('invoiceChart');
-        if (!ctx) return;
-        const invoices = (active && active.financial.invoices) ? active.financial.invoices : [];
-        const labels = invoices.map(i => i.number || i.id);
-        const amounts = invoices.map(i => Number(i.amount || 0));
-        const paids = invoices.map(i => Number(i.paid || 0));
-        if (invoiceChart) invoiceChart.destroy();
-        invoiceChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [
-              { label: 'Amount', data: amounts },
-              { label: 'Paid', data: paids }
-            ]
-          },
-          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
-        });
-      }
-
-      // ============================
-      // Actions & Handlers
-      // ============================
-      function addClient(obj) {
-        const client = {
-          id: uid(),
-          name: obj.name || 'New Client',
-          contact: { email: obj.email || '', phone: obj.phone || '' },
-          notes: obj.notes || '',
-          matters: [],
-          hearings: [],
-          messages: [],
-          documents: [],
-          financial: { invoices: [], trustBalance: 0, outstanding: 0 }
-        };
-        clients.unshift(client);
-        saveState();
-        renderClientsList($('#searchClients').val() || '');
-        setActive(client.id);
-      }
-
-      function addMatterToActive(data) {
-        const active = getActive(); if (!active) return;
-        const matter = { id: uid(), title: data.title, number: data.number, status: data.status, court: data.court, nextMilestone: data.nextMilestone, nextDate: data.nextDate };
-        active.matters.unshift(matter);
-        saveState();
-        renderActiveSummary();
-      }
-
-      function addHearingToActive(data) {
-        const active = getActive(); if (!active) return;
-        const hearing = { id: uid(), date: data.date, time: data.time, court: data.court, caseNumber: data.caseNumber, appearanceType: data.appearanceType };
-        active.hearings.unshift(hearing);
-        saveState();
-        renderActiveSummary();
-      }
-
-      function addInvoiceToActive(data) {
-        const active = getActive(); if (!active) return;
-        const amount = Number(data.amount || 0), paid = Number(data.paid || 0);
-        const status = paid >= amount ? 'Paid' : (paid > 0 ? 'Partially Paid' : 'Open');
-        const inv = { id: uid(), number: data.number || ('INV-' + (new Date()).getTime()), issued: data.issued || (new Date()).toISOString().slice(0, 10), due: data.due || '', amount, paid, status, notes: data.notes || '' };
-        active.financial.invoices.unshift(inv);
-        saveState();
-        renderActiveSummary();
-      }
-
-      function sendMessageFromActive(text) {
-        const active = getActive(); if (!active) return;
-        const msg = { id: uid(), from: 'Attorney', text: text.trim(), at: new Date().toISOString() };
-        active.messages.push(msg);
-        saveState();
-        renderMessages(active);
-        $('#newMessage').val('');
-      }
-
-      // Preview invoice (open new window)
-      function previewInvoice(clientId, invoiceId) {
-        const client = clients.find(c => c.id === clientId); if (!client) return;
-        const inv = client.financial.invoices.find(i => i.id === invoiceId); if (!inv) return;
-        const win = window.open('', '_blank');
-        if (!win) { alert('Popup blocked. Please allow popups for this site.'); return; }
-        const html = buildInvoiceHTML(client, inv);
-        win.document.write(html);
-        win.document.close();
-      }
-
-      // Hiển thị invoice trong Bootstrap Modal
-      function showInvoiceModal(client, inv) {
-        const html = `
-  <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="invoiceModalLabel">Invoice ${escapeHtml(inv.number)}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div style="font-family:Inter, system-ui, -apple-system; color:#111827">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start">
-              <div>
-                <h4>Invoice</h4>
-                <div class="text-muted small">${escapeHtml(inv.number)}</div>
-              </div>
-              <div class="text-end">
-                <div class="fw-semibold">${escapeHtml(client.name)}</div>
-                <div class="text-muted small">${escapeHtml(client.contact.email)}</div>
-                <div class="text-muted small">${escapeHtml(client.contact.phone)}</div>
-              </div>
-            </div>
-
-            <div class="text-muted mt-2">
-              Issued: ${escapeHtml(inv.issued || '—')} • 
-              Due: ${escapeHtml(inv.due || '—')} • 
-              <span class="badge bg-dark">${escapeHtml(inv.status)}</span>
-            </div>
-
-            <table class="table mt-3 align-middle">
-              <thead>
-                <tr><th>Description</th><th class="text-end">Amount</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Legal services</td><td class="text-end">${currency(inv.amount)}</td></tr>
-              </tbody>
-              <tfoot>
-                <tr><td><strong>Total</strong></td><td class="text-end"><strong>${currency(inv.amount)}</strong></td></tr>
-                <tr><td>Paid</td><td class="text-end">${currency(inv.paid)}</td></tr>
-                <tr><td><strong>Balance Due</strong></td><td class="text-end"><strong>${currency(Math.max(0, inv.amount - inv.paid))}</strong></td></tr>
-              </tfoot>
-            </table>
-
-            ${inv.notes ? `<p class="mt-3">${escapeHtml(inv.notes)}</p>` : ''}
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" onclick="window.print()">Print / Save PDF</button>
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>`;
-
-        // Xóa modal cũ (nếu đã có)
-        $('#invoiceModal').remove();
-        $('body').append(html);
-        const modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
-        modal.show();
-      }
-
-
-      function getShareUrl(invoiceId, clientId) {
-        return `${location.origin}${location.pathname}#invoice/${clientId}/${invoiceId}`;
-      }
-
-      // copy share link
-      function copyShareLink(clientId, invoiceId) {
-        const url = getShareUrl(invoiceId, clientId);
-        navigator.clipboard?.writeText(url).then(() => alert('Share link copied to clipboard.')).catch(() => prompt('Copy this link: ', url))
-      }
-
-      function emailInvoice(clientId, invoiceId) {
-        const client = clients.find(c => c.id === clientId); if (!client) return;
-        const inv = client.financial.invoices.find(i => i.id === invoiceId); if (!inv) return;
-        const subject = encodeURIComponent(`Invoice ${inv.number || ''}`);
-        const url = getShareUrl(invoiceId, clientId);
-        const body = encodeURIComponent(`Hello ${client.name},\n\nPlease view your invoice online here: ${url}\n\nInvoice
-${inv.number || ''} issued on ${inv.issued || ''} and due on ${inv.due || ''}.\nAmount: ${currency(inv.amount)} | Paid:
-${currency(inv.paid)} | Balance: ${currency(Math.max(0, inv.amount - inv.paid))}\n\nThank you.`);
-        window.location.href = `mailto:${client.contact.email}?subject=${subject}&body=${body}`;
-      }
-
-      // Download document (we only have metadata) => simulate by creating a blob if original file provided
-      function attachFileToActive(fileList) {
-        const active = getActive(); if (!active) return;
-        if (!fileList || fileList.length === 0) return;
-        Array.from(fileList).forEach(f => {
-          const doc = {
-            id: uid(), name: f.name, type: (f.type || '').split('/')[1] || f.name.split('.').pop() || 'file', size:
-              f.size, uploadedAt: (new Date()).toISOString().slice(0, 10)
-          };
-          active.documents.push(doc);
-        });
-        saveState();
-        renderDocs(active);
-      }
-
-      // ============================
-      // Helper: escape HTML
-      // ============================
-      function escapeHtml(str) {
-        if (str === null || str === undefined) return '';
-        return String(str).replace(/[&<>"'`=\/]/g, function (s) {
-          return ({
-            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;',
-            "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;'
-          })[s];
-        });
-      }
-
-      // ============================
-      // Event wiring
-      // ============================
-      $(function () {
-        // init state
-        loadState();
-
-        // If URL hash points to an invoice, show public view
-        const hash = location.hash || '';
-        if (hash.startsWith('#invoice/')) {
-          const parts = hash.split('/');
-          // format: #invoice/<clientId>/<invoiceId>
-          if (parts.length >= 3) {
-            const clientId = parts[1] === 'invoice' ? parts[2] : parts[1]; // defensive
-            const invoiceId = parts[3] || parts[2];
-            // find
-            const client = clients.find(c => c.id === clientId);
-            const invoice = client ? (client.financial.invoices.find(i => i.id === invoiceId) || null) : null;
-            if (client && invoice) {
-              // render a simple public invoice page replacing body
-              document.body.innerHTML = buildPublicInvoicePage(client, invoice);
-              return; // stop bootstrapping rest UI
-            }
-          }
-        }
-
-        // default active
-        activeId = clients[0] ? clients[0].id : null;
-
-        renderClientsList();
-        renderActiveSummary();
-
-        // Search clients
-        $('#searchClients').on('input', function () { renderClientsList($(this).val() || ''); });
-
-        // Add client
-        $('#formAddClient').on('submit', function (e) {
-          e.preventDefault();
-          const data = {
-            name: $(this).find('[name=name]').val(), email: $(this).find('[name=email]').val(), phone:
-              $(this).find('[name=phone]').val()
-          };
-          addClient(data);
-          const modal = bootstrap.Modal.getInstance(document.getElementById('modalAddClient'));
-          modal.hide();
-          $(this)[0].reset();
-        });
-
-        // Add matter
-        $('#formAddMatter').on('submit', function (e) {
-          e.preventDefault();
-          const data = {
-            title: $(this).find('[name=title]').val(),
-            number: $(this).find('[name=number]').val(),
-            status: $(this).find('[name=status]').val(),
-            court: $(this).find('[name=court]').val(),
-            nextMilestone: $(this).find('[name=nextMilestone]').val(),
-            nextDate: $(this).find('[name=nextDate]').val()
-          };
-          addMatterToActive(data);
-          bootstrap.Modal.getInstance(document.getElementById('modalAddMatter')).hide();
-          $(this)[0].reset();
-        });
-
-        // Add hearing
-        $('#formAddHearing').on('submit', function (e) {
-          e.preventDefault();
-          const data = {
-            date: $(this).find('[name=date]').val(),
-            time: $(this).find('[name=time]').val(),
-            court: $(this).find('[name=court]').val(),
-            caseNumber: $(this).find('[name=caseNumber]').val(),
-            appearanceType: $(this).find('[name=appearanceType]').val()
-          };
-          addHearingToActive(data);
-          bootstrap.Modal.getInstance(document.getElementById('modalAddHearing')).hide();
-          $(this)[0].reset();
-        });
-
-        // Add invoice
-        $('#formAddInvoice').on('submit', function (e) {
-          e.preventDefault();
-          const data = {
-            number: $(this).find('[name=number]').val(),
-            issued: $(this).find('[name=issued]').val(),
-            due: $(this).find('[name=due]').val(),
-            amount: $(this).find('[name=amount]').val(),
-            paid: $(this).find('[name=paid]').val(),
-            notes: $(this).find('[name=notes]').val()
-          };
-          addInvoiceToActive(data);
-          bootstrap.Modal.getInstance(document.getElementById('modalAddInvoice')).hide();
-          $(this)[0].reset();
-        });
-
-        // Preview invoice from modal (preview first invoice fields if active)
-        $('#btnPreviewInvoice').on('click', function () {
-          const form = $('#formAddInvoice');
-          const data = {
-            number: form.find('[name=number]').val(),
-            issued: form.find('[name=issued]').val(),
-            due: form.find('[name=due]').val(),
-            amount: form.find('[name=amount]').val(),
-            paid: form.find('[name=paid]').val(),
-            notes: form.find('[name=notes]').val()
-          };
-          const active = getActive(); if (!active) { alert('Select a client first.'); return; }
-          const inv = {
-            id: uid(), number: data.number || 'INV-PREVIEW', issued: data.issued || (new
-              Date()).toISOString().slice(0, 10), due: data.due, amount: Number(data.amount || 0), paid: Number(data.paid || 0),
-            status: Number(data.paid || 0) >= Number(data.amount || 0) ? 'Paid' : (Number(data.paid || 0) > 0 ? 'Partially Paid' :
-              'Open'), notes: data.notes || ''
-          };
-          const html = buildInvoiceHTML(active, inv);
-          const w = window.open('', '_blank');
-          if (!w) { alert('Popup blocked. Please allow popups.'); return; }
-          w.document.write(html); w.document.close();
-        });
-
-        // Send message
-        $('#sendMessage').on('click', function () {
-          const text = $('#newMessage').val() || '';
-          if (!text.trim()) return;
-          sendMessageFromActive(text);
-        });
-        $('#newMessage').on('keypress', function (e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            $('#sendMessage').click();
-          }
-        });
-
-        // File upload
-        $('#fileUpload').on('change', function () {
-          const files = this.files;
-          attachFileToActive(files);
-          this.value = '';
-        });
-
-        // Download doc (simulated)
-        $(document).on('click', '.btn-download', function () {
-          const docId = $(this).attr('data-id');
-          const active = getActive(); if (!active) return;
-          const doc = (active.documents || []).find(d => d.id === docId);
-          if (!doc) { alert('File not found.'); return; }
-          // Create a simple text blob to simulate download (since we only store metadata)
-          const blob = new Blob([`This is a placeholder for ${doc.name}`], { type: 'text/plain' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a'); a.href = url; a.download = doc.name; document.body.appendChild(a);
-          a.click(); a.remove();
-          URL.revokeObjectURL(url);
-        });
-
-        // Invoice actions (preview / email / copy link)
-        $(document).on('click', '.btn-preview', function () {
-          const invId = $(this).attr('data-id');
-          const active = getActive(); if (!active) return;
-          previewInvoice(active.id, invId);
-        });
-        $(document).on('click', '.btn-email', function () {
-          const invId = $(this).attr('data-id');
-          const active = getActive(); if (!active) return;
-          emailInvoice(active.id, invId);
-        });
-        $(document).on('click', '.btn-copy', function () {
-          const invId = $(this).attr('data-id');
-          const active = getActive(); if (!active) return;
-          copyShareLink(active.id, invId);
-        });
-
-        // Client selection persistence: when adding new client set active
-        // Already handled in addClient
-
-        // Clicking a client in list sets active (setActive wired earlier by event on creation)
-      });
-
-      // Build public invoice page (when opening #invoice/<clientId>/<invoiceId>)
-      // Hiển thị invoice trong modal Bootstrap thay vì mở tab mới
-      function buildPublicInvoiceModal(client, invoice) {
-        const html = `
-            <div class="modal fade" id="invoicePreviewModal" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Invoice ${escapeHtml(invoice.number)}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="container-fluid">
-                      <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                          <h4>Invoice</h4>
-                          <div class="text-muted small">${escapeHtml(invoice.number)}</div>
-                        </div>
-                        <div class="text-end">
-                          <div class="fw-semibold">${escapeHtml(client.name)}</div>
-                          <div class="text-muted small">${escapeHtml(client.contact.email)}</div>
-                          <div class="text-muted small">${escapeHtml(client.contact.phone)}</div>
-                        </div>
-                      </div>
-
-                      <div class="text-muted mb-3">
-                        Issued: ${escapeHtml(invoice.issued || '—')} •
-                        Due: ${escapeHtml(invoice.due || '—')} •
-                        <span class="badge bg-dark">${escapeHtml(invoice.status)}</span>
-                      </div>
-
-                      <div class="border rounded p-3">
-                        <div class="d-flex justify-content-between mb-1">
-                          <div>Legal services</div>
-                          <div>${currency(invoice.amount)}</div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="d-flex justify-content-between fw-semibold">
-                          <div>Total</div>
-                          <div>${currency(invoice.amount)}</div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>Paid</div>
-                          <div>${currency(invoice.paid)}</div>
-                        </div>
-                        <div class="d-flex justify-content-between fw-semibold mt-2">
-                          <div>Balance Due</div>
-                          <div>${currency(Math.max(0, invoice.amount - invoice.paid))}</div>
-                        </div>
-                      </div>
-
-                      ${invoice.notes ? `<p class="mt-3">${escapeHtml(invoice.notes)}</p>` : ''}
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-primary" onclick="window.print()">Print / Save PDF</button>
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>`;
-
-        // Xóa modal cũ (nếu có)
-        $('#invoicePreviewModal').remove();
-        $('body').append(html);
-        const modal = new bootstrap.Modal(document.getElementById('invoicePreviewModal'));
-        modal.show();
-      }
-
-
-      // Render all (clients list + active summary)
-      function renderAll() {
-        renderClientsList($('#searchClients').val() || '');
-        renderActiveSummary();
-      }
-
-      // initial render after loadState
-      $(window).on('load', function () {
-        renderAll();
-      });
-
-      // Expose saveState for dev console if needed
-      window.LAWPORTAL = { clients, saveState };
-    })(jQuery);
+      }, 300);
+    });
   </script>
 </body>
 

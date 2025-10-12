@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Xexiro • Firm Admin (HTML5 + Bootstrap + jQuery)</title>
+
+    <!-- Bootstrap CSS (5.3) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --card-radius: 1rem;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111827;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        /* Header */
+        .app-header {
+            backdrop-filter: blur(6px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        /* Layout */
+        .admin-shell {
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            padding: 1rem;
+        }
+
+        .sidebar .nav-btn {
+            border-radius: 0.75rem;
+            padding: 0.55rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            width: 100%;
+            background: transparent;
+            border: none;
+        }
+
+        .sidebar .nav-btn:hover {
+            background: #f8fafc;
+        }
+
+        .sidebar .nav-btn.active {
+            background: #eef2ff;
+            color: #3730a3;
+            font-weight: 600;
+        }
+
+        .card-plain {
+            border-radius: var(--card-radius);
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+            border: 1px solid #eef2ff;
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .avatar-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #e9eefc;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .table-wrap {
+            border-radius: .75rem;
+            overflow: hidden;
+            border: 1px solid #e6e6e6;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .badge-outline {
+            border: 1px solid #ddd;
+            background: transparent;
+            color: #111827;
+            padding: .25rem .5rem;
+            border-radius: .45rem;
+        }
+
+        /* small responsive tweaks */
+        @media (max-width: 991px) {
+            .sidebar {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: flex;
+                gap: .5rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .mobile-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-shell">
+        <!-- Header -->
+        <header class="app-header sticky-top py-2">
+            <div class="container d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <div
+                        style="width:28px;height:28px;border-radius:8px;background:linear-gradient(45deg,#6366f1,#e11d48);box-shadow:0 4px 10px rgba(99,102,241,0.2)">
+                    </div>
+                    <span class="fs-6 fw-semibold">Xexiro • Firm Admin</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <input id="globalSearch" class="form-control form-control-sm" style="width:260px"
+                        placeholder="Search lawyers, clients, matters…" />
+                    <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-search me-1"></i>Search</button>
+                    <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>New</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container py-4">
+            <div class="row g-4">
+                <!-- Sidebar -->
+                <aside class="col-md-3 d-none d-md-block">
+                    <div class="sidebar sticky-top" style="top:76px">
+                        <div class="d-grid gap-1">
+                            <button class="nav-btn active" data-nav="Overview" data-testid="nav-overview"><i
+                                    class="bi bi-shield-fill"></i>Overview</button>
+                            <button class="nav-btn" data-nav="Lawyers" data-testid="nav-lawyers"><i
+                                    class="bi bi-people-fill"></i>Lawyers</button>
+                            <button class="nav-btn" data-nav="Matters" data-testid="nav-matters"><i
+                                    class="bi bi-briefcase-fill"></i>Matters</button>
+                            <button class="nav-btn" data-nav="Clients" data-testid="nav-clients"><i
+                                    class="bi bi-file-earmark-text"></i>Clients</button>
+                            <button class="nav-btn" data-nav="Court" data-testid="nav-court"><i
+                                    class="bi bi-gavel-fill"></i>Court & Trials</button>
+                            <button class="nav-btn" data-nav="Calendar" data-testid="nav-calendar"><i
+                                    class="bi bi-calendar-event-fill"></i>Calendar</button>
+                            <button class="nav-btn" data-nav="Trust" data-testid="nav-trust"><i
+                                    class="bi bi-currency-dollar"></i>Trust</button>
+                            <button class="nav-btn" data-nav="Invoices" data-testid="nav-invoices"><i
+                                    class="bi bi-credit-card-2-back-fill"></i>Invoices</button>
+                            <button class="nav-btn" data-nav="Messages" data-testid="nav-messages"><i
+                                    class="bi bi-chat-dots-fill"></i>Messages</button>
+                            <button class="nav-btn" data-nav="Reports" data-testid="nav-reports"><i
+                                    class="bi bi-bar-chart-fill"></i>Reports</button>
+                            <button class="nav-btn" data-nav="Settings" data-testid="nav-settings"><i
+                                    class="bi bi-gear-fill"></i>Settings</button>
+                            <button class="nav-btn" data-nav="Audit" data-testid="nav-audit-log"><i
+                                    class="bi bi-lock-fill"></i>Audit Log</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main content -->
+                <main class="col-md-9">
+                    <!-- Mobile nav (small screens) -->
+                    <div class="mobile-nav mb-3 d-flex d-md-none">
+                        <select id="mobileNavSelect" class="form-select form-select-sm">
+                            <option value="Overview">Overview</option>
+                            <option value="Lawyers">Lawyers</option>
+                            <option value="Matters">Matters</option>
+                            <option value="Clients">Clients</option>
+                            <option value="Court">Court & Trials</option>
+                            <option value="Calendar">Calendar</option>
+                            <option value="Trust">Trust</option>
+                            <option value="Invoices">Invoices</option>
+                            <option value="Messages">Messages</option>
+                            <option value="Reports">Reports</option>
+                            <option value="Settings">Settings</option>
+                            <option value="Audit">Audit Log</option>
+                        </select>
+                    </div>
+
+                    <!-- SECTIONS: each .section has data-section matching nav -->
+                    <!-- Overview -->
+                    <div class="section active" data-section="Overview" data-testid="section-overview">
+                        <div class="mb-4 row g-3">
+                            <div class="col-6 col-md-3">
+                                <div class="p-3 card-plain">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <div class="text-muted small">Active Lawyers</div>
+                                            <div class="kpi-value" id="kpi-lawyers">0</div>
+                                        </div>
+                                        <i class="bi bi-people-fill fs-4 text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-3 card-plain">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <div class="text-muted small">Open Matters</div>
+                                            <div class="kpi-value" id="kpi-matters">0</div>
+                                        </div>
+                                        <i class="bi bi-briefcase-fill fs-4 text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-3 card-plain">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <div class="text-muted small">Upcoming Hearings</div>
+                                            <div class="kpi-value" id="kpi-hearings">0</div>
+                                        </div>
+                                        <i class="bi bi-calendar-event-fill fs-4 text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-3 card-plain">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <div class="text-muted small">Outstanding Invoices</div>
+                                            <div class="kpi-value" id="kpi-invoices">0</div>
+                                        </div>
+                                        <i class="bi bi-credit-card-2-back-fill fs-4 text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-plain p-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <h5 class="mb-0">Upcoming Hearings (next 60 days)</h5>
+                                    <div class="text-muted small">Plan appearances and prep work across the firm.</div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline-secondary btn-sm">Export CSV</button>
+                                </div>
+                            </div>
+
+                            <div class="table-wrap">
+                                <table class="table table-sm mb-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Matter</th>
+                                            <th>Court</th>
+                                            <th>Room</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-hearings"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lawyers -->
+                    <div class="section" data-section="Lawyers" data-testid="section-lawyers">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Lawyers</h5>
+                            <div class="d-flex gap-2">
+                                <input id="search-lawyers" class="form-control form-control-sm"
+                                    placeholder="Search lawyers…" style="width:220px" />
+                                <button id="inviteLawyer" class="btn btn-primary btn-sm"><i
+                                        class="bi bi-plus-lg me-1"></i>Invite Lawyer</button>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Practice</th>
+                                        <th>Role</th>
+                                        <th>Active</th>
+                                        <th>Permissions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-lawyers"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Matters -->
+                    <div class="section" data-section="Matters" data-testid="section-matters">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Matters</h5>
+                            <div class="d-flex gap-2">
+                                <input id="search-matters" class="form-control form-control-sm"
+                                    placeholder="Search matters…" style="width:220px" />
+                                <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>New
+                                    Matter</button>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Lead Lawyer</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-matters"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Clients -->
+                    <div class="section" data-section="Clients" data-testid="section-clients">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Clients</h5>
+                            <div class="d-flex gap-2">
+                                <input id="search-clients" class="form-control form-control-sm"
+                                    placeholder="Search clients…" style="width:220px" />
+                                <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>New
+                                    Client</button>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Client</th>
+                                        <th>Matters</th>
+                                        <th>Trust Balance</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-clients"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Court & Trials -->
+                    <div class="section" data-section="Court" data-testid="section-court">
+                        <div class="card card-plain p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <h5 class="mb-0">Court & Trial Scheduling</h5>
+                                    <div class="text-muted small">Coordinate across lawyers with firm-wide visibility.
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline-secondary btn-sm">Sync Calendar</button>
+                                </div>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="table table-sm mb-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Matter</th>
+                                            <th>Court</th>
+                                            <th>Room</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-court"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calendar -->
+                    <div class="section" data-section="Calendar" data-testid="section-calendar">
+                        <h5 class="mb-3">Calendar</h5>
+                        <div class="card card-plain p-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div>
+                                    <h6 class="mb-0">Upcoming Hearings</h6>
+                                    <div class="text-muted small">Next 60 days across all lawyers.</div>
+                                </div>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="table table-sm mb-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Matter</th>
+                                            <th>Court</th>
+                                            <th>Room</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-calendar"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust / Billing -->
+                    <div class="section" data-section="Trust" data-testid="section-billing">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">Trust Balance</div>
+                                    <div class="kpi-value">$250,000</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">Outstanding</div>
+                                    <div class="kpi-value">$71,200</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">Collected (30d)</div>
+                                    <div class="kpi-value">$39,800</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-plain p-3">
+                            <h6>Recent Invoices</h6>
+                            <div class="table-wrap mt-2">
+                                <table class="table table-hover mb-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Invoice #</th>
+                                            <th>Client</th>
+                                            <th>Amount</th>
+                                            <th>Paid</th>
+                                            <th>Open</th>
+                                            <th>Due</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-trust-invoices"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoices -->
+                    <div class="section" data-section="Invoices" data-testid="section-invoices">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Invoices</h5>
+                            <div class="d-flex gap-2">
+                                <input id="search-invoices" class="form-control form-control-sm"
+                                    placeholder="Search invoices…" style="width:220px" />
+                                <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>New
+                                    Invoice</button>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Invoice #</th>
+                                        <th>Client</th>
+                                        <th>Amount</th>
+                                        <th>Paid</th>
+                                        <th>Open</th>
+                                        <th>Due</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-invoices"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="section" data-section="Messages" data-testid="section-messages">
+                        <h5 class="mb-3">Messages</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="card card-plain p-3">
+                                    <h6>Threads</h6>
+                                    <div id="messages-list" class="mt-2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card card-plain p-3">
+                                    <h6>Preview</h6>
+                                    <div class="text-muted">No thread selected.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports -->
+                    <div class="section" data-section="Reports" data-testid="section-reports">
+                        <h5 class="mb-3">Reports</h5>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">Matters Open (This Q)</div>
+                                    <div class="kpi-value" id="report-matters">0</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">Hearings (60d)</div>
+                                    <div class="kpi-value" id="report-hearings">0</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">AR Outstanding</div>
+                                    <div class="kpi-value">$71,200</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-plain p-3">
+                            <h6>Export</h6>
+                            <div class="mt-2 d-flex gap-2">
+                                <button class="btn btn-outline-secondary">Export Matters CSV</button>
+                                <button class="btn btn-outline-secondary">Export Invoices CSV</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings -->
+                    <div class="section" data-section="Settings" data-testid="section-settings">
+                        <h5 class="mb-3">Security & Access</h5>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <div class="card card-plain p-3">
+                                    <h6>SSO / SAML</h6>
+                                    <div class="text-muted small mb-2">Connect your identity provider.</div>
+                                    <div class="d-flex justify-content-between align-items-center p-2 border rounded-2">
+                                        <div>
+                                            <div class="fw-medium">Enable SSO</div>
+                                            <div class="text-muted small">Okta, Azure AD, Google</div>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="toggleSSO" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card card-plain p-3">
+                                    <h6>Data Residency</h6>
+                                    <div class="text-muted small mb-2">Choose where your data is stored.</div>
+
+                                    <!-- Bootstrap tabs -->
+                                    <ul class="nav nav-tabs" id="residencyTabs" role="tablist">
+                                        <li class="nav-item" role="presentation"><button class="nav-link active"
+                                                data-bs-toggle="tab" data-bs-target="#res-us" type="button"
+                                                role="tab">US</button></li>
+                                        <li class="nav-item" role="presentation"><button class="nav-link"
+                                                data-bs-toggle="tab" data-bs-target="#res-ca" type="button"
+                                                role="tab">Canada</button></li>
+                                        <li class="nav-item" role="presentation"><button class="nav-link"
+                                                data-bs-toggle="tab" data-bs-target="#res-eu" type="button"
+                                                role="tab">EU</button></li>
+                                    </ul>
+                                    <div class="tab-content p-3 border-top">
+                                        <div class="tab-pane fade show active" id="res-us" role="tabpanel">Primary in
+                                            us-east; failover us-west.</div>
+                                        <div class="tab-pane fade" id="res-ca" role="tabpanel">Primary in ca-central.
+                                        </div>
+                                        <div class="tab-pane fade" id="res-eu" role="tabpanel">Primary in eu-west.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <h6>Roles & Permissions</h6>
+                        <div class="table-wrap mt-2">
+                            <table class="table table-sm mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Create/Edit</th>
+                                        <th>Billing</th>
+                                        <th>Court</th>
+                                        <th>Manage Users</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Partner</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Associate</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Paralegal</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Billing</td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Audit Log -->
+                    <div class="section" data-section="Audit" data-testid="section-audit">
+                        <h5 class="mb-3">Audit Log</h5>
+                        <div class="table-wrap">
+                            <table class="table table-sm mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Actor</th>
+                                        <th>Action</th>
+                                        <th>Target</th>
+                                        <th>IP</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-audit"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery + Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ---------- Mock data (same as React source) ----------
+        const MOCK_LAWYERS = [
+            { id: "L-1001", name: "Amara Khan", email: "amara@firm.com", role: "Partner", active: true, practice: "Civil" },
+            { id: "L-1002", name: "Diego Rivera", email: "diego@firm.com", role: "Associate", active: true, practice: "Criminal" },
+            { id: "L-1003", name: "Mina Patel", email: "mina@firm.com", role: "Associate", active: false, practice: "Employment" },
+        ];
+
+        const MOCK_MATTERS = [
+            { id: "M-2451", title: "R. v. Patel", type: "Criminal", lead: "Diego Rivera", status: "Discovery" },
+            { id: "M-2480", title: "Estate of Chen", type: "Estates", lead: "Amara Khan", status: "Intake" },
+            { id: "M-2492", title: "Nguyen v. Atlas Logistics", type: "Employment", lead: "Mina Patel", status: "Motions" },
+        ];
+
+        const MOCK_HEARINGS = [
+            { date: "2025-10-05", matter: "R. v. Patel", court: "ON Superior Court (Motion)", room: "3A", status: "Scheduled" },
+            { date: "2025-10-14", matter: "Nguyen v. Atlas Logistics", court: "ON Small Claims (Settlement)", room: "2C", status: "Scheduled" },
+            { date: "2025-11-17", matter: "Tran v. City of Hamilton", court: "ON Superior Court (Trial)", room: "1D", status: "Confirmed" },
+        ];
+
+        const MOCK_CLIENTS = [
+            { name: "Lan Nguyen", matters: 3, trust: "$2,500", status: "Active" },
+            { name: "Estate of Li Chen", matters: 2, trust: "$1,200", status: "Active" },
+            { name: "Atlas Logistics", matters: 4, trust: "$0", status: "Overdue" },
+        ];
+
+        const MOCK_INVOICES = [
+            ["INV-2025-101", "Lan Nguyen", "$4,800", "$3,000", "$1,800", "2025-10-14", "Partially Paid"],
+            ["INV-2025-124", "Atlas Logistics", "$3,200", "$0", "$3,200", "2025-11-04", "Open"],
+        ];
+
+        const MOCK_AUDIT = [
+            ["2025-09-20 10:12", "amara@firm.com", "Updated", "Matter M-2451", "192.0.2.10"],
+            ["2025-09-18 16:40", "diego@firm.com", "Created", "Invoice INV-2025-124", "192.0.2.11"],
+            ["2025-09-18 09:05", "system", "Login", "SSO Okta", "192.0.2.12"],
+        ];
+
+        const MOCK_THREADS = [
+            { from: "Lan Nguyen", subject: "Deposition prep questions", unread: true },
+            { from: "Court Clerk", subject: "Room change notice", unread: false },
+            { from: "Atlas Logistics", subject: "Invoice clarification", unread: false },
+        ];
+
+        // ---------- Helpers ----------
+        function initials(name) {
+            return name.split(" ").map(s => s[0]).slice(0, 2).join("").toUpperCase();
+        }
+
+        function badgeHtml(status) {
+            if (!status) return '';
+            if (status.toLowerCase().includes('open')) return `<span class="badge bg-secondary">${status}</span>`;
+            if (status.toLowerCase().includes('partially')) return `<span class="badge bg-warning text-dark">${status}</span>`;
+            if (status.toLowerCase().includes('scheduled') || status.toLowerCase().includes('confirmed')) return `<span class="badge bg-info text-dark">${status}</span>`;
+            if (status.toLowerCase().includes('overdue')) return `<span class="badge bg-danger">${status}</span>`;
+            return `<span class="badge bg-light text-dark">${status}</span>`;
+        }
+
+        // ---------- Rendering ----------
+        function renderKPIs() {
+            $('#kpi-lawyers').text(MOCK_LAWYERS.filter(l => l.active).length);
+            $('#kpi-matters').text(MOCK_MATTERS.length);
+            $('#kpi-hearings').text(MOCK_HEARINGS.length);
+            $('#kpi-invoices').text(MOCK_INVOICES.length);
+            $('#report-matters').text(MOCK_MATTERS.length);
+            $('#report-hearings').text(MOCK_HEARINGS.length);
+        }
+
+        function renderHearingsTables() {
+            const rows = MOCK_HEARINGS.map(h => `<tr>
+        <td>${h.date}</td>
+        <td>${h.matter}</td>
+        <td>${h.court}</td>
+        <td>${h.room}</td>
+        <td>${badgeHtml(h.status)}</td>
+      </tr>`).join('');
+            $('#table-hearings').html(rows);
+            $('#table-court').html(rows);
+            $('#table-calendar').html(rows);
+        }
+
+        function renderLawyers() {
+            const rows = MOCK_LAWYERS.map(l => `<tr>
+        <td>
+          <div class="d-flex align-items-center gap-2">
+            <div class="avatar-circle">${initials(l.name)}</div>
+            <div>
+              <div>${l.name}</div>
+            </div>
+          </div>
+        </td>
+        <td>${l.email}</td>
+        <td>${l.practice}</td>
+        <td>${l.role}</td>
+        <td><div class="form-check form-switch"><input class="form-check-input lawyer-active" type="checkbox" data-id="${l.id}" ${l.active ? 'checked' : ''}></div></td>
+        <td>
+          <div class="small d-flex gap-2">
+            <label class="form-check-label"><input type="checkbox" checked> Admin</label>
+            <label class="form-check-label"><input type="checkbox" checked> Billing</label>
+            <label class="form-check-label"><input type="checkbox"> Read</label>
+          </div>
+        </td>
+      </tr>`).join('');
+            $('#table-lawyers').html(rows);
+        }
+
+        function renderMatters() {
+            const rows = MOCK_MATTERS.map(m => `<tr>
+        <td>${m.id}</td><td>${m.title}</td><td>${m.type}</td><td>${m.lead}</td><td><span class="badge bg-secondary">${m.status}</span></td>
+      </tr>`).join('');
+            $('#table-matters').html(rows);
+        }
+
+        function renderClients() {
+            const rows = MOCK_CLIENTS.map(c => `<tr>
+        <td>${c.name}</td><td>${c.matters}</td><td>${c.trust}</td><td>${c.status === 'Overdue' ? '<span class="badge bg-danger">Overdue</span>' : '<span class="badge bg-secondary">Active</span>'}</td>
+      </tr>`).join('');
+            $('#table-clients').html(rows);
+        }
+
+        function renderInvoices() {
+            const rowsAll = MOCK_INVOICES.map(i => `<tr>
+        <td>${i[0]}</td><td>${i[1]}</td><td>${i[2]}</td><td>${i[3]}</td><td>${i[4]}</td><td>${i[5]}</td><td>${badgeHtml(i[6])}</td>
+      </tr>`).join('');
+            $('#table-invoices').html(rowsAll);
+            $('#table-trust-invoices').html(rowsAll);
+        }
+
+        function renderAudit() {
+            const rows = MOCK_AUDIT.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+            $('#table-audit').html(rows);
+        }
+
+        function renderMessages() {
+            const rows = MOCK_THREADS.map(t => `<div class="rounded-2 p-2 mb-2 ${t.unread ? 'bg-light' : ''}">
+        <div class="fw-semibold">${t.from}</div><div class="small text-muted">${t.subject}</div>
+      </div>`).join('');
+            $('#messages-list').html(rows);
+        }
+
+        // ---------- Interactions ----------
+        $(function () {
+            // render initial UI
+            renderKPIs();
+            renderHearingsTables();
+            renderLawyers();
+            renderMatters();
+            renderClients();
+            renderInvoices();
+            renderAudit();
+            renderMessages();
+
+            // Sidebar nav click
+            $('.nav-btn').on('click', function () {
+                $('.nav-btn').removeClass('active');
+                $(this).addClass('active');
+                const sec = $(this).data('nav');
+                $('.section').removeClass('active');
+                $(`.section[data-section="${sec}"]`).addClass('active');
+
+                // for mobile select sync
+                $('#mobileNavSelect').val(sec);
+            });
+
+            // Mobile nav
+            $('#mobileNavSelect').on('change', function () {
+                const sec = $(this).val();
+                $('.section').removeClass('active');
+                $(`.section[data-section="${sec}"]`).addClass('active');
+                $('.nav-btn').removeClass('active');
+                $(`.nav-btn[data-nav="${sec}"]`).addClass('active');
+            });
+
+            // simple search filters
+            $('#search-lawyers').on('input', function () {
+                const q = $(this).val().toLowerCase();
+                $('#table-lawyers tr').each(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(q) > -1);
+                });
+            });
+            $('#search-matters').on('input', function () {
+                const q = $(this).val().toLowerCase();
+                $('#table-matters tr').each(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(q) > -1);
+                });
+            });
+            $('#search-clients').on('input', function () {
+                const q = $(this).val().toLowerCase();
+                $('#table-clients tr').each(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(q) > -1);
+                });
+            });
+            $('#search-invoices').on('input', function () {
+                const q = $(this).val().toLowerCase();
+                $('#table-invoices tr').each(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(q) > -1);
+                });
+            });
+
+            // global search (quick highlight - toggles Overview)
+            $('#globalSearch').on('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    const q = $(this).val().toLowerCase();
+                    // naive: if mentions lawyer name, open Lawyers; if matter id/title, open Matters; else show Overview
+                    if (q.includes('amara') || q.includes('diego') || q.includes('mina') || q.includes('@firm.com')) {
+                        $(`.nav-btn[data-nav="Lawyers"]`).click();
+                    } else if (q.match(/m-\d/i) || q.includes('nguyen') || q.includes('estate')) {
+                        $(`.nav-btn[data-nav="Matters"]`).click();
+                    } else {
+                        $(`.nav-btn[data-nav="Overview"]`).click();
+                    }
+                }
+            });
+
+            // Dev-only runtime checks mimic (console asserts)
+            setTimeout(() => {
+                try {
+                    console.assert($('.admin-shell').length >= 0, 'admin-shell rendered');
+                    console.assert($('.nav-btn').length >= 10, 'sidebar has >= 10 navs');
+                    // Click lawyers programmatically to ensure content present
+                    $(`[data-testid="nav-lawyers"]`).click();
+                    console.assert($('#table-lawyers tr').length === MOCK_LAWYERS.length, "Lawyers table row count");
+                } catch (e) {
+                    console.warn('Dev checks failed', e);
+                }
+            }, 50);
+
+        });
+    </script>
+</body>
+
+</html>
