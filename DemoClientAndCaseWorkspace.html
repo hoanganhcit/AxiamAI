@@ -42,9 +42,10 @@
         }
 
         .sidebar .nav-link.active {
-            background: #f1f5f9;
+            background: #18d3ff;
             font-weight: 600;
             border-radius: 8px;
+            color: #fff;
         }
 
         .card-rounded {
@@ -399,7 +400,7 @@
 
             <div class="flex-grow-1 ms-3">
                 <div class="position-relative">
-                    <i class="bi bi-search position-absolute" style="left:12px;top:10px;color:#94a3b8"></i>
+                    <i class="bi bi-search position-absolute" style="left:12px;top:5px;color:#94a3b8"></i>
                     <input id="globalSearch" class="form-control form-control-sm ps-5 rounded-pill"
                         placeholder="Search clients, matters, invoices, hearings…" />
                 </div>
@@ -419,9 +420,9 @@
     <div class="container-fluid px-3 py-4">
         <div class="row gx-4">
             <!-- Sidebar -->
-            <aside class="col-lg-12 col-xl-12 mb-4 sidebar">
+            <aside class="col-lg-12 col-xl-2 mb-4 sidebar">
                 <nav class="bg-white p-2 rounded-3 border-0">
-                    <div class="nav">
+                    <div class="nav flex-column">
                         <a href="#" class="nav-link active" data-tab="dashboard"><i class="bi bi-grid me-2"></i>
                             Dashboard</a>
                         <a href="#" class="nav-link" data-tab="clients"><i class="bi bi-people me-2"></i> Clients</a>
@@ -437,7 +438,7 @@
             </aside>
 
             <!-- Main -->
-            <main class="col-lg-12 col-xl-12 main">
+            <main class="col-lg-12 col-xl-10 main">
                 <!-- Dashboard Tab -->
                 <section id="tab-dashboard">
                     <!-- Stats -->
@@ -465,7 +466,7 @@
                                         <div style="font-weight:700; font-size:1.45rem;" id="stat-hearings">0</div>
                                         <div class="tiny">Next 60 days</div>
                                     </div>
-                                    <div class="text-end"><i class="bi bi-gavel"
+                                    <div class="text-end"><i class="bi bi-calendar2"
                                             style="font-size:1.5rem;color:#0ea5a4;"></i></div>
                                 </div>
                             </div>
@@ -1225,19 +1226,25 @@
             });
         }
 
-        function renderHearings() {
+        function renderHearings(list = hearings) {
             const tbody = $('#hearingsTable tbody').empty();
-            hearings.forEach(h => {
-                const statusBadge = h.status === 'Confirmed' ? '<span class="badge bg-success">Confirmed</span>' : (h.status === 'Overdue' ? '<span class="badge bg-danger">Overdue</span>' : '<span class="badge bg-secondary">Scheduled</span>');
+            list.forEach(h => {
+                const statusBadge =
+                    h.status === 'Confirmed'
+                        ? '<span class="badge bg-success">Confirmed</span>'
+                        : h.status === 'Overdue'
+                            ? '<span class="badge bg-danger">Overdue</span>'
+                            : '<span class="badge bg-secondary">Scheduled</span>';
+
                 const tr = $(`
-          <tr>
-            <td>${new Date(h.date).toLocaleDateString()}</td>
-            <td><a href="#" class="open-client-link" data-client="${h.client}">${h.matter}</a></td>
-            <td>${h.court} (${h.type})</td>
-            <td>${h.room}</td>
-            <td>${statusBadge}</td>
-          </tr>
-        `);
+                    <tr>
+                    <td>${new Date(h.date).toLocaleDateString()}</td>
+                    <td><a href="#" class="open-client-link" data-client="${h.client}">${h.matter}</a></td>
+                    <td>${h.court} (${h.type})</td>
+                    <td>${h.room}</td>
+                    <td>${statusBadge}</td>
+                    </tr>
+                `);
                 tbody.append(tr);
             });
 
@@ -1245,16 +1252,38 @@
             const courtTbody = $('#courtTable tbody').empty();
             hearings.forEach(h => {
                 const notifyBtn = `<button class="btn btn-sm btn-outline-primary notify-btn" data-id="${h.id}">Send Email+SMS</button>`;
+                const statusBadge =
+                    h.status === 'Confirmed'
+                        ? '<span class="badge bg-success">Confirmed</span>'
+                        : h.status === 'Overdue'
+                            ? '<span class="badge bg-danger">Overdue</span>'
+                            : '<span class="badge bg-secondary">Scheduled</span>';
+
                 courtTbody.append(`<tr>
           <td>${new Date(h.date).toLocaleDateString()}</td>
           <td><a href="#" class="open-client-link" data-client="${h.client}">${h.matter}</a></td>
           <td>${h.court} (${h.type})</td>
           <td>${h.room}</td>
-          <td><span class="badge bg-info">${h.status}</span></td>
+          <td>${statusBadge}</td>
           <td>${notifyBtn}</td>
         </tr>`);
             });
         }
+
+
+        // mini calendar
+
+        $('#miniCalendar').on('change', function () {
+            const selected = $(this).val();
+            $('#miniCalSelected').text(`Selected: ${selected || 'None'}`);
+
+            if (!selected) {
+                renderHearings(); // reset khi bỏ chọn
+                return;
+            }
+            const filtered = hearings.filter(h => h.date === selected);
+            renderHearings(filtered);
+        });
 
         function renderClients() {
             const tbody = $('#clientsTable tbody').empty();
@@ -1668,9 +1697,6 @@
                 alert('Registered: ' + (data.name || 'Unnamed'));
                 $('#registerModal').modal('hide');
             });
-
-            // mini calendar
-            $('#miniCalendar').on('change', function () { $('#miniCalSelected').text(this.value || '—'); });
 
             // notify button
             $(document).on('click', '.notify-btn', function () { alert('Pretend sending email+SMS for hearing id ' + $(this).data('id')); });

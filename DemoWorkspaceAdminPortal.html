@@ -1,0 +1,3196 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LexFlow — Firm Admin Workspace (Bootstrap + jQuery)</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-grad-start: #4f46e5;
+            /* indigo-600 */
+            --brand-grad-mid: #2563eb;
+            /* blue-600 */
+            --brand-grad-end: #06b6d4;
+            /* cyan-500 */
+            --panel-bg: #ffffff;
+            --page-bg: #f8f8fc;
+            /* slate-50 */
+        }
+
+        body {
+            background: var(--page-bg);
+        }
+
+        .brand-mark {
+            height: 40px;
+            width: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--brand-grad-start), var(--brand-grad-mid), var(--brand-grad-end));
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+        }
+
+        .sidebar .nav-link {
+            color: #334155;
+        }
+
+        .sidebar .nav-link.active {
+            background: #18d3ff;
+            font-weight: 600;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .card-rounded {
+            border-radius: 12px;
+        }
+
+        .badge-pill {
+            border-radius: 999px;
+            padding: .35rem .7rem;
+            font-size: .75rem;
+        }
+
+        .stage-column {
+            min-width: 260px;
+        }
+
+        .matter-card {
+            border: 1px solid #e6eef6;
+            background: var(--panel-bg);
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .matter-card .title {
+            font-weight: 600;
+        }
+
+        .scroll-x {
+            overflow-x: auto;
+        }
+
+        header.topbar {
+            backdrop-filter: blur(6px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid #e6eef6;
+        }
+
+        .tiny {
+            font-size: .78rem;
+            color: #64748b;
+        }
+
+        .mini-cal {
+            max-width: 240px;
+        }
+
+        @media (max-width: 991px) {
+            .sidebar {
+                display: none;
+            }
+        }
+
+        :root {
+            --card-radius: 12px;
+            --accent: linear-gradient(45deg, #00ccff, #1d5add);
+            --bg-primary: #18d3ff;
+        }
+
+        body {
+            background: #f8fafc;
+            color: #0f172a;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
+            font-size: 14px;
+        }
+
+        .btn {
+            --bs-btn-font-size: 0.875rem;
+        }
+
+        .form-control {
+            font-size: 0.875rem;
+        }
+
+        .rounded-2xl {
+            border-radius: var(--card-radius)
+        }
+
+        .sidebar-btn {
+            position: relative;
+            z-index: 1;
+            height: 48px;
+            line-height: 48px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: inline-block;
+            padding: 0 10px !important;
+            text-align: center;
+            text-transform: uppercase;
+            background-size: 200% auto;
+            box-shadow: 0 3ox 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar-btn.active {
+
+            background: #18d3ff;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background: #18d3ff;
+            border-color: #18d3ff;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: #11b6db;
+            border-color: #11b6db;
+        }
+
+        .progress-bar {
+            background-color: var(--bg-primary);
+        }
+
+        .topbar {
+            backdrop-filter: blur(6px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid #e6edf3
+        }
+
+        .card-panel {
+            background: #fff;
+            border: 1px solid #e6edf3;
+            border-radius: 12px
+        }
+
+        .stage-column {
+            min-width: 260px
+        }
+
+        .mat-card {
+            border: 1px solid #eef2ff;
+            border-radius: 12px;
+            background: #fff;
+            padding: 12px
+        }
+
+        .badge-pill {
+            border-radius: 999px
+        }
+
+        .underline-btn {
+            background: none;
+            border: none;
+            color: #0f172a;
+            text-decoration: underline;
+            padding: 0
+        }
+
+        .overflow-x-auto {
+            overflow-x: auto
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 12px
+        }
+
+        .muted {
+            color: #6b7280
+        }
+
+        .small-muted {
+            font-size: 12px;
+            color: #6b7280
+        }
+
+        .card-compact .card-body {
+            padding: 0.65rem
+        }
+
+        /* make horizontal board scroll smooth */
+        .board-wrap {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 8px
+        }
+
+        .card-shadow {
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06)
+        }
+
+        .table {
+            font-size: 0.875rem;
+        }
+
+        .accordion-button {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-tabs {
+            border: 0;
+            background: #ebebeb;
+            border-bottom: none;
+            background-color: #f9fafb;
+            padding: 6px;
+            border-radius: 8px;
+            display: inline-flex;
+            gap: 6px;
+        }
+
+        .nav-tabs .nav-link {
+            color: #545454;
+            border-radius: 8px;
+            padding: 5px 15px;
+            transition: none;
+            border: none;
+            background: transparent;
+            color: #4b5563;
+            font-weight: 500;
+            border-radius: 6px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .btn-group-sm>.btn,
+        .btn-sm {
+            font-size: 12px;
+        }
+
+        table tbody td {
+            font-size: .78rem;
+            vertical-align: middle;
+        }
+
+        .accordion-border {
+            border: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+        }
+
+        #docAlert {
+            transition: all 0.4s ease;
+        }
+
+        /* responsive tweaks */
+        @media (max-width:991px) {
+            .sidebar {
+                position: relative
+            }
+        }
+
+        .fc .fc-col-header-cell-cushion {
+            text-decoration: none;
+            color: #2e2e2e;
+        }
+
+        .fc .fc-daygrid-day-number {
+            text-decoration: none;
+        }
+
+        .fc .fc-daygrid-day-frame {
+            min-height: 100px;
+        }
+
+        .grid-2-column {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .size-lg {
+            font-size: 20px;
+        }
+
+        .text-sm {
+            font-size: 0.5rem;
+        }
+
+
+        .msg-box {
+            max-width: 75%;
+            border-radius: 12px;
+            word-wrap: break-word;
+            padding: .6rem;
+        }
+
+
+        .msg-client {
+            background: #111827;
+            color: white;
+            margin-left: auto;
+        }
+
+        .msg-email {
+            background: #e7f1ff;
+        }
+
+        .muted {
+            color: #6c757d;
+        }
+
+        .bg-email {
+            background-color: #e8f0fe !important;
+            /* xanh nhạt kiểu Gmail */
+        }
+
+        .bg-light {
+            background-color: #f8f9fa !important;
+            /* sáng cho client */
+        }
+
+        .bg-secondary-subtle {
+            background-color: #f1f3f4 !important;
+            /* xám nhạt cho attorney/system */
+        }
+
+        .page-link {
+            font-size: 0.75rem;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #696969;
+        }
+
+        .active>.page-link,
+        .page-link.active {
+            background: #18d3ff;
+            border-color: #18d3ff;
+        }
+
+        .tooltip-inner {
+            max-width: 600px;
+            text-align: left;
+            padding: 1em;
+        }
+
+        .lawyer-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #555;
+            margin-right: 8px;
+        }
+
+        .list-group-item.active {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+
+        .card-plain {
+            border-radius: var(--card-radius);
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+            border: 1px solid #eef2ff;
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <header class="topbar sticky-top">
+        <div class="container-fluid px-3 py-2 d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <div class="brand-mark"></div>
+                <div>
+                    <div style="font-weight:700; font-size:0.95rem; color:#0f172a;">LexFlow</div>
+                    <div class="tiny">Firm Admin Workspace</div>
+                </div>
+            </div>
+
+            <div class="flex-grow-1 ms-3">
+                <div class="position-relative">
+                    <i class="bi bi-search position-absolute" style="left:12px;top:5px;color:#94a3b8"></i>
+                    <input id="globalSearch" class="form-control form-control-sm ps-5 rounded-pill"
+                        placeholder="Search clients, matters, invoices, hearings…" />
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal"
+                    data-bs-target="#newClientModal"><i class="bi bi-plus-lg me-1"></i> New Client</button>
+                <button class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal"
+                    data-bs-target="#addMatterModal"><i class="bi bi-plus-lg me-1"></i> New Matter</button>
+                <button class="btn btn-dark btn-sm rounded-pill"><i class="bi bi-person"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Body -->
+    <div class="container-fluid px-3 py-4">
+        <div class="row gx-4">
+            <!-- Sidebar -->
+            <aside class="col-lg-12 col-xl-2 mb-4 sidebar">
+                <nav class="bg-white p-2 rounded-3 border-0">
+                    <div class="nav flex-column">
+                        <a href="#" class="nav-link active" data-tab="dashboard"><i class="bi bi-grid me-2"></i>
+                            Dashboard</a>
+                        <a href="#" class="nav-link" data-tab="lawyers"><i class="bi bi-people  me-2"></i>Lawyers</a>
+                        <a href="#" class="nav-link" data-tab="clients"><i class="bi bi-people me-2"></i> Clients</a>
+                        <a href="#" class="nav-link" data-tab="matters"><i class="bi bi-briefcase me-2"></i> Matters</a>
+                        <a href="#" class="nav-link" data-tab="court"><i class="bi bi-bank2 me-2"></i> Court</a>
+                        <a href="#" class="nav-link" data-tab="calendar"><i class="bi bi-calendar-event me-2"></i>
+                            Calendar</a>
+                        <a href="#" class="nav-link" data-tab="billing"><i class="bi bi-credit-card-2-front me-2"></i>
+                            Billing</a>
+                        <a href="#" class="nav-link" data-tab="reports"><i class="bi bi-bar-chart  me-2"></i>Reports</a>
+                        <a href="#" class="nav-link" data-tab="settings"><i class="bi bi-gear  me-2"></i>Settings</a>
+                        <a href="#" class="nav-link" data-tab="auditLogs"><i class="bi bi-lock  me-2"></i>Audit Log</a>
+                    </div>
+                </nav>
+
+            </aside>
+
+            <!-- Main -->
+            <main class="col-lg-12 col-xl-10 main">
+                <!-- Dashboard Tab -->
+                <section id="tab-dashboard">
+                    <!-- Stats -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="card card-rounded border-0 p-3">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="tiny">Active Lawyers</div>
+                                        <div style="font-weight:700; font-size:1.45rem;">4</div>
+                                        <div class="tiny">+1 this month</div>
+                                    </div>
+                                    <div class="text-end"><i class="bi bi-people"
+                                            style="font-size:1.5rem;color:#8b5cf6;"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="card card-rounded border-0 p-3">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="tiny">Open Matters</div>
+                                        <div style="font-weight:700; font-size:1.45rem;" id="stat-active-matters">0
+                                        </div>
+                                        <div class="tiny">+2 this month</div>
+                                    </div>
+                                    <div class="text-end"><i class="bi bi-briefcase"
+                                            style="font-size:1.5rem;color:#2563eb;"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="card card-rounded border-0 p-3">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="tiny">Upcoming Hearings</div>
+                                        <div style="font-weight:700; font-size:1.45rem;" id="stat-hearings">0</div>
+                                        <div class="tiny">Next 60 days</div>
+                                    </div>
+                                    <div class="text-end"><i class="bi bi-calendar2"
+                                            style="font-size:1.5rem;color:#0ea5a4;"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="card card-rounded border-0 p-3">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="tiny">Outstanding Invoices</div>
+                                        <div style="font-weight:700; font-size:1.45rem;" id="stat-invoices">0</div>
+                                        <div class="tiny" id="stat-invoices-amount">$0 due</div>
+                                    </div>
+                                    <div class="text-end"><i class="bi bi-credit-card-2-front"
+                                            style="font-size:1.5rem;color:#ef4444;"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main grid: Matters board + right column -->
+                    <div class="row g-4">
+                        <div class="col-12 col-xl-12">
+                            <div class="card card-rounded border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-1">Matters Board</h5>
+                                    <div class="tiny mb-3">Track progress across stages</div>
+
+                                    <div class="d-flex gap-3 scroll-x" id="stagesContainer" style="padding-bottom:6px;">
+                                        <!-- Stage columns will be injected here by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-xl-8">
+                            <div class="mb-3 card card-rounded border-0">
+                                <div class="card-body">
+                                    <h6 class="mb-0">Upcoming Hearings <small class="tiny">60-day window</small></h6>
+                                    <div class="mt-3 table-responsive">
+                                        <table class="table table-sm mb-0" id="hearingsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Matter</th>
+                                                    <th>Court</th>
+                                                    <th>Room</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-4">
+
+                            <div class="card card-rounded border-0">
+                                <div class="card-body">
+                                    <h6 class="mb-0">Mini Calendar <small class="tiny">Plan filings & deadlines</small>
+                                    </h6>
+                                    <div class="mt-3">
+                                        <input type="date" id="miniCalendar" class="form-control mini-cal" />
+                                        <div class="tiny mt-2">Selected: <span id="miniCalSelected">—</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Clients Tab -->
+                <section id="tab-lawyers" class="d-none">
+                    <div class="card card-rounded border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5>Lawyers</h5>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="text" id="searchLawyers" class="form-control form-control-sm"
+                                        placeholder="Search lawyers..." style="width:220px;">
+                                    <button class="btn btn-primary btn-sm" id="inviteLawyer"><i
+                                            class="bi bi-person-plus"></i> Invite Lawyer</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <table class="table table-hover" id="lawyersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Practice</th>
+                                            <th>Role</th>
+                                            <th>Active</th>
+                                            <th>Permissions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-clients" class="d-none">
+                    <div class="card card-rounded border-0">
+                        <div class="card-body">
+                            <h5>Clients <small class="tiny">Directory & quick actions</small></h5>
+                            <div class="table-responsive mt-3">
+                                <table class="table table-hover" id="clientsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Client</th>
+                                            <th>Company</th>
+                                            <th>Phone</th>
+                                            <th>Notes</th>
+                                            <th>Court Type</th>
+                                            <th class="text-end">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Matters Tab -->
+                <section id="tab-matters" class="d-none">
+                    <div class="card card-rounded border-0 p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h5 class="mb-0">Matters</h5>
+                                <div class="tiny">Board / List</div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#addMatterModal">New Matter</button>
+                                <button class="btn btn-sm btn-outline-secondary">Import</button>
+                            </div>
+                        </div>
+
+                        <div id="mattersListArea">
+                            <!-- list injected by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Court Tab (simple) -->
+                <section id="tab-court" class="d-none">
+                    <div class="card card-rounded border-0">
+                        <div class="card-body">
+                            <h5>Court & Hearings</h5>
+                            <div class="tiny">Rooms, filings, appearances</div>
+                            <div class="table-responsive mt-3">
+                                <table class="table table-sm" id="courtTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Matter</th>
+                                            <th>Court / Type</th>
+                                            <th>Room</th>
+                                            <th>Status</th>
+                                            <th>Notify</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Calendar Tab (placeholder) -->
+                <section id="tab-calendar" class="d-none">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Master Calendar</h5>
+                    </div>
+                    <div id="calendar"></div>
+                </section>
+
+                <!-- Billing Tab (placeholder) -->
+                <section id="tab-billing" class="d-none">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <div class="p-3 card-plain bg-white">
+                                <div class="text-muted small">Trust Balance</div>
+                                <div class="kpi-value">$250,000</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 card-plain bg-white">
+                                <div class="text-muted small">Outstanding</div>
+                                <div class="kpi-value">$71,200</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 card-plain bg-white">
+                                <div class="text-muted small">Collected (30d)</div>
+                                <div class="kpi-value">$39,800</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-rounded border-0 p-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5>Billing</h5>
+                                <div class="tiny">Track payments & status</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary btn-add-invoice">Add Invoice</button>
+                        </div>
+                        <div class="mt-3 table-responsive">
+                            <table class="table" id="invoicesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice</th>
+                                        <th>Client</th>
+                                        <th>Amount</th>
+                                        <th>Due</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div id="invoicePagination"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reports Tab (placeholder) -->
+                <section id="tab-reports" class="d-none">
+                    <div class="card card-rounded border-0 p-3">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">Matters Open (This Q)</div>
+                                    <div class="kpi-value" id="report-matters">0</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">Hearings (60d)</div>
+                                    <div class="kpi-value" id="report-hearings">0</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 card-plain">
+                                    <div class="text-muted small">AR Outstanding</div>
+                                    <div class="kpi-value">$71,200</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-plain p-3">
+                            <h6>Export</h6>
+                            <div class="mt-2 d-flex gap-2">
+                                <button class="btn btn-outline-secondary">Export Matters CSV</button>
+                                <button class="btn btn-outline-secondary">Export Invoices CSV</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Tab (placeholder) -->
+                <section id="tab-settings" class="d-none">
+                    <div class="card card-rounded border-0 p-3">
+                        <h5 class="mb-4">Security & Access</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="fw-semibold mb-2">SSO / SAML</h6>
+                                        <p class="text-muted small mb-3">Connect your identity provider.</p>
+                                        <div
+                                            class="d-flex justify-content-between align-items-center p-2 border rounded-2">
+                                            <div>
+                                                <div class="fw-medium">Enable SSO</div>
+                                                <div class="text-muted small">Okta, Azure AD, Google</div>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="toggleSSO" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="fw-semibold mb-2">Data Residency</h6>
+                                        <p class="text-muted small mb-3">Choose where your data is stored.</p>
+                                        <ul class="nav nav-tabs" id="residencyTabs" role="tablist">
+                                            <li class="nav-item" role="presentation"><button class="nav-link active"
+                                                    data-bs-toggle="tab" data-bs-target="#res-us" type="button"
+                                                    role="tab">US</button></li>
+                                            <li class="nav-item" role="presentation"><button class="nav-link"
+                                                    data-bs-toggle="tab" data-bs-target="#res-ca" type="button"
+                                                    role="tab">Canada</button></li>
+                                            <li class="nav-item" role="presentation"><button class="nav-link"
+                                                    data-bs-toggle="tab" data-bs-target="#res-eu" type="button"
+                                                    role="tab">EU</button></li>
+                                        </ul>
+                                        <div class="tab-content p-3">
+                                            <div class="tab-pane fade show active" id="res-us" role="tabpanel">Primary
+                                                in
+                                                us-east; failover us-west.</div>
+                                            <div class="tab-pane fade" id="res-ca" role="tabpanel">Primary in
+                                                ca-central.
+                                            </div>
+                                            <div class="tab-pane fade" id="res-eu" role="tabpanel">Primary in eu-west.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h5>Roles & Permissions</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th class="text-center">Create/Edit</th>
+                                        <th class="text-center">Billing</th>
+                                        <th class="text-center">Court</th>
+                                        <th class="text-center">Manage Users</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Partner</td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Associate</td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Paralegal</td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Billing</td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                        <td class="text-center"><input type="checkbox" checked></td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                        <td class="text-center"><input type="checkbox"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tab Audit Log (simple) -->
+                <section id="tab-auditLogs" class="d-none">
+                    <div class="card card-rounded border-0">
+                        <div class="card-body">
+                            <h5>Audit Logs</h5>
+                            <div class="table-responsive mt-3">
+                                <table class="table table-sm" id="table-audit">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Actor</th>
+                                            <th>Action</th>
+                                            <th>Target</th>
+                                            <th>IP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Client Profile -->
+                <section id="tab-client-profile" class="d-none">
+                    <div class="card card-rounded border-0 p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Client Profile</h5>
+                            <button class="btn btn-sm btn-outline-secondary" id="btnBackDashboard"><i
+                                    class="bi bi-arrow-left"></i> Back</button>
+                        </div>
+                        <div id="clientProfileBody">
+                            <!-- content will be injected -->
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="newClientModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="newClientForm" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Onboard Client</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2"><label class="form-label tiny">Full name</label><input name="clientName"
+                            class="form-control form-control-sm" required></div>
+                    <div class="mb-2"><label class="form-label tiny">Email</label><input name="clientEmail"
+                            class="form-control form-control-sm" type="email"></div>
+                    <div class="mb-2"><label class="form-label tiny">Phone</label><input name="phone"
+                            class="form-control form-control-sm"></div>
+                    <div class="mb-2"><label class="form-label tiny">Company</label><input name="company"
+                            class="form-control form-control-sm"></div>
+                    <div class="mb-2">
+                        <label class="form-label tiny">Court Client Document Type</label>
+                        <select id="newClientDocType" class="form-select form-select-sm">
+                            <option value="Civil Litigation">Civil Litigation</option>
+                            <option value="Family Law">Family Law</option>
+                            <option value="Criminal Defense">Criminal Defense</option>
+                            <option value="Immigration Law">Immigration Law</option>
+                            <option value="Corporate Law">Corporate Law</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Create Client</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- add matter modal  -->
+
+    <div class="modal fade" id="addMatterModal" tabindex="-1" aria-labelledby="addMatterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="addMatterForm">
+                    <div class="modal-header bg-light">
+                        <h6 class="modal-title fw-semibold">
+                            <i class="bi bi-briefcase me-1"></i> Add New Matter
+                        </h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body small">
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Matter Title</label>
+                            <input type="text" id="matterTitle" class="form-control form-control-sm"
+                                placeholder="Enter matter title">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Client</label>
+                            <select id="matterClient" class="form-select form-select-sm">
+                                <option value="">Select Client</option>
+                            </select>
+                        </div>
+
+                        <!-- ✅ Practice Area -->
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Practice Area</label>
+                            <select id="matterPractice" class="form-select form-select-sm">
+                                <option value="Employment">Employment</option>
+                                <option value="Estates">Estates</option>
+                                <option value="Criminal">Criminal</option>
+                                <option value="Civil">Civil</option>
+                            </select>
+                        </div>
+
+                        <!-- ✅ Stage -->
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Stage</label>
+                            <select id="matterStage" class="form-select form-select-sm">
+                                <option value="Intake">Intake</option>
+                                <option value="Discovery">Discovery</option>
+                                <option value="Pre-Trial">Pre-Trial</option>
+                                <option value="Trial">Trial</option>
+                                <option value="Settlement">Settlement</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+
+                        <!-- ✅ Percent tiến độ -->
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Progress (%)</label>
+                            <input type="number" id="matterProgress" class="form-control form-control-sm"
+                                placeholder="0–100" min="0" max="100" value="0">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label tiny text-muted">Next Step</label>
+                            <input type="text" id="matterNext" class="form-control form-control-sm"
+                                placeholder="Next step...">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button id="btnSaveMatter" type="submit" class="btn btn-sm btn-primary">
+                            <i class="bi bi-save me-1"></i> Save Matter
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="registerForm" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2"><label class="form-label tiny">Name</label><input name="name"
+                            class="form-control form-control-sm"></div>
+                    <div class="mb-2"><label class="form-label tiny">Role</label><input name="role"
+                            class="form-control form-control-sm"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Record Payment Modal -->
+    <div class="modal fade" id="recordPaymentModal" tabindex="-1" aria-labelledby="recordPaymentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h6 class="modal-title fw-semibold">Record Payment</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body small">
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Invoice ID</label>
+                        <input type="text" id="rpInvoiceId" class="form-control form-control-sm" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Client</label>
+                        <input type="text" id="rpClient" class="form-control form-control-sm" readonly>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Amount Due</label>
+                            <input type="text" id="rpAmountDue" class="form-control form-control-sm" readonly>
+                        </div>
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Amount Paid</label>
+                            <input type="number" id="rpAmountPaid" class="form-control form-control-sm"
+                                placeholder="Enter amount">
+                        </div>
+                    </div>
+                    <div class="row g-2 mt-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Due Date</label>
+                            <input type="text" id="rpDueDate" class="form-control form-control-sm" readonly>
+                        </div>
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Status</label>
+                            <input type="text" id="rpStatus" class="form-control form-control-sm" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnSavePayment" class="btn btn-sm btn-primary">Save Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- " Add Invoice Modal" -->
+    <div class="modal fade" id="addInvoiceModalClient" tabindex="-1" aria-labelledby="addInvoiceModalClientLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h6 class="modal-title fw-semibold"><i class="bi bi-file-earmark-plus me-1"></i>Add New Invoice</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body small">
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Client</label>
+                        <input type="text" id="aiClient" class="form-control form-control-sm" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label tiny text-muted">Invoice Number</label>
+                        <input type="text" id="aiNumber" class="form-control form-control-sm"
+                            placeholder="INV-2025-XXX">
+                    </div>
+                    <div class="row g-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Amount</label>
+                            <input type="number" id="aiAmount" class="form-control form-control-sm"
+                                placeholder="Amount">
+                        </div>
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Paid</label>
+                            <input type="number" id="aiPaid" class="form-control form-control-sm" value="0">
+                        </div>
+                    </div>
+                    <div class="row g-2 mt-2">
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Due Date</label>
+                            <input type="date" id="aiDue" class="form-control form-control-sm">
+                        </div>
+                        <div class="col">
+                            <label class="form-label tiny text-muted">Status</label>
+                            <select id="aiStatus" class="form-select form-select-sm">
+                                <option value="Open">Open</option>
+                                <option value="Partially Paid">Partially Paid</option>
+                                <option value="Paid">Paid</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnSaveInvoice" class="btn btn-sm btn-primary">
+                        <i class="bi bi-send me-1"></i>Send Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addEventModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="addEventForm">
+                    <div class="modal-header">
+                        <h6 class="modal-title">Add Calendar Event</h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label class="form-label tiny">Title</label>
+                            <input type="text" id="addEventTitle" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label tiny">Client (optional)</label>
+                            <select name="client" id="eventClientSelect" class="form-select form-select-sm" required>
+                                <option value="">Select client...</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label tiny">Date</label>
+                            <input type="date" id="addEventDate" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label tiny">Type</label>
+                            <select id="addEventType" class="form-select form-select-sm">
+                                <option>Hearing</option>
+                                <option>Billing</option>
+                                <option>Meeting</option>
+                                <option>Task</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Add Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Invoice Modal -->
+    <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add New Invoice</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addInvoiceForm" class="small">
+                        <div class="mb-2">
+                            <label class="form-label">Client</label>
+                            <select id="invoiceClient" class="form-select form-select-sm" required>
+                                <option value="">Select Client</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Matter</label>
+                            <select id="invoiceMatter" class="form-select form-select-sm">
+                                <option value="">Select Matter</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Amount</label>
+                            <input type="number" id="invoiceAmount" class="form-control form-control-sm" min="0"
+                                required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Due Date</label>
+                            <input type="date" id="invoiceDue" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Status</label>
+                            <select id="invoiceStatus" class="form-select form-select-sm">
+                                <option>Open</option>
+                                <option>Partially Paid</option>
+                                <option>Paid</option>
+                                <option>Overdue</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Notes</label>
+                            <textarea id="invoiceNotes" class="form-control form-control-sm" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnSaveInvoiceBilling" class="btn btn-primary btn-sm"><i class="bi bi-save me-1"></i>
+                        Save
+                        Invoice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Invite Lawyer -->
+    <div class="modal fade" id="inviteLawyerModal" tabindex="-1" aria-labelledby="inviteLawyerModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="inviteLawyerModalLabel">Invite New Lawyer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="inviteLawyerForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="lawyerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="lawyerEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Practice Area</label>
+                            <select class="form-select" id="lawyerPractice">
+                                <option value="Civil">Civil</option>
+                                <option value="Criminal">Criminal</option>
+                                <option value="Employment">Employment</option>
+                                <option value="Family">Family</option>
+                                <option value="Corporate">Corporate</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Role</label>
+                            <input type="text" class="form-control" id="lawyerRole"
+                                placeholder="e.g. Associate, Partner" required>
+                        </div>
+                        <div class="mb-3 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="lawyerActive" checked>
+                            <label class="form-check-label" for="lawyerActive">Active</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Permissions</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="permAdmin">
+                                <label class="form-check-label" for="permAdmin">Admin</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="permBilling">
+                                <label class="form-check-label" for="permBilling">Billing</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="permRead">
+                                <label class="form-check-label" for="permRead">Read</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" id="submitInviteLawyer">Invite</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JS libs -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <script>
+        // Seed data (mirrors the original React seed)
+        const uid = () => Math.random().toString(36).slice(2, 9);
+        const currency = n => {
+            try { return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'CAD' }).format(Number(n)); }
+            catch (e) { return '$' + Number(n).toFixed(2); }
+        };
+        const STAGES = ["Intake", "Discovery", "Motions", "Trial", "Closed"];
+        let matters = [
+            { id: "MAT-24012", title: "Nguyen v. Atlas Logistics", client: "Lan Nguyen", practice: "Employment", stage: "Discovery", next: "Deposition prep – Oct 10", percent: 42 },
+            { id: "MAT-24019", title: "Estate of Chen", client: "Estate of Li Chen", practice: "Estates", stage: "Intake", next: "Collect medical files", percent: 8 },
+            { id: "MAT-24021", title: "R. v. Patel", client: "Arjun Patel", practice: "Criminal", stage: "Motions", next: "Charter notice – due Oct 6", percent: 58 },
+            { id: "MAT-24028", title: "Tran v. City of Hamilton", client: "Minh Tran", practice: "Civil", stage: "Trial", next: "Jury selection – Nov 18", percent: 82 },
+        ];
+        let hearings = [
+            { id: 1, matter: "R. v. Patel", court: "ON Superior Court", type: "Motion", date: "2025-10-06", room: "3A", status: "Scheduled", client: "Arjun Patel", clientPhone: "+1 647 555 2233", clientEmail: "arjun.patel@example.com" },
+            { id: 2, matter: "Nguyen v. Atlas Logistics", court: "ON Small Claims", type: "Settlement Conf.", date: "2025-10-15", room: "2C", status: "Scheduled", client: "Lan Nguyen", clientPhone: "+1 416 555 9912", clientEmail: "lan.nguyen@example.com" },
+            { id: 3, matter: "Tran v. City of Hamilton", court: "ON Superior Court", type: "Trial", date: "2025-11-18", room: "1D", status: "Confirmed", client: "Minh Tran", clientPhone: "+1 289 555 4022", clientEmail: "minh.tran@example.com" },
+        ];
+        const lawyers = [
+            { id: 1, name: "Amara Khan", email: "amara@firm.com", practice: "Civil", role: "Partner", active: true, permissions: { admin: true, billing: true, read: false } },
+            { id: 2, name: "Diego Rivera", email: "diego@firm.com", practice: "Criminal", role: "Associate", active: true, permissions: { admin: true, billing: true, read: false } },
+            { id: 3, name: "Mina Patel", email: "mina@firm.com", practice: "Employment", role: "Associate", active: false, permissions: { admin: true, billing: false, read: false } },
+        ];
+        let clients = [
+            {
+                id: uid(),
+                name: "Lan Nguyen",
+                email: "lan.nguyen@example.com",
+                phone: "+1 416 555 9912",
+                company: "Acme Imports Ltd.",
+                typeCourtClientDocument: "Civil Litigation",
+                notes: "Corporate litigation portfolio. Key contact: Dana.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-101", issued: "2025-09-15", due: "2025-10-15", amount: 4800, paid: 3000, status: "Partially Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-124", issued: "2025-10-05", due: "2025-11-05", amount: 3200, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 2500,
+                    outstanding: 5000
+                }
+            },
+            {
+                id: uid(),
+                name: "Arjun Patel",
+                email: "arjun.patel@example.com",
+                phone: "+1 647 555 2233",
+                company: "Self",
+                typeCourtClientDocument: "Family Law",
+                notes: "MVA claim, mediation expected Q1 2026.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-132", issued: "2025-08-25", due: "2025-09-25", amount: 2100, paid: 2100, status: "Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-145", issued: "2025-10-01", due: "2025-11-01", amount: 1600, paid: 0, status: "Unpaid", notes: "" }
+                    ],
+                    trustBalance: 800,
+                    outstanding: 1600
+                }
+            },
+            {
+                id: uid(),
+                name: "Estate of Li Chen",
+                email: "executor@chenestate.org",
+                phone: "+1 905 555 8080",
+                company: "Estate",
+                typeCourtClientDocument: "Criminal Defense",
+                notes: "Commercial lease dispute.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-088", issued: "2025-07-30", due: "2025-08-30", amount: 1250, paid: 1250, status: "Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-121", issued: "2025-09-25", due: "2025-10-25", amount: 780, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 1500,
+                    outstanding: 780
+                }
+            },
+            {
+                id: uid(),
+                name: "Minh Tran",
+                email: "minh.tran@example.com",
+                phone: "+1 289 555 4022",
+                company: "Self",
+                typeCourtClientDocument: "Immigration Law",
+                notes: "Employment termination case.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-134", issued: "2025-09-10", due: "2025-10-10", amount: 2400, paid: 1200, status: "Partially Paid", notes: "" },
+                        { id: uid(), number: "INV-2025-150", issued: "2025-10-08", due: "2025-11-08", amount: 950, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 600,
+                    outstanding: 2150
+                }
+            },
+            {
+                id: uid(),
+                name: "Hoang Anh",
+                email: "hoanganh.lks@example.com",
+                phone: "+1 289 555 4022",
+                company: "Self",
+                typeCourtClientDocument: "Corporate Law",
+                notes: "Property conveyancing.",
+                financial: {
+                    invoices: [
+                        { id: uid(), number: "INV-2025-140", issued: "2025-09-20", due: "2025-10-20", amount: 1800, paid: 0, status: "Unpaid", notes: "" },
+                        { id: uid(), number: "INV-2025-155", issued: "2025-10-05", due: "2025-11-05", amount: 1200, paid: 0, status: "Open", notes: "" }
+                    ],
+                    trustBalance: 1000,
+                    outstanding: 3000
+                }
+            }
+        ];
+
+        let masterEvents = [
+            { id: '1', title: 'Hearing: Lan Nguyen', start: '2025-10-12', client: 'Lan Nguyen', type: 'Hearing' },
+            { id: '2', title: 'Invoice Due: Arjun Patel', start: '2025-10-18', client: 'Arjun Patel', type: 'Billing' },
+            { id: '3', title: 'Mediation Meeting', start: '2025-10-20', client: 'Estate of Li Chen', type: 'Meeting' }
+        ];
+
+        let auditLogs = [
+            ["2025-09-20 10:12", "amara@firm.com", "Updated", "Matter M-2451", "192.0.2.10"],
+            ["2025-09-18 16:40", "diego@firm.com", "Created", "Invoice INV-2025-124", "192.0.2.11"],
+            ["2025-09-18 09:05", "system", "Login", "SSO Okta", "192.0.2.12"],
+        ];
+        // Utilities
+        function updateStats(clientRef) {
+            // clientRef có thể là: undefined | clientName (string) | client object
+            let client = null;
+            if (!clientRef && typeof currentClient !== 'undefined' && currentClient) {
+                client = currentClient;
+            } else if (typeof clientRef === 'string') {
+                client = clients.find(c => c.name === clientRef || c.email === clientRef) || null;
+            } else if (typeof clientRef === 'object' && clientRef !== null) {
+                client = clientRef;
+            }
+
+            // Nếu không tìm được client -> hiển thị tổng hoặc reset về 0 (chọn 0 để an toàn)
+            if (!client) {
+                // Option: bạn có thể hiển thị tổng toàn hệ thống thay vì 0 nếu muốn
+                $('#stat-active-matters').text(matters.filter(m => m.stage !== "Closed").length);
+                $('#stat-hearings').text(hearings.length);
+                // tổng hóa đơn chưa thanh toán trên tất cả clients
+                const allInv = clients.flatMap(c => (c.financial && c.financial.invoices) ? c.financial.invoices : []);
+                const dueAmountAll = allInv.reduce((s, i) => s + ((i.status !== "Paid") ? (i.amount - (i.paid || 0)) : 0), 0);
+                $('#stat-invoices').text(allInv.filter(i => i.status !== "Paid").length);
+                $('#stat-invoices-amount').text(`$ ${dueAmountAll.toLocaleString()} due`);
+                return;
+            }
+
+            // ====== Stats cho client cụ thể ======
+            // Matters liên quan tới client
+            const clientMatters = matters.filter(m => m.client === client.name);
+            const activeMattersCount = clientMatters.filter(m => m.stage !== "Closed").length;
+            $('#stat-active-matters').text(activeMattersCount);
+
+            // Hearings cho client
+            const clientHearings = hearings.filter(h => h.client === client.name);
+            $('#stat-hearings').text(clientHearings.length);
+
+            // Invoices cho client (lấy từ client.financial.invoices)
+            const clientInvoices = (client.financial && Array.isArray(client.financial.invoices)) ? client.financial.invoices : [];
+
+            // Tổng số hóa đơn chưa thanh toán (count)
+            const unpaidCount = clientInvoices.filter(i => i.status !== "Paid").length;
+            $('#stat-invoices').text(unpaidCount);
+
+            // Tổng số tiền còn due: tính amount - paid cho invoices chưa Paid
+            const dueAmount = clientInvoices.reduce((sum, inv) => {
+                const remaining = Math.max(0, (inv.amount || 0) - (inv.paid || 0));
+                return sum + ((inv.status !== "Paid") ? remaining : 0);
+            }, 0);
+            $('#stat-invoices-amount').text(`$ ${dueAmount.toLocaleString()} due`);
+        }
+
+        function renderStages(filterQuery = '') {
+            const container = $('#stagesContainer').empty();
+            STAGES.forEach(stage => {
+                const column = $('<div class="stage-column"></div>');
+                const header = $(`<div class="d-flex align-items-center justify-content-between mb-2"><div><strong>${stage}</strong></div><div class="tiny badge-pill bg-light text-muted">${matters.filter(m => m.stage === stage).length}</div></div>`);
+                column.append(header);
+                const list = $('<div class="d-flex flex-column gap-3"></div>');
+                const items = matters.filter(m => m.stage === stage && ([m.id, m.title, m.client, m.practice].join(' ').toLowerCase().includes(filterQuery.toLowerCase())));
+                if (items.length === 0) {
+                    list.append('<div class="tiny text-muted border border-dashed rounded-3 p-3 text-center">No items</div>');
+                } else {
+                    items.forEach(m => {
+                        const card = $(`
+              <div class="matter-card">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="title"><a href="#" class="open-client-link" data-client="${m.client}">${m.title}</a></div>
+                    <div class="tiny text-muted">${m.client} • ${m.practice}</div>
+                  </div>
+                  <div>
+                    <button class="btn btn-sm btn-outline-secondary advance-btn" data-id="${m.id}" title="Advance">…</button>
+                  </div>
+                </div>
+                <div class="tiny text-muted mt-2">Next: ${m.next}</div>
+                <div class="mt-2">
+                  <div class="progress" style="height:8px;">
+                    <div class="progress-bar" role="progressbar" style="width:${m.percent}%;" aria-valuenow="${m.percent}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="text-sm tiny">${m.percent}%</div>
+                </div>
+              </div>
+            `);
+                        list.append(card);
+                    });
+                }
+                column.append(list);
+                container.append(column);
+            });
+        }
+
+        function renderHearings(list = hearings) {
+            const tbody = $('#hearingsTable tbody').empty();
+            list.forEach(h => {
+                const statusBadge =
+                    h.status === 'Confirmed'
+                        ? '<span class="badge bg-success">Confirmed</span>'
+                        : h.status === 'Overdue'
+                            ? '<span class="badge bg-danger">Overdue</span>'
+                            : '<span class="badge bg-secondary">Scheduled</span>';
+
+                const tr = $(`
+                    <tr>
+                    <td>${new Date(h.date).toLocaleDateString()}</td>
+                    <td><a href="#" class="open-client-link" data-client="${h.client}">${h.matter}</a></td>
+                    <td>${h.court} (${h.type})</td>
+                    <td>${h.room}</td>
+                    <td>${statusBadge}</td>
+                    </tr>
+                `);
+                tbody.append(tr);
+            });
+
+            // Court table same data (for court tab)
+            const courtTbody = $('#courtTable tbody').empty();
+            hearings.forEach(h => {
+                const notifyBtn = `<button class="btn btn-sm btn-outline-primary notify-btn" data-id="${h.id}">Send Email+SMS</button>`;
+                const statusBadge =
+                    h.status === 'Confirmed'
+                        ? '<span class="badge bg-success">Confirmed</span>'
+                        : h.status === 'Overdue'
+                            ? '<span class="badge bg-danger">Overdue</span>'
+                            : '<span class="badge bg-secondary">Scheduled</span>';
+
+                courtTbody.append(`<tr>
+          <td>${new Date(h.date).toLocaleDateString()}</td>
+          <td><a href="#" class="open-client-link" data-client="${h.client}">${h.matter}</a></td>
+          <td>${h.court} (${h.type})</td>
+          <td>${h.room}</td>
+          <td>${statusBadge}</td>
+          <td>${notifyBtn}</td>
+        </tr>`);
+            });
+        }
+
+
+        // mini calendar
+
+        $('#miniCalendar').on('change', function () {
+            const selected = $(this).val();
+            $('#miniCalSelected').text(`Selected: ${selected || 'None'}`);
+
+            if (!selected) {
+                renderHearings(); // reset khi bỏ chọn
+                return;
+            }
+            const filtered = hearings.filter(h => h.date === selected);
+            renderHearings(filtered);
+        });
+
+        // ==== Render lawyers ====
+        function renderLawyers(list = lawyers) {
+            const rows = list.map(l => {
+                const initials = l.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+                return `
+      <tr>
+        <td><div class="d-flex align-items-center">
+          <div class="lawyer-avatar">${initials}</div>${l.name}
+        </div></td>
+        <td>${l.email}</td>
+        <td>${l.practice}</td>
+        <td>${l.role}</td>
+        <td>
+          <div class="form-check form-switch">
+            <input class="form-check-input lawyer-active" type="checkbox" data-id="${l.id}" ${l.active ? 'checked' : ''}>
+          </div>
+        </td>
+        <td>
+          <label class="me-2"><input type="checkbox" class="perm" data-id="${l.id}" data-type="admin" ${l.permissions.admin ? 'checked' : ''}> Admin</label>
+          <label class="me-2"><input type="checkbox" class="perm" data-id="${l.id}" data-type="billing" ${l.permissions.billing ? 'checked' : ''}> Billing</label>
+          <label><input type="checkbox" class="perm" data-id="${l.id}" data-type="read" ${l.permissions.read ? 'checked' : ''}> Read</label>
+        </td>
+      </tr>`;
+            }).join('');
+
+            $('#lawyersTable tbody').html(rows);
+        }
+        renderLawyers();
+
+        // ==== Search ====
+        $('#searchLawyers').on('input', function () {
+            const term = $(this).val().toLowerCase();
+            const filtered = lawyers.filter(l =>
+                l.name.toLowerCase().includes(term) ||
+                l.email.toLowerCase().includes(term) ||
+                l.practice.toLowerCase().includes(term)
+            );
+            renderLawyers(filtered);
+        });
+
+        // ==== Toggle active ====
+        $(document).on('change', '.lawyer-active', function () {
+            const id = $(this).data('id');
+            const lawyer = lawyers.find(l => l.id === id);
+            lawyer.active = this.checked;
+        });
+
+        // ==== Permissions ====
+        $(document).on('change', '.perm', function () {
+            const id = $(this).data('id');
+            const type = $(this).data('type');
+            const lawyer = lawyers.find(l => l.id === id);
+            lawyer.permissions[type] = this.checked;
+        });
+
+
+
+        // ==== Open modal Invite Lawyer ====
+        $('#inviteLawyer').on('click', function () {
+            const modal = new bootstrap.Modal(document.getElementById('inviteLawyerModal'));
+            $('#inviteLawyerForm')[0].reset();
+            modal.show();
+        });
+
+        // ==== Submit new lawyer ====
+        $('#submitInviteLawyer').on('click', function () {
+            const name = $('#lawyerName').val().trim();
+            const email = $('#lawyerEmail').val().trim();
+            const practice = $('#lawyerPractice').val();
+            const role = $('#lawyerRole').val().trim();
+            const active = $('#lawyerActive').is(':checked');
+            const permissions = {
+                admin: $('#permAdmin').is(':checked'),
+                billing: $('#permBilling').is(':checked'),
+                read: $('#permRead').is(':checked')
+            };
+
+            if (!name || !email || !role) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Tạo ID mới
+            const newId = Math.max(...lawyers.map(l => l.id)) + 1;
+
+            const newLawyer = { id: newId, name, email, practice, role, active, permissions };
+            lawyers.push(newLawyer);
+            renderLawyers(lawyers);
+
+            // Ẩn modal sau khi thêm
+            const modalEl = document.getElementById('inviteLawyerModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+        });
+
+        function renderClients() {
+            const tbody = $('#clientsTable tbody').empty();
+            clients.forEach(c => {
+                const tr = $(`
+          <tr>
+            <td><strong class="">${c.name}</strong><div class="tiny text-muted">${c.email}</div></td>
+            <td class="tiny text-muted">${c.company}</td>
+            <td class="tiny text-muted">${c.phone}</td>
+            <td class="tiny text-muted">${c.notes}</td>
+            <td class="tiny text-muted">${c.typeCourtClientDocument || '-'}</td>
+            <td class="text-end"><button class="btn btn-sm btn-dark open-client-profile-btn" data-email="${c.email}">Open</button></td>
+          </tr>
+        `);
+                tbody.append(tr);
+            });
+        }
+
+        function renderMattersList() {
+            const container = $('#mattersListArea').empty();
+            const table = $(`
+        <div class="table-responsive">
+        <table class="table table-sm">
+          <thead><tr><th>ID</th><th>Title</th><th>Client</th><th>Practice</th><th>Stage</th><th>Progress</th><th class="text-end">Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        </div>
+      `);
+            matters.forEach(m => {
+                table.find('tbody').append(`
+          <tr>
+            <td>${m.id}</td>
+            <td><strong>${m.title}</strong></td>
+            <td>${m.client}</td>
+            <td>${m.practice}</td>
+            <td><span class="badge bg-light text-muted">${m.stage}</span></td>
+            <td style="width:180px;vertical-align:middle"><div class="progress" style="height:8px"><div class="progress-bar" style="width:${m.percent}%;"></div></div><div class="muted text-sm">${m.percent}%</div></td>
+            <td class="text-end"><button class="btn btn-sm btn-dark open-client-profile-link" data-client="${m.client}">Open</button></td>
+          </tr>
+        `);
+            });
+            container.append(table);
+        }
+
+        // tab Billing 
+        let currentInvoicePage = 1;
+        const invoicesPerPage = 12;
+
+        function renderInvoices(page = 1) {
+            const tbody = $('#invoicesTable tbody').empty();
+
+            // Gom toàn bộ invoices từ tất cả clients
+            let allInvoices = [];
+            clients.forEach(client => {
+                if (!client.financial || !client.financial.invoices) return;
+                client.financial.invoices.forEach(inv => {
+                    allInvoices.push({
+                        ...inv,
+                        clientName: client.name
+                    });
+                });
+            });
+
+            if (allInvoices.length === 0) {
+                tbody.html(`<tr><td colspan="6" class="tiny text-muted text-center">No invoices found</td></tr>`);
+                $('#invoicePagination').html('');
+                return;
+            }
+
+            // Phân trang
+            const totalPages = Math.ceil(allInvoices.length / invoicesPerPage);
+            currentInvoicePage = Math.min(Math.max(1, page), totalPages);
+            const start = (currentInvoicePage - 1) * invoicesPerPage;
+            const paginatedInvoices = allInvoices.slice(start, start + invoicesPerPage);
+
+            // Render các dòng
+            paginatedInvoices.forEach(inv => {
+                const statusBadge =
+                    inv.status === 'Overdue' ? '<span class="badge bg-danger">Overdue</span>' :
+                        inv.status === 'Partially Paid' ? '<span class="badge bg-warning text-dark">Partially Paid</span>' :
+                            inv.status === 'Open' ? '<span class="badge bg-secondary">Open</span>' :
+                                inv.status === 'Unpaid' ? '<span class="badge bg-secondary">Unpaid</span>' :
+                                    '<span class="badge bg-success">Paid</span>';
+
+                tbody.append(`
+            <tr>
+                <td>${inv.number || inv.id}</td>
+                <td>${inv.clientName}</td>
+                <td>$${inv.amount.toLocaleString()}</td>
+                <td>${new Date(inv.due).toLocaleDateString()}</td>
+                <td>${statusBadge}</td>
+            </tr>
+        `);
+            });
+
+            // Render pagination
+            let paginationHTML = `<nav><ul class="pagination pagination-sm justify-content-end mt-2">`;
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+            <li class="page-item ${i === currentInvoicePage ? 'active' : ''}">
+                <a class="page-link" href="#" data-page="${i}">${i}</a>
+            </li>`;
+            }
+            paginationHTML += `</ul></nav>`;
+            $('#invoicePagination').html(paginationHTML);
+        }
+
+        // Xử lý click chuyển trang
+        $(document).on('click', '#invoicePagination .page-link', function (e) {
+            e.preventDefault();
+            const page = parseInt($(this).data('page'));
+            if (!isNaN(page)) renderInvoices(page);
+        });
+
+        // Khi mở modal Add Invoice
+        $(document).on('click', '.btn-add-invoice', function () {
+            // Nếu modal chưa tồn tại thì tạo instance mới
+            const modalEl = document.getElementById('addInvoiceModal');
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+            // Reset form (tạo mới DOM nếu chưa có form)
+            const form = $('#addInvoiceForm');
+            if (form.length) {
+                form[0].reset();
+            }
+
+            // Reset dropdown Client
+            const selectClient = $('#invoiceClient').empty();
+            selectClient.append('<option value="">Select Client</option>');
+            clients.forEach(c => {
+                selectClient.append(`<option value="${c.id}">${c.name}</option>`);
+            });
+
+            // Reset dropdown Matter
+            $('#invoiceMatter').html('<option value="">Select Matter</option>');
+
+            modal.show();
+        });
+
+
+        // Khi chọn Client → load danh sách Matter của client đó
+        $(document).on('change', '#invoiceClient', function () {
+            const clientId = $(this).val();
+            const client = clients.find(c => c.id === clientId);
+            const matterSelect = $('#invoiceMatter').empty();
+            matterSelect.append('<option value="">Select Matter</option>');
+
+            if (client) {
+                const relatedMatters = matters.filter(m => m.client === client.name);
+                if (relatedMatters.length > 0) {
+                    relatedMatters.forEach(m => {
+                        matterSelect.append(`<option value="${m.title}">${m.title}</option>`);
+                    });
+                } else {
+                    matterSelect.append('<option disabled>No matters found</option>');
+                }
+            }
+        });
+
+        // Khi nhấn Save Invoice
+        $(document).on('click', '#btnSaveInvoiceBilling', function () {
+            const clientId = $('#invoiceClient').val();
+            const client = clients.find(c => c.id === clientId);
+            if (!client) {
+                alert('Please select a client.');
+                return;
+            }
+
+            const amount = parseFloat($('#invoiceAmount').val() || 0);
+            const due = $('#invoiceDue').val();
+            if (!amount || !due) {
+                alert('Please fill in required fields.');
+                return;
+            }
+
+            const newInvoice = {
+                id: uid(),
+                number: 'INV-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 900 + 100),
+                matter: $('#invoiceMatter').val() || '',
+                amount: amount,
+                paid: 0,
+                due: due,
+                issued: new Date().toISOString().split('T')[0],
+                status: $('#invoiceStatus').val(),
+                notes: $('#invoiceNotes').val() || ''
+            };
+
+            // Gắn vào client.financial
+            client.financial = client.financial || { invoices: [], trustBalance: 0, outstanding: 0 };
+            client.financial.invoices = client.financial.invoices || [];
+            client.financial.invoices.unshift(newInvoice);
+
+            // Cập nhật outstanding
+            client.financial.outstanding = client.financial.invoices
+                .reduce((sum, inv) => sum + (inv.amount - (inv.paid || 0)), 0);
+
+            // Ẩn modal và reset instance hoàn toàn (fix lỗi không click lại được)
+            const modalEl = document.getElementById('addInvoiceModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+            setTimeout(() => modal.dispose(), 300); // <— fix chính ở đây
+
+            // Refresh lại dữ liệu
+            rebuildInvoices();
+            renderInvoices();
+
+            if (currentClient && currentClient.id === client.id) {
+                renderBilling(client.name);
+            }
+
+            alert(`✅ Added invoice ${newInvoice.number} for ${client.name}`);
+        });
+
+        function rebuildInvoices() {
+            invoices = [];
+            clients.forEach(client => {
+                if (client.financial && Array.isArray(client.financial.invoices)) {
+                    client.financial.invoices.forEach(inv => {
+                        invoices.push({
+                            ...inv,
+                            client: client.name,
+                            clientId: client.id || null
+                        });
+                    });
+                }
+            });
+        }
+
+        // Actions
+        $(function () {
+            updateStats();
+            renderStages();
+            renderHearings();
+            renderClients();
+            renderMattersList();
+            renderInvoices();
+            renderAudit();
+
+            // Tab switching
+            $('[data-tab]').on('click', function (e) {
+                e.preventDefault();
+                const tab = $(this).data('tab');
+                $('.sidebar .nav-link').removeClass('active');
+                $(this).addClass('active');
+                $('main section').addClass('d-none');
+                $(`#tab-${tab}`).removeClass('d-none');
+            });
+
+            // Global search - live filter matters & clients & hearings
+            $('#globalSearch').on('input', function () {
+                const q = $(this).val().trim().toLowerCase();
+                renderStages(q);
+                // filter clients
+                $('#clientsTable tbody tr').each(function () {
+                    const txt = $(this).text().toLowerCase();
+                    $(this).toggle(txt.indexOf(q) !== -1);
+                });
+                // filter hearings
+                $('#hearingsTable tbody tr').each(function () {
+                    const txt = $(this).text().toLowerCase();
+                    $(this).toggle(txt.indexOf(q) !== -1);
+                });
+            });
+
+            // Advance matter stage
+            $(document).on('click', '.advance-btn', function () {
+                const id = $(this).data('id');
+                const idx = matters.findIndex(m => m.id === id);
+                if (idx === -1) return;
+                const current = STAGES.indexOf(matters[idx].stage);
+                const next = Math.min(current + 1, STAGES.length - 1);
+                matters[idx].stage = STAGES[next];
+                matters[idx].percent = Math.min(100, matters[idx].percent + 12);
+                renderStages($('#globalSearch').val());
+                renderMattersList();
+                updateStats();
+            });
+
+            // Open client link (from matter / hearings)
+            $(document).on('click', '.open-client-link, .open-client-btn', function (e) {
+                e.preventDefault();
+                const clientName = $(this).data('client') || $(this).data('email');
+                // find client; if missing, show alert
+                const client = clients.find(c => c.name === clientName || c.email === clientName);
+                if (client) {
+                    // switch to client tab (we'll open Clients view and highlight)
+                    $('.sidebar .nav-link').removeClass('active');
+                    $('.sidebar .nav-link[data-tab="clients"]').addClass('active');
+                    $('main section').addClass('d-none');
+                    $('#tab-clients').removeClass('d-none');
+                    // optionally scroll to the client row
+                    $('#clientsTable tbody tr').filter(function () { return $(this).text().indexOf(client.name) !== -1; }).get(0)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    alert('Client profile not found: ' + clientName);
+                }
+            });
+
+            // New Client form submit
+            $('#newClientForm').on('submit', function (e) {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(this).entries());
+
+                const newClient = {
+                    name: data.clientName || 'Unnamed Client',
+                    email: data.clientEmail || '',
+                    phone: data.phone || '',
+                    company: data.company || 'Self',
+                    typeCourtClientDocument: data.courtType || 'Civil Litigation'  // 🔹 lưu loại hồ sơ mới
+                };
+
+                clients.unshift(newClient);
+
+                // auto-create a matter for this client
+                const newMatter = {
+                    id: 'MAT-' + Math.floor(Math.random() * 9000 + 1000),
+                    title: `New Matter for ${newClient.name}`,
+                    client: newClient.name,
+                    practice: newClient.typeCourtClientDocument, // 🔹 gắn type vào matter
+                    stage: 'Intake',
+                    next: 'Add details & documents',
+                    percent: 0
+                };
+
+                matters.unshift(newMatter);
+
+                renderClients();
+                renderStages();
+                renderMattersList();
+                updateStats();
+
+                $('#newClientModal').modal('hide');
+                this.reset();
+
+                // switch to client tab and highlight
+                $('.sidebar .nav-link').removeClass('active');
+                $('.sidebar .nav-link[data-tab="clients"]').addClass('active');
+                $('main section').addClass('d-none');
+                $('#tab-clients').removeClass('d-none');
+            });
+            function populateMatterClientSelect() {
+                const select = $('#matterClient');
+                select.empty();
+                select.append('<option value="">Select Client</option>');
+
+                clients.forEach(c => {
+                    select.append(`<option value="${c.name}">${c.name}</option>`);
+                });
+            }
+            $('#addMatterModal').on('show.bs.modal', function () {
+                // Reset form trước khi hiển thị
+                $('#addMatterForm')[0].reset();
+
+                // Xóa validation/error cũ nếu có
+                $('#addMatterForm').find('.is-invalid').removeClass('is-invalid');
+
+                // Populate lại danh sách client
+                populateMatterClientSelect();
+
+                // Nếu có select stage hoặc process thì reset về mặc định
+                $('#matterStage').val('');
+                $('#matterProgress').val(0);
+            });
+
+            // New Matter form submit
+            $(document).on('submit', '#addMatterForm', function (e) {
+                e.preventDefault();
+
+                const clientName = $('#matterClient').val();
+                const title = $('#matterTitle').val();
+                const practice = $('#matterPractice').val();
+                const stage = $('#matterStage').val() || 'Intake';
+                const progress = parseInt($('#matterProgress').val()) || 0;
+
+                if (!clientName || !title) {
+                    alert('Please enter all required fields.');
+                    return;
+                }
+
+                // Tạo matter mới
+                const newMatter = {
+                    id: 'MAT-' + Math.floor(Math.random() * 9000 + 1000),
+                    title,
+                    client: clientName,
+                    practice,
+                    stage,
+                    percent: progress,
+                    next: 'Review documents'
+                };
+
+                // Thêm vào danh sách matters toàn cục
+                matters.unshift(newMatter);
+
+                // Render lại
+                renderMattersList();
+                renderStages();
+
+                // Cập nhật số liệu dashboard nếu có
+                updateStats && updateStats();
+
+                // Ẩn modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addMatterModal'));
+                modal.hide();
+
+                // Reset form
+                $('#addMatterForm')[0].reset();
+            });
+
+            // Register form
+            $('#registerForm').on('submit', function (e) {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(this).entries());
+                alert('Registered: ' + (data.name || 'Unnamed'));
+                $('#registerModal').modal('hide');
+            });
+
+            // notify button
+            $(document).on('click', '.notify-btn', function () { alert('Pretend sending email+SMS for hearing id ' + $(this).data('id')); });
+
+            // window resize: ensure stage columns visible (small screens can scroll)
+            $(window).on('resize', function () { /* placeholder for responsive adjustments */ });
+
+            // accessibility: close modals on escape handled by bootstrap
+        });
+
+        let currentClient = null;
+        let emailConn = JSON.parse(localStorage.getItem('client.emailConn') || '{"gmail":false,"outlook":false}');
+
+        // ========== CLIENT PROFILE ==========
+        function renderClientProfile(clientName) {
+            const client = clients.find(c => c.name === clientName || c.email === clientName);
+            const invoices = client.financial.invoices || [];
+            if (!client) { alert("Client not found: " + clientName); return; }
+
+            // ✅ Ghi nhớ client hiện tại
+            currentClient = client;
+            currentClientType = client.typeCourtClientDocument || "Civil Litigation";
+
+            // ✅ Nếu client chưa có documentStructure riêng → tạo mới
+            if (!client.documentStructure) {
+                initDocumentStructureForClient(currentClientType);
+                client.documentStructure = JSON.parse(JSON.stringify(documentStructure));
+            } else {
+                // Nếu có rồi → load lại từ client
+                documentStructure = JSON.parse(JSON.stringify(client.documentStructure));
+            }
+
+            const relatedMatters = matters.filter(m => m.client === client.name);
+            const relatedInvoices = invoices.filter(i => i.client === client.name);
+            const relatedHearings = hearings.filter(h => h.client === client.name);
+
+            let html = `
+    <div class="row g-3">
+        <div class="col-md-12">
+            <div class="card card-rounded mb-3">
+                <div class="card-body d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 id="activeClientName" class="mb-1 activeClientName">${client.name}</h4>
+                        <div class="tiny text-muted mb-2">${client.company}</div>
+                        <div class="tiny"><i class="bi bi-envelope me-2"></i>${client.email || '—'}</div>
+                        <div class="tiny"><i class="bi bi-telephone me-2"></i>${client.phone || '—'}</div>
+                        <p id="activeClientNotes" class="mt-2 mb-0">${client.notes}</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="mb-2">Trust Balance</div>
+                        <div class="h4 bold" id="trustBalance">${currency(client.financial.trustBalance)}</div>
+                        <div class="muted" id="outstandingLabel">Outstanding: ${currency(client.financial.outstanding)}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <ul class="nav nav-tabs small" id="clientTabNav">
+                <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#clientMatters">Matters</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientHearings">Hearings</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientMessages">Messages</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientDocuments">Documents</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clientFinancial">Financial</a></li>
+            </ul>
+
+            <div class="tab-content mt-3">
+                <!-- Matters -->
+                <div class="tab-pane fade show active" id="clientMatters">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead><tr><th>ID</th><th>Title</th><th>Stage</th><th>Progress</th></tr></thead>
+                            <tbody>
+                            ${relatedMatters.map(m => `
+                                <tr><td>${m.id}</td><td>${m.title}</td><td>${m.stage}</td>
+                                <td style="vertical-align:middle"><div class="progress" style="height:8px;"><div class="progress-bar" style="width:${m.percent}%"></div></div></td></tr>
+                            `).join('') || `<tr><td colspan="4" class="tiny text-muted">No matters yet</td></tr>`}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Hearings -->
+                <div class="tab-pane fade" id="clientHearings">
+                    <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead><tr><th>Date</th><th>Court</th><th>Type</th><th>Status</th></tr></thead>
+                        <tbody>
+                        ${relatedHearings.map(h => `
+                            <tr><td>${new Date(h.date).toLocaleDateString()}</td><td>${h.court}</td><td>${h.type}</td><td>${h.status}</td></tr>
+                        `).join('') || `<tr><td colspan="4" class="tiny text-muted">No hearings</td></tr>`}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="tab-pane fade" id="clientMessages">
+                    <div class="card card-round mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0">Secure Messages</h6>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <select id="msgFilter" class="form-select form-select-sm">
+                                        <option value="all">All (Portal + Email)</option>
+                                        <option value="portal">Portal Only</option>
+                                        <option value="email">Email Only</option>
+                                    </select>
+                                    <button id="exportMsgs" class="btn btn-outline-secondary btn-sm">Export</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <span id="gmailStatus" class="rounded-pill-xs bg-light small px-2 py-2 me-1">Gmail Not Connected</span>
+                                <span id="outlookStatus" class="rounded-pill-xs bg-light small px-2 py-2 me-1">Outlook Not Connected</span>
+                                <button id="connectGmail" class="btn btn-sm btn-outline-danger">Connect Gmail</button>
+                                <button id="connectOutlook" class="btn btn-sm btn-outline-info">Connect Outlook</button>
+                                <button id="importEmails" class="btn btn-sm btn-outline-secondary">Import recent emails (demo)</button>
+                            </div>
+
+                            <div class="border rounded p-3 bg-white mb-2" style="height:250px; overflow:auto" id="msgContainer"></div>
+
+                            <div class="d-flex gap-2">
+                                <input id="newMsgInput" class="form-control" placeholder="Write a message to your lawyer…" />
+                                <button id="sendMsgBtn" class="btn btn-primary"><i class="bi bi-chat-dots me-1"></i>Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents -->
+                <div class="tab-pane fade" id="clientDocuments">
+                    <div class="d-flex flex-column mb-3">
+                        <h6 class="mb-2">Client Documents</h6>
+                        <div class="d-flex gap-2">
+                            <select id="folderSelect" class="form-select form-select-sm" style="width:auto;"></select>
+                            <select id="subfolderSelect" class="form-select form-select-sm" style="width:auto;"></select>
+                            <input type="file" id="uploadFile" class="form-control form-control-sm" style="width:auto;">
+                            <button id="btnUploadDoc" class="btn btn-sm btn-primary">Upload</button>
+                        </div>
+                    </div>
+                    <div id="docFolders" class="accordion accordion-border accordion-flush"></div>
+                </div>
+
+                <!-- Billing -->
+                <div class="tab-pane fade" id="clientFinancial">
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                            <thead><tr><th>ID</th><th>Amount</th><th>Due</th><th>Status</th><th></th></tr></thead>
+                            <tbody id="billingTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+            $('#clientProfileBody').html(html);
+            renderDocuments();
+            renderMessages(); // ✅ render tin nhắn ban đầu
+            $('#tab-client-profile').removeClass('d-none');
+            $('main section').not('#tab-client-profile').addClass('d-none');
+            $('.sidebar .nav-link').removeClass('active');
+        }
+
+        // Khi load tab Messages
+        $(document).on('shown.bs.tab', 'a[href="#clientMessages"]', function () {
+            renderEmailConn();
+            renderMessages();
+        });
+
+        // ========== MESSAGE FUNCTIONS ==========
+        function renderMessages() {
+            if (!currentClient) return;
+
+            const filter = $('#msgFilter').val() || 'all';
+            const msgs = currentClient.messages || [];
+
+            const filtered = msgs.filter(m => {
+                if (filter === 'portal') return !m.from.includes('Email');
+                if (filter === 'email') return m.from.includes('Email');
+                return true;
+            });
+
+            const html = filtered.map(m => {
+                let msgClass = '';
+                let alignClass = '';
+                let isEmail = false;
+
+                if (m.from === 'Attorney') {
+                    msgClass = 'bg-light';
+                    alignClass = 'd-flex flex-column align-items-end';
+                } else if (m.from.includes('Email')) {
+                    msgClass = 'bg-email';
+                    alignClass = 'd-flex flex-column align-items-start';
+                    isEmail = true;
+                } else {
+                    msgClass = 'bg-secondary-subtle';
+                    alignClass = 'd-flex flex-column align-items-start';
+                }
+
+                const summaryIcon = (isEmail && m.content) ? `
+            <span class="ms-2 text-info email-summary" 
+                  data-bs-toggle="tooltip"
+                  data-bs-html="true"
+                  data-bs-title="<strong>Title:</strong> ${m.content}<br><strong>Solution:</strong> ${m.solution}">
+                <i class="bi bi-info-circle"></i>
+            </span>` : '';
+
+                return `
+        <div class="p-1 small ${alignClass}">
+            <div class="msg-box d-inline-block py-2 px-3 rounded ${msgClass}">
+                <div class="small mb-1">${m.from}</div>
+                <div>${m.text}${summaryIcon}</div>
+            </div>
+            <div class="text-muted tiny mt-1">${new Date(m.at).toLocaleString()}</div>
+        </div>`;
+            }).join('') || `<div class="tiny text-muted">No messages yet.</div>`;
+
+            $('#msgContainer').html(html);
+
+            // ✅ Chuẩn Bootstrap 5: tạo tooltip bằng class bootstrap.Tooltip
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            [...tooltipTriggerList].forEach(el => new bootstrap.Tooltip(el));
+        }
+
+
+
+        function renderEmailConn() {
+            $('#gmailStatus').text(emailConn.gmail ? 'Gmail Connected' : 'Gmail Not Connected');
+            $('#outlookStatus').text(emailConn.outlook ? 'Outlook Connected' : 'Outlook Not Connected');
+        }
+
+        // ========== MESSAGE ACTIONS ==========
+        $(document).on('change', '#msgFilter', renderMessages);
+
+        $(document).on('click', '#sendMsgBtn', function () {
+            sendClientMessage();
+        });
+        $(document).on('keypress', '#newMsgInput', function (e) {
+            if (e.which === 13 && !e.shiftKey) {
+                e.preventDefault();
+                sendClientMessage();
+            }
+        });
+
+        function sendClientMessage() {
+            const text = $('#newMsgInput').val().trim();
+            if (!text || !currentClient) return;
+
+            const msg = {
+                id: uid(),
+                from: "Attorney",
+                text,
+                at: new Date().toISOString()
+            };
+
+            currentClient.messages = currentClient.messages || [];
+            currentClient.messages.push(msg);
+
+            $('#newMsgInput').val('');
+            renderMessages();
+
+            const msgContainer = $('#msgContainer');
+            msgContainer.scrollTop(msgContainer[0].scrollHeight);
+        }
+
+        $(document).on('click', '#connectGmail', function () {
+            alert('Demo: Simulating Gmail connection. Replace with OAuth redirect.');
+            emailConn.gmail = true; localStorage.setItem('client.emailConn', JSON.stringify(emailConn)); renderEmailConn();
+        });
+
+        $(document).on('click', '#connectOutlook', function () {
+            alert('Demo: Simulating Outlook connection. Replace with OAuth redirect.');
+            emailConn.outlook = true; localStorage.setItem('client.emailConn', JSON.stringify(emailConn)); renderEmailConn();
+        });
+
+        $(document).on('click', '#importEmails', function () {
+            if (!currentClient) return;
+            const now = new Date();
+            const demo = [
+                { id: uid(), from: 'Email (Gmail)', text: 'Subject: Meeting postponed — unexpected court engagement', at: new Date(now.getTime() - 86400000 * 3).toISOString(), content: 'Client meeting delayed due to unexpected court engagement.', solution: 'Reschedule the consultation based on client’s preferred time.' },
+                { id: uid(), from: 'Client', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString(), content: '', solution: '' },
+                { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 86400000).toISOString(), content: 'Hearing rescheduled to next Wednesday due to court conflict.', solution: 'Confirm client’s availability and prepare necessary documents before the new hearing date.' },
+            ];
+            currentClient.messages = (currentClient.messages || []).concat(demo);
+            renderMessages();
+        });
+
+        $(document).on('click', '#exportMsgs', function () {
+            if (!currentClient || !currentClient.messages) return;
+            const ordered = [...currentClient.messages].sort((a, b) => new Date(a.at) - new Date(b.at));
+            let text = `Client Messages for ${currentClient.name}\n\n`;
+            ordered.forEach(m => { text += `${new Date(m.at).toLocaleString()} | ${m.from}: ${m.text}\n`; });
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `${currentClient.name.replace(/[^a-z0-9]/gi, '_')}_messages.txt`;
+            a.click(); URL.revokeObjectURL(url);
+        });
+
+
+        // ========== DOCUMENTS TAB ==========
+        const documentStructuresByType = {
+            "Civil Litigation": {
+                "Client & Administrative Documents": [
+                    "Client intake form",
+                    "Retainer agreement",
+                    "Authorization for release of information",
+                    "Conflict check form"
+                ],
+                "Court Filings & Pleadings": [
+                    "Statement of Claim / Complaint / Notice of Action",
+                    "Statement of Defence / Answer",
+                    "Counterclaim / Crossclaim / Third-Party Claim",
+                    "Reply or Response to Defence",
+                    "Notice of Motion / Motion Record",
+                    "Affidavit(s)",
+                    "Memorandum of Law / Factum",
+                    "Consent Orders / Draft Orders",
+                    "Judgment / Order"
+                ],
+                "Discovery & Evidence": [
+                    "Affidavit of Documents / Discovery Disclosure",
+                    "List of Documents / Exhibits",
+                    "Interrogatories and Responses",
+                    "Requests to Admit and Responses",
+                    "Examination for Discovery transcripts",
+                    "Expert Reports / Witness Statements"
+                ],
+                "Pre-Trial & Trial": [
+                    "Pre-Trial Conference Brief",
+                    "Trial Brief / Book of Authorities",
+                    "Opening and Closing Submissions",
+                    "Exhibit Book / Trial Record",
+                    "Witness Summons / Subpoenas"
+                ],
+                "Post-Judgment": [
+                    "Bill of Costs / Assessment of Costs",
+                    "Writ of Seizure and Sale / Garnishment",
+                    "Satisfaction of Judgment"
+                ]
+            },
+            "Family Law": {
+                "Client & Administrative": [
+                    "Family law intake form",
+                    "Retainer agreement",
+                    "Financial disclosure authorization"
+                ],
+                "Court Filings": [
+                    "Application for Divorce / Family Law Application",
+                    "Answer / Response",
+                    "Financial Statement (Form 13 or 13.1)",
+                    "Parenting or Custody Affidavit",
+                    "Child or Spousal Support Affidavit",
+                    "Case Conference / Settlement Brief",
+                    "Motion for Temporary Orders",
+                    "Affidavit in Support of Motion",
+                    "Consent Orders / Minutes of Settlement",
+                    "Final Order / Divorce Order"
+                ],
+                "Supporting Documents": [
+                    "Income tax returns, pay stubs, financial statements",
+                    "Property valuations / appraisals",
+                    "Parenting plan / visitation schedule",
+                    "Child support worksheets"
+                ],
+                "Alternative Dispute Resolution": [
+                    "Mediation / Arbitration Agreements",
+                    "Memorandum of Understanding / Settlement Agreement"
+                ]
+            },
+            "Criminal Defense": {
+                "Client & Administrative": [
+                    "Criminal case intake form",
+                    "Retainer agreement",
+                    "Authorization to release information",
+                    "Confidentiality acknowledgment"
+                ],
+                "Court Filings": [
+                    "Notice of Appearance / Designation of Counsel",
+                    "Bail Application / Bail Review Materials",
+                    "Disclosure Request to Crown",
+                    "Motion / Application to Exclude Evidence",
+                    "Affidavit in Support of Motion",
+                    "Charter Application",
+                    "Factum / Memorandum of Law",
+                    "Notice of Appeal"
+                ],
+                "Evidence & Discovery": [
+                    "Crown disclosure package",
+                    "Defence evidence list / witness list",
+                    "Expert reports / forensic analyses",
+                    "Examination transcripts",
+                    "Cross-examination outlines"
+                ],
+                "Trial & Sentencing": [
+                    "Opening statement notes",
+                    "Closing submissions",
+                    "Book of Authorities",
+                    "Sentencing submissions / Pre-sentence report",
+                    "Victim impact statements"
+                ]
+            },
+            "Immigration Law": {
+                "Client & Administrative": [
+                    "Immigration intake form",
+                    "Retainer agreement",
+                    "Authorization to release information",
+                    "Passport and ID copies"
+                ],
+                "Application & Supporting Forms": [
+                    "Application forms (PR, visa, sponsorship, etc.)",
+                    "Schedule A: Background / Declaration",
+                    "Statutory Declarations",
+                    "Proof of Relationship / Marriage Certificates",
+                    "Police Certificates",
+                    "Medical Examination Results",
+                    "Proof of Funds",
+                    "Employment / Education records",
+                    "Reference letters",
+                    "Affidavits / Statutory Declarations"
+                ],
+                "Refugee or Appeal Proceedings": [
+                    "Basis of Claim Form",
+                    "Personal Narrative / Supporting Evidence",
+                    "Country Condition Reports",
+                    "Hearing Disclosure Package",
+                    "Memorandum of Argument",
+                    "Notice of Appeal"
+                ]
+            },
+            "Corporate Law": {
+                "Client & Administrative": [
+                    "Corporate client intake form",
+                    "Retainer / engagement letter",
+                    "Conflict check form",
+                    "Authorization for representation"
+                ],
+                "Corporate Formation": [
+                    "Articles of Incorporation / Organization",
+                    "Bylaws / Operating Agreement",
+                    "Shareholders’ Agreement",
+                    "Directors’ and Officers’ Resolutions",
+                    "Corporate Registry filings"
+                ],
+                "Contracts & Transactions": [
+                    "Non-Disclosure Agreement (NDA)",
+                    "Employment / Contractor Agreements",
+                    "Purchase and Sale Agreements",
+                    "Loan / Financing Agreements",
+                    "Lease Agreements",
+                    "Joint Venture / Partnership Agreements",
+                    "Closing Documents / Checklist"
+                ],
+                "Corporate Governance": [
+                    "Annual Resolutions",
+                    "Minutes of Meetings",
+                    "Corporate Records Book",
+                    "Annual Returns / Compliance Filings"
+                ],
+                "Mergers & Acquisitions": [
+                    "Letter of Intent / Term Sheet",
+                    "Due Diligence Checklist and Reports",
+                    "Share or Asset Purchase Agreement",
+                    "Disclosure Schedules",
+                    "Closing Certificates"
+                ],
+                "Dispute or Litigation": [
+                    "Demand Letter / Notice of Default",
+                    "Statement of Claim / Defence",
+                    "Settlement Agreement / Release"
+                ]
+            }
+        };
+
+        let currentClientType = 'Civil Litigation';
+
+        // Active document structure for the currently opened client:
+        // { "Client & Administrative Documents": { "Client intake form": [file1,file2], ... }, ... }
+        let documentStructure = {};
+
+        // documentTemplatesByType: (giữ nguyên object bạn đã tạo trước đó)
+        const documentTemplatesByType = documentStructuresByType; // nếu bạn dùng tên khác, cập nhật tương ứng
+
+        // Khởi tạo documentStructure từ template theo type (gọi mỗi khi mở client profile)
+        function initDocumentStructureForClient(type) {
+            currentClientType = type || currentClientType;
+            const tmpl = documentTemplatesByType[currentClientType] || documentTemplatesByType['Civil Litigation'];
+
+            // build empty structure: folder -> sub -> []
+            documentStructure = {};
+            Object.entries(tmpl).forEach(([folder, subs]) => {
+                documentStructure[folder] = {};
+                // subs có thể là mảng tên subfolders
+                if (Array.isArray(subs)) {
+                    subs.forEach(sub => {
+                        documentStructure[folder][sub] = []; // khởi tạo mảng files trống
+                    });
+                } else if (typeof subs === 'object' && subs !== null) {
+                    // Nếu template dạng object (folder -> { sub: [] }), chuyển trực tiếp
+                    Object.keys(subs).forEach(sub => {
+                        documentStructure[folder][sub] = Array.isArray(subs[sub]) ? [...subs[sub]] : [];
+                    });
+                }
+            });
+        }
+
+        // Populate selects (folder & subfolder) từ documentStructure hiện tại
+        function populateFolderSelects() {
+            const folderSelect = $('#folderSelect');
+            const subSelect = $('#subfolderSelect');
+            folderSelect.empty();
+            const folders = Object.keys(documentStructure);
+            if (folders.length === 0) {
+                folderSelect.append(`<option disabled>-- No folders --</option>`);
+                subSelect.empty().append(`<option disabled>-- No subfolders --</option>`);
+                return;
+            }
+            folders.forEach(f => folderSelect.append(`<option value="${f}">${f}</option>`));
+            const firstFolder = folderSelect.val();
+            subSelect.empty();
+            Object.keys(documentStructure[firstFolder]).forEach(s => subSelect.append(`<option value="${s}">${s}</option>`));
+        }
+
+        // Render accordion từ documentStructure (không từ các template trực tiếp)
+        function renderDocuments() {
+            // nếu chưa khởi tạo structure cho client hiện tại, khởi tạo mặc định
+            if (!documentStructure || Object.keys(documentStructure).length === 0) {
+                initDocumentStructureForClient(currentClientType);
+            }
+
+            let idx = 0;
+            const html = Object.entries(documentStructure).map(([folder, subs]) => {
+                const folderId = 'folder' + (++idx);
+                const subsHtml = Object.entries(subs).map(([sub, files]) => {
+                    // tạo id an toàn cho selector (loại bỏ ký tự đặc biệt)
+                    const safeSub = sub.replace(/[^a-zA-Z0-9_-]/g, '_');
+                    const subId = folderId + '-' + safeSub + '-' + Math.floor(Math.random() * 10000);
+                    const fileItems = (files || []).map(f => `
+        <li class="list-group-item d-flex justify-content-between align-items-center small">
+          <span><i class="bi bi-file-earmark-text me-2 text-secondary"></i>${f}</span>
+          <div>
+            <button class="btn btn-sm btn-outline-primary btn-open-doc" data-doc="${f}">Open</button>
+            <button class="btn btn-sm btn-outline-danger btn-del-doc" data-doc="${f}"><i class="bi bi-trash"></i></button>
+          </div>
+        </li>
+      `).join('');
+                    return `
+        <div class="accordion-item border-0">
+          <h2 class="accordion-header" id="heading-${subId}">
+            <button class="accordion-button collapsed small bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${subId}" aria-controls="collapse-${subId}">
+              <i class="bi bi-folder me-2 text-warning"></i>${sub}
+            </button>
+          </h2>
+          <div id="collapse-${subId}" class="accordion-collapse collapse" aria-labelledby="heading-${subId}">
+            <div class="accordion-body p-0">
+              <ul class="list-group list-group-flush">${fileItems || '<li class="list-group-item tiny text-muted">No files yet</li>'}</ul>
+            </div>
+          </div>
+        </div>
+      `;
+                }).join('');
+                return `
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading${idx}">
+          <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${idx}" aria-controls="collapse${idx}">
+            <i class="bi bi-folder-fill text-warning me-2"></i>${folder}
+          </button>
+        </h2>
+        <div id="collapse${idx}" class="accordion-collapse collapse" aria-labelledby="heading${idx}">
+          <div class="accordion-body p-0">
+            <div class="accordion accordion-flush">${subsHtml}</div>
+          </div>
+        </div>
+      </div>
+    `;
+            }).join('');
+
+            $('#docFolders').html(html);
+
+            // populate selects và re-init collapse event để tránh "click lần 2 mới mở"
+            populateFolderSelects();
+            $('#docFolders .accordion-button').each(function () {
+                const targetId = $(this).attr('data-bs-target');
+                try {
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) new bootstrap.Collapse(targetEl, { toggle: false });
+                } catch (err) {
+                    // bỏ qua selector không hợp lệ (an toàn), log cho debug
+                    console.debug('Invalid selector when init collapse:', targetId);
+                }
+            });
+        }
+
+        function showDocAlert(message, type = 'success') {
+            const alertBox = $('#docAlert');
+            alertBox
+                .removeClass('d-none alert-success alert-danger alert-warning alert-info')
+                .addClass(`alert alert-${type}`)
+                .text(message)
+                .fadeIn();
+
+            // Tự động ẩn sau 3 giây
+            setTimeout(() => {
+                alertBox.fadeOut(() => alertBox.addClass('d-none'));
+            }, 3000);
+        }
+
+        // Khi mở tab Documents → render nội dung
+        $(document).on('shown.bs.tab', 'a[href="#clientDocuments"]', function () {
+            renderDocuments();
+        });
+
+        // Cập nhật subfolder khi chọn folder
+        $(document).on('change', '#folderSelect', function () {
+            const selected = $(this).val();
+            const subSelect = $('#subfolderSelect');
+            subSelect.empty();
+            Object.keys(documentStructure[selected]).forEach(s => {
+                subSelect.append(`<option value="${s}">${s}</option>`);
+            });
+        });
+
+        // Upload tài liệu
+        $(document).on('click', '#btnUploadDoc', function () {
+            const fileInput = $('#uploadFile')[0];
+            const file = fileInput.files[0];
+            const folder = $('#folderSelect').val();
+            const subfolder = $('#subfolderSelect').val();
+
+            // ===== Kiểm tra trước khi upload =====
+            if (!file) {
+                showDocAlert("⚠️ Please select a file before uploading.", "warning");
+                return;
+            }
+
+            if (!folder || !subfolder) {
+                showDocAlert("⚠️ Please choose a folder and subfolder first.", "danger");
+                return;
+            }
+
+            try {
+                const fileName = file.name;
+
+                // ===== Cập nhật document structure =====
+                if (!documentStructure[folder]) documentStructure[folder] = {};
+                if (!documentStructure[folder][subfolder]) documentStructure[folder][subfolder] = [];
+                documentStructure[folder][subfolder].push(fileName);
+
+                // Lưu lại cho client hiện tại
+                if (currentClient)
+                    currentClient.documentStructure = JSON.parse(JSON.stringify(documentStructure));
+
+                // Render lại danh sách
+                renderDocuments();
+
+                // Reset file input
+                fileInput.value = '';
+
+                // Hiện thông báo thành công
+                showDocAlert(`✅ File "${fileName}" uploaded successfully!`, "success");
+
+            } catch (err) {
+                console.error(err);
+                showDocAlert("❌ Upload failed. Please try again.", "danger");
+            }
+        });
+
+        // Mở tài liệu
+        $(document).on('click', '.btn-open-doc', function () {
+            const name = $(this).data('doc');
+            alert(`📄 Opening document: ${name}`);
+        });
+
+        // Xoá tài liệu
+        $(document).on('click', '.btn-del-doc', function () {
+            const fileName = $(this).data('doc');
+            const folder = $(this).closest('.accordion-item').parent().closest('.accordion-item')
+                .find('.accordion-button.fw-semibold').text().trim();
+            const subfolder = $(this).closest('.accordion-item').find('.accordion-button.small').text().trim();
+
+            if (documentStructure[folder] && documentStructure[folder][subfolder]) {
+                documentStructure[folder][subfolder] =
+                    documentStructure[folder][subfolder].filter(f => f !== fileName);
+
+                // ✅ Lưu lại cho client hiện tại
+                if (currentClient)
+                    currentClient.documentStructure = JSON.parse(JSON.stringify(documentStructure));
+
+                renderDocuments();
+            }
+        });
+
+        // handle send message
+        $(document).on('click', '#sendMsgBtn', function () {
+            const email = $('#clientProfileBody .tiny i.bi-envelope').parent().text().trim();
+            const client = clients.find(c => c.email && email.includes(c.email));
+            if (!client) return;
+            const text = $('#msgInput').val().trim();
+            if (!text) return;
+            if (!threads[client.email]) threads[client.email] = [];
+            threads[client.email].push({ from: 'You', text });
+            $('#msgInput').val('');
+            renderMessages(client.email);
+        });
+
+        // back button
+        $(document).on('click', '#btnBackDashboard', function () {
+            $('#tab-client-profile').addClass('d-none');
+            $('#tab-clients').removeClass('d-none');
+            $('.sidebar .nav-link').removeClass('active');
+            $('.sidebar .nav-link[data-tab="dashboard"]').addClass('active');
+        });
+        $(document).on('click', '.sidebar .nav-link[data-tab="clients"], #btnBackDashboard', function () {
+            currentClient = null;
+            currentClientType = '';
+            documentStructure = {};
+        });
+
+        // override open-client link to open profile directly
+        $(document).off('click', '.open-client-profile-link, .open-client-profile-btn').on('click', '.open-client-profile-link, .open-client-profile-btn', function (e) {
+            e.preventDefault();
+            const clientName = $(this).data('client') || $(this).data('email');
+            renderClientProfile(clientName);
+        });
+
+        // ========== BILLING / RECORD PAYMENT ==========
+
+        // render bảng billing mỗi khi vào tab
+        function renderBilling(clientName) {
+            const client = clients.find(c => c.name === clientName);
+            if (!client || !client.financial) {
+                $('#clientBilling').html(`<div class="tiny text-muted">No billing data available.</div>`);
+                return;
+            }
+
+            const invoices = client.financial.invoices || [];
+            const trustBalance = client.financial.trustBalance ?? 0;
+            const outstanding = client.financial.outstanding ?? 0;
+
+            const totalPaid = invoices.reduce((sum, i) => sum + (i.paid || 0), 0);
+            const openBalance = invoices.reduce((sum, i) => sum + (i.amount - (i.paid || 0)), 0);
+
+            // ========== BẢNG HÓA ĐƠN ==========
+            const rows = invoices.map(i => {
+                const statusClass =
+                    i.status === 'Paid' ? 'bg-success' :
+                        i.status === 'Partially Paid' ? 'bg-warning text-dark' :
+                            i.status === 'Overdue' ? 'bg-danger' :
+                                'bg-secondary';
+                return `
+            <tr>
+                <td>${i.number || i.id}</td>
+                <td>$${i.amount.toLocaleString()}</td>
+                <td>$${(i.paid || 0).toLocaleString()}</td>
+                <td>$${(i.amount - (i.paid || 0)).toLocaleString()}</td>
+                <td>${new Date(i.due).toLocaleDateString()}</td>
+                <td><span class="badge ${statusClass}">${i.status}</span></td>
+            </tr>`;
+            }).join('') || `<tr><td colspan="7" class="tiny text-muted">No invoices</td></tr>`;
+
+            const tableHtml = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="fw-semibold mb-0">Invoices</h6>
+                <button class="btn btn-sm btn-success" id="btnAddInvoice">
+                    <i class="bi bi-plus-circle me-1"></i> Add Invoice
+                </button>
+            </div>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Amount</th>
+                                <th>Paid</th>
+                                <th>Open Balance</th>
+                                <th>Due</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="billingTableBody">${rows}</tbody>
+                    </table>
+                </div>
+            `;
+
+            // ========== CARD SUMMARY ==========
+            const summaryCard = `
+                <div class="card mb-3">
+                    <div class="card-header bg-white fw-semibold">Financial Summary</div>
+                    <div class="d-grid gap-2 grid-2-column px-3 py-3">
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Trust Balance</div>
+                            <div class="fw-semibold size-lg ">$${trustBalance.toLocaleString()}</div>
+                        </div>
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Outstanding</div>
+                            <div class="fw-semibold size-lg ">$${outstanding.toLocaleString()}</div>
+                        </div>
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Total Paid</div>
+                            <div class="fw-semibold size-lg ">$${totalPaid.toLocaleString()}</div>
+                        </div>
+                        <div class="bg-light mb-2 py-2 px-2 rounded">
+                            <div class="tiny">Open Balance</div>
+                            <div class="fw-semibold size-lg ">$${openBalance.toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <canvas id="invoiceBarChart" height="200px" style="max-height:200px;"></canvas>
+                    </div>
+                </div>
+            `;
+
+            // ========== BỐ CỤC GIAO DIỆN ==========
+            const layoutHtml = `
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        ${tableHtml}
+                    </div>
+                    <div class="col-md-4">
+                        ${summaryCard}
+                    </div>
+                </div>
+            `;
+
+            $('#clientFinancial').html(layoutHtml);
+
+            // ========== CHART.JS ==========
+            if (typeof Chart !== 'undefined') {
+
+                // Chart 2: Invoice bar chart
+                const ctx2 = document.getElementById('invoiceBarChart');
+                if (ctx2) {
+                    new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: invoices.map(i => i.number || i.id),
+                            datasets: [
+                                {
+                                    label: 'Amount',
+                                    data: invoices.map(i => i.amount),
+                                    backgroundColor: '#9ad0f5',
+                                    barThickness: 50
+                                },
+                                {
+                                    label: 'Paid',
+                                    data: invoices.map(i => i.paid || 0),
+                                    backgroundColor: '#ffb1c1',
+                                    barThickness: 50
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    ticks: { font: { size: 10 } },
+                                    grid: { display: false }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        font: { size: 10 },
+                                        callback: v => '$' + v
+                                    },
+                                    grid: { color: '#f0f0f0' }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } },
+                                tooltip: {
+                                    callbacks: {
+                                        label: ctx => `${ctx.dataset.label}: $${ctx.formattedValue}`
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            let currentBillingClient = clientName;
+
+            // Mở modal Add Invoice
+            $(document).on('click', '#btnAddInvoice', function () {
+                if (!currentBillingClient) return alert('No client selected.');
+                $('#aiClient').val(currentBillingClient);
+                $('#aiNumber').val('');
+                $('#aiAmount').val('');
+                $('#aiPaid').val('0');
+                $('#aiDue').val('');
+                $('#aiStatus').val('Open');
+                const modal = new bootstrap.Modal(document.getElementById('addInvoiceModalClient'));
+                modal.show();
+            });
+
+            // Lưu invoice mới
+            $(document).on('click', '#btnSaveInvoice', function () {
+                const client = clients.find(c => c.name === currentBillingClient);
+                if (!client || !client.financial) return alert('Client not found.');
+
+                const number = $('#aiNumber').val().trim() || `INV-${Date.now()}`;
+                const amount = parseFloat($('#aiAmount').val() || 0);
+                const paid = parseFloat($('#aiPaid').val() || 0);
+                const due = $('#aiDue').val();
+                const status = $('#aiStatus').val();
+
+                // Tạo invoice mới
+                const newInvoice = {
+                    id: 'INV-' + Math.floor(Math.random() * 9000 + 1000),
+                    number,
+                    amount,
+                    paid,
+                    due,
+                    status
+                };
+
+                // Thêm vào client hiện tại
+                client.financial.invoices.unshift(newInvoice);
+
+                // Cập nhật lại outstanding
+                client.financial.outstanding = client.financial.invoices
+                    .reduce((sum, i) => sum + Math.max(0, (i.amount - (i.paid || 0))), 0);
+
+                alert(`✅ Invoice ${number} added successfully.`);
+
+                // Làm mới Billing
+                renderBilling(client.name);
+
+                // Đóng modal
+                bootstrap.Modal.getInstance(document.getElementById('addInvoiceModalClient')).hide();
+            });
+        }
+
+
+
+        // khi chuyển qua tab Billing
+        $(document).on('shown.bs.tab', 'a[href="#clientFinancial"]', function () {
+            const clientName = $('#clientProfileBody .activeClientName').text();
+            renderBilling(clientName);
+        });
+
+        // Mở modal Record Payment
+        $(document).on('click', '.btn-record-payment', function () {
+            const invId = $(this).data('id');
+            const clientName = $(this).data('client');
+            const client = clients.find(c => c.name === clientName);
+            if (!client || !client.financial) return;
+
+            const inv = client.financial.invoices.find(i => i.id === invId);
+            if (!inv) return;
+
+            // Gán dữ liệu vào modal
+            $('#rpInvoiceId').val(inv.id);
+            $('#rpClient').val(client.name);
+            $('#rpAmountDue').val(`$${inv.amount.toLocaleString()}`);
+            $('#rpAmountPaid').val('');
+            $('#rpDueDate').val(new Date(inv.due).toLocaleDateString());
+            $('#rpStatus').val(inv.status);
+
+            // Hiển thị modal
+            const modal = new bootstrap.Modal(document.getElementById('recordPaymentModal'));
+            modal.show();
+        });
+
+        // Lưu thanh toán
+        $(document).on('click', '#btnSavePayment', function () {
+            const invId = $('#rpInvoiceId').val();
+            const clientName = $('#rpClient').val();
+            const amountPaid = parseFloat($('#rpAmountPaid').val() || 0);
+
+            const client = clients.find(c => c.name === clientName);
+            if (!client || !client.financial) return;
+
+            const inv = client.financial.invoices.find(i => i.id === invId);
+            if (!inv) {
+                alert('Invoice not found.');
+                return;
+            }
+
+            if (amountPaid <= 0) {
+                alert('Please enter a valid payment amount.');
+                return;
+            }
+
+            // ✅ Cập nhật dữ liệu thanh toán
+            inv.paid = (inv.paid || 0) + amountPaid;
+
+            if (inv.paid >= inv.amount) {
+                inv.status = 'Paid';
+            } else if (inv.paid > 0 && inv.paid < inv.amount) {
+                inv.status = 'Partially Paid';
+            } else {
+                inv.status = 'Unpaid';
+            }
+
+            // ✅ Cập nhật số dư outstanding của client
+            client.financial.outstanding = client.financial.invoices
+                .reduce((sum, i) => sum + Math.max(0, (i.amount - (i.paid || 0))), 0);
+
+            alert(`✅ Payment of $${amountPaid.toLocaleString()} recorded for invoice ${inv.number || inv.id}`);
+
+            // Làm mới phần Billing
+            renderBilling(client.name);
+
+            // Đóng modal
+            bootstrap.Modal.getInstance(document.getElementById('recordPaymentModal')).hide();
+        });
+
+
+        function renderMasterCalendar() {
+            const calendarEl = document.getElementById('calendar');
+            if (!calendarEl) return;
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                height: 'auto',
+                selectable: true,
+                events: masterEvents,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                eventClick: function (info) {
+                    const ev = info.event;
+                    alert(`📌 ${ev.title}\nClient: ${ev.extendedProps.client || '—'}\nDate: ${ev.start.toLocaleDateString()}`);
+                },
+                dateClick: function (info) {
+                    const date = info.dateStr;
+                    $('#addEventDate').val(date);
+                    $('#addEventModal').modal('show');
+                    populateEventClientSelect();
+                }
+            });
+
+            calendar.render();
+        }
+        function populateEventClientSelect() {
+            const select = $('#eventClientSelect');
+            select.empty().append('<option value="">Select client...</option>');
+            if (!clients || clients.length === 0) {
+                select.append('<option disabled>No clients available</option>');
+                return;
+            }
+            clients.forEach(c => {
+                select.append(`<option value="${c.name}">${c.name} (${c.company || 'Self'})</option>`);
+            });
+        }
+        $(document).on('submit', '#addEventForm', function (e) {
+            e.preventDefault();
+            const title = $('#addEventTitle').val().trim();
+            const client = $('#eventClientSelect').val().trim();
+            const date = $('#addEventDate').val();
+            const type = $('#addEventType').val();
+
+            if (!title || !date) return;
+
+            const newEvent = {
+                id: 'E' + Math.floor(Math.random() * 100000),
+                title: `${client} - ${title}`,
+                start: date,
+                client,
+                type
+            };
+
+            masterEvents.push(newEvent);
+            $('#addEventModal').modal('hide');
+            renderMasterCalendar();
+        });
+        $(document).on('click', '.sidebar .nav-link[data-tab="calendar"]', function () {
+            $('main section').addClass('d-none');
+            $('#tab-calendar').removeClass('d-none');
+            renderMasterCalendar();
+        });
+
+        function renderAudit() {
+            const rows = auditLogs.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+            $('#table-audit tbody').html(rows);
+        }
+    </script>
+</body>
+
+</html>
