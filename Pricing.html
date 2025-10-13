@@ -23,7 +23,6 @@
     <!-- Responsive Stylesheet -->
     <link rel="stylesheet" href="css/responsive.css">
     <style>
-        /* Light-mode styling inspired by original look but bright */
     </style>
 </head>
 
@@ -138,7 +137,7 @@
 
                 <div class="col-md-6">
                     <div class="d-grid gap-3 grid-col-3">
-                        <div class="feature-pill accent-indigo p-3">
+                        <div class="feature-pill accent-indigo p-3 active" data-type="signin">
                             <div class="d-flex align-items-center gap-2 text-indigo-600"><i
                                     class="bi bi-fingerprint fs-5"></i> Facial Sign‑In</div>
                             <ul class="mt-2 feature-list small mb-0">
@@ -150,7 +149,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="feature-pill accent-cyan p-3">
+                        <div class="feature-pill accent-cyan p-3" data-type="facelock">
                             <div class="d-flex align-items-center gap-2 text-cyan-600"><i
                                     class="bi bi-lock-fill fs-5"></i>
                                 FaceLock Encryption
@@ -162,7 +161,7 @@
                                 <li class=" d-flex"><i class="bi bi-check2"></i> <span>Zero‑knowledge design</span></li>
                             </ul>
                         </div>
-                        <div class="feature-pill accent-fuchsia p-3">
+                        <div class="feature-pill accent-fuchsia p-3" data-type="bastion">
                             <div class="d-flex align-items-center gap-2 text-fuchsia-600"><i
                                     class="bi bi-building fs-5"></i> Bastion + Face</div>
                             <ul class="mt-2 feature-list small mb-0">
@@ -181,7 +180,7 @@
         <section class="mb-6">
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="price-card p-4 h-100">
+                    <div class="price-card p-4 h-100" id="cardFree">
                         <div class="d-flex align-items-center gap-2 muted"><i class="bi bi-cursor"></i>
                             Free</div>
                         <h3 class="mt-2 mb-0  bolder">$0</h3>
@@ -198,7 +197,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="price-card p-4 h-100 border-2 active">
+                    <div class="price-card p-4 h-100 border-2 active" id="cardPay">
                         <div class="d-flex align-items-center gap-2 text-cyan-600"><i
                                 class="bi bi-shield-lock-fill"></i>
                             Pay‑as‑you‑go</div>
@@ -218,7 +217,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="price-card p-4 h-100">
+                    <div class="price-card p-4 h-100" id="cardEnt">
                         <div class="d-flex align-items-center gap-2 text-fuchsia-600"><i class="bi bi-building"></i>
                             Enterprise</div>
                         <h3 class="mt-2 mb-0 bolder">Custom</h3>
@@ -452,42 +451,117 @@
     <!-- script js -->
     <script src="js/script.js"></script>
     <script>
-        const mauRange = document.getElementById("mauRange");
-        const mauValue = document.getElementById("mauValue");
-        const pricePer = document.getElementById("pricePer");
-        const estMonthly = document.getElementById("estMonthly");
+        $(function () {
+            const $mauRange = $('#mauRange'),
+                $mauValue = $('#mauValue'),
+                $pricePer = $('#pricePer'),
+                $estMonthly = $('#estMonthly');
 
-        function getPricePerMAU(mau) {
-            if (mau <= 5000) return 0;
-            if (mau <= 50000) return 0.05;
-            if (mau <= 200000) return 0.04;
-            return 0.03;
-        }
+            const pricingData = {
+                signin: {
+                    tiers: [0, 0.05, 0.04, 0.03],
+                    label: 'Facial Sign-In',
+                    color: '#7006d4',
+                    cards: {
+                        free: { price: '$0', desc: 'Up to 5,000 MAUs' },
+                        paygo: { price: '$0.05', desc: 'per MAU · 5k–50k' },
+                        ent: { price: 'Custom', desc: 'Advanced SLAs' }
+                    }
+                },
+                facelock: {
+                    tiers: [0, 0.04, 0.035, 0.025],
+                    label: 'FaceLock Encryption',
+                    color: '#18d3ff',
+                    cards: {
+                        free: { price: '$0', desc: 'Up to 3,000 MAUs' },
+                        paygo: { price: '$0.04', desc: 'per MAU · 3k–50k' },
+                        ent: { price: 'Custom', desc: 'Enterprise security' }
+                    }
+                },
+                bastion: {
+                    tiers: [0, 0.06, 0.05, 0.04],
+                    label: 'Bastion + Face',
+                    color: '#d946ef',
+                    cards: {
+                        free: { price: '$0', desc: 'Up to 2,000 MAUs' },
+                        paygo: { price: '$0.06', desc: 'per MAU · 2k–50k' },
+                        ent: { price: 'Custom', desc: 'High-security SLA' }
+                    }
+                }
+            };
 
-        function formatUSD(n) {
-            return n.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
-        }
+            let currentType = 'signin';
 
-        function updateSlider() {
-            const mau = parseInt(mauRange.value);
-            const price = getPricePerMAU(mau);
-            const monthly = mau * price;
+            function getPricePerMAU(mau) {
+                const t = pricingData[currentType].tiers;
+                if (mau <= 5000) return t[0];
+                if (mau <= 50000) return t[1];
+                if (mau <= 200000) return t[2];
+                return t[3];
+            }
 
-            // cập nhật text
-            mauValue.textContent = mau.toLocaleString();
-            pricePer.textContent = price === 0 ? "Free" : `$${price.toFixed(2)}`;
-            estMonthly.textContent = formatUSD(monthly);
+            function formatCAD(n) {
+                return n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CA$ ' ;
+            }
 
-            // cập nhật màu fill cho track
-            const percent = (mau - mauRange.min) / (mauRange.max - mauRange.min) * 100;
-            mauRange.style.background = `linear-gradient(to right, #18d3ff ${percent}%, #e5e5e5  ${percent}%)`;
-        }
+            function updatePricingCards() {
+                const c = pricingData[currentType].cards;
+                $('#cardFree h3').text(c.free.price);
+                $('#cardFree .muted').text(c.free.desc);
+                $('#cardPay h3').text(c.paygo.price);
+                $('#cardPay .muted').text(c.paygo.desc);
+                $('#cardEnt h3').text(c.ent.price);
+                $('#cardEnt .muted').text(c.ent.desc);
+            }
 
-        // init
-        updateSlider();
+            function updateSliderThumb(color) {
+                $('#dynamic-range-style').remove();
 
-        // on input
-        mauRange.addEventListener("input", updateSlider);
+                // Tạo CSS mới
+                const css = `
+                <style id="dynamic-range-style">
+                input[type=range].form-range::-webkit-slider-thumb {
+                    background: ${color} !important;
+                }
+                input[type=range].form-range::-moz-range-thumb {
+                    background: ${color} !important;
+                }
+                input[type=range].form-range::-ms-thumb {
+                    background: ${color} !important;
+                }
+                </style>`;
+                $('head').append(css);
+            }
+
+            function updateSlider() {
+                const mau = parseInt($mauRange.val());
+                const price = getPricePerMAU(mau);
+                const monthly = mau * price;
+                const color = pricingData[currentType].color;
+
+                $mauValue.text(mau.toLocaleString());
+                $pricePer.text(price === 0 ? "Free" : `$${price.toFixed(2)}`);
+                $estMonthly.text(formatCAD(monthly));
+
+                const percent = (mau - $mauRange.attr('min')) / ($mauRange.attr('max') - $mauRange.attr('min')) * 100;
+                $mauRange.css('background', `linear-gradient(to right, ${color} ${percent}%, #e5e5e5 ${percent}%)`);
+                
+                updateSliderThumb(color);
+            }
+
+            $('.feature-pill').on('click', function () {
+                $('.feature-pill').removeClass('active');
+                $(this).addClass('active');
+                currentType = $(this).data('type');
+                updatePricingCards();
+                updateSlider();
+            });
+
+            $mauRange.on('input change', updateSlider);
+
+            updatePricingCards();
+            updateSlider();
+        });
     </script>
 </body>
 

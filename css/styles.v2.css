@@ -1617,7 +1617,8 @@ input[type=range].form-range {
   border-radius: 5px;
   background: #c9c9c9; 
   outline: none;
-  transition: background 0.2s;
+  box-shadow: none !important;
+  margin-left:-1px;
 }
 
 /* Track (Webkit) */
@@ -1625,6 +1626,8 @@ input[type=range].form-range::-webkit-slider-runnable-track {
   height: 10px !important;
   border-radius: 5px !important;
   background: transparent !important; 
+    box-shadow: none !important;
+  margin-left:-1px;
 }
 
 /* Track (Firefox) */
@@ -1632,6 +1635,8 @@ input[type=range].form-range::-moz-range-track {
   height: 10px !important;
   border-radius: 5px !important;
   background: transparent !important;
+    box-shadow: none !important;
+  margin-left:-1px;
 }
 
 /* Thumb (Webkit) */
@@ -1645,6 +1650,8 @@ input[type=range].form-range::-webkit-slider-thumb {
   position: relative;
   z-index: 2;
   margin-top: -4px; 
+    box-shadow: none !important;
+  margin-left:-1px;
 }
 
 /* Thumb (Firefox) */
@@ -1656,6 +1663,8 @@ input[type=range].form-range::-moz-range-thumb {
   cursor: pointer !important;
   position: relative;
   z-index: 2;
+    box-shadow: none !important;
+  margin-left:-1px;
 }
 .classynav ul li a {
     font-size: 16px !important;
@@ -1673,4 +1682,11 @@ input[type=range].form-range::-moz-range-thumb {
     .grid-col-3 {
         grid-template-columns:repeat(3,1fr);
     }
+}
+
+
+.feature-pill.active {
+    border-color: #18d3ff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.12);
+    background: #fff;
 }
