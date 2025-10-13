@@ -360,6 +360,28 @@
             background-color: #f1f3f4 !important;
             /* xám nhạt cho attorney/system */
         }
+
+        .page-link {
+            font-size: 0.75rem;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #696969;
+        }
+
+        .active>.page-link,
+        .page-link.active {
+            background: #18d3ff;
+            border-color: #18d3ff;
+        }
+
+        .tooltip-inner {
+            max-width: 600px;
+            text-align: left;
+            padding: 1em;
+        }
     </style>
 </head>
 
@@ -397,9 +419,9 @@
     <div class="container-fluid px-3 py-4">
         <div class="row gx-4">
             <!-- Sidebar -->
-            <aside class="col-lg-3 col-xl-2 mb-4 sidebar">
+            <aside class="col-lg-12 col-xl-12 mb-4 sidebar">
                 <nav class="bg-white p-2 rounded-3 border-0">
-                    <div class="nav flex-column">
+                    <div class="nav">
                         <a href="#" class="nav-link active" data-tab="dashboard"><i class="bi bi-grid me-2"></i>
                             Dashboard</a>
                         <a href="#" class="nav-link" data-tab="clients"><i class="bi bi-people me-2"></i> Clients</a>
@@ -409,15 +431,13 @@
                             Calendar</a>
                         <a href="#" class="nav-link" data-tab="billing"><i class="bi bi-credit-card-2-front me-2"></i>
                             Billing</a>
-                        <a href="#" class="nav-link" data-tab="messages"><i class="bi bi-chat-dots me-2"></i>
-                            Messages</a>
                     </div>
                 </nav>
 
             </aside>
 
             <!-- Main -->
-            <main class="col-lg-9 col-xl-10">
+            <main class="col-lg-12 col-xl-12 main">
                 <!-- Dashboard Tab -->
                 <section id="tab-dashboard">
                     <!-- Stats -->
@@ -614,15 +634,19 @@
                 <!-- Billing Tab (placeholder) -->
                 <section id="tab-billing" class="d-none">
                     <div class="card card-rounded border-0 p-3">
-                        <h5>Billing</h5>
-                        <div class="tiny">Track payments & status</div>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5>Billing</h5>
+                                <div class="tiny">Track payments & status</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary btn-add-invoice">Add Invoice</button>
+                        </div>
                         <div class="mt-3 table-responsive">
                             <table class="table" id="invoicesTable">
                                 <thead>
                                     <tr>
                                         <th>Invoice</th>
                                         <th>Client</th>
-                                        <th>Matter</th>
                                         <th>Amount</th>
                                         <th>Due</th>
                                         <th>Status</th>
@@ -630,27 +654,7 @@
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Messages Tab (placeholder) -->
-                <section id="tab-messages" class="d-none">
-                    <div class="card card-rounded border-0 p-3">
-                        <h5>Messages</h5>
-                        <div class="tiny">Client & counsel threads</div>
-                        <div class="mt-3">
-                            <div class="border rounded-2 p-3" style="height:300px; overflow:auto;">
-                                <div class="mb-3"><strong>Henry Quach</strong> <small class="tiny text-muted">2m
-                                        ago</small>
-                                    <div> Please review the draft disclosure list attached.</div>
-                                </div>
-                                <!-- more -->
-                            </div>
-                            <div class="d-flex gap-2 mt-2">
-                                <input class="form-control form-control-sm" placeholder="Write a message…" />
-                                <button class="btn btn-primary btn-sm">Send</button>
-                            </div>
+                            <div id="invoicePagination"></div>
                         </div>
                     </div>
                 </section>
@@ -857,7 +861,7 @@
         </div>
     </div>
     <!-- " Add Invoice Modal" -->
-    <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="addInvoiceModalLabel"
+    <div class="modal fade" id="addInvoiceModalClient" tabindex="-1" aria-labelledby="addInvoiceModalClientLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -905,7 +909,7 @@
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button id="btnSaveInvoice" class="btn btn-sm btn-primary">
-                        <i class="bi bi-save me-1"></i>Save Invoice
+                        <i class="bi bi-send me-1"></i>Send Invoice
                     </button>
                 </div>
             </div>
@@ -954,9 +958,66 @@
         </div>
     </div>
 
+    <!-- Add Invoice Modal -->
+    <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add New Invoice</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addInvoiceForm" class="small">
+                        <div class="mb-2">
+                            <label class="form-label">Client</label>
+                            <select id="invoiceClient" class="form-select form-select-sm" required>
+                                <option value="">Select Client</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Matter</label>
+                            <select id="invoiceMatter" class="form-select form-select-sm">
+                                <option value="">Select Matter</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Amount</label>
+                            <input type="number" id="invoiceAmount" class="form-control form-control-sm" min="0"
+                                required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Due Date</label>
+                            <input type="date" id="invoiceDue" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Status</label>
+                            <select id="invoiceStatus" class="form-select form-select-sm">
+                                <option>Open</option>
+                                <option>Partially Paid</option>
+                                <option>Paid</option>
+                                <option>Overdue</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Notes</label>
+                            <textarea id="invoiceNotes" class="form-control form-control-sm" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnSaveInvoiceBilling" class="btn btn-primary btn-sm"><i class="bi bi-save me-1"></i>
+                        Save
+                        Invoice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- JS libs -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -980,12 +1041,6 @@
             { id: 1, matter: "R. v. Patel", court: "ON Superior Court", type: "Motion", date: "2025-10-06", room: "3A", status: "Scheduled", client: "Arjun Patel", clientPhone: "+1 647 555 2233", clientEmail: "arjun.patel@example.com" },
             { id: 2, matter: "Nguyen v. Atlas Logistics", court: "ON Small Claims", type: "Settlement Conf.", date: "2025-10-15", room: "2C", status: "Scheduled", client: "Lan Nguyen", clientPhone: "+1 416 555 9912", clientEmail: "lan.nguyen@example.com" },
             { id: 3, matter: "Tran v. City of Hamilton", court: "ON Superior Court", type: "Trial", date: "2025-11-18", room: "1D", status: "Confirmed", client: "Minh Tran", clientPhone: "+1 289 555 4022", clientEmail: "minh.tran@example.com" },
-        ];
-        let invoices = [
-            { id: "INV-1045", client: "Lan Nguyen", matter: "Nguyen v. Atlas Logistics", amount: 2450, due: "2025-10-12", status: "Unpaid" },
-            { id: "INV-1046", client: "Estate of Li Chen", matter: "Estate of Chen", amount: 780, due: "2025-10-20", status: "Unpaid" },
-            { id: "INV-1040", client: "Arjun Patel", matter: "R. v. Patel", amount: 920, due: "2025-09-20", status: "Overdue" },
-            { id: "INV-1034", client: "Minh Tran", matter: "Tran v. City of Hamilton", amount: 3130, due: "2025-10-28", status: "Partially Paid" },
         ];
         let clients = [
             {
@@ -1081,11 +1136,52 @@
             { id: '3', title: 'Mediation Meeting', start: '2025-10-20', client: 'Estate of Li Chen', type: 'Meeting' }
         ];
         // Utilities
-        function updateStats() {
-            $('#stat-active-matters').text(matters.filter(m => m.stage !== "Closed").length);
-            $('#stat-hearings').text(hearings.length);
-            const dueAmount = invoices.reduce((s, i) => s + ((i.status !== "Paid") ? i.amount : 0), 0);
-            $('#stat-invoices').text(invoices.filter(i => i.status !== "Paid").length);
+        function updateStats(clientRef) {
+            // clientRef có thể là: undefined | clientName (string) | client object
+            let client = null;
+            if (!clientRef && typeof currentClient !== 'undefined' && currentClient) {
+                client = currentClient;
+            } else if (typeof clientRef === 'string') {
+                client = clients.find(c => c.name === clientRef || c.email === clientRef) || null;
+            } else if (typeof clientRef === 'object' && clientRef !== null) {
+                client = clientRef;
+            }
+
+            // Nếu không tìm được client -> hiển thị tổng hoặc reset về 0 (chọn 0 để an toàn)
+            if (!client) {
+                // Option: bạn có thể hiển thị tổng toàn hệ thống thay vì 0 nếu muốn
+                $('#stat-active-matters').text(matters.filter(m => m.stage !== "Closed").length);
+                $('#stat-hearings').text(hearings.length);
+                // tổng hóa đơn chưa thanh toán trên tất cả clients
+                const allInv = clients.flatMap(c => (c.financial && c.financial.invoices) ? c.financial.invoices : []);
+                const dueAmountAll = allInv.reduce((s, i) => s + ((i.status !== "Paid") ? (i.amount - (i.paid || 0)) : 0), 0);
+                $('#stat-invoices').text(allInv.filter(i => i.status !== "Paid").length);
+                $('#stat-invoices-amount').text(`$ ${dueAmountAll.toLocaleString()} due`);
+                return;
+            }
+
+            // ====== Stats cho client cụ thể ======
+            // Matters liên quan tới client
+            const clientMatters = matters.filter(m => m.client === client.name);
+            const activeMattersCount = clientMatters.filter(m => m.stage !== "Closed").length;
+            $('#stat-active-matters').text(activeMattersCount);
+
+            // Hearings cho client
+            const clientHearings = hearings.filter(h => h.client === client.name);
+            $('#stat-hearings').text(clientHearings.length);
+
+            // Invoices cho client (lấy từ client.financial.invoices)
+            const clientInvoices = (client.financial && Array.isArray(client.financial.invoices)) ? client.financial.invoices : [];
+
+            // Tổng số hóa đơn chưa thanh toán (count)
+            const unpaidCount = clientInvoices.filter(i => i.status !== "Paid").length;
+            $('#stat-invoices').text(unpaidCount);
+
+            // Tổng số tiền còn due: tính amount - paid cho invoices chưa Paid
+            const dueAmount = clientInvoices.reduce((sum, inv) => {
+                const remaining = Math.max(0, (inv.amount || 0) - (inv.paid || 0));
+                return sum + ((inv.status !== "Paid") ? remaining : 0);
+            }, 0);
             $('#stat-invoices-amount').text(`$ ${dueAmount.toLocaleString()} due`);
         }
 
@@ -1203,13 +1299,187 @@
             container.append(table);
         }
 
-        function renderInvoices() {
+        // tab Billing 
+        let currentInvoicePage = 1;
+        const invoicesPerPage = 12;
+
+        function renderInvoices(page = 1) {
             const tbody = $('#invoicesTable tbody').empty();
-            invoices.forEach(i => {
-                const status = i.status === 'Overdue' ? '<span class="badge bg-danger">Overdue</span>' : (i.status === 'Partially Paid' ? '<span class="badge bg-secondary">Partially Paid</span>' : (i.status === 'Unpaid' ? '<span class="badge bg-warning text-dark">Unpaid</span>' : '<span class="badge bg-success">Paid</span>'));
-                tbody.append(`<tr>
-          <td>${i.id}</td><td>${i.client}</td><td>${i.matter}</td><td>$${i.amount.toLocaleString()}</td><td>${new Date(i.due).toLocaleDateString()}</td><td>${status}</td><td></td>
-        </tr>`);
+
+            // Gom toàn bộ invoices từ tất cả clients
+            let allInvoices = [];
+            clients.forEach(client => {
+                if (!client.financial || !client.financial.invoices) return;
+                client.financial.invoices.forEach(inv => {
+                    allInvoices.push({
+                        ...inv,
+                        clientName: client.name
+                    });
+                });
+            });
+
+            if (allInvoices.length === 0) {
+                tbody.html(`<tr><td colspan="6" class="tiny text-muted text-center">No invoices found</td></tr>`);
+                $('#invoicePagination').html('');
+                return;
+            }
+
+            // Phân trang
+            const totalPages = Math.ceil(allInvoices.length / invoicesPerPage);
+            currentInvoicePage = Math.min(Math.max(1, page), totalPages);
+            const start = (currentInvoicePage - 1) * invoicesPerPage;
+            const paginatedInvoices = allInvoices.slice(start, start + invoicesPerPage);
+
+            // Render các dòng
+            paginatedInvoices.forEach(inv => {
+                const statusBadge =
+                    inv.status === 'Overdue' ? '<span class="badge bg-danger">Overdue</span>' :
+                        inv.status === 'Partially Paid' ? '<span class="badge bg-warning text-dark">Partially Paid</span>' :
+                            inv.status === 'Open' ? '<span class="badge bg-secondary">Open</span>' :
+                                inv.status === 'Unpaid' ? '<span class="badge bg-secondary">Unpaid</span>' :
+                                    '<span class="badge bg-success">Paid</span>';
+
+                tbody.append(`
+            <tr>
+                <td>${inv.number || inv.id}</td>
+                <td>${inv.clientName}</td>
+                <td>$${inv.amount.toLocaleString()}</td>
+                <td>${new Date(inv.due).toLocaleDateString()}</td>
+                <td>${statusBadge}</td>
+            </tr>
+        `);
+            });
+
+            // Render pagination
+            let paginationHTML = `<nav><ul class="pagination pagination-sm justify-content-end mt-2">`;
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+            <li class="page-item ${i === currentInvoicePage ? 'active' : ''}">
+                <a class="page-link" href="#" data-page="${i}">${i}</a>
+            </li>`;
+            }
+            paginationHTML += `</ul></nav>`;
+            $('#invoicePagination').html(paginationHTML);
+        }
+
+        // Xử lý click chuyển trang
+        $(document).on('click', '#invoicePagination .page-link', function (e) {
+            e.preventDefault();
+            const page = parseInt($(this).data('page'));
+            if (!isNaN(page)) renderInvoices(page);
+        });
+
+        // Khi mở modal Add Invoice
+        $(document).on('click', '.btn-add-invoice', function () {
+            // Nếu modal chưa tồn tại thì tạo instance mới
+            const modalEl = document.getElementById('addInvoiceModal');
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+            // Reset form (tạo mới DOM nếu chưa có form)
+            const form = $('#addInvoiceForm');
+            if (form.length) {
+                form[0].reset();
+            }
+
+            // Reset dropdown Client
+            const selectClient = $('#invoiceClient').empty();
+            selectClient.append('<option value="">Select Client</option>');
+            clients.forEach(c => {
+                selectClient.append(`<option value="${c.id}">${c.name}</option>`);
+            });
+
+            // Reset dropdown Matter
+            $('#invoiceMatter').html('<option value="">Select Matter</option>');
+
+            modal.show();
+        });
+
+
+        // Khi chọn Client → load danh sách Matter của client đó
+        $(document).on('change', '#invoiceClient', function () {
+            const clientId = $(this).val();
+            const client = clients.find(c => c.id === clientId);
+            const matterSelect = $('#invoiceMatter').empty();
+            matterSelect.append('<option value="">Select Matter</option>');
+
+            if (client) {
+                const relatedMatters = matters.filter(m => m.client === client.name);
+                if (relatedMatters.length > 0) {
+                    relatedMatters.forEach(m => {
+                        matterSelect.append(`<option value="${m.title}">${m.title}</option>`);
+                    });
+                } else {
+                    matterSelect.append('<option disabled>No matters found</option>');
+                }
+            }
+        });
+
+        // Khi nhấn Save Invoice
+        $(document).on('click', '#btnSaveInvoiceBilling', function () {
+            const clientId = $('#invoiceClient').val();
+            const client = clients.find(c => c.id === clientId);
+            if (!client) {
+                alert('Please select a client.');
+                return;
+            }
+
+            const amount = parseFloat($('#invoiceAmount').val() || 0);
+            const due = $('#invoiceDue').val();
+            if (!amount || !due) {
+                alert('Please fill in required fields.');
+                return;
+            }
+
+            const newInvoice = {
+                id: uid(),
+                number: 'INV-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 900 + 100),
+                matter: $('#invoiceMatter').val() || '',
+                amount: amount,
+                paid: 0,
+                due: due,
+                issued: new Date().toISOString().split('T')[0],
+                status: $('#invoiceStatus').val(),
+                notes: $('#invoiceNotes').val() || ''
+            };
+
+            // Gắn vào client.financial
+            client.financial = client.financial || { invoices: [], trustBalance: 0, outstanding: 0 };
+            client.financial.invoices = client.financial.invoices || [];
+            client.financial.invoices.unshift(newInvoice);
+
+            // Cập nhật outstanding
+            client.financial.outstanding = client.financial.invoices
+                .reduce((sum, inv) => sum + (inv.amount - (inv.paid || 0)), 0);
+
+            // Ẩn modal và reset instance hoàn toàn (fix lỗi không click lại được)
+            const modalEl = document.getElementById('addInvoiceModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+            setTimeout(() => modal.dispose(), 300); // <— fix chính ở đây
+
+            // Refresh lại dữ liệu
+            rebuildInvoices();
+            renderInvoices();
+
+            if (currentClient && currentClient.id === client.id) {
+                renderBilling(client.name);
+            }
+
+            alert(`✅ Added invoice ${newInvoice.number} for ${client.name}`);
+        });
+
+        function rebuildInvoices() {
+            invoices = [];
+            clients.forEach(client => {
+                if (client.financial && Array.isArray(client.financial.invoices)) {
+                    client.financial.invoices.forEach(inv => {
+                        invoices.push({
+                            ...inv,
+                            client: client.name,
+                            clientId: client.id || null
+                        });
+                    });
+                }
             });
         }
 
@@ -1417,6 +1687,7 @@
         // ========== CLIENT PROFILE ==========
         function renderClientProfile(clientName) {
             const client = clients.find(c => c.name === clientName || c.email === clientName);
+            const invoices = client.financial.invoices || [];
             if (!client) { alert("Client not found: " + clientName); return; }
 
             // ✅ Ghi nhớ client hiện tại
@@ -1571,7 +1842,6 @@
             renderMessages();
         });
 
-
         // ========== MESSAGE FUNCTIONS ==========
         function renderMessages() {
             if (!currentClient) return;
@@ -1588,29 +1858,45 @@
             const html = filtered.map(m => {
                 let msgClass = '';
                 let alignClass = '';
+                let isEmail = false;
+
                 if (m.from === 'Attorney') {
                     msgClass = 'bg-light';
                     alignClass = 'd-flex flex-column align-items-end';
                 } else if (m.from.includes('Email')) {
                     msgClass = 'bg-email';
                     alignClass = 'd-flex flex-column align-items-start';
+                    isEmail = true;
                 } else {
                     msgClass = 'bg-secondary-subtle';
                     alignClass = 'd-flex flex-column align-items-start';
                 }
 
+                const summaryIcon = (isEmail && m.content) ? `
+            <span class="ms-2 text-info email-summary" 
+                  data-bs-toggle="tooltip"
+                  data-bs-html="true"
+                  data-bs-title="<strong>Title:</strong> ${m.content}<br><strong>Solution:</strong> ${m.solution}">
+                <i class="bi bi-info-circle"></i>
+            </span>` : '';
+
                 return `
-            <div class="p-1 small ${alignClass}">
-                <div class="msg-box d-inline-block py-2 px-3 rounded ${msgClass}">
-                    <div class="small mb-1">${m.from}</div>
-                    <div>${m.text}</div>
-                </div>
-                <div class="text-muted tiny mt-1">${new Date(m.at).toLocaleString()}</div>
-            </div>`;
+        <div class="p-1 small ${alignClass}">
+            <div class="msg-box d-inline-block py-2 px-3 rounded ${msgClass}">
+                <div class="small mb-1">${m.from}</div>
+                <div>${m.text}${summaryIcon}</div>
+            </div>
+            <div class="text-muted tiny mt-1">${new Date(m.at).toLocaleString()}</div>
+        </div>`;
             }).join('') || `<div class="tiny text-muted">No messages yet.</div>`;
 
             $('#msgContainer').html(html);
+
+            // ✅ Chuẩn Bootstrap 5: tạo tooltip bằng class bootstrap.Tooltip
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            [...tooltipTriggerList].forEach(el => new bootstrap.Tooltip(el));
         }
+
 
 
         function renderEmailConn() {
@@ -1626,7 +1912,7 @@
         });
         $(document).on('keypress', '#newMsgInput', function (e) {
             if (e.which === 13 && !e.shiftKey) {
-                e.preventDefault(); 
+                e.preventDefault();
                 sendClientMessage();
             }
         });
@@ -1666,9 +1952,9 @@
             if (!currentClient) return;
             const now = new Date();
             const demo = [
-                { id: uid(), from: 'Email (Gmail)', text: 'Subject: Retainer questions — Could you clarify the billing cycle?', at: new Date(now.getTime() - 86400000 * 3).toISOString() },
-                { id: uid(), from: 'Client', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString() },
-                { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 86400000).toISOString() },
+                { id: uid(), from: 'Email (Gmail)', text: 'Subject: Meeting postponed — unexpected court engagement', at: new Date(now.getTime() - 86400000 * 3).toISOString(), content: 'Client meeting delayed due to unexpected court engagement.', solution: 'Reschedule the consultation based on client’s preferred time.' },
+                { id: uid(), from: 'Client', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString(), content: '', solution: '' },
+                { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 86400000).toISOString(), content: 'Hearing rescheduled to next Wednesday due to court conflict.', solution: 'Confirm client’s availability and prepare necessary documents before the new hearing date.' },
             ];
             currentClient.messages = (currentClient.messages || []).concat(demo);
             renderMessages();
@@ -2279,7 +2565,7 @@
                 $('#aiPaid').val('0');
                 $('#aiDue').val('');
                 $('#aiStatus').val('Open');
-                const modal = new bootstrap.Modal(document.getElementById('addInvoiceModal'));
+                const modal = new bootstrap.Modal(document.getElementById('addInvoiceModalClient'));
                 modal.show();
             });
 
@@ -2293,8 +2579,6 @@
                 const paid = parseFloat($('#aiPaid').val() || 0);
                 const due = $('#aiDue').val();
                 const status = $('#aiStatus').val();
-
-                if (amount <= 0) return alert('Please enter valid amount.');
 
                 // Tạo invoice mới
                 const newInvoice = {
@@ -2319,7 +2603,7 @@
                 renderBilling(client.name);
 
                 // Đóng modal
-                bootstrap.Modal.getInstance(document.getElementById('addInvoiceModal')).hide();
+                bootstrap.Modal.getInstance(document.getElementById('addInvoiceModalClient')).hide();
             });
         }
 
