@@ -1898,13 +1898,11 @@
                     alignClass = 'd-flex flex-column align-items-start';
                 }
 
-                const summaryIcon = (isEmail && m.content) ? `
-            <span class="ms-2 text-info email-summary" 
-                  data-bs-toggle="tooltip"
-                  data-bs-html="true"
-                  data-bs-title="<strong>Title:</strong> ${m.content}<br><strong>Solution:</strong> ${m.solution}">
+                const summaryIcon = isEmail ? `
+            <span class="ms-2 text-info email-info" data-id="${m.id}" style="cursor:pointer;">
                 <i class="bi bi-info-circle"></i>
-            </span>` : '';
+            </span>
+        ` : '';
 
                 return `
         <div class="p-1 small ${alignClass}">
@@ -1918,11 +1916,61 @@
 
             $('#msgContainer').html(html);
 
-            // ✅ Chuẩn Bootstrap 5: tạo tooltip bằng class bootstrap.Tooltip
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            [...tooltipTriggerList].forEach(el => new bootstrap.Tooltip(el));
-        }
+            $('.reply-popup').remove();
 
+            $(document).off('click', '.email-info').on('click', '.email-info', function (e) {
+                e.stopPropagation();
+                const id = $(this).data('id');
+                const msg = currentClient.messages.find(m => m.id === id);
+                if (!msg) return;
+
+                $('.reply-popup').remove();
+
+                const popup = $(`
+          <div class="reply-popup shadow rounded bg-white border p-3 position-absolute" 
+               style="z-index:9999; width:100%;max-width:600px">
+            <div><strong>Title:</strong> ${msg.title || 'Hearing reschedule'}</div>
+            <div class="mt-1"><strong>Content:</strong> ${msg.content || 'Confirm client’s availability...'}</div>
+            <div class="mt-2"><strong>Respond:</strong></div>
+            <textarea class="form-control form-control-sm mt-1" rows="4">${msg.respond ||
+                    `Hi ${currentClient.name || 'Client'},
+Unfortunately, Monday, Oct 13, 2025, is the Thanksgiving holiday, and the 
+court clerk has to move our court trial to Nov 24, 2025. Are you ok with this?`}
+            </textarea>
+            <div class="text-end mt-2">
+              <button class="btn btn-sm btn-primary send-reply" data-id="${msg.id}"><i class="bi bi-send"></i> Send</button>
+            </div>
+          </div>
+        `);
+
+                $('body').append(popup);
+
+                const offset = $(this).offset();
+                popup.css({
+                    top: offset.top + 25,
+                    left: offset.left - 50
+                });
+
+                $(document).one('click', function () {
+                    popup.remove();
+                });
+            });
+
+            // Gửi reply
+            $(document).off('click', '.send-reply').on('click', '.send-reply', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const id = $(this).data('id');
+                const popup = $(this).closest('.reply-popup');
+                const text = popup.find('textarea').val().trim();
+
+                if (text) {
+                    alert(`✅ Reply sent!\n\n${text}`);
+                }
+                popup.remove();
+            });
+        }
 
 
         function renderEmailConn() {
@@ -1978,9 +2026,9 @@
             if (!currentClient) return;
             const now = new Date();
             const demo = [
-                { id: uid(), from: 'Email (Gmail)', text: 'Subject: Meeting postponed — unexpected court engagement', at: new Date(now.getTime() - 86400000 * 3).toISOString(), content: 'Client meeting delayed due to unexpected court engagement.', solution: 'Reschedule the consultation based on client’s preferred time.' },
-                { id: uid(), from: 'Client', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString(), content: '', solution: '' },
-                { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 86400000).toISOString(), content: 'Hearing rescheduled to next Wednesday due to court conflict.', solution: 'Confirm client’s availability and prepare necessary documents before the new hearing date.' },
+                { id: uid(), from: 'Email (Gmail)', text: 'Subject: Meeting postponed — unexpected court engagement', at: new Date(now.getTime() - 86400000 * 3).toISOString(), title: 'Client meeting delayed due to unexpected court engagement.', content: 'Reschedule the consultation based on client’s preferred time.' },
+                { id: uid(), from: 'Client', text: 'Reply: Billing is monthly with detailed line items.', at: new Date(now.getTime() - 86400000 * 3 + 1800000).toISOString(), title: '', content: '' },
+                { id: uid(), from: 'Email (Outlook)', text: 'Subject: Hearing date change — I am available next Wednesday.', at: new Date(now.getTime() - 86400000).toISOString(), title: 'Hearing rescheduled to next Wednesday due to court conflict.', content: 'Confirm client’s availability and prepare necessary documents before the new hearing date.' },
             ];
             currentClient.messages = (currentClient.messages || []).concat(demo);
             renderMessages();
