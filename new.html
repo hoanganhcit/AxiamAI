@@ -1,23 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>React JSX + Tailwind</title>
 
-    <!-- React + ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xexiro – Streamline Your Law Practice</title>
 
-    <!-- Babel để biên dịch JSX trên trình duyệt -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-50 min-h-screen">
-    <div id="root"></div>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Import file JSX của bạn -->
-    <script type="text/babel" src="js/client_self_service_portal_react_single_file.jsx"></script>
-  </body>
+  <style>
+    /* Smooth fade-slide animation for hero section */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-slide {
+      animation: fadeSlideUp 0.8s ease-out both;
+    }
+
+    /* Accordion animation */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-content.open {
+      max-height: 200px;
+      padding-top: 0.5rem;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
+  <!-- Navbar -->
+  <header
+    class="sticky top-0 z-40 backdrop-blur bg-white/70 dark:bg-neutral-950/50 border-b border-neutral-200/50 dark:border-neutral-800/50">
+    <div class="mx-auto w-full max-w-7xl px-6 flex h-16 items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-6 w-6 rounded-xl bg-gradient-to-tr from-indigo-500 via-violet-500 to-fuchsia-500 shadow-md"></div>
+        <span class="text-xl font-bold tracking-tight">xexiro</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#product" class="hover:text-indigo-600 transition-colors">Product</a>
+        <a href="#solutions" class="hover:text-indigo-600 transition-colors">Solutions</a>
+        <a href="#dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
+        <a href="#pricing" class="hover:text-indigo-600 transition-colors">Pricing</a>
+        <a href="#faq" class="hover:text-indigo-600 transition-colors">FAQ</a>
+        <a href="#about" class="hover:text-indigo-600 transition-colors">About</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button
+          class="hidden sm:inline-flex border border-transparent hover:border-neutral-300 rounded-xl px-3 py-2 text-sm">Sign
+          in</button>
+        <button class="rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 text-sm">Get started</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative py-20 md:py-28" id="hero">
+    <div class="mx-auto w-full max-w-7xl px-6 grid gap-10 lg:grid-cols-2 lg:gap-12 fade-slide">
+      <div class="space-y-6">
+        <span
+          class="inline-flex items-center gap-1 bg-indigo-100 text-indigo-800 rounded-full px-3 py-1 text-sm font-medium">
+          <i data-lucide="sparkles" class="h-4 w-4"></i> For modern law firms
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05]">
+          Streamline your practice
+          <span class="bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">from intake to
+            trial</span>
+        </h1>
+        <p class="text-lg text-neutral-600 dark:text-neutral-300">
+          Xexiro helps lawyers simplify their daily work: capture clients with smart intake, draft responses quickly
+          with AI, organize documents, schedule court appearances, manage trust funds, and issue invoices on time.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button
+            class="rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 text-base font-semibold flex items-center justify-center gap-2">
+            Start free <i data-lucide="arrow-right" class="h-4 w-4"></i>
+          </button>
+          <button
+            class="rounded-2xl border border-neutral-300 hover:border-indigo-500 px-5 py-3 text-base font-semibold">Book
+            a demo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="product">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Everything a lawyer needs, all in one place</h2>
+      <p class="mt-3 text-neutral-600 dark:text-neutral-300">
+        From the first client contact to the final invoice—Xexiro keeps your practice running smoothly.
+      </p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+        <div class="rounded-2xl border p-6">
+          <div class="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-xl border">
+            <i data-lucide="circle-dot"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Client intake</h3>
+          <p>Capture clients with smart, automated intake and conflict checks.</p>
+        </div>
+        <div class="rounded-2xl border p-6">
+          <div class="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-xl border">
+            <i data-lucide="message-square"></i>
+          </div>
+          <h3 class="text-xl font-semibold">AI-assisted messaging</h3>
+          <p>Draft professional client responses in seconds with AI help.</p>
+        </div>
+        <div class="rounded-2xl border p-6">
+          <div class="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-xl border">
+            <i data-lucide="file-text"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Document organization</h3>
+          <p>Keep all files structured and accessible, tied to each matter.</p>
+        </div>
+        <div class="rounded-2xl border p-6">
+          <div class="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-xl border">
+            <i data-lucide="calendar"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Court & trial scheduling</h3>
+          <p>Manage court dates, reminders, and trial prep in one calendar.</p>
+        </div>
+        <div class="rounded-2xl border p-6">
+          <div class="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-xl border">
+            <i data-lucide="dollar-sign"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Trust & billing</h3>
+          <p>Manage trust accounts, issue invoices, and track payments effortlessly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section id="dashboard" class="bg-neutral-50 dark:bg-neutral-900 border-y">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Your firm’s dashboard</h2>
+      <p class="mt-3 text-neutral-600 dark:text-neutral-300">
+        Stay on top of clients, cases, court schedules, trust funds, and invoices at a glance.
+      </p>
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <img src="https://placehold.co/1200x560/gif" class="rounded-2xl shadow-lg" alt="Dashboard 1">
+        <img src="https://placehold.co/1200x560/gif" class="rounded-2xl shadow-lg" alt="Dashboard 2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="bg-neutral-50/60 dark:bg-neutral-950/40 border-y">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Clear, predictable pricing</h2>
+      <p class="mt-3 text-neutral-600 dark:text-neutral-300">
+        Choose the model that fits your practice. Pay <strong>$49 per active client</strong> or add firm-wide controls
+        at <strong>$99 per lawyer</strong> — no hidden fees.
+      </p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+        <!-- Per-Client -->
+        <div class="rounded-2xl border border-indigo-500/70 shadow-lg p-6 flex flex-col justify-between">
+          <div>
+            <span class="inline-block border px-3 py-1 rounded-full text-sm mb-2">Per-Client</span>
+            <h3 class="text-2xl font-bold">Professional</h3>
+            <p>Best for solo and small firms; scale as you grow</p>
+            <div class="text-4xl font-extrabold mt-4">$49<span class="text-base text-neutral-500">/client/mo</span>
+            </div>
+            <ul class="mt-4 text-left text-sm space-y-2">
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Intake & conflict checks</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>AI-assisted messaging</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Document management</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Court & trial scheduling</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Trust fund & invoicing</li>
+            </ul>
+          </div>
+          <button class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-2 w-full">Start free</button>
+        </div>
+
+        <!-- Per-Lawyer -->
+        <div class="rounded-2xl border border-fuchsia-500/70 shadow-lg p-6 flex flex-col justify-between">
+          <div>
+            <span
+              class="inline-block bg-fuchsia-100 text-fuchsia-800 px-3 py-1 rounded-full text-sm mb-2">Per-Lawyer</span>
+            <h3 class="text-2xl font-bold">Firm Admin</h3>
+            <p>Administer the whole workflow across all lawyers</p>
+            <div class="text-4xl font-extrabold mt-4">$99<span class="text-base text-neutral-500">/lawyer/mo</span>
+            </div>
+            <ul class="mt-4 text-left text-sm space-y-2">
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Firm-wide dashboard & reporting</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Role-based access & audit logs</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Centralized trial calendar</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>Trust controls & invoice oversight</li>
+              <li><i data-lucide="check" class="inline h-4 w-4 mr-1"></i>SSO/SAML & data residency options</li>
+            </ul>
+          </div>
+          <button class="mt-6 border border-neutral-400 hover:border-fuchsia-500 rounded-xl py-2 w-full">Talk to
+            sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="border-t">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-center">Frequently Asked Questions</h2>
+      <div class="mt-8 max-w-3xl mx-auto space-y-4">
+        <div class="accordion border rounded-xl p-4">
+          <button class="accordion-header flex justify-between w-full text-left font-semibold">What is Xexiro? <i
+              data-lucide="chevron-down"></i></button>
+          <div class="accordion-content text-sm text-neutral-600">Xexiro is a SaaS platform that helps law firms manage
+            clients, cases, billing, and scheduling in one place.</div>
+        </div>
+        <div class="accordion border rounded-xl p-4">
+          <button class="accordion-header flex justify-between w-full text-left font-semibold">How much does it cost? <i
+              data-lucide="chevron-down"></i></button>
+          <div class="accordion-content text-sm text-neutral-600">$49 per active client per month.</div>
+        </div>
+        <div class="accordion border rounded-xl p-4">
+          <button class="accordion-header flex justify-between w-full text-left font-semibold">Can I manage trust funds?
+            <i data-lucide="chevron-down"></i></button>
+          <div class="accordion-content text-sm text-neutral-600">Yes, Xexiro includes built-in trust accounting
+            features.</div>
+        </div>
+        <div class="accordion border rounded-xl p-4">
+          <button class="accordion-header flex justify-between w-full text-left font-semibold">Does it support AI? <i
+              data-lucide="chevron-down"></i></button>
+          <div class="accordion-content text-sm text-neutral-600">Yes, AI helps draft client messages and speed up legal
+            work.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="bg-neutral-50 dark:bg-neutral-900 border-t">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">About Us</h2>
+      <p class="mt-3 text-neutral-600 dark:text-neutral-300">Xexiro is built by a passionate team with deep experience
+        in law and technology.</p>
+      <div class="mt-10 grid gap-8 sm:grid-cols-3">
+        <div>
+          <img src="https://placehold.co/240x240/jpg" class="mx-auto rounded-full" alt="Jane Doe">
+          <h4 class="mt-3 font-semibold">Jane Doe</h4>
+          <p class="text-sm text-neutral-500">CEO & Founder</p>
+        </div>
+        <div>
+          <img src="https://placehold.co/240x240/jpg" class="mx-auto rounded-full" alt="John Smith">
+          <h4 class="mt-3 font-semibold">John Smith</h4>
+          <p class="text-sm text-neutral-500">CTO</p>
+        </div>
+        <div>
+          <img src="https://placehold.co/240x240/jpg" class="mx-auto rounded-full" alt="Emily Lee">
+          <h4 class="mt-3 font-semibold">Emily Lee</h4>
+          <p class="text-sm text-neutral-500">Head of Product</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal Links -->
+  <section class="border-t bg-neutral-100 dark:bg-neutral-950">
+    <div class="py-10 text-center text-sm text-neutral-500">
+      <p><a href="#" class="underline">Terms of Use</a> • <a href="#" class="underline">Privacy Policy</a></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t">
+    <div class="mx-auto w-full max-w-7xl px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="h-6 w-6 rounded-xl bg-gradient-to-tr from-indigo-500 via-violet-500 to-fuchsia-500 shadow-md"></div>
+        <span class="text-xl font-bold tracking-tight">xexiro</span>
+      </div>
+      <div class="text-sm text-neutral-500">© <span id="year"></span> Xexiro Inc. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- JS: Icons + Accordion + Year -->
+  <script>
+    lucide.createIcons();
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.querySelectorAll(".accordion-header").forEach(header => {
+      header.addEventListener("click", () => {
+        const content = header.nextElementSibling;
+        content.classList.toggle("open");
+        header.querySelector("i").classList.toggle("rotate-180");
+      });
+    });
+  </script>
+</body>
+
 </html>

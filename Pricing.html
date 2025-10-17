@@ -181,10 +181,10 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="price-card p-4 h-100" id="cardFree">
-                        <div class="d-flex align-items-center gap-2 muted"><i class="bi bi-cursor"></i>
+                        <div class="d-flex align-items-center gap-2 "><i class="bi bi-cursor"></i>
                             Free</div>
                         <h3 class="mt-2 mb-0  bolder">$0</h3>
-                        <div class="muted">Up to 5,000 MAUs</div>
+                        <div class="muted ">Up to 5,000 MAUs</div>
                         <ul class="mt-3 feature-list small">
                             <li class=" d-flex"><i class="bi bi-check2"></i> <span>All core features</span></li>
                             <li class=" d-flex"><i class="bi bi-check2"></i> <span>SDKs & APIs</span></li>
@@ -501,7 +501,7 @@
             }
 
             function formatCAD(n) {
-                return n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CA$ ' ;
+                return n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CAD ' ;
             }
 
             function updatePricingCards() {
@@ -541,7 +541,7 @@
 
                 $mauValue.text(mau.toLocaleString());
                 $pricePer.text(price === 0 ? "Free" : `$${price.toFixed(2)}`);
-                $estMonthly.text(formatCAD(monthly));
+                $estMonthly.text('$' + formatCAD(monthly));
 
                 const percent = (mau - $mauRange.attr('min')) / ($mauRange.attr('max') - $mauRange.attr('min')) * 100;
                 $mauRange.css('background', `linear-gradient(to right, ${color} ${percent}%, #e5e5e5 ${percent}%)`);
