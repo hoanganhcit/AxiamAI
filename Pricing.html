@@ -23,6 +23,9 @@
     <!-- Responsive Stylesheet -->
     <link rel="stylesheet" href="css/responsive.css">
     <style>
+        .text-success {
+            color: #00d492;
+        }
     </style>
 </head>
 
@@ -118,8 +121,8 @@
                     <label class="form-label small d-flex align-items-center gap-2"><i
                             class="bi bi-calculator me-1"></i>Estimate by Monthly Active Users (MAUs)</label>
                     <div class="p-3 rounded-2xl border" style="background:#ffffff; border-color:rgba(2,6,23,0.04)">
-                        <input id="mauRange" type="range" class="form-range" min="0" max="300000" step="1000"
-                            value="10000">
+                        <input id="mauRange" type="range" class="form-range" min="0" max="100000" step="1000"
+                            value="0">
                         <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-2">
                             <div class="small muted">MAUs: <span id="mauValue" class="fw-semibold">10,000</span></div>
                             <div class="small muted">Price / MAU: <span id="pricePer" class="fw-semibold">$0.05</span>
@@ -178,7 +181,7 @@
 
         <!-- Pricing Cards -->
         <section class="mb-6">
-            <div class="row g-4">
+            <div class="row g-4" id="pricing-content">
                 <div class="col-md-4">
                     <div class="price-card p-4 h-100" id="cardFree">
                         <div class="d-flex align-items-center gap-2 "><i class="bi bi-cursor"></i>
@@ -233,6 +236,43 @@
                                 class="bi bi-arrow-right ms-2"></i></button>
                         <div class="mt-2 text-xs text-muted">*Available upon request and scope.</div>
                     </div>
+                </div>
+            </div>
+            <div class="price-card p-4" id="bastion-estimate">
+                <h6 class="fw-semibold mb-3">Your monthly estimate</h6>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="price-card p-4 h-100">
+                            <div class="text-uppercase small text-muted mb-1">Fixed SSH Gate</div>
+                            <h3 class="mb-0 bolder" id="fixedCost">$499</h3>
+                            <div class="muted">Per month</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="price-card p-4 h-100">
+                            <div class="text-uppercase small text-muted mb-1">Usage (MAU × $0.06)</div>
+                            <h3 class="mb-0 bolder" id="usageCost">$60.00</h3>
+                            <div class="muted" id="usageLabel">1,000 MAUs</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="price-card p-4 h-100 ">
+                            <div class="text-uppercase smallmb-1">Total / Month</div>
+                            <h3 class="mb-0 bolder" id="totalMonthly">$559.00</h3>
+                            <div class="muted" id="costPerMau">$0.06 / MAU</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-light rounded-3 small text-secondary">
+                    <ul class="mb-0 feature-list">
+                        <li><i class="bi bi-check2 text-success"></i> Base fee is billed monthly in advance.</li>
+                        <li><i class="bi bi-check2 text-success"></i> MAU usage is calculated at the end of each billing
+                            cycle.</li>
+                        <li><i class="bi bi-check2 text-success"></i> Need &gt;50k MAUs? <a href="#contact"
+                                class="link-primary">Contact sales</a> for volume
+                            pricing.</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -457,6 +497,9 @@
                 $pricePer = $('#pricePer'),
                 $estMonthly = $('#estMonthly');
 
+            const FIXED_MONTHLY = 499;
+            const PRICE_PER_MAU = 0.06;
+
             const pricingData = {
                 signin: {
                     tiers: [0, 0.05, 0.04, 0.03],
@@ -479,14 +522,8 @@
                     }
                 },
                 bastion: {
-                    tiers: [0, 0.06, 0.05, 0.04],
-                    label: 'Bastion + Face',
-                    color: '#d946ef',
-                    cards: {
-                        free: { price: '$0', desc: 'Up to 2,000 MAUs' },
-                        paygo: { price: '$0.06', desc: 'per MAU · 2k–50k' },
-                        ent: { price: 'Custom', desc: 'High-security SLA' }
-                    }
+                    color: '#d63384',
+                    label: 'Bastion + Face'
                 }
             };
 
@@ -494,18 +531,24 @@
 
             function getPricePerMAU(mau) {
                 const t = pricingData[currentType].tiers;
+                if (!t) return 0;
                 if (mau <= 5000) return t[0];
                 if (mau <= 50000) return t[1];
                 if (mau <= 200000) return t[2];
                 return t[3];
             }
 
+            function formatMoney(n) {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
+            }
+
             function formatCAD(n) {
-                return n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CAD ' ;
+                return n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CAD ';
             }
 
             function updatePricingCards() {
                 const c = pricingData[currentType].cards;
+                if (!c) return;
                 $('#cardFree h3').text(c.free.price);
                 $('#cardFree .muted').text(c.free.desc);
                 $('#cardPay h3').text(c.paygo.price);
@@ -516,8 +559,6 @@
 
             function updateSliderThumb(color) {
                 $('#dynamic-range-style').remove();
-
-                // Tạo CSS mới
                 const css = `
                 <style id="dynamic-range-style">
                 input[type=range].form-range::-webkit-slider-thumb {
@@ -535,17 +576,35 @@
 
             function updateSlider() {
                 const mau = parseInt($mauRange.val());
-                const price = getPricePerMAU(mau);
-                const monthly = mau * price;
                 const color = pricingData[currentType].color;
 
-                $mauValue.text(mau.toLocaleString());
-                $pricePer.text(price === 0 ? "Free" : `$${price.toFixed(2)}`);
-                $estMonthly.text('$' + formatCAD(monthly));
+                if (currentType === 'bastion') {
+                    const usage = mau * PRICE_PER_MAU;
+                    const total = FIXED_MONTHLY + usage;
+                    const perMau = mau > 0 ? total / mau : 0;
+
+                    $('#fixedCost').text(formatMoney(FIXED_MONTHLY));
+                    $('#usageCost').text(formatMoney(usage));
+                    $('#usageLabel').text(mau.toLocaleString() + ' MAUs');
+                    $('#totalMonthly').text(formatMoney(total));
+                    $('#costPerMau').text(mau > 0 ? formatMoney(perMau) + ' / MAU' : '—');
+
+                    $mauValue.text(mau.toLocaleString());
+                    $pricePer.text(formatMoney(PRICE_PER_MAU));
+                    $estMonthly.text(formatMoney(total));
+
+
+                } else {
+                    const price = getPricePerMAU(mau);
+                    const monthly = mau * price;
+
+                    $mauValue.text(mau.toLocaleString());
+                    $pricePer.text(price === 0 ? "Free" : `$${price.toFixed(2)}`);
+                    $estMonthly.text('$' + formatCAD(monthly));
+                }
 
                 const percent = (mau - $mauRange.attr('min')) / ($mauRange.attr('max') - $mauRange.attr('min')) * 100;
                 $mauRange.css('background', `linear-gradient(to right, ${color} ${percent}%, #e5e5e5 ${percent}%)`);
-                
                 updateSliderThumb(color);
             }
 
@@ -553,16 +612,29 @@
                 $('.feature-pill').removeClass('active');
                 $(this).addClass('active');
                 currentType = $(this).data('type');
-                updatePricingCards();
+
+                $mauRange.val(0);
+
+                if (currentType === 'bastion') {
+                    $('#pricing-content').hide();
+                    $('#bastion-estimate').show();
+                } else {
+                    $('#pricing-content').show();
+                    $('#bastion-estimate').hide();
+                    updatePricingCards();
+                }
+
                 updateSlider();
             });
 
             $mauRange.on('input change', updateSlider);
 
+            $('#bastion-estimate').hide();
             updatePricingCards();
             updateSlider();
         });
     </script>
+
 </body>
 
 </html>
