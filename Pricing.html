@@ -26,6 +26,15 @@
         .text-success {
             color: #00d492;
         }
+
+        #exampleTable td {
+            font-size: 14px;
+            padding: 0.5em 0.25rem;
+        }
+
+        #exampleTable tr:last-child td {
+            border-bottom: 0;
+        }
     </style>
 </head>
 
@@ -121,8 +130,7 @@
                     <label class="form-label small d-flex align-items-center gap-2"><i
                             class="bi bi-calculator me-1"></i>Estimate by Monthly Active Users (MAUs)</label>
                     <div class="p-3 rounded-2xl border" style="background:#ffffff; border-color:rgba(2,6,23,0.04)">
-                        <input id="mauRange" type="range" class="form-range" min="0" max="100000" step="1000"
-                            value="0">
+                        <input id="mauRange" type="range" class="form-range" min="0" max="100000" step="1000" value="0">
                         <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-2">
                             <div class="small muted">MAUs: <span id="mauValue" class="fw-semibold">10,000</span></div>
                             <div class="small muted">Price / MAU: <span id="pricePer" class="fw-semibold">$0.05</span>
@@ -238,41 +246,61 @@
                     </div>
                 </div>
             </div>
-            <div class="price-card p-4" id="bastion-estimate">
-                <h6 class="fw-semibold mb-3">Your monthly estimate</h6>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="price-card p-4 h-100">
-                            <div class="text-uppercase small text-muted mb-1">Fixed SSH Gate</div>
-                            <h3 class="mb-0 bolder" id="fixedCost">$499</h3>
-                            <div class="muted">Per month</div>
+            <div id="bastion-estimate">
+                <div class="price-card p-4">
+                    <h6 class="fw-semibold mb-3">Your monthly estimate</h6>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="price-card p-4 h-100">
+                                <div class="text-uppercase small text-muted mb-1">Fixed SSH Gate</div>
+                                <h3 class="mb-0 bolder" id="fixedCost">$499</h3>
+                                <div class="muted">Per month</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="price-card p-4 h-100">
+                                <div class="text-uppercase small text-muted mb-1">Usage (MAU × $0.06)</div>
+                                <h3 class="mb-0 bolder" id="usageCost">$60.00</h3>
+                                <div class="muted" id="usageLabel">1,000 MAUs</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="price-card p-4 h-100 ">
+                                <div class="text-uppercase smallmb-1">Total / Month</div>
+                                <h3 class="mb-0 bolder" id="totalMonthly">$559.00</h3>
+                                <div class="muted" id="costPerMau">$0.06 / MAU</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="price-card p-4 h-100">
-                            <div class="text-uppercase small text-muted mb-1">Usage (MAU × $0.06)</div>
-                            <h3 class="mb-0 bolder" id="usageCost">$60.00</h3>
-                            <div class="muted" id="usageLabel">1,000 MAUs</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="price-card p-4 h-100 ">
-                            <div class="text-uppercase smallmb-1">Total / Month</div>
-                            <h3 class="mb-0 bolder" id="totalMonthly">$559.00</h3>
-                            <div class="muted" id="costPerMau">$0.06 / MAU</div>
-                        </div>
+
+                    <div class="mt-4 p-3 bg-light rounded-3 small text-secondary">
+                        <ul class="mb-0 feature-list">
+                            <li><i class="bi bi-check2 text-success"></i> Base fee is billed monthly in advance.</li>
+                            <li><i class="bi bi-check2 text-success"></i> MAU usage is calculated at the end of each
+                                billing
+                                cycle.</li>
+                            <li><i class="bi bi-check2 text-success"></i> Need &gt;50k MAUs? <a href="#contact"
+                                    class="link-primary">Contact sales</a> for volume
+                                pricing.</li>
+                        </ul>
                     </div>
                 </div>
-
-                <div class="mt-4 p-3 bg-light rounded-3 small text-secondary">
-                    <ul class="mb-0 feature-list">
-                        <li><i class="bi bi-check2 text-success"></i> Base fee is billed monthly in advance.</li>
-                        <li><i class="bi bi-check2 text-success"></i> MAU usage is calculated at the end of each billing
-                            cycle.</li>
-                        <li><i class="bi bi-check2 text-success"></i> Need &gt;50k MAUs? <a href="#contact"
-                                class="link-primary">Contact sales</a> for volume
-                            pricing.</li>
-                    </ul>
+                <div class="price-card p-4 mt-3">
+                    <h6 class="fw-semibold mb-3">Example costs at common scales</h6>
+                    <div class="card-custom overflow-hidden">
+                        <table class="table table-sm align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>MAUs</th>
+                                    <th>Fixed SSH Gate</th>
+                                    <th>Usage @ $0.06</th>
+                                    <th>Total / Mo</th>
+                                    <th>Cost / MAU</th>
+                                </tr>
+                            </thead>
+                            <tbody id="exampleTable"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -632,6 +660,27 @@
             $('#bastion-estimate').hide();
             updatePricingCards();
             updateSlider();
+
+            function renderExamplesTable() {
+                const tiers = [100, 500, 1000, 5000, 10000, 25000, 50000];
+                let rows = "";
+                tiers.forEach(m => {
+                    const usage = m * PRICE_PER_MAU;
+                    const total = FIXED_MONTHLY + usage;
+                    const per = total / m;
+                    rows += `
+                <tr>
+                    <td>${m.toLocaleString()}</td>
+                    <td>${formatMoney(FIXED_MONTHLY)}</td>
+                    <td>${formatMoney(usage)}</td>
+                    <td class="fw-semibold">${formatMoney(total)}</td>
+                    <td>${formatMoney(per)}</td>
+                </tr>
+                `;
+                });
+                $("#exampleTable").html(rows);
+            }
+            renderExamplesTable();
         });
     </script>
 
