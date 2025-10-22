@@ -124,7 +124,8 @@
             <div class="row gx-4 align-items-center">
                 <div class="col-md-6">
                     <h2 class="h5 fs-24">Pay only for what you use</h2>
-                    <p class="muted">Start free and scale with transparent, usage‑based pricing. No feature gating. No
+                    <p class="muted sbt-pricing">Start free and scale with transparent, usage‑based pricing. No feature
+                        gating. No
                         surprises.</p>
 
                     <label class="form-label small d-flex align-items-center gap-2"><i
@@ -201,9 +202,9 @@
                             <li class=" d-flex"><i class="bi bi-check2"></i> <span>SDKs & APIs</span></li>
                             <li class=" d-flex"><i class="bi bi-check2"></i> <span>Email support</span></li>
                         </ul>
-                        <button class="btn dream-btn  w-100 mt-3"
+                        <!-- <button class="btn dream-btn  w-100 mt-3"
                             style="background:var(--card-bg); color: var(--muted);border-color: var(--muted);">Start
-                            free</button>
+                            free</button> -->
                     </div>
                 </div>
 
@@ -222,7 +223,7 @@
                             <li class=" d-flex"><i class="bi bi-check2"></i> <span>Webhooks & audit trails</span></li>
                             <li class=" d-flex"><i class="bi bi-check2"></i> <span>Branding add‑on available</span></li>
                         </ul>
-                        <button class="btn dream-btn  w-100 mt-3">Launch now</button>
+                        <!-- <button class="btn dream-btn  w-100 mt-3">Launch now</button> -->
                         <div class="mt-2 text-xs text-muted">$0.04 per MAU for 50k–200k · $0.03 per MAU for 200k+.</div>
                     </div>
                 </div>
@@ -533,6 +534,7 @@
                     tiers: [0, 0.05, 0.04, 0.03],
                     label: 'Facial Sign-In',
                     color: '#7006d4',
+                    colIndex: 2,
                     cards: {
                         free: { price: '$0', desc: 'Up to 5,000 MAUs' },
                         paygo: { price: '$0.05', desc: 'per MAU · 5k–50k' },
@@ -543,6 +545,7 @@
                     tiers: [0, 0.04, 0.035, 0.025],
                     label: 'FaceLock Encryption',
                     color: '#18d3ff',
+                    colIndex: 3,
                     cards: {
                         free: { price: '$0', desc: 'Up to 3,000 MAUs' },
                         paygo: { price: '$0.04', desc: 'per MAU · 3k–50k' },
@@ -551,6 +554,7 @@
                 },
                 bastion: {
                     color: '#d63384',
+                    colIndex: 4,
                     label: 'Bastion + Face'
                 }
             };
@@ -653,6 +657,7 @@
                 }
 
                 updateSlider();
+                showFeatureColumn();
             });
 
             $mauRange.on('input change', updateSlider);
@@ -681,6 +686,25 @@
                 $("#exampleTable").html(rows);
             }
             renderExamplesTable();
+
+            function showFeatureColumn() {
+                const colIndex = pricingData[currentType].colIndex;
+
+                const table = $('.table-feature-comparison table');
+                table.find('th, td').show();
+
+                if (!colIndex) return;
+
+                table.find('tr').each(function () {
+                    $(this).children('th, td').each(function (i) {
+                        if (i !== 0 && i !== colIndex - 1) {
+                            $(this).hide();
+                        }
+                    });
+                });
+            }
+            showFeatureColumn();
+
         });
     </script>
 
