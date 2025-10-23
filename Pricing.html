@@ -39,6 +39,9 @@
         .light-version p.sbt-pricing {
             font-size: 15px;
         }
+        .bg-grey {
+            background: #f5f5f5;
+        }
     </style>
 </head>
 
@@ -126,7 +129,7 @@
     <div class="container position-relative" style="z-index:1;">
         <section class="hero-card p-4 p-md-5 mb-6 rounded-3xl">
             <div class="row gx-4 align-items-center">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <h2 class="h5 fs-24">Pay only for what you use</h2>
                     <p class="muted sbt-pricing">Start free and scale with transparent, usage‑based pricing. No feature
                         gating. No
@@ -144,24 +147,29 @@
                                     class="fw-semibold">$500</span>
                             </div>
                         </div>
-                        <div class="mt-2 text-xs text-muted d-flex align-items-start gap-1"><i
-                                class="bi bi-info-circle"></i>
-                            Pricing tiers: Free ≤ 5,000 · $0.05 (5,001–50k) · $0.04
-                            (50,001–200k) · $0.03 (200k+)</div>
+                        <div class="mt-2 text-xs text-muted rounded gap-1 px-3 py-3 bg-grey">
+                           <div>· Pricing tiers: Free ≤ 5,000</div>
+                           <div>· $0.05 (5,001–50k)</div>
+                           <div>· $0.04 (50,001–200k) · $0.03 (200k+)</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="d-grid gap-3 grid-col-3">
                         <div class="feature-pill accent-indigo p-3 active" data-type="signin">
                             <div class="d-flex align-items-center gap-2 text-indigo-600"><i
                                     class="bi bi-fingerprint fs-5"></i> Facial Sign‑In</div>
                             <ul class="mt-2 feature-list small mb-0">
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Liveness + anti‑spoofing</span>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>SDKs & REST APIs</span>
                                 </li>
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Passwordless flows & SDKs</span>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Liveness detection</span>
                                 </li>
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Audit trails & webhooks</span>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Passkey/Passwordless flows</span>
+                                </li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Audit logs & webhooks</span>
+                                </li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Custom branding (add‑on)</span>
                                 </li>
                             </ul>
                         </div>
@@ -171,20 +179,23 @@
                                 FaceLock Encryption
                             </div>
                             <ul class="mt-2 feature-list small mb-0">
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Encrypt files, photos,
-                                        videos</span></li>
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Granular key control</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>SDKs & REST APIs</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Encrypt files/photos/videos</span></li>
                                 <li class=" d-flex"><i class="bi bi-check2"></i> <span>Zero‑knowledge design</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Audit logs & webhooks</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Custom branding (add‑on)</span></li>
                             </ul>
                         </div>
                         <div class="feature-pill accent-fuchsia p-3" data-type="bastion">
                             <div class="d-flex align-items-center gap-2 text-fuchsia-600"><i
                                     class="bi bi-building fs-5"></i> Bastion + Face</div>
                             <ul class="mt-2 feature-list small mb-0">
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Single secure gateway</span></li>
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Perimeter + identity guard</span>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>SDKs & REST APIs</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Liveness detection</span>
                                 </li>
-                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Traceable access logs</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Secure gateway w/ face</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Audit logs & webhooks</span></li>
+                                <li class=" d-flex"><i class="bi bi-check2"></i> <span>Custom branding (add‑on)</span></li>
                             </ul>
                         </div>
                     </div>
@@ -311,7 +322,7 @@
         </section>
 
         <!-- Feature Comparison -->
-        <section class="mb-6">
+        <section class="mb-6 d-none">
             <h3 class="h6 fs-24">What’s included</h3>
             <div class="table-responsive table-feature-comparison rounded-2xl border mt-3">
                 <table class="table table-borderless mb-0">
@@ -664,7 +675,7 @@
                 }
 
                 updateSlider();
-                showFeatureColumn();
+                // showFeatureColumn();
                 updateLabelTitle();
             });
 
@@ -695,23 +706,23 @@
             }
             renderExamplesTable();
 
-            function showFeatureColumn() {
-                const colIndex = pricingData[currentType].colIndex;
+            // function showFeatureColumn() {
+            //     const colIndex = pricingData[currentType].colIndex;
 
-                const table = $('.table-feature-comparison table');
-                table.find('th, td').show();
+            //     const table = $('.table-feature-comparison table');
+            //     table.find('th, td').show();
 
-                if (!colIndex) return;
+            //     if (!colIndex) return;
 
-                table.find('tr').each(function () {
-                    $(this).children('th, td').each(function (i) {
-                        if (i !== 0 && i !== colIndex - 1) {
-                            $(this).hide();
-                        }
-                    });
-                });
-            }
-            showFeatureColumn();
+            //     table.find('tr').each(function () {
+            //         $(this).children('th, td').each(function (i) {
+            //             if (i !== 0 && i !== colIndex - 1) {
+            //                 $(this).hide();
+            //             }
+            //         });
+            //     });
+            // }
+            // showFeatureColumn();
 
             function updateLabelTitle() {
                 const label = pricingData[currentType].sublabel;
